@@ -2,87 +2,134 @@ import { LegalPage, Section } from "@/components/LegalPage";
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy Policy & Terms of Service" updated="October 2026">
-      <div className="space-y-6 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
-        <Section heading="1. General & Overview">
+    <LegalPage title="Patient Privacy Policy & Clinical Data Protection" updated="October 2026">
+      <div className="space-y-8 text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+        
+        {/* Important Banner */}
+        <div className="p-4 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 rounded-xl text-blue-900 dark:text-blue-200">
+          <p className="font-semibold text-base mb-1">Our Commitment to Patient Privacy & Clinical Confidentiality</p>
+          <p className="text-xs sm:text-sm text-blue-800 dark:text-blue-300">
+            SOS Healthcare adheres to global medical privacy principles, NABH patient dignity benchmarks, and Digital Personal Data Protection standards. Your medical conditions, vital telemetry, and GPS emergency beacons are handled with strict clinical confidentiality.
+          </p>
+        </div>
+
+        <Section heading="1. Scope & Healthcare Application">
           <p>
-            SOS Healthcare (“SOS Healthcare”, “we”, “us”, or “our”) provides mission-critical emergency healthcare dispatch, nearest hospital routing, ambulance tracking, and wearable vital telemetry services to individuals accessing or using our web platform, mobile applications, or connected APIs (collectively, the “Platform”).
+            This Patient Privacy Policy applies to all patients, guardians, emergency contacts, paramedics, and healthcare professionals accessing or utilizing the SOS Healthcare emergency coordination network, mobile applications, hospital admission consoles, and connected wearable APIs (collectively, the “Platform”).
           </p>
           <p>
-            Any accessing or browsing of the Platform and using the Services indicates your acceptance of this Privacy Policy and Terms. If you disagree with any part of these terms, you may discontinue access or use of the Platform.
-          </p>
-        </Section>
-
-        <Section heading="2. Eligibility">
-          <ul className="list-disc pl-5 space-y-1">
-            <li>You are at least 18 years old or accessing the Platform under the direct supervision of a parent or legal guardian.</li>
-            <li>In life-critical circumstances, any person or first responder can trigger emergency beacon assistance on behalf of an incapacitated patient.</li>
-            <li>You are legally competent to contract and receive emergency healthcare services.</li>
-          </ul>
-        </Section>
-
-        <Section heading="3. What Types of Data We Collect">
-          <p>
-            We collect personal, diagnostic, telemetry, and location data solely to facilitate life-saving intervention and hospital coordination:
-          </p>
-          <ul className="list-disc pl-5 space-y-1 mt-2">
-            <li><strong>Personal & Contact Information:</strong> Name, verified telephone number, email address, and home address.</li>
-            <li><strong>Emergency Contacts:</strong> Designee names, relationship, and contact numbers notified automatically during SOS triggers.</li>
-            <li><strong>Real-time Location & GPS Telemetry:</strong> Precise device coordinates, reverse-geocoded addresses, and heading data during active dispatch.</li>
-            <li><strong>Smartwatch & Wearable Biometrics:</strong> Heart rate (BPM), heart rate variability, accelerometer fall-detection signals, and step activity synced from connected devices (Fitbit, Apple Watch, Wear OS).</li>
-            <li><strong>Critical Health Profile:</strong> Blood group, known drug allergies, pre-existing chronic conditions, and emergency medical notes uploaded voluntarily to inform paramedic first responders.</li>
-            <li><strong>Hospital & Dispatch Logs:</strong> Incident timestamps, assigned ambulance IDs, and triage bed reservation requests.</li>
-          </ul>
-        </Section>
-
-        <Section heading="4. Purpose & How We Use Your Data">
-          <p>Your information is collected and processed strictly for legitimate healthcare and dispatch objectives:</p>
-          <ul className="list-disc pl-5 space-y-1 mt-2">
-            <li><strong>Nearest Emergency Routing:</strong> Calculating proximity and real-time travel ETAs to the closest hospital ER and available ambulance fleet using Google Maps APIs.</li>
-            <li><strong>Emergency Contact Alerts:</strong> Automatically dispatching SMS and webhook notifications with live GPS links to your designated emergency contacts upon SOS activation.</li>
-            <li><strong>Paramedic & Hospital Pre-Briefing:</strong> Securely streaming essential medical data (allergies, heart rate, condition) to arriving medical staff to expedite clinical triage.</li>
-            <li><strong>Zero Advertising & Data Monetization:</strong> We never sell, monetize, rent, or lease your medical, biometric, or location data to commercial advertisers or third-party data brokers.</li>
-          </ul>
-        </Section>
-
-        <Section heading="5. Disclosure & Sharing of Health Data">
-          <p>We share and disclose data only to the minimum extent necessary to provide emergency relief:</p>
-          <ul className="list-disc pl-5 space-y-1 mt-2">
-            <li><strong>Accredited Healthcare Service Providers:</strong> Verified hospitals, emergency departments, trauma centers, and licensed paramedics assigned to your incident.</li>
-            <li><strong>Designated Emergency Contacts:</strong> Contacts explicitly configured in your profile emergency list.</li>
-            <li><strong>Infrastructure & Technology Processors:</strong> HIPAA/SOC-compliant hosting, Supabase encrypted databases, and Google Maps Geocoding APIs under strict confidentiality covenants.</li>
-            <li><strong>Law Enforcement & Public Safety:</strong> Only when mandated under court orders or statutory disaster relief requirements.</li>
-          </ul>
-        </Section>
-
-        <Section heading="6. Data Security & Storage Safeguards">
-          <p>
-            SOS Healthcare employs state-of-the-art security practices, including End-to-End TLS encryption in transit, AES-256 encryption at rest, Row-Level Security (RLS) on personal records, and role-based access restricted solely to active dispatchers and treating paramedics.
+            SOS Healthcare acts as a trusted emergency data custodian connecting patients with accredited hospitals, emergency departments, and licensed ambulance paramedic crews.
           </p>
         </Section>
 
-        <Section heading="7. User Rights & Data Retention">
-          <p>
-            You hold complete control over your health profile. You may update, correct, or permanently delete your account, saved contacts, and wearable integrations directly from your Settings or Profile console at any time. Non-identifiable de-identified emergency logs may be maintained for statistical service reliability and auditing.
-          </p>
-        </Section>
+        <Section heading="2. Categories of Patient & Clinical Data Collected">
+          <p>To provide rapid triage, ambulance dispatch, and hospital bed reservation, we collect and process the following categories of data:</p>
+          <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-800">
+              <h4 className="font-bold text-gray-900 dark:text-white mb-2">A. Personal & Identification Data</h4>
+              <ul className="list-disc pl-4 space-y-1 text-xs sm:text-sm">
+                <li>Full patient legal name, date of birth, and gender.</li>
+                <li>Verified mobile phone number and primary email address.</li>
+                <li>Residential and current physical location address.</li>
+                <li>Pre-registered emergency contacts (names, relationships, numbers).</li>
+              </ul>
+            </div>
 
-        <Section heading="8. Emergency Protocol Disclaimer">
-          <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 rounded-lg text-red-800 dark:text-red-200">
-            <strong>Critical Medical Notice:</strong> SOS Healthcare is an automated emergency routing and coordination platform. If you or someone near you is in immediate, severe life danger or unconscious, dial your local emergency phone number (<strong>911 / 112</strong>) immediately while the platform coordinates assistance.
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-800">
+              <h4 className="font-bold text-gray-900 dark:text-white mb-2">B. Sensitive Health & Clinical Data</h4>
+              <ul className="list-disc pl-4 space-y-1 text-xs sm:text-sm">
+                <li>Blood type, drug allergies, and medical implants.</li>
+                <li>Pre-existing chronic conditions (e.g., cardiac, respiratory, diabetes).</li>
+                <li>Active prescriptions, medications, and triage symptoms.</li>
+                <li>Emergency doctor and paramedic clinical consultation notes.</li>
+              </ul>
+            </div>
+
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-800">
+              <h4 className="font-bold text-gray-900 dark:text-white mb-2">C. Real-Time Telemetry & Wearables</h4>
+              <ul className="list-disc pl-4 space-y-1 text-xs sm:text-sm">
+                <li>Continuous GPS coordinates, reverse-geocoded landmarks, and speed.</li>
+                <li>Smartwatch heart rate readings (BPM) and sudden arrhythmia alerts.</li>
+                <li>Automated accelerometer fall-detection signals (Fitbit, Apple Watch, Wear OS).</li>
+                <li>Live transit heading and ETA tracking to designated hospital emergency rooms.</li>
+              </ul>
+            </div>
+
+            <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-800">
+              <h4 className="font-bold text-gray-900 dark:text-white mb-2">D. Hospital & Admission Logs</h4>
+              <ul className="list-disc pl-4 space-y-1 text-xs sm:text-sm">
+                <li>Customized bed reservation requests (ICU, ER, CCU, Pediatric).</li>
+                <li>Hospital triage priority scores and doctor assignments.</li>
+                <li>Ambulance vehicle identification and dispatch logs.</li>
+                <li>Emergency incident timestamps and resolution records.</li>
+              </ul>
+            </div>
           </div>
         </Section>
 
-        <Section heading="9. Grievance Officer & Contact">
+        <Section heading="3. Clinical & Operational Purposes of Processing">
+          <p>Patient data is utilized strictly for direct patient care, life preservation, and emergency response:</p>
+          <ul className="list-disc pl-5 space-y-2 mt-2">
+            <li><strong>Automated Emergency Response:</strong> Pairing your exact GPS location with the nearest licensed ambulance and hospital equipped with suitable bed availability.</li>
+            <li><strong>Paramedic Pre-Arrival Briefing:</strong> Providing incoming first responders with vital health data (such as severe drug allergies, heart rate trends, and blood group) before reaching the incident scene.</li>
+            <li><strong>Emergency Contact Broadcast:</strong> Automatically transmitting SMS and web alerts containing Google Maps redirection links to your chosen family contacts.</li>
+            <li><strong>Hospital ER Preparation:</strong> Alerting hospital trauma centers in advance of arrival so surgical theaters and ICU teams can prep life support resources.</li>
+            <li><strong>Zero Advertising & Non-Monetization:</strong> SOS Healthcare never sells, trades, licenses, or shares patient health or telemetry data with third-party advertising or marketing brokers.</li>
+          </ul>
+        </Section>
+
+        <Section heading="4. Sharing & Disclosure of Patient Information">
+          <p>We share patient data exclusively with authorized entities under strict confidentiality agreements:</p>
+          <ul className="list-disc pl-5 space-y-2 mt-2">
+            <li><strong>Treating Hospitals & Emergency Departments:</strong> Clinical staff, doctors, and triage nurses assigned to manage your emergency admission.</li>
+            <li><strong>Dispatched Paramedic Crews:</strong> Licensed first responders providing immediate in-transit resuscitation and medical stabilization.</li>
+            <li><strong>Designated Emergency Contacts:</strong> Pre-registered relatives or guardians receiving your incident coordinates.</li>
+            <li><strong>Statutory Authorities:</strong> Certified law enforcement, public health bodies, or disaster authorities where required by mandatory legal statutory reporting.</li>
+          </ul>
+        </Section>
+
+        <Section heading="5. Data Security, Encryption & Integrity">
           <p>
-            For privacy inquiries, data subject access requests, or policy feedback, contact our Data Protection Office at:
+            We implement comprehensive organizational and technical security measures matching premier hospital benchmarks:
           </p>
-          <p className="mt-2 font-medium">
-            SOS Healthcare Privacy & Grievance Cell<br />
-            Email: <a href="mailto:privacy@sos-healthcare.app" className="text-blue-600 dark:text-blue-400 hover:underline">privacy@sos-healthcare.app</a><br />
-            Emergency Hotline: 24/7 Operations Desk
+          <ul className="list-disc pl-5 space-y-1 mt-2">
+            <li><strong>Encryption Standards:</strong> TLS 1.3 encryption for all data in transit and AES-256 encryption at rest for databases and backups.</li>
+            <li><strong>Row-Level Security (RLS):</strong> Cryptographically isolated tenant profiles preventing unauthorized access between users.</li>
+            <li><strong>Audit Logging:</strong> Immutable timestamped logs recording every clinical access to patient emergency files.</li>
+            <li><strong>Paramedic Privilege Separation:</strong> Field crews access health records exclusively during active assigned incidents.</li>
+          </ul>
+        </Section>
+
+        <Section heading="6. Patient Rights & Data Sovereignty">
+          <p>As a patient or registered user, you retain complete sovereignty over your information:</p>
+          <ul className="list-disc pl-5 space-y-2 mt-2">
+            <li><strong>Right to Access & Portability:</strong> View and export your health profile, incident history, and emergency contact list.</li>
+            <li><strong>Right to Rectification:</strong> Edit, update, or append medical history, allergy alerts, and prescription notes at any time.</li>
+            <li><strong>Right to Erasure & Disconnection:</strong> Disconnect smartwatches, revoke location access, or delete your account permanently.</li>
+            <li><strong>Right to Withdraw Consent:</strong> Remove consent for non-emergency analytics without affecting your access to emergency care.</li>
+          </ul>
+        </Section>
+
+        <Section heading="7. Data Retention Policy">
+          <p>
+            Clinical incident records and emergency admission logs are retained in accordance with statutory hospital record retention guidelines and the Digital Personal Data Protection Act. Inactive accounts can be removed at the patient's request, leaving only anonymized statistics necessary for municipal dispatch performance audits.
           </p>
         </Section>
+
+        <Section heading="8. Grievance Officer & Patient Rights Desk">
+          <p>
+            For patient privacy inquiries, data requests, or clinical confidentiality concerns, contact our dedicated Data Protection Officer:
+          </p>
+          <div className="mt-3 p-4 bg-gray-50 dark:bg-gray-800/60 rounded-xl border border-gray-200 dark:border-gray-800">
+            <p className="font-bold text-gray-900 dark:text-white">SOS Healthcare Data Protection & Patient Rights Office</p>
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300 mt-1">
+              Email: <a href="mailto:dpo@sos-healthcare.app" className="text-blue-600 dark:text-blue-400 hover:underline">dpo@sos-healthcare.app</a><br />
+              Emergency Operations Desk: 24/7 Clinical Coordination Network<br />
+              Location: Emergency Healthcare Operations Center
+            </p>
+          </div>
+        </Section>
+
       </div>
     </LegalPage>
   );
