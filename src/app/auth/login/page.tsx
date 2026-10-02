@@ -89,9 +89,9 @@ export default function LoginPage() {
       </form>
 
       <div className="my-6 flex items-center">
-        <div className="flex-1 border-t border-gray-300"></div>
-        <span className="px-3 text-sm text-gray-500">OR</span>
-        <div className="flex-1 border-t border-gray-300"></div>
+        <div className="flex-1 border-t border-gray-300 dark:border-gray-700"></div>
+        <span className="px-3 text-sm text-gray-500 dark:text-gray-400">OR</span>
+        <div className="flex-1 border-t border-gray-300 dark:border-gray-700"></div>
       </div>
 
       <Button
@@ -100,27 +100,36 @@ export default function LoginPage() {
         loading={googleLoading}
         onClick={handleGoogle}
         type="button"
+        className="dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
       >
-        <span className="flex items-center justify-center gap-2">
+        <span className="flex items-center justify-center gap-3">
           <svg className="h-5 w-5" viewBox="0 0 24 24">
             <path
-              fill="currentColor"
-              d="M22.56 11.25h-2.08V11.25c0-.62-.01-1.25-.03-1.87 0-.15-.01-.29-.01-.44 0-.15 0-.29.01-.44.02-.62.03-1.25.03-1.87V6.75h4.19c3.31 0 5.36 2.05 5.36 4.56v3.89c0 2.45-2.05 4.56-4.56 4.56-.65 0-1.28-.06-1.87-.17a33.48 0 01-.17 1.14h2.08c2.46 0 4.56-2.14 4.56-4.75v-3.89c0-2.61-2.1-4.75-4.71-4.75h-2.08v.01c0 .62.01 1.25.01 1.87v3.89c0 2.45-2.05 4.56-4.56 4.56z"
+              fill="#4285F4"
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
             />
             <path
-              fill="currentColor"
-              d="M12 5.25c.95 0 1.87.18 2.72.51a.75.75 0 00.93-.93C13.62 3.54 11.88 3.25 10.24 3.75c-.04.14-.1.28-.14.42A7.5 7.5 0 0112 5.25z"
+              fill="#34A853"
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+            />
+            <path
+              fill="#FBBC05"
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"
+            />
+            <path
+              fill="#EA4335"
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"
             />
           </svg>
-          Sign in with Google
+          Continue with Google
         </span>
       </Button>
 
-      <p className="mt-6 text-center text-sm text-gray-600">
+      <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
         Don&apos;t have an account?{" "}
         <Link
           href="/auth/signup"
-          className="font-medium text-blue-600 hover:text-blue-700"
+          className="font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
         >
           Sign up
         </Link>

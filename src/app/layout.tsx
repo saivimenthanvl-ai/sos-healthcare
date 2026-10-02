@@ -39,6 +39,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { ThemeProvider } from "@/contexts/ThemeContext";
+
 export default function RootLayout({
   children,
 }: {
@@ -47,12 +49,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full scroll-smooth">
       <body
-        className={`${inter.variable} font-sans h-full bg-gray-50 text-gray-900 antialiased`}
+        className={`${inter.variable} font-sans h-full bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased transition-colors duration-200`}
       >
-        <AuthProvider>
-          {children}
-          <Toaster />
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            {children}
+            <Toaster />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -17,16 +17,19 @@ interface ApiResponse {
   radius_km: number;
 }
 
+import { HospitalBookingModal } from "@/components/HospitalBookingModal";
+
 function HospitalsPageContent() {
   const { user } = useAuth();
   const searchParams = useSearchParams();
-  const { latitude, longitude, error, loading: locationLoading } = useLocation();
+  const { latitude, longitude, error, loading: locationLoading, requestLocation } = useLocation();
   const [hospitals, setHospitals] = useState<Hospital[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchRadius, setSearchRadius] = useState(20);
   const [searchTerm, setSearchTerm] = useState("");
-  // `?map=true` deep-links straight to the map view.
   const [showMap, setShowMap] = useState(searchParams.get("map") === "true");
+  const [selectedHospitalForBooking, setSelectedHospitalForBooking] = useState<Hospital | null>(null);
+  const [bookingToast, setBookingToast] = useState<string | null>(null);
 
   const fetchNearbyHospitals = useCallback(async () => {
     if (!latitude || !longitude) return;
@@ -46,10 +49,7 @@ function HospitalsPageContent() {
   }, [latitude, longitude, searchRadius]);
 
   useEffect(() => {
-    // `latitude`/`longitude` are legitimately 0 on the equator and prime
-    // meridian, so compare against null rather than relying on truthiness.
     if (latitude != null && longitude != null && user) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       fetchNearbyHospitals();
     }
   }, [latitude, longitude, user, fetchNearbyHospitals]);
@@ -82,46 +82,69 @@ function HospitalsPageContent() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Nearby Hospitals</h1>
-        <p className="text-gray-600 mt-1">
-          Find hospitals within {searchRadius} km of your location
-        </p>
+    <div className="max-w-7xl mx-auto space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Nearby Hospitals</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">
+            {latitude != null
+              ? `Hospitals within ${searchRadius} km of your GPS location`
+              : "Allow location access to discover and book nearby hospitals"}
+          </p>
+        </div>
       </div>
 
-      {/* Location status */}
-      {locationLoading && (
-        <div className="mb-4 p-3 bg-blue-50 text-blue-800 rounded-lg flex items-center gap-2">
-          <div className="animate-spin rounded-full h-4 w-4 border-2 border-blue-600 border-t-transparent" />
-          Detecting your location...
+      {bookingToast && (
+        <div className="p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 rounded-xl text-sm font-medium flex items-center justify-between">
+          <span>{bookingToast}</span>
+          <button onClick={() => setBookingToast(null)} className="text-xs uppercase font-bold ml-2">Dismiss</button>
+        </div>
+      )}
+
+      {/* Explicit Location Permission Card if location is not granted yet */}
+      {latitude == null && (
+        <div className="bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 rounded-2xl p-6 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="bg-blue-600 text-white rounded-full p-3 flex-shrink-0">
+              <MapPinIcon className="h-6 w-6" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-blue-900 dark:text-blue-100 text-lg">
+                Enable Location Permission
+              </h3>
+              <p className="text-sm text-blue-700 dark:text-blue-300 mt-0.5">
+                We need your device location to calculate travel times, display nearby emergency rooms, and dispatch ambulances.
+              </p>
+            </div>
+          </div>
+          <Button
+            variant="primary"
+            onClick={requestLocation}
+            loading={locationLoading}
+            className="flex-shrink-0 whitespace-nowrap"
+          >
+            Allow Location Access
+          </Button>
         </div>
       )}
 
       {error && latitude == null && (
-        <div className="mb-4 p-3 bg-red-50 text-red-800 rounded-lg flex items-center gap-2">
-          <AlertCircleIcon className="h-4 w-4" />
-          {error}
-        </div>
-      )}
-
-      {latitude == null && !locationLoading && !error && (
-        <div className="mb-4 p-3 bg-yellow-50 text-yellow-800 rounded-lg flex items-center gap-2">
-          <AlertCircleIcon className="h-4 w-4" />
-          Location access is needed to find nearby hospitals.
+        <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-red-800 dark:text-red-200 rounded-lg flex items-center gap-2 text-sm">
+          <AlertCircleIcon className="h-4 w-4 flex-shrink-0" />
+          <span>Location error: {error}. Please click "Allow Location Access" or check your browser permissions.</span>
         </div>
       )}
 
       {/* Search and filters */}
-      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1 relative">
           <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
           <input
             type="text"
-            placeholder="Search hospitals..."
+            placeholder="Search hospitals by name or address..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
           />
         </div>
 
@@ -129,12 +152,12 @@ function HospitalsPageContent() {
           <select
             value={searchRadius}
             onChange={(e) => setSearchRadius(Number(e.target.value))}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
           >
-            <option value={5}>5 km</option>
-            <option value={10}>10 km</option>
-            <option value={20}>20 km</option>
-            <option value={50}>50 km</option>
+            <option value={5}>5 km radius</option>
+            <option value={10}>10 km radius</option>
+            <option value={20}>20 km radius</option>
+            <option value={50}>50 km radius</option>
           </select>
 
           <Button
@@ -150,7 +173,7 @@ function HospitalsPageContent() {
       {/* Map / List view */}
       {showMap && latitude != null && longitude != null ? (
         <MapView
-          className="w-full h-[500px] shadow-lg mb-6"
+          className="w-full h-[500px] shadow-lg rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800"
           center={{ lat: latitude, lng: longitude }}
           zoom={12}
           markers={markers}
@@ -161,16 +184,18 @@ function HospitalsPageContent() {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="h-48 bg-gray-100 animate-pulse rounded-xl" />
+            <div key={i} className="h-52 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-xl" />
           ))}
         </div>
       ) : filteredHospitals.length === 0 ? (
-        <div className="text-center py-12">
-          <MapPinIcon className="h-12 w-12 mx-auto text-gray-300 mb-4" />
-          <p className="text-gray-600">
+        <div className="text-center py-12 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-8">
+          <MapPinIcon className="h-12 w-12 mx-auto text-gray-400 mb-4" />
+          <p className="text-gray-700 dark:text-gray-300 font-medium">
             {searchTerm
               ? "No hospitals match your search"
-              : "No hospitals found in this area"}
+              : latitude == null
+              ? "Grant location permission above to see nearest hospitals"
+              : "No hospitals found in this radius"}
           </p>
           {searchTerm && (
             <button
@@ -184,9 +209,27 @@ function HospitalsPageContent() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredHospitals.map((hospital) => (
-            <HospitalCard key={hospital.id} hospital={hospital} />
+            <HospitalCard
+              key={hospital.id}
+              hospital={hospital}
+              onBook={(h) => setSelectedHospitalForBooking(h)}
+            />
           ))}
         </div>
+      )}
+
+      {/* Custom Booking Modal */}
+      {selectedHospitalForBooking && (
+        <HospitalBookingModal
+          hospital={selectedHospitalForBooking}
+          userCoords={latitude && longitude ? { lat: latitude, lng: longitude } : null}
+          onClose={() => setSelectedHospitalForBooking(null)}
+          onSuccess={(details) => {
+            setBookingToast(
+              `Emergency admission booked at ${details.hospitalName} (${details.customization.bedType}).`
+            );
+          }}
+        />
       )}
     </div>
   );
