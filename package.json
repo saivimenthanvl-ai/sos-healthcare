@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "node scripts/use-wasm-swc.mjs"
   },
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "^0.15.0",
@@ -19,6 +20,7 @@
     "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
+    "@next/swc-wasm-nodejs": "16.3.8",
     "@tailwindcss/postcss": "^4",
     "@types/google.maps": "^3.66.4",
     "@types/node": "^20",
