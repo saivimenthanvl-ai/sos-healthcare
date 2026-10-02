@@ -1,0 +1,16 @@
+{
+  "name": "SOS Healthcare - Emergency Dispatch",
+  "short_name": "SOS Health",
+  "description": "Real-time emergency healthcare dispatch and nearest hospital navigation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#dc2626",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ]
+}

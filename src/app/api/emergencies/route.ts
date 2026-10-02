@@ -169,8 +169,39 @@ export async function POST(request: NextRequest) {
     console.error("Reverse geocode error:", geocodeError);
   }
 
-  // ---- Step 6: Realtime notification is handled by Supabase Realtime ----
-  // The client subscribes to the emergencies channel
+  // ---- Step 6: Notify user's emergency contacts with Google Maps link ----
+  try {
+    const { data: contacts } = await supabase
+      .from("emergency_contacts")
+      .select("name, phone, notification_method")
+      .eq("user_id", session.user.id);
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("full_name")
+      .eq("id", session.user.id)
+      .single();
+
+    if (contacts && contacts.length > 0) {
+      const { notifyEmergencyContacts } = await import("@/lib/emergency-notifications");
+      await notifyEmergencyContacts(contacts, {
+        userName: profile?.full_name || "User",
+        latitude: Number(latitude),
+        longitude: Number(longitude),
+        address,
+        hospitalName: nearestHospital?.name || null,
+        etaMinutes,
+      });
+    }
+  } catch (notifyError) {
+    console.error("Failed to notify contacts:", notifyError);
+  }
+
+  // ---- Step 7: Realtime notification is handled by Supabase Realtime ----
+  // Generate Google Maps navigation url for hospital redirection
+  const hospitalNavUrl = nearestHospital
+    ? `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${nearestHospital.latitude},${nearestHospital.longitude}`
+    : `https://www.google.com/maps/search/?api=1&query=hospital`;
 
   return NextResponse.json({
     emergency,
@@ -179,6 +210,7 @@ export async function POST(request: NextRequest) {
     assignedAmbulanceId,
     etaMinutes,
     address,
+    hospitalNavUrl,
   });
 }
 

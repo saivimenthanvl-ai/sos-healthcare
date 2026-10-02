@@ -31,6 +31,12 @@ export const metadata: Metadata = {
     url: "https://sos-healthcare.vercel.app",
     type: "website",
   },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "SOS Health",
+  },
 };
 
 export default function RootLayout({
