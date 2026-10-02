@@ -2,7 +2,14 @@ import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { createServerClient as createSsrServerClient } from "@supabase/ssr";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+// Supabase now issues `sb_publishable_...` keys and documents them as
+// NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, while the `anon` key from older
+// projects uses NEXT_PUBLIC_SUPABASE_ANON_KEY. Accept either so the same
+// build works with both key styles.
+const supabaseAnonKey =
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // Fail here, at module scope, rather than letting createSupabaseClient throw
 // an opaque "supabaseUrl is required" from inside the SDK. This runs during
@@ -11,9 +18,12 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error(
     "Missing Supabase environment variables.\n" +
-      "  Required: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY\n" +
-      "  Where:   Supabase dashboard > Project Settings > API\n" +
-      "  Note:    these must be set when `next build` runs, not just at runtime —\n" +
+      "  Required: NEXT_PUBLIC_SUPABASE_URL, plus one of\n" +
+      "            NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (sb_publishable_...)\n" +
+      "            NEXT_PUBLIC_SUPABASE_ANON_KEY (eyJ... anon key)\n" +
+      "  Where:   Supabase dashboard > Project Settings > API Keys\n" +
+      "  Note:    the URL and the key must come from the SAME project.\n" +
+      "           These must be set when `next build` runs, not just at runtime —\n" +
       "           Next.js evaluates every route module while collecting page data."
   );
 }
