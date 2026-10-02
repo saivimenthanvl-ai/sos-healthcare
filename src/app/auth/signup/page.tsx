@@ -124,12 +124,20 @@ export default function SignupPage() {
         fullWidth
         onClick={async () => {
           try {
-            await (await import("@/lib/supabase")).supabase.auth.signInWithOAuth({
+            setError("");
+            const { error: oauthError } = await (await import("@/lib/supabase")).supabase.auth.signInWithOAuth({
               provider: "google",
               options: { redirectTo: `${window.location.origin}/api/auth/callback` },
             });
-          } catch (e) {
-            console.error(e);
+            if (oauthError) throw oauthError;
+          } catch (e: any) {
+            if (e?.message?.includes("provider is not enabled") || e?.error_code === "validation_failed") {
+              setError(
+                "Google Sign-Up is not enabled yet in your Supabase project (Authentication > Providers > Google). Please register using the form above or enable the Google provider in your Supabase dashboard."
+              );
+            } else {
+              setError(e instanceof Error ? e.message : "Failed to sign up with Google");
+            }
           }
         }}
         type="button"

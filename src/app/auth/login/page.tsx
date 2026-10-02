@@ -37,8 +37,14 @@ export default function LoginPage() {
 
     try {
       await signInWithGoogle();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to sign in with Google");
+    } catch (err: any) {
+      if (err?.message?.includes("provider is not enabled") || err?.error_code === "validation_failed") {
+        setError(
+          "Google Sign-In is not enabled yet in your Supabase project (Authentication > Providers > Google). Please use email & password or enable Google provider in the Supabase dashboard."
+        );
+      } else {
+        setError(err instanceof Error ? err.message : "Failed to sign in with Google");
+      }
     } finally {
       setGoogleLoading(false);
     }
