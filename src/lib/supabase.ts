@@ -1,5 +1,4 @@
-import { createClient as createSupabaseClient } from "@supabase/supabase-js";
-import { createServerClient as createSsrServerClient } from "@supabase/ssr";
+import { createServerClient as createSsrServerClient, createBrowserClient } from "@supabase/ssr";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
@@ -7,7 +6,6 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 // NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, while the `anon` key from older
 // projects uses NEXT_PUBLIC_SUPABASE_ANON_KEY. Accept either so the same
 // build works with both key styles.
-// Accept either key style.
 const supabaseAnonKey =
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -26,14 +24,11 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 // ---------------------------------------------------------------------------
-// Browser-side singleton client
+// Browser-side singleton client using @supabase/ssr
+// Reads and writes cookies compatible with createServerClient.
 // Safe to import in "use client" components.
 // ---------------------------------------------------------------------------
-export const supabase = createSupabaseClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: {
-    flowType: "pkce",
-  },
-});
+export const supabase = createBrowserClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 /**
  * Create a server-side Supabase client that reads/writes auth cookies.
