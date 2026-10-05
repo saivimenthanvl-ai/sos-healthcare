@@ -10,7 +10,11 @@ interface AuthContextType {
   session: Session | null;
   loading: boolean;
   profile: Profile | null;
-  signUp: (email: string, password: string, fullName?: string) => Promise<void>;
+  signUp: (
+    email: string,
+    password: string,
+    fullName?: string
+  ) => Promise<{ data: { user: User | null; session: Session | null }; error: Error | null }>;
   signIn: (email: string, password: string) => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
@@ -80,31 +84,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signUp = async (email: string, password: string, fullName?: string) => {
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
+        emailRedirectTo: `${typeof window !== "undefined" ? window.location.origin : ""}/auth/confirm`,
         data: {
           full_name: fullName,
         },
       },
     });
 
-    if (error) throw error;
+    if (error) {
+      return { data: { user: null, session: null }, error };
+    }
 
-    if (user) {
+    if (data?.user) {
       // The on_auth_user_created trigger creates this row. The upsert is a
       // no-op fallback for databases that have not run migration 001 yet.
-      await supabase
-        .from("profiles")
-        .upsert(
-          { id: user.id, full_name: fullName || "", email },
-          { onConflict: "id", ignoreDuplicates: true }
-        );
+      try {
+        await supabase
+          .from("profiles")
+          .upsert(
+            { id: data.user.id, full_name: fullName || "", email },
+            { onConflict: "id", ignoreDuplicates: true }
+          );
+      } catch (err) {
+        console.warn("Notice: profile ensure handled:", err);
+      }
     }
+
+    return { data, error: null };
   };
 
   const signIn = async (email: string, password: string) => {

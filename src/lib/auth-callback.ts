@@ -19,8 +19,10 @@ export async function handleAuthCallback(request: NextRequest) {
   // Prevent open redirect vulnerabilities
   const safeRedirect = redirectTo.startsWith("/") ? redirectTo : "/";
 
+  console.log("[OAuth] callback received at", request.nextUrl.pathname);
+
   if (errorCode || errorDescription) {
-    console.error("OAuth callback error from provider:", errorCode, errorDescription);
+    console.error("[OAuth] error from provider:", errorCode, errorDescription);
     const loginUrl = new URL("/auth/login", origin);
     loginUrl.searchParams.set("error", "google_login_failed");
     return NextResponse.redirect(loginUrl.toString());
@@ -28,19 +30,22 @@ export async function handleAuthCallback(request: NextRequest) {
 
   if (code) {
     try {
+      console.log("[OAuth] exchange start");
       const supabase = await getSupabaseServerClient();
       const { data, error } = await supabase.auth.exchangeCodeForSession(code);
 
       if (error) {
-        console.error("Supabase code exchange error:", error.message);
+        console.error("[OAuth] exchange failed:", error.message);
         const loginUrl = new URL("/auth/login", origin);
         loginUrl.searchParams.set("error", "google_login_failed");
         return NextResponse.redirect(loginUrl.toString());
       }
+      console.log("[OAuth] exchange success");
 
       // Check if session and user were retrieved
       if (data?.session?.user) {
         const user = data.session.user;
+        console.log("[OAuth] getUser success, user ID:", user.id);
         const fullName =
           user.user_metadata?.full_name ||
           user.user_metadata?.name ||
@@ -58,19 +63,20 @@ export async function handleAuthCallback(request: NextRequest) {
             },
             { onConflict: "id", ignoreDuplicates: true }
           );
+          console.log("[OAuth] profile success");
         } catch (profileErr) {
           // Non-blocking if profile already exists or trigger handled it
-          console.warn("Notice: profile ensure handled:", profileErr);
+          console.warn("[OAuth] profile ensure handled/skipped:", profileErr);
         }
       }
-    } catch (err) {
-      console.error("Unexpected error in auth callback:", err);
+    } catch (err: any) {
+      console.error("[OAuth] unexpected failure:", err?.message || err);
       const loginUrl = new URL("/auth/login", origin);
       loginUrl.searchParams.set("error", "google_login_failed");
       return NextResponse.redirect(loginUrl.toString());
     }
   }
 
-  // Redirect to homepage '/' (or requested path)
+  console.log("[OAuth] redirect success to", safeRedirect);
   return NextResponse.redirect(`${origin}${safeRedirect}`);
 }

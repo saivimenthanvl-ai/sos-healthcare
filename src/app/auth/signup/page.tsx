@@ -36,10 +36,46 @@ export default function SignupPage() {
     }
 
     try {
-      await signUp(email, password, fullName);
-      // Email verification required if enabled in Supabase
-      router.push("/auth/login?message=Check your email to verify your account");
-    } catch (err) {
+      const { data, error: signUpErr } = await signUp(email, password, fullName);
+
+      if (signUpErr) {
+        if (signUpErr.message?.toLowerCase().includes("rate limit")) {
+          setError(
+            "Email rate limit reached. Please wait a few minutes before trying again, or continue with Google."
+          );
+        } else {
+          setError(signUpErr.message || "Failed to sign up");
+        }
+        return;
+      }
+
+      // If email confirmation is disabled or immediate session returned
+      if (data?.session) {
+        router.push("/");
+        return;
+      }
+
+      // Supabase returns an empty identities array when the email is already registered (obfuscated response)
+      if (
+        data?.user &&
+        Array.isArray(data.user.identities) &&
+        data.user.identities.length === 0
+      ) {
+        router.push(
+          "/auth/login?message=" +
+            encodeURIComponent(
+              "An account may already exist with this email. Try signing in with Google, signing in with your password, or resetting your password."
+            )
+        );
+        return;
+      }
+
+      // New genuine unconfirmed user
+      router.push(
+        "/auth/login?message=" +
+          encodeURIComponent("Check your email to verify your account.")
+      );
+    } catch (err: any) {
       setError(err instanceof Error ? err.message : "Failed to sign up");
     } finally {
       setLoading(false);

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/Button";
 import { toast } from "@/components/ui/Toaster";
+import { supabase } from "@/lib/supabase";
 import {
   SettingsIcon,
   BellIcon,
@@ -13,6 +14,7 @@ import {
   ShieldIcon,
   LogOutIcon,
   CheckCircleIcon,
+  KeyIcon,
 } from "lucide-react";
 
 /**
@@ -73,6 +75,29 @@ export default function SettingsPage() {
   const router = useRouter();
   const [prefs, setPrefs] = useState<Preferences>(DEFAULTS);
   const [saved, setSaved] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [passwordLoading, setPasswordLoading] = useState(false);
+
+  const handlePasswordUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newPassword || newPassword.length < 8) return;
+    setPasswordLoading(true);
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+      if (error) {
+        toast(error.message, "error");
+      } else {
+        toast("Password updated successfully! You can now sign in with this password.", "success");
+        setNewPassword("");
+      }
+    } catch (err: any) {
+      toast(err?.message || "Failed to update password", "error");
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
 
   // Preferences live in localStorage, so they cannot be read during the
   // server render. Hydrate after mount to avoid a hydration mismatch.
@@ -156,6 +181,44 @@ export default function SettingsPage() {
             Delete account
           </Button>
         </div>
+      </section>
+
+      {/* Security & Password */}
+      <section className="bg-white rounded-xl shadow p-6">
+        <h2 className="text-lg font-semibold text-gray-900 mb-1 flex items-center gap-2">
+          <KeyIcon className="h-5 w-5 text-indigo-600" />
+          Security &amp; Password
+        </h2>
+        <p className="text-sm text-gray-600 mb-4">
+          Set or update your password to sign in using your email and password in addition to Google.
+        </p>
+
+        <form onSubmit={handlePasswordUpdate} className="space-y-4 max-w-sm">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              New password
+            </label>
+            <input
+              type="password"
+              minLength={8}
+              required
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="••••••••"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <Button
+            type="submit"
+            variant="primary"
+            size="sm"
+            loading={passwordLoading}
+            disabled={!newPassword || newPassword.length < 8}
+          >
+            Update Password
+          </Button>
+        </form>
       </section>
 
       {/* Notifications */}

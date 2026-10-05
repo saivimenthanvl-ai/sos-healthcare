@@ -34,8 +34,17 @@ function LoginForm() {
     try {
       await signIn(email, password);
       router.push("/dashboard");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to sign in");
+    } catch (err: any) {
+      if (
+        err?.message?.toLowerCase().includes("invalid login credentials") ||
+        err?.code === "invalid_credentials"
+      ) {
+        setError(
+          "Invalid login credentials. If you previously registered using Google, please use 'Continue with Google', or use 'Forgot password' below to set or reset your password."
+        );
+      } else {
+        setError(err instanceof Error ? err.message : "Failed to sign in");
+      }
     } finally {
       setLoading(false);
     }
@@ -101,6 +110,15 @@ function LoginForm() {
           required
           autoComplete="current-password"
         />
+
+        <div className="flex justify-end">
+          <Link
+            href="/auth/forgot-password"
+            className="text-xs font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400"
+          >
+            Forgot password?
+          </Link>
+        </div>
 
         <Button
           type="submit"
