@@ -52,11 +52,7 @@ function LoginForm() {
         err?.error_code === "validation_failed"
       ) {
         setError(
-          "Google sign-in is temporarily unavailable because the Google provider is not yet enabled in the Supabase project. Please sign in with email or enable Google in the Supabase dashboard."
-        );
-      } else {
-        setError(
-          "Google sign-in is temporarily unavailable. Please try again or use another sign-in method."
+          "Google sign-in is currently unavailable. Please try again or use another sign-in method."
         );
       }
       setGoogleLoading(false);
