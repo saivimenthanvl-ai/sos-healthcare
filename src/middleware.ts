@@ -26,6 +26,9 @@ export async function middleware(req: NextRequest) {
     "/auth/callback",
     "/api/auth",
     "/api/health",
+    "/privacy-policy",
+    "/terms-of-service",
+    "/contact",
   ];
 
   const isPublicRoute = publicRoutes.some(

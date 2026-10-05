@@ -13,9 +13,10 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
-  const { signUp } = useAuth();
+  const { signUp, signInWithGoogle } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,18 +46,43 @@ export default function SignupPage() {
     }
   };
 
+  const handleGoogle = async () => {
+    if (googleLoading) return;
+    setGoogleLoading(true);
+    setError("");
+
+    try {
+      await signInWithGoogle();
+    } catch (err: any) {
+      console.error("Google signup error:", err);
+      if (
+        err?.message?.includes("provider is not enabled") ||
+        err?.error_code === "validation_failed"
+      ) {
+        setError(
+          "Google sign-up is temporarily unavailable because the Google provider is not yet enabled in the Supabase project. Please sign up using the form above or enable Google in the Supabase dashboard."
+        );
+      } else {
+        setError(
+          "Google sign-in is temporarily unavailable. Please try again or use another sign-in method."
+        );
+      }
+      setGoogleLoading(false);
+    }
+  };
+
   return (
     <>
-      <h2 className="text-center text-2xl font-bold text-gray-900 mb-6">
+      <h2 className="text-center text-2xl font-bold text-gray-900 dark:text-white mb-2">
         Create your account
       </h2>
 
-      <p className="text-center text-sm text-gray-600 mb-6">
-        Join SOS Healthcare for fast emergency response.
+      <p className="text-center text-sm text-gray-600 dark:text-gray-400 mb-6">
+        Join Fyzer for healthcare access and emergency response.
       </p>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-800 rounded-lg text-sm">
+        <div className="mb-4 p-3 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-900 text-red-800 dark:text-red-200 rounded-lg text-sm">
           {error}
         </div>
       )}
@@ -107,7 +133,7 @@ export default function SignupPage() {
           variant="primary"
           fullWidth
           loading={loading}
-          disabled={!fullName || !email || !password || !confirmPassword}
+          disabled={!fullName || !email || !password || !confirmPassword || googleLoading}
         >
           Create Account
         </Button>
@@ -122,29 +148,14 @@ export default function SignupPage() {
       <Button
         variant="outline"
         fullWidth
-        onClick={async () => {
-          try {
-            setError("");
-            const { error: oauthError } = await (await import("@/lib/supabase")).supabase.auth.signInWithOAuth({
-              provider: "google",
-              options: { redirectTo: `${window.location.origin}/api/auth/callback` },
-            });
-            if (oauthError) throw oauthError;
-          } catch (e: any) {
-            if (e?.message?.includes("provider is not enabled") || e?.error_code === "validation_failed") {
-              setError(
-                "Google Sign-Up is not enabled yet in your Supabase project (Authentication > Providers > Google). Please register using the form above or enable the Google provider in your Supabase dashboard."
-              );
-            } else {
-              setError(e instanceof Error ? e.message : "Failed to sign up with Google");
-            }
-          }
-        }}
+        loading={googleLoading}
+        disabled={googleLoading || loading}
+        onClick={handleGoogle}
         type="button"
         className="dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
       >
         <span className="flex items-center justify-center gap-3">
-          <svg className="h-5 w-5" viewBox="0 0 24 24">
+          <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
             <path
               fill="#4285F4"
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"

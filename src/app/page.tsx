@@ -68,20 +68,6 @@ const stats = [
 ];
 
 export default function HomePage() {
-  const handleGoogleSignIn = async () => {
-    try {
-      const { supabase } = await import("@/lib/supabase");
-      await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: `${window.location.origin}/api/auth/callback`,
-        },
-      });
-    } catch (err) {
-      console.error("Google sign in error:", err);
-    }
-  };
-
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
       {/* Navigation */}
@@ -294,12 +280,12 @@ export default function HomePage() {
               </h3>
               <ul className="space-y-3 text-sm">
                 <li>
-                  <Link href="/privacy" className="hover:text-white transition-colors">
+                  <Link href="/privacy-policy" className="hover:text-white transition-colors">
                     Privacy Policy
                   </Link>
                 </li>
                 <li>
-                  <Link href="/terms" className="hover:text-white transition-colors">
+                  <Link href="/terms-of-service" className="hover:text-white transition-colors">
                     Terms of Service
                   </Link>
                 </li>

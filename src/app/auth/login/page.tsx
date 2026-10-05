@@ -1,20 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 
-export default function LoginPage() {
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { signIn, signInWithGoogle } = useAuth();
+
+  // Show errors or status messages passed via URL query params
+  const urlError = searchParams.get("error");
+  const urlMessage = searchParams.get("message");
+  const activeError = error || urlError;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,33 +38,46 @@ export default function LoginPage() {
   };
 
   const handleGoogle = async () => {
+    if (googleLoading) return;
     setGoogleLoading(true);
     setError("");
 
     try {
       await signInWithGoogle();
+      // Browser redirects to Google OAuth
     } catch (err: any) {
-      if (err?.message?.includes("provider is not enabled") || err?.error_code === "validation_failed") {
+      console.error("Google authentication error:", err);
+      if (
+        err?.message?.includes("provider is not enabled") ||
+        err?.error_code === "validation_failed"
+      ) {
         setError(
-          "Google Sign-In is not enabled yet in your Supabase project (Authentication > Providers > Google). Please use email & password or enable Google provider in the Supabase dashboard."
+          "Google sign-in is temporarily unavailable because the Google provider is not yet enabled in the Supabase project. Please sign in with email or enable Google in the Supabase dashboard."
         );
       } else {
-        setError(err instanceof Error ? err.message : "Failed to sign in with Google");
+        setError(
+          "Google sign-in is temporarily unavailable. Please try again or use another sign-in method."
+        );
       }
-    } finally {
       setGoogleLoading(false);
     }
   };
 
   return (
     <>
-      <h2 className="text-center text-2xl font-bold text-gray-900 mb-6">
+      <h2 className="text-center text-2xl font-bold text-gray-900 dark:text-white mb-6">
         Sign in to your account
       </h2>
 
-      {error && (
-        <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-800 rounded-lg text-sm">
-          {error}
+      {urlMessage && !activeError && (
+        <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-900 text-blue-800 dark:text-blue-200 rounded-lg text-sm">
+          {urlMessage}
+        </div>
+      )}
+
+      {activeError && (
+        <div className="mb-4 p-3 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-900 text-red-800 dark:text-red-200 rounded-lg text-sm">
+          {activeError}
         </div>
       )}
 
@@ -88,7 +107,7 @@ export default function LoginPage() {
           variant="primary"
           fullWidth
           loading={loading}
-          disabled={!email || !password}
+          disabled={!email || !password || googleLoading}
         >
           Sign In
         </Button>
@@ -104,12 +123,13 @@ export default function LoginPage() {
         variant="outline"
         fullWidth
         loading={googleLoading}
+        disabled={googleLoading || loading}
         onClick={handleGoogle}
         type="button"
         className="dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800"
       >
         <span className="flex items-center justify-center gap-3">
-          <svg className="h-5 w-5" viewBox="0 0 24 24">
+          <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
             <path
               fill="#4285F4"
               d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -141,5 +161,19 @@ export default function LoginPage() {
         </Link>
       </p>
     </>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="py-12 text-center text-gray-500 dark:text-gray-400">
+          Loading sign in...
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }
