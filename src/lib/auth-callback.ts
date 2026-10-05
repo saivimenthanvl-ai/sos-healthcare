@@ -4,7 +4,8 @@ import { getSupabaseServerClient } from "@/lib/supabase-server";
 /**
  * GET /auth/callback and /api/auth/callback
  * Handles the Supabase OAuth code exchange with PKCE verifier cookie.
- * Ensures the session is established and safe profile creation/fallback occurs.
+ * Ensures the session is established, initializes profile safely,
+ * and redirects to the homepage (/).
  */
 export async function handleAuthCallback(request: NextRequest) {
   const requestUrl = new URL(request.url);
@@ -12,18 +13,16 @@ export async function handleAuthCallback(request: NextRequest) {
   const errorDescription = requestUrl.searchParams.get("error_description");
   const errorCode = requestUrl.searchParams.get("error");
   const origin = requestUrl.origin;
-  const redirectTo = requestUrl.searchParams.get("redirect") || "/dashboard";
+  // Default post-login destination is the homepage '/'
+  const redirectTo = requestUrl.searchParams.get("redirect") || "/";
 
   // Prevent open redirect vulnerabilities
-  const safeRedirect = redirectTo.startsWith("/") ? redirectTo : "/dashboard";
+  const safeRedirect = redirectTo.startsWith("/") ? redirectTo : "/";
 
   if (errorCode || errorDescription) {
     console.error("OAuth callback error from provider:", errorCode, errorDescription);
     const loginUrl = new URL("/auth/login", origin);
-    loginUrl.searchParams.set(
-      "error",
-      errorDescription || "Google sign-in was cancelled or encountered an error."
-    );
+    loginUrl.searchParams.set("error", "google_login_failed");
     return NextResponse.redirect(loginUrl.toString());
   }
 
@@ -35,10 +34,7 @@ export async function handleAuthCallback(request: NextRequest) {
       if (error) {
         console.error("Supabase code exchange error:", error.message);
         const loginUrl = new URL("/auth/login", origin);
-        loginUrl.searchParams.set(
-          "error",
-          "Google sign-in is temporarily unavailable. Please try again or use email sign-in."
-        );
+        loginUrl.searchParams.set("error", "google_login_failed");
         return NextResponse.redirect(loginUrl.toString());
       }
 
@@ -70,14 +66,11 @@ export async function handleAuthCallback(request: NextRequest) {
     } catch (err) {
       console.error("Unexpected error in auth callback:", err);
       const loginUrl = new URL("/auth/login", origin);
-      loginUrl.searchParams.set(
-        "error",
-        "An unexpected error occurred during Google sign-in. Please try again."
-      );
+      loginUrl.searchParams.set("error", "google_login_failed");
       return NextResponse.redirect(loginUrl.toString());
     }
   }
 
-  // Redirect to the intended page (or dashboard)
+  // Redirect to homepage '/' (or requested path)
   return NextResponse.redirect(`${origin}${safeRedirect}`);
 }

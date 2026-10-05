@@ -20,7 +20,11 @@ function LoginForm() {
   // Show errors or status messages passed via URL query params
   const urlError = searchParams.get("error");
   const urlMessage = searchParams.get("message");
-  const activeError = error || urlError;
+  const formattedUrlError =
+    urlError === "google_login_failed" || urlError === "oauth_callback_failed"
+      ? "We couldn't complete Google sign-in. Please try again."
+      : urlError;
+  const activeError = error || formattedUrlError;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

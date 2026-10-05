@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { UserNavMenu } from "@/components/UserNavMenu";
 
 const features = [
   {
@@ -92,11 +93,7 @@ export default function HomePage() {
                 Stats
               </Link>
               <ThemeToggle />
-              <Link href="/auth/signup">
-                <Button variant="danger" size="sm">
-                  Get Started
-                </Button>
-              </Link>
+              <UserNavMenu />
             </nav>
           </div>
         </div>
