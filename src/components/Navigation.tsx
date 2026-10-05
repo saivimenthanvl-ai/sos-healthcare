@@ -50,12 +50,19 @@ const staffItems: NavItem[] = [
 ];
 
 export function Navigation() {
-  const { profile, signOut } = useAuth();
+  const { user, profile, signOut } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const displayName =
+    profile?.full_name ||
+    user?.user_metadata?.full_name ||
+    user?.user_metadata?.name ||
+    user?.email?.split("@")[0] ||
+    "Account";
 
   const items = [
     ...navItems,
@@ -98,8 +105,12 @@ export function Navigation() {
     router.push("/auth/login");
   };
 
-  const isActive = (href: string) =>
-    pathname === href || pathname.startsWith(`${href}/`);
+  const isActive = (href: string) => {
+    if (href === "/dashboard" || href === "/") {
+      return pathname === "/" || pathname === "/dashboard" || pathname.startsWith("/dashboard/");
+    }
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   return (
     <>
@@ -141,50 +152,72 @@ export function Navigation() {
       <div className="relative" ref={dropdownRef}>
         <button
           onClick={() => setDropdownOpen((open) => !open)}
-          className="flex items-center gap-2 p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+          className="flex items-center gap-2 p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
           aria-label="Account menu"
           aria-expanded={dropdownOpen}
         >
-          {profile?.full_name ? (
-            <span className="hidden sm:inline text-sm font-medium max-w-[10rem] truncate">
-              {profile.full_name}
-            </span>
-          ) : null}
-          <UserIcon className="h-5 w-5" />
+          {user?.user_metadata?.avatar_url || user?.user_metadata?.picture ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={user.user_metadata.avatar_url || user.user_metadata.picture}
+              alt={displayName}
+              referrerPolicy="no-referrer"
+              className="h-7 w-7 rounded-full object-cover"
+            />
+          ) : (
+            <div className="h-7 w-7 rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs font-bold">
+              {displayName.charAt(0).toUpperCase()}
+            </div>
+          )}
+          <span className="hidden sm:inline text-sm font-semibold max-w-[10rem] truncate text-gray-800 dark:text-gray-200">
+            {displayName}
+          </span>
         </button>
 
         {dropdownOpen && (
-          <div className="absolute right-0 mt-2 w-52 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-20">
-            {profile?.full_name && (
-              <div className="px-4 py-2 border-b border-gray-100">
-                <p className="text-sm font-medium text-gray-900 truncate">
-                  {profile.full_name}
-                </p>
-                {profile.role && profile.role !== "patient" && (
-                  <p className="text-xs capitalize text-blue-600">{profile.role}</p>
-                )}
-              </div>
-            )}
+          <div className="absolute right-0 mt-2 w-52 bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-200 dark:border-gray-800 py-1.5 z-50">
+            <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-800">
+              <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">Signed in as</p>
+              <p className="text-sm font-bold text-gray-900 dark:text-white truncate">
+                {displayName}
+              </p>
+              {profile?.role && profile.role !== "patient" && (
+                <p className="text-xs capitalize text-blue-600 dark:text-blue-400 font-medium mt-0.5">{profile.role}</p>
+              )}
+            </div>
+
+            <Link
+              href="/"
+              className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/70 transition-colors"
+              onClick={() => setDropdownOpen(false)}
+            >
+              <HomeIcon className="h-4 w-4 text-gray-500" />
+              Dashboard
+            </Link>
+
             <Link
               href="/profile"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+              className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/70 transition-colors"
               onClick={() => setDropdownOpen(false)}
             >
-              <UserIcon className="h-4 w-4" />
-              Profile &amp; Health Data
+              <UserIcon className="h-4 w-4 text-gray-500" />
+              Profile
             </Link>
+
             <Link
               href="/settings"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+              className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/70 transition-colors"
               onClick={() => setDropdownOpen(false)}
             >
-              <SettingsIcon className="h-4 w-4" />
-              Settings
+              <SettingsIcon className="h-4 w-4 text-gray-500" />
+              Account Settings
             </Link>
-            <hr className="my-1 border-gray-200" />
+
+            <hr className="my-1 border-gray-100 dark:border-gray-800" />
+
             <button
               onClick={handleSignOut}
-              className="flex items-center gap-2 w-full px-4 py-2 text-sm text-left text-red-600 hover:bg-red-50 transition-colors"
+              className="flex items-center gap-2.5 w-full px-4 py-2 text-sm text-left text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition-colors"
             >
               <LogOutIcon className="h-4 w-4" />
               Sign Out
@@ -192,6 +225,7 @@ export function Navigation() {
           </div>
         )}
       </div>
+
 
       {/* Mobile nav panel */}
       {mobileOpen && (

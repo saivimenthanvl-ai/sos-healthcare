@@ -198,6 +198,11 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
     }
   );
 
+  const [sosStatusMessage, setSosStatusMessage] = useState<{
+    text: string;
+    type: "info" | "error" | "warning";
+  } | null>(null);
+
   // --- Trigger SOS ---
   const handleSOS = async () => {
     if (!userPosition) {
@@ -206,6 +211,7 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
     }
 
     setLoading(true);
+    setSosStatusMessage(null);
 
     try {
       const res = await fetch("/api/emergencies", {
@@ -220,78 +226,101 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
 
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.error || "Failed to create emergency");
+      if (!res.ok) {
+        setSosStatusMessage({
+          text: data?.error || "We couldn't complete the emergency request. If you need immediate medical assistance, contact your local emergency service.",
+          type: "error",
+        });
+        return;
+      }
 
       setEmergency(data.emergency);
 
       // Fetch the assigned ambulance to get its real-world position
       let ambulanceData: Ambulance | null = null;
       if (data.assignedAmbulanceId) {
-        const { data: ambulanceResult } = await supabase
-          .from("ambulances")
-          .select("*")
-          .eq("id", data.assignedAmbulanceId)
-          .single();
-        ambulanceData = ambulanceResult as Ambulance | null;
+        try {
+          const { data: ambulanceResult } = await supabase
+            .from("ambulances")
+            .select("*")
+            .eq("id", data.assignedAmbulanceId)
+            .single();
+          ambulanceData = ambulanceResult as Ambulance | null;
+        } catch (ambErr) {
+          console.warn("Ambulance fetch handled:", ambErr);
+        }
       }
 
       setAmbulances(ambulanceData ? [ambulanceData] : []);
 
       onEmergencyCreated?.(data.emergency);
 
+      if (!data.nearestHospital) {
+        setSosStatusMessage({
+          text: "Emergency request created. We couldn't automatically locate nearby hospitals. Please contact your local emergency service if immediate help is required.",
+          type: "warning",
+        });
+      }
+
       // Track the ambulance on the map
       if (data.assignedAmbulanceId && mapInstanceRef.current) {
-        // Await the loader so a slow Maps script cannot silently skip the
-        // ambulance marker and route line.
-        const google = await loadGoogleMaps();
-        const map = mapInstanceRef.current;
-        if (map) {
-          const ambulanceLat = ambulanceData?.latitude ?? userPosition?.lat ?? 0;
-          const ambulanceLng = ambulanceData?.longitude ?? userPosition?.lng ?? 0;
+        try {
+          const google = await loadGoogleMaps();
+          const map = mapInstanceRef.current;
+          if (map) {
+            const ambulanceLat = ambulanceData?.latitude ?? userPosition?.lat ?? 0;
+            const ambulanceLng = ambulanceData?.longitude ?? userPosition?.lng ?? 0;
 
-          const ambulanceMarker = new google.maps.Marker({
-            position: {
-              lat: ambulanceLat,
-              lng: ambulanceLng,
-            },
-            map,
-            icon: {
-              path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-              scale: 12,
-              fillColor: "#ef4444",
-              fillOpacity: 0.9,
-              strokeColor: "#ffffff",
-              strokeWeight: 2,
-            },
-            title: "Ambulance En Route",
-          });
+            const ambulanceMarker = new google.maps.Marker({
+              position: {
+                lat: ambulanceLat,
+                lng: ambulanceLng,
+              },
+              map,
+              icon: {
+                path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                scale: 12,
+                fillColor: "#ef4444",
+                fillOpacity: 0.9,
+                strokeColor: "#ffffff",
+                strokeWeight: 2,
+              },
+              title: "Ambulance En Route",
+            });
 
-          markersRef.current.set(
-            `ambulance-${data.assignedAmbulanceId}`,
-            ambulanceMarker
-          );
+            markersRef.current.set(
+              `ambulance-${data.assignedAmbulanceId}`,
+              ambulanceMarker
+            );
 
-          // Draw a path from the ambulance's position to the user's location
-          const line = new google.maps.Polyline({
-            path: [
-              { lat: ambulanceLat, lng: ambulanceLng },
-              { lat: userPosition?.lat || 0, lng: userPosition?.lng || 0 },
-            ],
-            geodesic: true,
-            strokeColor: "#ef4444",
-            strokeOpacity: 0.6,
-            strokeWeight: 3,
-          });
-          line.setMap(map);
+            // Draw a path from the ambulance's position to the user's location
+            const line = new google.maps.Polyline({
+              path: [
+                { lat: ambulanceLat, lng: ambulanceLng },
+                { lat: userPosition?.lat || 0, lng: userPosition?.lng || 0 },
+              ],
+              geodesic: true,
+              strokeColor: "#ef4444",
+              strokeOpacity: 0.6,
+              strokeWeight: 3,
+            });
+            line.setMap(map);
+          }
+        } catch (mapErr) {
+          console.warn("Map marker tracking handled:", mapErr);
         }
       }
     } catch (error) {
       console.error("SOS error:", error);
-      alert(error instanceof Error ? error.message : "Failed to trigger emergency");
+      setSosStatusMessage({
+        text: "We couldn't complete the emergency request. If you need immediate medical assistance, contact your local emergency service.",
+        type: "error",
+      });
     } finally {
       setLoading(false);
     }
   };
+
 
   // --- Cancel emergency ---
   const handleCancel = async () => {
@@ -362,6 +391,20 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
             {locationError && (
               <div className="mb-3 p-3 bg-red-50 text-red-800 rounded-lg text-sm">
                 {locationError}
+              </div>
+            )}
+
+            {sosStatusMessage && (
+              <div
+                className={`mb-3 p-3 rounded-lg text-sm ${
+                  sosStatusMessage.type === "error"
+                    ? "bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-red-800 dark:text-red-200"
+                    : sosStatusMessage.type === "warning"
+                    ? "bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 text-amber-800 dark:text-amber-200"
+                    : "bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-blue-800 dark:text-blue-200"
+                }`}
+              >
+                {sosStatusMessage.text}
               </div>
             )}
 

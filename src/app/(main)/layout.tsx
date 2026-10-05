@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Navigation } from "@/components/Navigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export const metadata = {
   title: "SOS Healthcare — Emergency Ambulance & Hospital Finder",
@@ -34,14 +35,8 @@ export default function MainLayout({
         {children}
       </main>
 
-      <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 py-4 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-            &copy; {new Date().getFullYear()} SOS Healthcare. All rights reserved. |
-            Free emergency response platform — no fees for users.
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
+

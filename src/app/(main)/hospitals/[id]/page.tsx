@@ -33,21 +33,28 @@ export default function HospitalDetailPage({ params }: HospitalDetailProps) {
     let cancelled = false;
 
     const fetchHospital = async () => {
-      const { data, error } = await supabase
-        .from("hospitals")
-        .select("*")
-        .eq("id", id)
-        .single();
+      try {
+        const { data, error } = await supabase
+          .from("hospitals")
+          .select("*")
+          .eq("id", id)
+          .single();
 
-      if (cancelled) return;
+        if (cancelled) return;
 
-      if (error || !data) {
-        setNotFound(true);
-      } else {
-        setHospital(data as Hospital);
+        if (error || !data) {
+          setNotFound(true);
+        } else {
+          setHospital(data as Hospital);
+        }
+      } catch (err) {
+        console.warn("[HospitalDetail] fetch handled:", err);
+        if (!cancelled) setNotFound(true);
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-      setLoading(false);
     };
+
 
     void fetchHospital();
 

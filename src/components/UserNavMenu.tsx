@@ -10,6 +10,7 @@ import {
   LogOutIcon,
   LayoutDashboardIcon,
   ChevronDownIcon,
+  SettingsIcon,
 } from "lucide-react";
 
 export function UserNavMenu() {
@@ -137,7 +138,16 @@ export function UserNavMenu() {
             onClick={() => setDropdownOpen(false)}
           >
             <UserIcon className="h-4 w-4 text-gray-500" />
-            Profile &amp; Health Data
+            Profile
+          </Link>
+
+          <Link
+            href="/settings"
+            className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/70 transition-colors"
+            onClick={() => setDropdownOpen(false)}
+          >
+            <SettingsIcon className="h-4 w-4 text-gray-500" />
+            Account Settings
           </Link>
 
           <hr className="my-1 border-gray-100 dark:border-gray-800" />

@@ -42,22 +42,27 @@ export async function POST(request: NextRequest) {
 
   let emergencyRecord = null;
   if (userLocation?.lat && userLocation?.lng) {
-    const { data: createdEmergency } = await supabase
-      .from("emergencies")
-      .insert({
-        user_id: session.user.id,
-        latitude: userLocation.lat,
-        longitude: userLocation.lng,
-        assigned_hospital_id: hospitalId,
-        description,
-        status: customization.requireAmbulance ? "dispatched" : "pending",
-        eta_minutes: 15,
-      })
-      .select()
-      .single();
+    try {
+      const { data: createdEmergency } = await supabase
+        .from("emergencies")
+        .insert({
+          user_id: session.user.id,
+          latitude: userLocation.lat,
+          longitude: userLocation.lng,
+          assigned_hospital_id: null,
+          description,
+          status: customization.requireAmbulance ? "dispatched" : "pending",
+          eta_minutes: 15,
+        })
+        .select()
+        .single();
 
-    emergencyRecord = createdEmergency;
+      emergencyRecord = createdEmergency;
+    } catch (bookingErr) {
+      console.warn("[HospitalBooking] emergencies insert fallback handled:", bookingErr);
+    }
   }
+
 
   return NextResponse.json({
     success: true,
