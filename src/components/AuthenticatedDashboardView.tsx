@@ -25,7 +25,6 @@ export function AuthenticatedDashboardView() {
   const { latitude, longitude, error: locationError, loading: locationLoading } = useLocation();
   const [emergencies, setEmergencies] = useState<Emergency[]>([]);
   const [emergenciesLoading, setEmergenciesLoading] = useState(true);
-  const [fitbitConnecting, setFitbitConnecting] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -95,70 +94,6 @@ export function AuthenticatedDashboardView() {
     cancelled: "Cancelled",
   };
 
-  const connectFitbit = async () => {
-    if (fitbitConnecting) return;
-
-    setFitbitConnecting(true);
-
-    try {
-      const {
-        data: { session },
-        error: sessionError,
-      } = await supabase.auth.getSession();
-
-      if (sessionError) {
-        console.error("[Fitbit] session error:", sessionError.message);
-        return;
-      }
-
-      if (!session?.access_token) {
-        console.error("[Fitbit] No authenticated Supabase session");
-        router.push("/auth/login");
-        return;
-      }
-
-      console.log("[Fitbit] user:", session.user.id);
-      console.log("[Fitbit] access token present:", true);
-
-      const { data, error } = await supabase.functions.invoke(
-        "fitbit-connect",
-        {
-          method: "POST",
-          body: {},
-          headers: {
-            Authorization: `Bearer ${session.access_token}`,
-          },
-        }
-      );
-
-      if (error) {
-        console.error("[Fitbit] function error:", error);
-
-        try {
-          const result = await error.context.json();
-          console.error("[Fitbit] Edge Function response:", result);
-        } catch {
-          console.error("[Fitbit] Unable to read function response");
-        }
-
-        return;
-      }
-
-      console.log("[Fitbit] response:", data);
-
-      if (!data?.authorizationUrl) {
-        console.error("[Fitbit] authorizationUrl missing");
-        return;
-      }
-
-      window.location.assign(data.authorizationUrl);
-    } catch (error) {
-      console.error("[Fitbit] unexpected error:", error);
-    } finally {
-      setFitbitConnecting(false);
-    }
-  };
-
   return (
     <div className="max-w-5xl mx-auto py-6">
       {/* Hero section */}
@@ -167,9 +102,9 @@ export function AuthenticatedDashboardView() {
           {profile?.full_name ? `Hello, ${profile.full_name}` : "SOS Healthcare"}
         </h1>
         <p className="text-blue-100 max-w-2xl">
-          In a medical emergency, press the SOS button below. We&apos;ll locate the
-          nearest hospital and dispatch an ambulance within 10-20 minutes.
-          No fees. No delays.
+          In a medical emergency, press the SOS button below to create an emergency
+          request and share your location. Dispatch status is confirmed only after
+          the backend records and assigns the response.
         </p>
       </div>
 
@@ -284,7 +219,7 @@ export function AuthenticatedDashboardView() {
             className="flex flex-col items-center justify-center text-center p-3.5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-emerald-500/30 transition-all"
           >
             <PlusIcon className="h-6 w-6 text-emerald-600 dark:text-emerald-400 mb-2" />
-            <span className="text-xs font-semibold text-gray-900 dark:text-white">Connect Fitbit</span>
+            <span className="text-xs font-semibold text-gray-900 dark:text-white">Health Devices</span>
           </Link>
 
           <Link
@@ -415,18 +350,18 @@ export function AuthenticatedDashboardView() {
                 Smartwatch Integration
               </h3>
               <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                Seamlessly connect your Fitbit, Apple Watch, or Android Wear device. Automatic fall detection and extreme heart rate spikes trigger emergency help without taking out your phone.
+                Connect supported health devices when provider access is available. Wearable readings are supplementary health context and never trigger emergency dispatch on their own.
               </p>
             </div>
             <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
               <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Automated fall detection
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Supported provider connections
               </div>
               <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Heart rate spike/drop alerts
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Timestamped health context
               </div>
               <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Instant wrist SOS trigger
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Patient-controlled sharing
               </div>
             </div>
           </Link>
