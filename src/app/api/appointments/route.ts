@@ -37,11 +37,30 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  if (user.role !== "PATIENT") {
+    return NextResponse.json({ error: "Only patients can book appointments" }, { status: 403 });
+  }
+
   const body = await request.json();
   const { doctorId, hospitalId, hospitalName, specialty, startsAt, endsAt, reason } = body;
 
   if (!doctorId || !specialty || !startsAt || !endsAt) {
     return NextResponse.json({ error: "Missing required booking details" }, { status: 400 });
+  }
+
+  const start = new Date(startsAt);
+  const end = new Date(endsAt);
+  if (
+    Number.isNaN(start.getTime()) ||
+    Number.isNaN(end.getTime()) ||
+    end <= start ||
+    start <= new Date()
+  ) {
+    return NextResponse.json({ error: "Invalid appointment time" }, { status: 400 });
+  }
+
+  if (String(specialty).length > 100 || String(reason || "").length > 1000) {
+    return NextResponse.json({ error: "Appointment details are too long" }, { status: 400 });
   }
 
   const supabase = await getSupabaseServerClient();
@@ -69,7 +88,7 @@ export async function POST(request: NextRequest) {
       patient_id: user.id,
       doctor_id: doctorId,
       hospital_id: hospitalId || null,
-      hospital_name: hospitalName || "Apex Specialty Healthcare",
+      hospital_name: hospitalName || null,
       specialty,
       starts_at: startsAt,
       ends_at: endsAt,
