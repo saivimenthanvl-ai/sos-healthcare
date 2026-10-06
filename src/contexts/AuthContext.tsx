@@ -37,24 +37,99 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
-    const getSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-
-      setSession(session);
-      setUser(session?.user ?? null);
-
-      if (session?.user) {
+    const loadUserProfile = async (
+      userId: string,
+      email?: string,
+      userMetadata?: Record<string, unknown>
+    ) => {
+      try {
         const { data: profileData } = await supabase
           .from("profiles")
           .select("*")
-          .eq("id", session.user.id)
-          .single();
-        setProfile(profileData);
-      }
+          .eq("id", userId)
+          .maybeSingle();
 
-      setLoading(false);
+        if (profileData) {
+          setProfile(profileData);
+          return profileData;
+        }
+
+        // If row doesn't exist, create an initial profile row so user never gets stuck
+        const rawName = userMetadata?.full_name ?? userMetadata?.name;
+        const initialName: string =
+          typeof rawName === "string" && rawName.trim().length > 0
+            ? rawName
+            : email?.split("@")[0] || "User";
+
+        const { data: createdProfile } = await supabase
+          .from("profiles")
+          .upsert(
+            {
+              id: userId,
+              email: email || null,
+              full_name: initialName,
+              role: "patient",
+            },
+            { onConflict: "id" }
+          )
+          .select()
+          .maybeSingle();
+
+        if (createdProfile) {
+          setProfile(createdProfile);
+          return createdProfile;
+        } else {
+          // In-memory fallback profile so pages don't block
+          const fallbackProfile: Profile = {
+            id: userId,
+            full_name: initialName,
+            email: email || null,
+            phone: null,
+            emergency_contact_name: null,
+            emergency_contact_phone: null,
+            medical_conditions: null,
+            allergies: null,
+            blood_type: null,
+            fitbit_user_id: null,
+            fitbit_access_token: null,
+            fitbit_refresh_token: null,
+            fitbit_token_expires_at: null,
+            smartwatch_connected: false,
+            role: "patient",
+            ambulance_id: null,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          };
+          setProfile(fallbackProfile);
+          return fallbackProfile;
+        }
+      } catch (err) {
+        console.warn("[AuthContext] Profile load handled:", err);
+      }
+      return null;
+    };
+
+    const getSession = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+
+        setSession(session);
+        setUser(session?.user ?? null);
+
+        if (session?.user) {
+          await loadUserProfile(
+            session.user.id,
+            session.user.email,
+            session.user.user_metadata
+          );
+        }
+      } catch (err) {
+        console.warn("[AuthContext] getSession error:", err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     getSession();
@@ -62,17 +137,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Listen for auth state changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
 
       if (session?.user) {
-        const { data: profileData } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("id", session.user.id)
-          .single();
-        setProfile(profileData);
+        await loadUserProfile(
+          session.user.id,
+          session.user.email,
+          session.user.user_metadata
+        );
       } else {
         setProfile(null);
       }

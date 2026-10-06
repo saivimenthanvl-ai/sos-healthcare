@@ -25,6 +25,7 @@ export function AuthenticatedDashboardView() {
   const { latitude, longitude, error: locationError, loading: locationLoading } = useLocation();
   const [emergencies, setEmergencies] = useState<Emergency[]>([]);
   const [emergenciesLoading, setEmergenciesLoading] = useState(true);
+  const [fitbitConnecting, setFitbitConnecting] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -92,6 +93,70 @@ export function AuthenticatedDashboardView() {
     arrived: "Ambulance Arrived",
     resolved: "Resolved",
     cancelled: "Cancelled",
+  };
+
+  const connectFitbit = async () => {
+    if (fitbitConnecting) return;
+
+    setFitbitConnecting(true);
+
+    try {
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession();
+
+      if (sessionError) {
+        console.error("[Fitbit] session error:", sessionError.message);
+        return;
+      }
+
+      if (!session?.access_token) {
+        console.error("[Fitbit] No authenticated Supabase session");
+        router.push("/auth/login");
+        return;
+      }
+
+      console.log("[Fitbit] user:", session.user.id);
+      console.log("[Fitbit] access token present:", true);
+
+      const { data, error } = await supabase.functions.invoke(
+        "fitbit-connect",
+        {
+          method: "POST",
+          body: {},
+          headers: {
+            Authorization: `Bearer ${session.access_token}`,
+          },
+        }
+      );
+
+      if (error) {
+        console.error("[Fitbit] function error:", error);
+
+        try {
+          const result = await error.context.json();
+          console.error("[Fitbit] Edge Function response:", result);
+        } catch {
+          console.error("[Fitbit] Unable to read function response");
+        }
+
+        return;
+      }
+
+      console.log("[Fitbit] response:", data);
+
+      if (!data?.authorizationUrl) {
+        console.error("[Fitbit] authorizationUrl missing");
+        return;
+      }
+
+      window.location.assign(data.authorizationUrl);
+    } catch (error) {
+      console.error("[Fitbit] unexpected error:", error);
+    } finally {
+      setFitbitConnecting(false);
+    }
   };
 
   return (
@@ -195,28 +260,224 @@ export function AuthenticatedDashboardView() {
       </div>
 
       {/* Quick links */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
-        <Link
-          href="/hospitals"
-          className="flex flex-col items-center gap-2 p-4 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md transition-shadow"
-        >
-          <AmbulanceIcon className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-          <span className="font-medium text-gray-900 dark:text-white">Nearby Hospitals</span>
-        </Link>
-        <Link
-          href="/hospitals?map=true"
-          className="flex flex-col items-center gap-2 p-4 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md transition-shadow"
-        >
-          <MapPinIcon className="h-8 w-8 text-red-600 dark:text-red-400" />
-          <span className="font-medium text-gray-900 dark:text-white">Find Hospitals Near You</span>
-        </Link>
-        <Link
-          href="/profile"
-          className="flex flex-col items-center gap-2 p-4 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md transition-shadow"
-        >
-          <PlusIcon className="h-8 w-8 text-green-600 dark:text-green-400" />
-          <span className="font-medium text-gray-900 dark:text-white">Health Devices</span>
-        </Link>
+      <div className="mt-8">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          <Link
+            href="/hospitals"
+            className="flex flex-col items-center justify-center text-center p-3.5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-blue-500/30 transition-all"
+          >
+            <AmbulanceIcon className="h-6 w-6 text-blue-600 dark:text-blue-400 mb-2" />
+            <span className="text-xs font-semibold text-gray-900 dark:text-white">Nearby Hospitals</span>
+          </Link>
+
+          <Link
+            href="/hospitals?map=true"
+            className="flex flex-col items-center justify-center text-center p-3.5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-red-500/30 transition-all"
+          >
+            <MapPinIcon className="h-6 w-6 text-red-600 dark:text-red-400 mb-2" />
+            <span className="text-xs font-semibold text-gray-900 dark:text-white">Find Hospitals Near You</span>
+          </Link>
+
+          <Link
+            href="/devices"
+            className="flex flex-col items-center justify-center text-center p-3.5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-emerald-500/30 transition-all"
+          >
+            <PlusIcon className="h-6 w-6 text-emerald-600 dark:text-emerald-400 mb-2" />
+            <span className="text-xs font-semibold text-gray-900 dark:text-white">Connect Fitbit</span>
+          </Link>
+
+          <Link
+            href="/appointments"
+            className="flex flex-col items-center justify-center text-center p-3.5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-indigo-500/30 transition-all"
+          >
+            <ClockIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400 mb-2" />
+            <span className="text-xs font-semibold text-gray-900 dark:text-white">Book Appointment</span>
+          </Link>
+
+          <Link
+            href="/profile/health"
+            className="flex flex-col items-center justify-center text-center p-3.5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-pink-500/30 transition-all"
+          >
+            <CheckCircleIcon className="h-6 w-6 text-pink-600 dark:text-pink-400 mb-2" />
+            <span className="text-xs font-semibold text-gray-900 dark:text-white">Health Profile</span>
+          </Link>
+        </div>
+      </div>
+
+      {/* Six Feature Entry Point Cards */}
+      <div className="mt-10">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Emergency Services & Integrations</h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">Click any card to open the dedicated feature module</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Card 1: One-Tap SOS -> /emergency */}
+          <Link
+            href="/emergency"
+            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-red-500/40 transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div className="bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <AlertTriangleIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                One-Tap SOS
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                Press a single emergency button to immediately alert closest ambulances and hospitals. Your precise GPS coordinates and emergency contacts are notified automatically in seconds.
+              </p>
+            </div>
+            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Instant GPS beacon
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Multi-contact SMS broadcast
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Automated ER dispatch
+              </div>
+            </div>
+          </Link>
+
+          {/* Card 2: 10-20 Min ETA -> /emergency/location */}
+          <Link
+            href="/emergency/location"
+            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-blue-500/40 transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div className="bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <ClockIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                10-20 Min ETA
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                Smart priority ambulance fleet matching routes the nearest available unit directly to your coordinates with turn-by-turn navigation and live arrival countdowns.
+              </p>
+            </div>
+            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Live GPS fleet tracking
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Dynamic traffic routing
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Real-time paramedic chat
+              </div>
+            </div>
+          </Link>
+
+          {/* Card 3: Nearby Hospitals -> /hospitals */}
+          <Link
+            href="/hospitals"
+            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-emerald-500/40 transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div className="bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <MapPinIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                Nearby Hospitals
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                Locate accredited hospitals with real-time verified ICU beds, ER capacity, and direct emergency room triage booking customized to patient needs.
+              </p>
+            </div>
+            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Real-time bed availability
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Direct ER triage reservation
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> One-tap Google Maps directions
+              </div>
+            </div>
+          </Link>
+
+          {/* Card 4: Smartwatch Integration -> /devices */}
+          <Link
+            href="/devices"
+            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-indigo-500/40 transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div className="bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <PlusIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                Smartwatch Integration
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                Seamlessly connect your Fitbit, Apple Watch, or Android Wear device. Automatic fall detection and extreme heart rate spikes trigger emergency help without taking out your phone.
+              </p>
+            </div>
+            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Automated fall detection
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Heart rate spike/drop alerts
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Instant wrist SOS trigger
+              </div>
+            </div>
+          </Link>
+
+          {/* Card 5: Health Data Sharing -> /profile/health */}
+          <Link
+            href="/profile/health"
+            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-pink-500/40 transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div className="bg-pink-50 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <CheckCircleIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
+                Health Data Sharing
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                Your real-time vitals, blood type, known allergies, chronic conditions, and emergency contacts are securely shared with doctors and incoming paramedics ahead of arrival.
+              </p>
+            </div>
+            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Encrypted medical profile
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Allergy & blood group badge
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Paramedic pre-arrival briefing
+              </div>
+            </div>
+          </Link>
+
+          {/* Card 6: No Fees -> Informational Card */}
+          <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col justify-between">
+            <div>
+              <div className="bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center">
+                <ClockIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                No Fees
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                This service is completely free for users. No hidden charges. Emergency care should never cost you.
+              </p>
+            </div>
+            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-400">
+              <span>SOS Healthcare platform usage is 100% free. Independent hospital fees may apply depending on treatment.</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

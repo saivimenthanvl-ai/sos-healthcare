@@ -49,12 +49,30 @@ export interface EmergencyContact {
   created_at: string;
 }
 
+export type SystemRole = "PATIENT" | "DOCTOR" | "ADMIN";
+
+export function normalizeRole(role: UserRole | string | null | undefined): SystemRole {
+  if (!role) return "PATIENT";
+  const r = role.toUpperCase();
+  if (r === "DOCTOR") return "DOCTOR";
+  if (r === "ADMIN" || r === "DISPATCHER" || r === "PARAMEDIC") return "ADMIN";
+  return "PATIENT";
+}
+
 export function isStaff(role: UserRole | null | undefined): boolean {
-  return role === "paramedic" || role === "dispatcher";
+  return role === "paramedic" || role === "dispatcher" || role === "ADMIN";
 }
 
 export function isDispatcher(role: UserRole | null | undefined): boolean {
-  return role === "dispatcher";
+  return role === "dispatcher" || role === "ADMIN";
+}
+
+export function isDoctor(role: UserRole | null | undefined): boolean {
+  return normalizeRole(role) === "DOCTOR";
+}
+
+export function isAdmin(role: UserRole | null | undefined): boolean {
+  return normalizeRole(role) === "ADMIN";
 }
 
 export const EMERGENCY_STATUS_LABELS: Record<EmergencyStatus, string> = {

@@ -13,11 +13,11 @@ export function SiteFooter() {
               <span>🚑</span> SOS Healthcare
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Autonomous real-time emergency healthcare dispatch network. Instant ambulance mobilization within 10–20 minutes with zero user fees.
+              Rapid emergency assistance platform connecting individuals to nearby hospitals, accredited specialists, and first responders. Zero platform fees.
             </p>
             <div className="flex items-center gap-2 text-xs text-emerald-400 font-medium">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              Emergency Dispatch Servers Online
+              Emergency Platform Servers Online
             </div>
           </div>
 

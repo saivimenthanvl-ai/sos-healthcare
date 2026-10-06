@@ -4,7 +4,8 @@
  * - paramedic: responds to assigned emergencies, reports live position
  * - dispatcher: manages the ambulance fleet and assigns emergencies
  */
-export type UserRole = "patient" | "paramedic" | "dispatcher";
+export type UserRole = "patient" | "paramedic" | "dispatcher" | "PATIENT" | "DOCTOR" | "ADMIN";
+export type AppRole = "PATIENT" | "DOCTOR" | "ADMIN";
 
 export type Database = {
   public: {
@@ -26,6 +27,7 @@ export type Database = {
           fitbit_token_expires_at: string | null;
           smartwatch_connected: boolean | null;
           role: UserRole;
+          role_v2?: AppRole | null;
           ambulance_id: string | null;
           created_at: string;
           updated_at: string;

@@ -35,7 +35,7 @@ interface HealthDevice {
 }
 
 export default function ProfilePage() {
-  const { profile, loading: authLoading } = useAuth();
+  const { user, profile, loading: authLoading } = useAuth();
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [medicalConditions, setMedicalConditions] = useState("");
@@ -53,19 +53,21 @@ export default function ProfilePage() {
   const [newContactPhone, setNewContactPhone] = useState("");
   const [newContactRelationship, setNewContactRelationship] = useState("");
 
+  const targetUserId = profile?.id || user?.id;
+
   const fetchContacts = useCallback(async () => {
-    if (!profile?.id) return;
+    if (!targetUserId) return;
 
     setContactsLoading(true);
     const { data, error } = await supabase
       .from("emergency_contacts")
       .select("*")
-      .eq("user_id", profile.id)
+      .eq("user_id", targetUserId)
       .order("created_at", { ascending: false });
 
     if (!error) setContacts(data || []);
     setContactsLoading(false);
-  }, [profile]);
+  }, [targetUserId]);
 
   const populateForm = useCallback(
     (p: NonNullable<typeof profile>) => {
@@ -93,14 +95,15 @@ export default function ProfilePage() {
   }, [fetchContacts]);
 
   const handleSave = async () => {
-    if (!profile?.id) return;
+    if (!targetUserId) return;
 
     setSaving(true);
     setSaved(false);
 
     const { error } = await supabase
       .from("profiles")
-      .update({
+      .upsert({
+        id: targetUserId,
         full_name: fullName,
         phone,
         medical_conditions: medicalConditions || null,
@@ -109,8 +112,7 @@ export default function ProfilePage() {
         emergency_contact_name: emergencyContactName || null,
         emergency_contact_phone: emergencyContactPhone || null,
         updated_at: new Date().toISOString(),
-      })
-      .eq("id", profile.id);
+      });
 
     if (error) {
       alert("Failed to save profile: " + error.message);
@@ -187,10 +189,17 @@ export default function ProfilePage() {
     },
   ];
 
-  if (authLoading || !profile) {
+  if (authLoading) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <div className="text-center">Loading profile...</div>
+      <div className="max-w-4xl mx-auto space-y-8 animate-pulse py-6">
+        <div className="h-8 bg-gray-200 dark:bg-gray-800 rounded w-1/3 mb-6" />
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow p-6 space-y-4">
+          <div className="h-6 bg-gray-200 dark:bg-gray-800 rounded w-1/4" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="h-10 bg-gray-100 dark:bg-gray-800 rounded" />
+            <div className="h-10 bg-gray-100 dark:bg-gray-800 rounded" />
+          </div>
+        </div>
       </div>
     );
   }

@@ -17,22 +17,22 @@ const ThemeContext = createContext<ThemeContextType>({
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("sos_theme") as Theme | null;
+      if (saved === "dark" || saved === "light") {
+        return saved;
+      }
+    }
+    return "light";
+  });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Check saved theme or fallback to light
-    const saved = localStorage.getItem("sos_theme") as Theme | null;
-    if (saved === "dark" || saved === "light") {
-      setThemeState(saved);
-      document.documentElement.classList.toggle("dark", saved === "dark");
-    } else {
-      // Default to light mode cleanly
-      setThemeState("light");
-      document.documentElement.classList.remove("dark");
-    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
-  }, []);
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);

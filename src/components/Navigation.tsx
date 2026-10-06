@@ -16,6 +16,12 @@ import {
   XIcon,
   AmbulanceIcon,
   RadioIcon,
+  CalendarIcon,
+  HeartIcon,
+  SmartphoneIcon,
+  ShieldCheckIcon,
+  UsersIcon,
+  ClockIcon,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -23,30 +29,33 @@ interface NavItem {
   name: string;
   href: string;
   icon: LucideIcon;
-  /** When set, the link only appears for that role. */
   roles?: string[];
 }
 
-const navItems: NavItem[] = [
+const patientNavItems: NavItem[] = [
   { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
   { name: "Emergency", href: "/emergency", icon: MapIcon },
   { name: "Hospitals", href: "/hospitals", icon: HospitalIcon },
+  { name: "Appointments", href: "/appointments", icon: CalendarIcon },
+  { name: "Health", href: "/profile/health", icon: HeartIcon },
+  { name: "Devices", href: "/devices", icon: SmartphoneIcon },
   { name: "Profile", href: "/profile", icon: UserIcon },
 ];
 
-const staffItems: NavItem[] = [
-  {
-    name: "Dispatch",
-    href: "/dispatch",
-    icon: RadioIcon,
-    roles: ["dispatcher", "paramedic"],
-  },
-  {
-    name: "Paramedic",
-    href: "/paramedic",
-    icon: AmbulanceIcon,
-    roles: ["paramedic"],
-  },
+const doctorNavItems: NavItem[] = [
+  { name: "Dashboard", href: "/doctor/dashboard", icon: HomeIcon },
+  { name: "Appointments", href: "/appointments", icon: CalendarIcon },
+  { name: "Availability", href: "/doctor/dashboard", icon: ClockIcon || HomeIcon },
+  { name: "Profile", href: "/doctor/profile", icon: UserIcon },
+];
+
+const adminNavItems: NavItem[] = [
+  { name: "Dashboard", href: "/admin/dashboard", icon: HomeIcon },
+  { name: "Users", href: "/admin/dashboard", icon: UsersIcon },
+  { name: "Hospitals", href: "/hospitals", icon: HospitalIcon },
+  { name: "Appointments", href: "/appointments", icon: CalendarIcon },
+  { name: "Dispatch", href: "/dispatch", icon: RadioIcon },
+  { name: "Profile", href: "/admin/profile", icon: ShieldCheckIcon },
 ];
 
 export function Navigation() {
@@ -64,10 +73,13 @@ export function Navigation() {
     user?.email?.split("@")[0] ||
     "Account";
 
-  const items = [
-    ...navItems,
-    ...staffItems.filter((item) => item.roles?.includes(profile?.role ?? "")),
-  ];
+  const role = (profile?.role || "PATIENT").toUpperCase();
+  const items =
+    role === "DOCTOR"
+      ? doctorNavItems
+      : role === "ADMIN" || role === "DISPATCHER" || role === "PARAMEDIC"
+      ? adminNavItems
+      : patientNavItems;
 
   // Close the menus when the route changes. Adjusting state during render is
   // the documented pattern for responding to a changed input value, and avoids

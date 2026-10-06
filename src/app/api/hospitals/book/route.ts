@@ -66,11 +66,11 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({
     success: true,
-    bookingId: emergencyRecord?.id || `BOOK-${Date.now()}`,
+    bookingId: emergencyRecord?.id || `TRIAGE-${Date.now()}`,
     hospitalId,
     hospitalName,
     customization,
-    message: `Hospital admission reserved successfully according to your requirements.`,
+    message: `Emergency triage and facility notification request recorded. Live bed allocation is confirmed on-site by ER staff.`,
     emergency: emergencyRecord,
   });
 }
