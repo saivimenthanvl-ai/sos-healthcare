@@ -15,8 +15,8 @@ export async function middleware(req: NextRequest) {
   });
 
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
   // Public routes — no auth required
   const publicRoutes = [
@@ -39,14 +39,14 @@ export async function middleware(req: NextRequest) {
   );
 
   // Redirect unauthenticated users away from protected pages
-  if (!session && !isPublicRoute) {
+  if (!user && !isPublicRoute) {
     const redirectUrl = new URL("/auth/login", req.url);
     redirectUrl.searchParams.set("redirect", req.nextUrl.pathname);
     return NextResponse.redirect(redirectUrl);
   }
 
   // Redirect authenticated users away from auth pages
-  if (session && (req.nextUrl.pathname === "/auth/login" || req.nextUrl.pathname === "/auth/signup")) {
+  if (user && (req.nextUrl.pathname === "/auth/login" || req.nextUrl.pathname === "/auth/signup")) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
