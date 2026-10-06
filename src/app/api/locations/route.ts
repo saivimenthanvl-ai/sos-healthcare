@@ -1,31 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
+import { getAuthenticatedUser } from "@/lib/authorization";
 
 /**
  * GET /api/locations?emergency_id=...
  * Fetch recent location pings for an emergency (for live tracking).
  */
 export async function GET(request: NextRequest) {
-  const supabase = await getSupabaseServerClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session) {
+  const user = await getAuthenticatedUser(request);
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+  const supabase = await getSupabaseServerClient();
 
   const { searchParams } = new URL(request.url);
   const emergencyId = searchParams.get("emergency_id");
-  const limit = parseInt(searchParams.get("limit") || "50", 10);
+  const requestedLimit = Number(searchParams.get("limit") || 50);
+  const limit = Math.min(Math.max(Number.isFinite(requestedLimit) ? requestedLimit : 50, 1), 100);
 
   if (!emergencyId) {
     // Return user's own recent locations
     const { data, error } = await supabase
       .from("user_locations")
       .select("*")
-      .eq("user_id", session.user.id)
+      .eq("user_id", user.id)
       .order("created_at", { ascending: false })
       .limit(limit);
 
@@ -39,7 +37,7 @@ export async function GET(request: NextRequest) {
   // Get locations for a specific emergency (user + ambulance)
   const { data: emergency, error: emergencyError } = await supabase
     .from("emergencies")
-    .select("*, user:user_id(*), assigned_ambulance:assigned_ambulance_id(*)")
+    .select("id,user_id,status,assigned_ambulance_id")
     .eq("id", emergencyId)
     .single();
 
@@ -99,17 +97,24 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const { latitude, longitude, heart_rate, steps, source } = body;
 
-  if (!latitude || !longitude) {
-    return NextResponse.json({ error: "latitude and longitude are required" }, { status: 400 });
+  const lat = Number(latitude);
+  const lng = Number(longitude);
+  if (!Number.isFinite(lat) || lat < -90 || lat > 90 || !Number.isFinite(lng) || lng < -180 || lng > 180) {
+    return NextResponse.json({ error: "Valid latitude and longitude are required" }, { status: 400 });
   }
 
+  const safeSource =
+    typeof source === "string" && ["browser", "device", "manual"].includes(source)
+      ? source
+      : "browser";
+
   const { data, error } = await supabase.from("user_locations").insert({
-    user_id: session.user.id,
-    latitude: Number(latitude),
-    longitude: Number(longitude),
-    heart_rate: heart_rate ? Number(heart_rate) : null,
-    steps: steps ? Number(steps) : null,
-    source: source || "browser",
+    user_id: user.id,
+    latitude: lat,
+    longitude: lng,
+    heart_rate: heart_rate == null ? null : Number(heart_rate),
+    steps: steps == null ? null : Math.max(0, Number(steps)),
+    source: safeSource,
   });
 
   if (error) {
