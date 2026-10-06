@@ -1,9 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/lib/supabase";
-import { getFitbitAuthUrl } from "@/lib/fitbit";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import {
@@ -161,31 +161,13 @@ export default function ProfilePage() {
     }
   };
 
-  const handleConnectFitbit = () => {
-    const authUrl = getFitbitAuthUrl(
-      `${window.location.origin}/api/fitbit/callback`
-    );
-    window.location.href = authUrl;
-  };
-
   const healthDevices: HealthDevice[] = [
     {
-      name: "Fitbit",
-      connected: !!profile?.fitbit_access_token,
-      description: "Heart rate, steps, live location",
-      icon: <SmartphoneIcon className="h-5 w-5" />,
-    },
-    {
-      name: "Apple Health",
+      name: "Health Devices",
       connected: !!profile?.smartwatch_connected,
-      description: "Vitals & location via iPhone watch",
-      icon: <HeartIcon className="h-5 w-5" />,
-    },
-    {
-      name: "Google Fit",
-      connected: false,
-      description: "Step count & heart rate from Android",
-      icon: <HeartIcon className="h-5 w-5" />,
+      description:
+        "Manage supported wearable integrations. Provider credentials stay on the secure backend.",
+      icon: <SmartphoneIcon className="h-5 w-5" />,
     },
   ];
 
@@ -394,8 +376,8 @@ export default function ProfilePage() {
           Connected Health Devices
         </h2>
         <p className="text-sm text-gray-600 mb-4">
-          Connect your Fitbit, Apple Watch, or other health devices to
-          automatically share live location and vital signs during emergencies.
+          Manage supported wearable integrations. Health data is shared only
+          according to your authorization and configured clinical permissions.
         </p>
 
         <div className="space-y-4">
@@ -425,19 +407,11 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              {device.name === "Fitbit" ? (
-                device.connected ? (
-                  <span className="text-sm text-green-600 font-medium">Connected</span>
-                ) : (
-                  <Button size="sm" onClick={handleConnectFitbit}>
-                    Connect
-                  </Button>
-                )
-              ) : (
-                <Button size="sm" variant={device.connected ? "secondary" : "outline"} disabled>
-                  {device.connected ? "Connected" : "Coming Soon"}
+              <Link href="/devices">
+                <Button size="sm" variant={device.connected ? "secondary" : "outline"}>
+                  {device.connected ? "Manage" : "View Providers"}
                 </Button>
-              )}
+              </Link>
             </div>
           ))}
         </div>

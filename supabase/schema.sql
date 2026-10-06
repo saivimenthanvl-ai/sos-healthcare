@@ -18,10 +18,6 @@ create table public.profiles (
   medical_conditions text,
   allergies text,
   blood_type text,
-  fitbit_user_id text,
-  fitbit_access_token text,
-  fitbit_refresh_token text,
-  fitbit_token_expires_at timestamptz,
   smartwatch_connected boolean default false,
   created_at timestamptz default now() not null,
   updated_at timestamptz default now() not null
@@ -67,7 +63,7 @@ create table public.ambulances (
   updated_at timestamptz default now() not null
 );
 
--- Stream realtime updates
+-- Row security is mandatory for every app-facing table.
 alter table public.ambulances enable row level security;
 alter table public.hospitals enable row level security;
 
@@ -149,6 +145,12 @@ create index idx_ambulance_locations_created_at on public.ambulance_locations(cr
 -- ============================================================
 -- Row Level Security Policies
 -- ============================================================
+alter table public.profiles enable row level security;
+alter table public.emergencies enable row level security;
+alter table public.user_locations enable row level security;
+alter table public.emergency_contacts enable row level security;
+alter table public.ambulance_locations enable row level security;
+
 -- Users can only see/read their own data
 create policy "Users can view own profile" on public.profiles
   for select using (auth.uid() = id);
@@ -173,17 +175,17 @@ create policy "Users can update own emergencies" on public.emergencies
 create policy "Users can view own contacts" on public.emergency_contacts
   for select using (auth.uid() = user_id);
 
-create policy "Users can CRUD own contacts" on public.emergency_contacts
-  for insert, update, delete using (auth.uid() = user_id);
+create policy "Users can manage own contacts" on public.emergency_contacts
+  for all using (auth.uid() = user_id)
+  with check (auth.uid() = user_id);
 
 -- Hospitals: public read
 create policy "Hospitals are publicly readable" on public.hospitals
   for select using (true);
 
--- Ambulances: dispatchers can update; users can read
--- (In a real app, you'd have a 'role' column)
-create policy "Everyone can read ambulances" on public.ambulances
-  for select using (true);
+-- Ambulance visibility is tightened further by security migrations.
+create policy "Authenticated users can read ambulances" on public.ambulances
+  for select to authenticated using (true);
 
 -- User locations: users can read their own; admins can read all
 create policy "Users can view own locations" on public.user_locations
@@ -192,6 +194,6 @@ create policy "Users can view own locations" on public.user_locations
 create policy "Users can insert own locations" on public.user_locations
   for insert with check (auth.uid() = user_id);
 
--- Ambulance locations: public read
-create policy "Ambulance locations are publicly readable" on public.ambulance_locations
-  for select using (true);
+-- Ambulance telemetry is never anonymous.
+create policy "Authenticated users can read ambulance locations" on public.ambulance_locations
+  for select to authenticated using (true);

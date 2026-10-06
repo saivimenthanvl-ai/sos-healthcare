@@ -30,25 +30,28 @@ const ACTIVE_STATUSES = ["pending", "dispatched", "en_route", "arrived"];
 
 async function getRole(supabase: Awaited<ReturnType<typeof getSupabaseServerClient>>) {
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!session) return { session: null, role: null as UserRole | null };
+  if (!user) return { user: null, role: null as UserRole | null };
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("role")
-    .eq("id", session.user.id)
-    .single();
+    .select("role, role_v2")
+    .eq("id", user.id)
+    .maybeSingle();
 
-  return { session, role: (profile?.role as UserRole) ?? "patient" };
+  const rawRole = String(profile?.role_v2 || profile?.role || "patient").toLowerCase();
+  const role = rawRole as UserRole;
+
+  return { user, role };
 }
 
 export async function GET() {
   const supabase = await getSupabaseServerClient();
-  const { session, role } = await getRole(supabase);
+  const { user, role } = await getRole(supabase);
 
-  if (!session) {
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -85,9 +88,9 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   const supabase = await getSupabaseServerClient();
-  const { session, role } = await getRole(supabase);
+  const { user, role } = await getRole(supabase);
 
-  if (!session) {
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

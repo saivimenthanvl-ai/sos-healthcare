@@ -5,7 +5,7 @@
  * - dispatcher: manages the ambulance fleet and assigns emergencies
  */
 export type UserRole = "patient" | "paramedic" | "dispatcher" | "PATIENT" | "DOCTOR" | "ADMIN";
-export type AppRole = "PATIENT" | "DOCTOR" | "ADMIN";
+export type AppRole = "PATIENT" | "DOCTOR" | "ADMIN" | "PARAMEDIC" | "DISPATCHER";
 
 export type Database = {
   public: {
@@ -21,10 +21,6 @@ export type Database = {
           medical_conditions: string | null;
           allergies: string | null;
           blood_type: string | null;
-          fitbit_user_id: string | null;
-          fitbit_access_token: string | null;
-          fitbit_refresh_token: string | null;
-          fitbit_token_expires_at: string | null;
           smartwatch_connected: boolean | null;
           role: UserRole;
           role_v2?: AppRole | null;
@@ -42,10 +38,6 @@ export type Database = {
           medical_conditions?: string | null;
           allergies?: string | null;
           blood_type?: string | null;
-          fitbit_user_id?: string | null;
-          fitbit_access_token?: string | null;
-          fitbit_refresh_token?: string | null;
-          fitbit_token_expires_at?: string | null;
           smartwatch_connected?: boolean | null;
           role?: UserRole;
           ambulance_id?: string | null;
@@ -62,10 +54,6 @@ export type Database = {
           medical_conditions?: string | null;
           allergies?: string | null;
           blood_type?: string | null;
-          fitbit_user_id?: string | null;
-          fitbit_access_token?: string | null;
-          fitbit_refresh_token?: string | null;
-          fitbit_token_expires_at?: string | null;
           smartwatch_connected?: boolean | null;
           role?: UserRole;
           ambulance_id?: string | null;

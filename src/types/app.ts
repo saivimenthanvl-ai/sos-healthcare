@@ -49,29 +49,37 @@ export interface EmergencyContact {
   created_at: string;
 }
 
-export type SystemRole = "PATIENT" | "DOCTOR" | "ADMIN";
+export type SystemRole =
+  | "PATIENT"
+  | "DOCTOR"
+  | "ADMIN"
+  | "PARAMEDIC"
+  | "DISPATCHER";
 
 export function normalizeRole(role: UserRole | string | null | undefined): SystemRole {
   if (!role) return "PATIENT";
   const r = role.toUpperCase();
   if (r === "DOCTOR") return "DOCTOR";
-  if (r === "ADMIN" || r === "DISPATCHER" || r === "PARAMEDIC") return "ADMIN";
+  if (r === "ADMIN") return "ADMIN";
+  if (r === "DISPATCHER") return "DISPATCHER";
+  if (r === "PARAMEDIC") return "PARAMEDIC";
   return "PATIENT";
 }
 
-export function isStaff(role: UserRole | null | undefined): boolean {
-  return role === "paramedic" || role === "dispatcher" || role === "ADMIN";
+export function isStaff(role: UserRole | string | null | undefined): boolean {
+  const normalized = normalizeRole(role);
+  return normalized === "PARAMEDIC" || normalized === "DISPATCHER";
 }
 
-export function isDispatcher(role: UserRole | null | undefined): boolean {
-  return role === "dispatcher" || role === "ADMIN";
+export function isDispatcher(role: UserRole | string | null | undefined): boolean {
+  return normalizeRole(role) === "DISPATCHER";
 }
 
-export function isDoctor(role: UserRole | null | undefined): boolean {
+export function isDoctor(role: UserRole | string | null | undefined): boolean {
   return normalizeRole(role) === "DOCTOR";
 }
 
-export function isAdmin(role: UserRole | null | undefined): boolean {
+export function isAdmin(role: UserRole | string | null | undefined): boolean {
   return normalizeRole(role) === "ADMIN";
 }
 

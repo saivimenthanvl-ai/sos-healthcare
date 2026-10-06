@@ -18,6 +18,11 @@ export async function PATCH(
   const body = await request.json();
   const { status } = body;
 
+  const allowedStatuses = ["PENDING", "CONFIRMED", "CANCELLED", "COMPLETED", "NO_SHOW", "REJECTED"] as const;
+  if (!allowedStatuses.includes(status)) {
+    return NextResponse.json({ error: "Invalid appointment status" }, { status: 400 });
+  }
+
   const supabase = await getSupabaseServerClient();
 
   // Load existing appointment to verify access
@@ -34,6 +39,9 @@ export async function PATCH(
   // Authorization check: Patient can only cancel their own; Doctor can update their assigned; Admin can update any
   if (user.role === "PATIENT" && existing.patient_id !== user.id) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+  if (user.role === "PATIENT" && status !== "CANCELLED") {
+    return NextResponse.json({ error: "Patients may only cancel appointments" }, { status: 403 });
   }
   if (user.role === "DOCTOR" && existing.doctor_id !== user.id) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });

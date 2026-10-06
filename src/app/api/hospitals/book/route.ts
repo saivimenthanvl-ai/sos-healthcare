@@ -8,10 +8,10 @@ import { getSupabaseServerClient } from "@/lib/supabase-server";
 export async function POST(request: NextRequest) {
   const supabase = await getSupabaseServerClient();
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (!session) {
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       const { data: createdEmergency } = await supabase
         .from("emergencies")
         .insert({
-          user_id: session.user.id,
+          user_id: user.id,
           latitude: userLocation.lat,
           longitude: userLocation.lng,
           assigned_hospital_id: null,

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { supabase } from "@/lib/supabase";
-import type { User, Session } from "@supabase/supabase-js";
+import type { User, Session, AuthChangeEvent } from "@supabase/supabase-js";
 import type { Profile } from "@/types/app";
 
 interface AuthContextType {
@@ -45,7 +45,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         const { data: profileData } = await supabase
           .from("profiles")
-          .select("*")
+          .select(
+            "id, full_name, phone, email, emergency_contact_name, emergency_contact_phone, medical_conditions, allergies, blood_type, smartwatch_connected, role, role_v2, ambulance_id, created_at, updated_at"
+          )
           .eq("id", userId)
           .maybeSingle();
 
@@ -90,10 +92,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             medical_conditions: null,
             allergies: null,
             blood_type: null,
-            fitbit_user_id: null,
-            fitbit_access_token: null,
-            fitbit_refresh_token: null,
-            fitbit_token_expires_at: null,
             smartwatch_connected: false,
             role: "patient",
             ambulance_id: null,
@@ -137,7 +135,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Listen for auth state changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event: AuthChangeEvent, session: Session | null) => {
       setSession(session);
       setUser(session?.user ?? null);
 

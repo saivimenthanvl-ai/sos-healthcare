@@ -49,6 +49,14 @@ const doctorNavItems: NavItem[] = [
   { name: "Profile", href: "/doctor/profile", icon: UserIcon },
 ];
 
+const emergencyStaffNavItems: NavItem[] = [
+  { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
+  { name: "Dispatch", href: "/dispatch", icon: RadioIcon },
+  { name: "Emergency", href: "/emergency", icon: MapIcon },
+  { name: "Hospitals", href: "/hospitals", icon: HospitalIcon },
+  { name: "Profile", href: "/profile", icon: UserIcon },
+];
+
 const adminNavItems: NavItem[] = [
   { name: "Dashboard", href: "/admin/dashboard", icon: HomeIcon },
   { name: "Users", href: "/admin/dashboard", icon: UsersIcon },
@@ -73,12 +81,14 @@ export function Navigation() {
     user?.email?.split("@")[0] ||
     "Account";
 
-  const role = (profile?.role || "PATIENT").toUpperCase();
+  const role = String(profile?.role_v2 || profile?.role || "PATIENT").toUpperCase();
   const items =
     role === "DOCTOR"
       ? doctorNavItems
-      : role === "ADMIN" || role === "DISPATCHER" || role === "PARAMEDIC"
+      : role === "ADMIN"
       ? adminNavItems
+      : role === "DISPATCHER" || role === "PARAMEDIC"
+      ? emergencyStaffNavItems
       : patientNavItems;
 
   // Close the menus when the route changes. Adjusting state during render is

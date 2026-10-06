@@ -7,6 +7,20 @@ import Link from "next/link";
 export default function AdminDashboardPage() {
   const { profile } = useAuth();
 
+  const role = String(profile?.role_v2 || profile?.role || "").toUpperCase();
+  if (role !== "ADMIN") {
+    return (
+      <div className="max-w-3xl mx-auto py-12">
+        <div className="rounded-xl border border-red-200 bg-red-50 p-6">
+          <h1 className="text-xl font-bold text-red-900">Access denied</h1>
+          <p className="mt-2 text-sm text-red-700">
+            This page is restricted to administrators.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-6xl mx-auto space-y-6 py-4">
       {/* Header */}
