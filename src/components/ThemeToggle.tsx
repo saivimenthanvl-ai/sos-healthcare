@@ -1,10 +1,29 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { SunIcon, MoonIcon } from "lucide-react";
 
 export function ThemeToggle({ className = "" }: { className?: string }) {
   const { theme, toggleTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <button
+        type="button"
+        className={`p-2 rounded-lg transition-colors border bg-gray-100 text-gray-700 border-gray-200 ${className}`}
+        aria-label="Toggle theme"
+        disabled
+      >
+        <span className="inline-block w-5 h-5" />
+      </button>
+    );
+  }
 
   return (
     <button
