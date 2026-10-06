@@ -1,27 +1,22 @@
 import { createServerClient as createSsrServerClient, createBrowserClient } from "@supabase/ssr";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-
-// Supabase now issues `sb_publishable_...` keys and documents them as
-// NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, while the `anon` key from older
-// projects uses NEXT_PUBLIC_SUPABASE_ANON_KEY. Accept either so the same
-// build works with both key styles.
 const supabaseAnonKey =
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-// Bind values with safe fallbacks during CI build/static phase so page collection succeeds
-const SUPABASE_URL: string = supabaseUrl || "https://kaqlhhswvbcuzcroysei.supabase.co";
-const SUPABASE_ANON_KEY: string =
-  supabaseAnonKey || "sb_publishable_QKI8pB_PHqlIqCfYJl1I2g_eGDZGXKF";
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  if (process.env.NODE_ENV === "production" && typeof window !== "undefined") {
-    console.warn(
-      "Warning: Supabase environment variables were not explicitly provided in runtime environment."
-    );
-  }
+if (!supabaseUrl) {
+  throw new Error("NEXT_PUBLIC_SUPABASE_URL is required");
 }
+
+if (!supabaseAnonKey) {
+  throw new Error(
+    "Set NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY or NEXT_PUBLIC_SUPABASE_ANON_KEY"
+  );
+}
+
+const SUPABASE_URL = supabaseUrl;
+const SUPABASE_ANON_KEY = supabaseAnonKey;
 
 // ---------------------------------------------------------------------------
 // Browser-side singleton client using @supabase/ssr
