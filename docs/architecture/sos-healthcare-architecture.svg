@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1640" viewBox="0 0 1800 1640">
+<rect width="1800" height="1640" fill="white"/>
+<rect x="400" y="25" width="1000" height="90" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="600" y="67.7" font-family="Times New Roman, Nimbus Roman, serif" font-size="35" font-weight="bold" fill="#172c43">1. AUTHENTICATED USER</text>
+<text x="555" y="102.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">Supabase session → server identity validation</text>
+<polyline points="900,115 900,142" fill="none" stroke="#36536e" stroke-width="3"/>
+<polygon points="893,130 900,142 907,130" fill="#36536e"/>
+<rect x="400" y="145" width="1000" height="95" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="605" y="183.24" font-family="Times New Roman, Nimbus Roman, serif" font-size="32" font-weight="bold" fill="#172c43">2. TRUSTED ROLE RESOLUTION</text>
+<text x="497" y="222.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">Target: profiles.role_v2 → workspace; legacy role fallback</text>
+<polyline points="900,240 900,268 330,268 330,296" fill="none" stroke="#36536e" stroke-width="3"/>
+<polygon points="323,284 330,296 337,284" fill="#36536e"/>
+<polyline points="900,268 900,296" fill="none" stroke="#36536e" stroke-width="3"/>
+<polygon points="893,284 900,296 907,284" fill="#36536e"/>
+<polyline points="900,268 1470,268 1470,296" fill="none" stroke="#36536e" stroke-width="3"/>
+<polygon points="1463,284 1470,296 1477,284" fill="#36536e"/>
+<rect x="60" y="300" width="540" height="455" rx="12" fill="#edf5fc" stroke="#36536e" stroke-width="2"/>
+<text x="85" y="347.06" font-family="Times New Roman, Nimbus Roman, serif" font-size="33" font-weight="bold" fill="#172c43">3A. PATIENT</text>
+<text x="85" y="397.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/dashboard</text>
+<text x="85" y="440.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/profile</text>
+<text x="85" y="483.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/profile/health</text>
+<text x="85" y="526.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/appointments</text>
+<text x="85" y="681.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="bold" fill="#172c43">Own health data and appointments</text>
+<text x="85" y="724.5" font-family="Times New Roman, Nimbus Roman, serif" font-size="25" font-weight="normal" fill="#172c43">SOS • GPS/ETA • hospitals • devices</text>
+<polyline points="330,755 330,792 900,792 900,818" fill="none" stroke="#36536e" stroke-width="3"/>
+<polygon points="893,806 900,818 907,806" fill="#36536e"/>
+<rect x="630" y="300" width="540" height="455" rx="12" fill="#edf7f2" stroke="#36536e" stroke-width="2"/>
+<text x="655" y="347.06" font-family="Times New Roman, Nimbus Roman, serif" font-size="33" font-weight="bold" fill="#172c43">3B. DOCTOR</text>
+<text x="655" y="397.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/doctor/dashboard</text>
+<text x="655" y="440.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/doctor/profile</text>
+<text x="655" y="483.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#90600d">/doctor/appointments  [planned]</text>
+<text x="655" y="526.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/doctor/patients/[id]</text>
+<text x="655" y="681.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="bold" fill="#172c43">Assigned appointments and patients</text>
+<text x="655" y="724.5" font-family="Times New Roman, Nimbus Roman, serif" font-size="25" font-weight="normal" fill="#172c43">Chart exists; clinical values are samples</text>
+<polyline points="900,755 900,792 900,792 900,818" fill="none" stroke="#36536e" stroke-width="3"/>
+<polygon points="893,806 900,818 907,806" fill="#36536e"/>
+<rect x="1200" y="300" width="540" height="455" rx="12" fill="#f4effa" stroke="#36536e" stroke-width="2"/>
+<text x="1225" y="347.06" font-family="Times New Roman, Nimbus Roman, serif" font-size="33" font-weight="bold" fill="#172c43">3C. ADMIN</text>
+<text x="1225" y="397.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/admin/dashboard</text>
+<text x="1225" y="440.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/admin/profile</text>
+<text x="1225" y="483.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#90600d">/admin/users  [planned]</text>
+<text x="1225" y="526.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#90600d">/admin/doctors  [planned]</text>
+<text x="1225" y="569.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#90600d">/admin/hospitals  [planned]</text>
+<text x="1225" y="612.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#90600d">/admin/appointments  [planned]</text>
+<text x="1225" y="681.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="bold" fill="#172c43">Platform administration</text>
+<text x="1225" y="724.5" font-family="Times New Roman, Nimbus Roman, serif" font-size="25" font-weight="normal" fill="#172c43">Directory pages remain to be built</text>
+<polyline points="1470,755 1470,792 900,792 900,818" fill="none" stroke="#36536e" stroke-width="3"/>
+<polygon points="893,806 900,818 907,806" fill="#36536e"/>
+<rect x="60" y="823" width="1680" height="128" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="405" y="862.42" font-family="Times New Roman, Nimbus Roman, serif" font-size="31" font-weight="bold" fill="#172c43">4. SHARED SERVER AUTHORIZATION — TARGET CONTRACT</text>
+<text x="245" y="901.96" font-family="Times New Roman, Nimbus Roman, serif" font-size="28" font-weight="normal" fill="#172c43">Validated user + allowed role + resource ownership / doctor–patient relationship</text>
+<text x="340" y="939.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">Consent scope + expiry + allowed action → DENY or authorized service call</text>
+<polyline points="900,951 900,977" fill="none" stroke="#36536e" stroke-width="3"/>
+<polygon points="893,965 900,977 907,965" fill="#36536e"/>
+<rect x="60" y="982" width="1680" height="115" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="541" y="1021.42" font-family="Times New Roman, Nimbus Roman, serif" font-size="31" font-weight="bold" fill="#172c43">5. API / WORKFLOW SERVICES</text>
+<text x="210" y="1061.96" font-family="Times New Roman, Nimbus Roman, serif" font-size="28" font-weight="normal" fill="#172c43">Appointments • health/profile access • emergencies • dispatch • hospitals • devices</text>
+<text x="439" y="1094.5" font-family="Times New Roman, Nimbus Roman, serif" font-size="25" font-weight="normal" fill="#172c43">Persist real outcomes; coordinate state changes; audit sensitive actions</text>
+<polyline points="900,1097 900,1123" fill="none" stroke="#36536e" stroke-width="3"/>
+<polygon points="893,1111 900,1123 907,1111" fill="#36536e"/>
+<rect x="60" y="1128" width="1680" height="116" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="418" y="1167.42" font-family="Times New Roman, Nimbus Roman, serif" font-size="31" font-weight="bold" fill="#172c43">6. SUPABASE POSTGRESQL + ROW-LEVEL SECURITY</text>
+<text x="212" y="1207.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">Profiles • appointments • health records • sharing • incidents • fleet • locations • audit</text>
+<text x="585" y="1240.5" font-family="Times New Roman, Nimbus Roman, serif" font-size="25" font-weight="normal" fill="#172c43">Database is the source of clinical and workflow truth</text>
+<polyline points="900,1244 900,1270" fill="none" stroke="#36536e" stroke-width="3"/>
+<polygon points="893,1258 900,1270 907,1258" fill="#36536e"/>
+<rect x="60" y="1275" width="1680" height="99" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="415" y="1313.42" font-family="Times New Roman, Nimbus Roman, serif" font-size="31" font-weight="bold" fill="#172c43">7. COMMITTED RESULT + AUTHORIZED REALTIME</text>
+<text x="370" y="1352.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">Return permitted data; refresh patient, doctor, and admin interfaces</text>
+<rect x="60" y="1400" width="810" height="165" rx="12" fill="#fff8eb" stroke="#b17c26" stroke-width="2"/>
+<text x="80" y="1439.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="bold" fill="#172c43">IMPLEMENTATION STATUS</text>
+<text x="80" y="1481.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">[planned] = route absent in inspected source</text>
+<text x="80" y="1516.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">Shared authorization is not applied consistently yet</text>
+<text x="80" y="1551.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">Role routing, RLS, and wearable flow need alignment</text>
+<rect x="900" y="1400" width="840" height="165" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="920" y="1439.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="bold" fill="#172c43">EXISTING OPERATIONAL ROLES</text>
+<text x="920" y="1481.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">DISPATCHER → /dispatch; PARAMEDIC → /paramedic</text>
+<text x="920" y="1516.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">Kept distinct from ADMIN in the target architecture</text>
+<text x="920" y="1551.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">Future chatbot tools must use the same authorization</text>
+<text x="60" y="1613.5" font-family="Times New Roman, Nimbus Roman, serif" font-size="25" font-weight="normal" fill="#172c43">Source inspection: 6 October 2026 • Route presence does not certify live data, dispatch, or production readiness.</text>
+</svg>
