@@ -13,7 +13,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "SOS Healthcare — Emergency Ambulance & Hospital Finder",
   description:
-    "SOS Healthcare: Get an ambulance within 10-20 minutes. Real-time location tracking via Fitbit/Smartwatch. Find nearby hospitals. No fees for emergency care.",
+    "SOS Healthcare provides location-aware emergency request tools, nearby hospital discovery, and optional supported wearable health context.",
   keywords: [
     "emergency",
     "ambulance",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "SOS Healthcare — Emergency Ambulance & Hospital Finder",
-    description: "Get an ambulance within 10-20 minutes. No fees.",
+    description: "Location-aware emergency request tools and nearby hospital discovery.",
     url: "https://sos-healthcare.vercel.app",
     type: "website",
   },
