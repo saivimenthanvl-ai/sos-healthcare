@@ -1,288 +1,262 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
-import { calculateDistance, calculateETA } from "@/lib/google-maps";
+import { getAuthenticatedUser } from "@/lib/authorization";
 
 /**
- * GET  /api/emergencies       — list user's recent emergencies
- * POST /api/emergencies       — create a new SOS emergency + find nearest hospital/ambulance
- * PATCH /api/emergencies/:id  — update emergency status
+ * GET  /api/emergencies — list the authenticated patient's recent emergencies.
+ * POST /api/emergencies — create a durable SOS record.
+ * PATCH /api/emergencies?id=... — patient cancellation only.
  *
- * On creation:
- *   1. Find the nearest available hospital
- *   2. Find the nearest available ambulance
- *   3. Calculate ETA (10–20 min target)
- *   4. Mark the ambulance as "en_route"
+ * Dispatch assignment/status progression is owned by the dispatch workflow,
+ * not by the patient-facing endpoint.
  */
-export async function GET() {
-  const supabase = await getSupabaseServerClient();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+const MAX_DESCRIPTION_LENGTH = 500;
 
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from("emergencies")
-      .select("*, assigned_ambulance:ambulances(*), assigned_hospital:hospitals(*)")
-      .eq("user_id", session.user.id)
-      .order("created_at", { ascending: false })
-      .limit(10);
-
-    if (error) {
-      console.warn("[api/emergencies] fetch query handled:", error.message);
-      return NextResponse.json({ emergencies: [] });
-    }
-
-    return NextResponse.json({ emergencies: data || [] });
-  } catch (err: any) {
-    console.warn("[api/emergencies] unexpected GET error:", err?.message || err);
-    return NextResponse.json({ emergencies: [] });
-  }
+function parseCoordinate(value: unknown, min: number, max: number): number | null {
+  const n = typeof value === "number" ? value : Number(value);
+  if (!Number.isFinite(n) || n < min || n > max) return null;
+  return n;
 }
 
-
-export async function POST(request: NextRequest) {
-  const supabase = await getSupabaseServerClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session) {
+export async function GET() {
+  const user = await getAuthenticatedUser();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const body = await request.json();
-  const { latitude, longitude, description } = body;
+  const supabase = await getSupabaseServerClient();
+  const { data, error } = await supabase
+    .from("emergencies")
+    .select(
+      "id,user_id,latitude,longitude,address,description,status,assigned_ambulance_id,assigned_hospital_id,eta_minutes,created_at,updated_at"
+    )
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false })
+    .limit(10);
 
-  if (!latitude || !longitude) {
-    return NextResponse.json({ error: "Location is required" }, { status: 400 });
+  if (error) {
+    console.error("[api/emergencies] fetch failed");
+    return NextResponse.json(
+      { error: "Unable to load emergency history" },
+      { status: 500 }
+    );
   }
 
-  const userCoords = { lat: Number(latitude), lng: Number(longitude) };
+  return NextResponse.json({ emergencies: data ?? [] });
+}
 
-  // ---- Step 1: Find nearest hospital (non-blocking, uses live Places API) ----
-  let nearestHospital: { id: string; latitude: number; longitude: number; name?: string; address?: string } | null = null;
-  let nearestHospitalDistance = Infinity;
+export async function POST(request: NextRequest) {
+  const user = await getAuthenticatedUser(request);
+  if (!user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (user.role !== "PATIENT") {
+    return NextResponse.json(
+      { error: "Only patient accounts may create a patient SOS request" },
+      { status: 403 }
+    );
+  }
+
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
+
+  const latitude = parseCoordinate(body.latitude, -90, 90);
+  const longitude = parseCoordinate(body.longitude, -180, 180);
+  const description =
+    typeof body.description === "string"
+      ? body.description.trim().slice(0, MAX_DESCRIPTION_LENGTH)
+      : null;
+
+  if (latitude == null || longitude == null) {
+    return NextResponse.json(
+      { error: "Valid latitude and longitude are required" },
+      { status: 400 }
+    );
+  }
+
+  const supabase = await getSupabaseServerClient();
+
+  // Hospital discovery is contextual only; failure must never create a fake
+  // "dispatched" result.
+  let nearestHospital: {
+    id: string;
+    latitude: number;
+    longitude: number;
+    name?: string;
+    address?: string;
+    distance_km?: number;
+  } | null = null;
 
   try {
     const { findNearbyHospitals } = await import("@/services/hospitals");
-    const { hospitals } = await findNearbyHospitals(userCoords.lat, userCoords.lng, 25);
-    if (hospitals && hospitals.length > 0) {
-      nearestHospital = hospitals[0];
-      nearestHospitalDistance = hospitals[0].distance_km ?? 5;
-    }
-  } catch (lookupErr) {
-    console.warn("[Emergencies] Hospital lookup non-blocking error:", lookupErr);
+    const result = await findNearbyHospitals(latitude, longitude, 25);
+    nearestHospital = result.hospitals?.[0] ?? null;
+  } catch {
+    console.warn("[api/emergencies] hospital lookup unavailable");
   }
 
-  // ---- Step 2: Find nearest available ambulance (if table exists) ----
-  let assignedAmbulanceId: string | null = null;
-  try {
-    const { data: ambulances, error: ambulanceError } = await supabase
-      .from("ambulances")
-      .select("*")
-      .eq("status", "available")
-      .limit(50);
-
-    if (!ambulanceError && ambulances && ambulances.length > 0) {
-      let nearestAmbulance: { id: string; latitude: number; longitude: number } | null = null;
-      let nearestAmbulanceDistance = Infinity;
-
-      for (const ambulance of ambulances) {
-        const distance = calculateDistance(userCoords, {
-          lat: ambulance.latitude,
-          lng: ambulance.longitude,
-        });
-        if (distance < nearestAmbulanceDistance) {
-          nearestAmbulanceDistance = distance;
-          nearestAmbulance = ambulance;
-        }
-      }
-
-      if (nearestAmbulance) {
-        assignedAmbulanceId = nearestAmbulance.id;
-      }
-    }
-  } catch (ambErr) {
-    console.warn("[Emergencies] Ambulance check non-blocking error:", ambErr);
-  }
-
-  // ---- Step 3: Calculate ETA ----
-  const etaMinutes = nearestHospital && nearestHospitalDistance !== Infinity
-    ? calculateETA(nearestHospitalDistance, 30) // 30 km/h average speed in city traffic
-    : 15; // Default 15 min if no hospital found
-
-  // ---- Step 4: Create emergency ----
-  let emergency: any = null;
-  try {
-    const { data: createdEmergency, error: insertError } = await supabase
-      .from("emergencies")
-      .insert({
-        user_id: session.user.id,
-        latitude,
-        longitude,
-        description,
-        assigned_ambulance_id: assignedAmbulanceId,
-        assigned_hospital_id: null, // Places API IDs are strings or can be stored as null to respect uuid FK
-        eta_minutes: Math.min(Math.max(etaMinutes, 10), 20), // clamp to 10-20 min range
-        status: assignedAmbulanceId ? "dispatched" : "pending",
-      })
-      .select()
-      .single();
-
-    if (insertError) {
-      console.error("[Emergencies] Supabase insert error:", insertError.message);
-      // If table doesn't exist, create an in-memory emergency object so SOS still succeeds
-      emergency = {
-        id: `emg_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
-        user_id: session.user.id,
-        latitude: Number(latitude),
-        longitude: Number(longitude),
-        description,
-        assigned_ambulance_id: assignedAmbulanceId,
-        assigned_hospital_id: null,
-        eta_minutes: Math.min(Math.max(etaMinutes, 10), 20),
-        status: "dispatched",
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-    } else {
-      emergency = createdEmergency;
-    }
-  } catch (err: any) {
-    console.warn("[Emergencies] Emergency record fallback:", err);
-    emergency = {
-      id: `emg_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
-      user_id: session.user.id,
-      latitude: Number(latitude),
-      longitude: Number(longitude),
+  const { data: emergency, error: insertError } = await supabase
+    .from("emergencies")
+    .insert({
+      user_id: user.id,
+      latitude,
+      longitude,
       description,
-      assigned_ambulance_id: assignedAmbulanceId,
+      assigned_ambulance_id: null,
       assigned_hospital_id: null,
-      eta_minutes: Math.min(Math.max(etaMinutes, 10), 20),
-      status: "dispatched",
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
-  }
+      eta_minutes: null,
+      status: "pending",
+    })
+    .select(
+      "id,user_id,latitude,longitude,address,description,status,assigned_ambulance_id,assigned_hospital_id,eta_minutes,created_at,updated_at"
+    )
+    .single();
 
-
-  // ---- Step 4b: Link the ambulance to the emergency ----
-  // The ambulance cannot be marked dispatched before the emergency row
-  // exists, because current_emergency_id references it.
-  if (assignedAmbulanceId) {
-    await supabase
-      .from("ambulances")
-      .update({
-        status: "dispatched",
-        current_emergency_id: emergency.id,
-      })
-      .eq("id", assignedAmbulanceId);
-  }
-
-  // ---- Step 5: Reverse geocode to populate the address field ----
-  let address: string | null = null;
-  try {
-    const apiKey = process.env.GOOGLE_MAPS_API_KEY || process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-    if (apiKey) {
-      const geocodeResponse = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
-      );
-      const geocodeData = await geocodeResponse.json();
-      if (geocodeData.status === "OK" && geocodeData.results?.length > 0) {
-        address = geocodeData.results[0].formatted_address;
-        await supabase.from("emergencies").update({ address }).eq("id", emergency.id);
+  if (insertError || !emergency) {
+    console.error("[api/emergencies] persistence failed");
+    return NextResponse.json(
+      {
+        error: "Emergency request could not be registered",
+        emergencyCreated: false,
+      },
+      {
+        status: 503,
+        headers: { "Cache-Control": "no-store" },
       }
-    } else {
-    console.error("Google Maps API key not found");
-    }
-  } catch (geocodeError) {
-    console.error("Reverse geocode error:", geocodeError);
+    );
   }
 
-  // ---- Step 6: Notify user's emergency contacts with Google Maps link ----
+  let address: string | null = null;
+  const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+
+  if (apiKey) {
+    try {
+      const geoResponse = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`,
+        { cache: "no-store" }
+      );
+      const geoData = await geoResponse.json();
+      if (geoData.status === "OK" && geoData.results?.[0]?.formatted_address) {
+        address = geoData.results[0].formatted_address;
+        await supabase
+          .from("emergencies")
+          .update({ address })
+          .eq("id", emergency.id)
+          .eq("user_id", user.id);
+      }
+    } catch {
+      console.warn("[api/emergencies] reverse geocoding unavailable");
+    }
+  }
+
   try {
     const { data: contacts } = await supabase
       .from("emergency_contacts")
-      .select("name, phone, notification_method")
-      .eq("user_id", session.user.id);
+      .select("name,phone,notification_method")
+      .eq("user_id", user.id);
 
     const { data: profile } = await supabase
       .from("profiles")
       .select("full_name")
-      .eq("id", session.user.id)
-      .single();
+      .eq("id", user.id)
+      .maybeSingle();
 
-    if (contacts && contacts.length > 0) {
+    if (contacts?.length) {
       const { notifyEmergencyContacts } = await import("@/lib/emergency-notifications");
       await notifyEmergencyContacts(contacts, {
         userName: profile?.full_name || "User",
-        latitude: Number(latitude),
-        longitude: Number(longitude),
+        latitude,
+        longitude,
         address,
         hospitalName: nearestHospital?.name || null,
-        etaMinutes,
+        etaMinutes: null,
       });
     }
-  } catch (notifyError) {
-    console.error("Failed to notify contacts:", notifyError);
+  } catch {
+    // Notification failure must be visible in logs but must not invalidate the
+    // durable SOS record that has already been created.
+    console.error("[api/emergencies] emergency contact notification failed");
   }
 
-  // ---- Step 7: Realtime notification is handled by Supabase Realtime ----
-  // Generate Google Maps navigation url for hospital redirection
   const hospitalNavUrl = nearestHospital
     ? `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${nearestHospital.latitude},${nearestHospital.longitude}`
-    : `https://www.google.com/maps/search/?api=1&query=hospital`;
+    : "https://www.google.com/maps/search/?api=1&query=hospital";
 
-  return NextResponse.json({
-    emergency,
-    nearestHospital,
-    nearestHospitalDistanceKM: nearestHospitalDistance ? nearestHospitalDistance.toFixed(2) : null,
-    assignedAmbulanceId,
-    etaMinutes,
-    address,
-    hospitalNavUrl,
-  });
+  return NextResponse.json(
+    {
+      emergency,
+      emergencyCreated: true,
+      nearestHospital,
+      hospitalNavUrl,
+    },
+    {
+      status: 201,
+      headers: { "Cache-Control": "no-store" },
+    }
+  );
 }
 
-/**
- * PATCH /api/emergencies/[id] — update emergency status
- */
 export async function PATCH(request: NextRequest) {
-  const supabase = await getSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session) {
+  const user = await getAuthenticatedUser(request);
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const url = new URL(request.url);
-  const id = url.pathname.split("/").pop();
+  const id = url.searchParams.get("id") || url.pathname.split("/").pop();
 
-  if (!id) {
+  if (!id || id === "emergencies") {
     return NextResponse.json({ error: "Emergency ID required" }, { status: 400 });
   }
 
-  const body = await request.json();
-  const { status } = body;
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
 
+  if (body.status !== "cancelled") {
+    return NextResponse.json(
+      { error: "Patients may only cancel their own active emergency" },
+      { status: 403 }
+    );
+  }
+
+  const supabase = await getSupabaseServerClient();
   const { data, error } = await supabase
     .from("emergencies")
-    .update({ status, updated_at: new Date().toISOString() })
+    .update({
+      status: "cancelled",
+      updated_at: new Date().toISOString(),
+    })
     .eq("id", id)
-    .eq("user_id", session.user.id) // users can only update their own
-    .select()
-    .single();
+    .eq("user_id", user.id)
+    .in("status", ["pending", "dispatched", "en_route"])
+    .select(
+      "id,user_id,status,assigned_ambulance_id,assigned_hospital_id,updated_at"
+    )
+    .maybeSingle();
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error("[api/emergencies] cancellation failed");
+    return NextResponse.json(
+      { error: "Unable to cancel emergency" },
+      { status: 500 }
+    );
+  }
+
+  if (!data) {
+    return NextResponse.json(
+      { error: "Emergency not found or cannot be cancelled" },
+      { status: 404 }
+    );
   }
 
   return NextResponse.json({ emergency: data });
