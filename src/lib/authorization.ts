@@ -1,92 +1,92 @@
 import { NextRequest } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
 
+export type SystemRole =
+  | "PATIENT"
+  | "DOCTOR"
+  | "ADMIN"
+  | "PARAMEDIC"
+  | "DISPATCHER";
+
 export interface RequestingUser {
   id: string;
   email: string | null;
-  role: "PATIENT" | "DOCTOR" | "ADMIN";
+  role: SystemRole;
 }
 
 /**
- * Centrally validates caller identity, role, and permission.
- * Denies by default.
+ * Centrally validates caller identity from Supabase Auth and loads the role
+ * from the database. getUser() validates the JWT with the Auth server;
+ * getSession() alone must not be used as the authorization boundary.
  */
 export async function getAuthenticatedUser(_req?: NextRequest): Promise<RequestingUser | null> {
   const supabase = await getSupabaseServerClient();
-  const {
-    data: { session },
-    error,
-  } = await supabase.auth.getSession();
 
-  if (error || !session?.user) {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) return null;
+
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("role, role_v2")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (profileError) {
+    console.error("[authorization] role lookup failed");
     return null;
   }
 
-  // Load verified role from DB
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role, role_v2")
-    .eq("id", session.user.id)
-    .maybeSingle();
-
-  const rawRole = (profile?.role_v2 || profile?.role || "PATIENT").toUpperCase();
-  const role: "PATIENT" | "DOCTOR" | "ADMIN" =
-    rawRole === "DOCTOR"
-      ? "DOCTOR"
-      : rawRole === "ADMIN" || rawRole === "DISPATCHER" || rawRole === "PARAMEDIC"
-      ? "ADMIN"
-      : "PATIENT";
+  const rawRole = String(profile?.role_v2 || profile?.role || "PATIENT").toUpperCase();
+  const allowed: SystemRole[] = ["PATIENT", "DOCTOR", "ADMIN", "PARAMEDIC", "DISPATCHER"];
+  const role: SystemRole = allowed.includes(rawRole as SystemRole)
+    ? (rawRole as SystemRole)
+    : "PATIENT";
 
   return {
-    id: session.user.id,
-    email: session.user.email || null,
+    id: user.id,
+    email: user.email ?? null,
     role,
   };
 }
 
-/**
- * Checks if a doctor has an authorized clinical/care relationship with a patient.
- */
 export async function canDoctorAccessPatient(
   doctorId: string,
   patientId: string
 ): Promise<boolean> {
-  if (doctorId === patientId) return true;
+  if (doctorId === patientId) return false;
 
   const supabase = await getSupabaseServerClient();
 
-  // Check 1: Active or confirmed appointment exists
   const { data: appointments } = await supabase
     .from("appointments")
     .select("id")
     .eq("doctor_id", doctorId)
     .eq("patient_id", patientId)
+    .in("status", ["PENDING", "CONFIRMED"])
     .limit(1);
 
-  if (appointments && appointments.length > 0) {
-    return true;
-  }
+  if (appointments?.length) return true;
 
-  // Check 2: Active health sharing permission granted by patient
   const { data: sharing } = await supabase
     .from("health_sharing_permissions")
-    .select("id")
+    .select("id, expires_at")
     .eq("doctor_id", doctorId)
     .eq("patient_id", patientId)
     .eq("status", "ACTIVE")
     .limit(1);
 
-  if (sharing && sharing.length > 0) {
-    return true;
-  }
-
-  return false;
+  const permission = sharing?.[0];
+  if (!permission) return false;
+  return !permission.expires_at || new Date(permission.expires_at).getTime() > Date.now();
 }
 
-/**
- * Enforces role guards on API requests
- */
-export function requireRole(user: RequestingUser | null, allowedRoles: Array<"PATIENT" | "DOCTOR" | "ADMIN">): boolean {
-  if (!user) return false;
-  return allowedRoles.includes(user.role);
+export function requireRole(
+  user: RequestingUser | null,
+  allowedRoles: SystemRole[]
+): boolean {
+  return !!user && allowedRoles.includes(user.role);
 }
