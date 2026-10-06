@@ -84,16 +84,12 @@ export async function GET(request: NextRequest) {
  * Submit a location ping (from browser, Fitbit, Apple Health, Google Fit).
  */
 export async function POST(request: NextRequest) {
-  const supabase = await getSupabaseServerClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session) {
+  const user = await getAuthenticatedUser(request);
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const supabase = await getSupabaseServerClient();
   const body = await request.json();
   const { latitude, longitude, heart_rate, steps, source } = body;
 
