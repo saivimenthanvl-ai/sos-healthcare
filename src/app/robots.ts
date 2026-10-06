@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
 
-export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://sos-healthcare.vercel.app";
+const BASE_URL = "https://sos-healthcare.vercel.app";
 
+export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
@@ -27,6 +27,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${BASE_URL}/google-sitemap.xml`,
+    host: BASE_URL,
   };
 }
