@@ -45,7 +45,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         const { data: profileData } = await supabase
           .from("profiles")
-          .select("*")
+          .select(
+            "id, full_name, phone, email, emergency_contact_name, emergency_contact_phone, medical_conditions, allergies, blood_type, smartwatch_connected, role, role_v2, ambulance_id, created_at, updated_at"
+          )
           .eq("id", userId)
           .maybeSingle();
 
@@ -90,10 +92,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             medical_conditions: null,
             allergies: null,
             blood_type: null,
-            fitbit_user_id: null,
-            fitbit_access_token: null,
-            fitbit_refresh_token: null,
-            fitbit_token_expires_at: null,
             smartwatch_connected: false,
             role: "patient",
             ambulance_id: null,
