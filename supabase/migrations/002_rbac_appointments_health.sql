@@ -7,7 +7,7 @@
 DO $$ 
 BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'app_role') THEN
-    CREATE TYPE public.app_role AS ENUM ('PATIENT', 'DOCTOR', 'ADMIN');
+    CREATE TYPE public.app_role AS ENUM ('PATIENT', 'DOCTOR', 'ADMIN', 'PARAMEDIC', 'DISPATCHER');
   END IF;
 END $$;
 
@@ -18,7 +18,10 @@ ALTER TABLE public.profiles
 -- Map legacy roles if needed
 UPDATE public.profiles
 SET role_v2 = CASE
-  WHEN role::text IN ('paramedic', 'dispatcher') THEN 'ADMIN'::public.app_role
+  WHEN upper(role::text) = 'PARAMEDIC' THEN 'PARAMEDIC'::public.app_role
+  WHEN upper(role::text) = 'DISPATCHER' THEN 'DISPATCHER'::public.app_role
+  WHEN upper(role::text) = 'DOCTOR' THEN 'DOCTOR'::public.app_role
+  WHEN upper(role::text) = 'ADMIN' THEN 'ADMIN'::public.app_role
   ELSE 'PATIENT'::public.app_role
 END
 WHERE role_v2 IS NULL;
@@ -129,15 +132,20 @@ CREATE TABLE IF NOT EXISTS public.health_records (
 
 CREATE INDEX IF NOT EXISTS idx_health_records_patient_id ON public.health_records(patient_id);
 
--- 8. Device Connections (Smartwatches)
+-- 8. Device Connections (Wearable/Health providers)
 CREATE TABLE IF NOT EXISTS public.device_connections (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  provider TEXT NOT NULL, -- 'fitbit', 'apple_health', 'wear_os'
-  connection_status TEXT NOT NULL DEFAULT 'DISCONNECTED', -- CONNECTED, DISCONNECTED, PENDING_AUTH
-  last_synced_at TIMESTAMPTZ,
-  metrics JSONB DEFAULT '[]'::jsonb,
-  permissions JSONB DEFAULT '[]'::jsonb,
+  provider TEXT NOT NULL,
+  provider_user_id TEXT,
+  access_token_encrypted TEXT,
+  refresh_token_encrypted TEXT,
+  token_expires_at TIMESTAMPTZ,
+  scopes TEXT[] NOT NULL DEFAULT '{}',
+  connected_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+  last_sync_at TIMESTAMPTZ,
+  status TEXT NOT NULL DEFAULT 'connected'
+    CHECK (status IN ('connected', 'disconnected', 'expired', 'error')),
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
   updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
   CONSTRAINT unique_user_provider UNIQUE (user_id, provider)
@@ -269,8 +277,9 @@ CREATE POLICY "Doctors view authorized health records" ON public.health_records
     )
   );
 
--- Devices:
+-- Devices: browser clients can only read their own connection metadata.
+-- OAuth credential writes are backend-only.
 DROP POLICY IF EXISTS "Users manage own devices" ON public.device_connections;
-CREATE POLICY "Users manage own devices" ON public.device_connections
-  FOR ALL USING (auth.uid() = user_id)
-  WITH CHECK (auth.uid() = user_id);
+DROP POLICY IF EXISTS "Users can view own device connections" ON public.device_connections;
+CREATE POLICY "Users can view own device connections" ON public.device_connections
+  FOR SELECT USING (auth.uid() = user_id);
