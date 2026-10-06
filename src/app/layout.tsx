@@ -1,7 +1,9 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import { Toaster } from "@/components/ui/Toaster";
 
 const inter = Inter({
@@ -10,44 +12,101 @@ const inter = Inter({
   display: "swap",
 });
 
+const BASE_URL = "https://sos-healthcare.vercel.app";
+
 export const metadata: Metadata = {
-  title: "SOS Healthcare — Emergency Ambulance & Hospital Finder",
-  description:
-    "SOS Healthcare: Get an ambulance within 10-20 minutes. Real-time location tracking via Fitbit/Smartwatch. Find nearby hospitals. No fees for emergency care.",
-  keywords: [
-    "emergency",
-    "ambulance",
-    "healthcare",
-    "hospital",
-    "SOS",
-    "medical emergency",
-    "Fitbit",
-    "smartwatch",
-    "real-time location",
-  ],
-  openGraph: {
-    title: "SOS Healthcare — Emergency Ambulance & Hospital Finder",
-    description: "Get an ambulance within 10-20 minutes. No fees.",
-    url: "https://sos-healthcare.vercel.app",
-    type: "website",
+  metadataBase: new URL(BASE_URL),
+
+  title: {
+    default: "SOS Healthcare | Emergency Help & Nearby Hospitals",
+    template: "%s | SOS Healthcare",
   },
+
+  description:
+    "SOS Healthcare provides location-aware emergency request tools, nearby hospital discovery, health information sharing, and emergency contact support.",
+
+  applicationName: "SOS Healthcare",
+
+  authors: [
+    {
+      name: "SOS Healthcare",
+      url: BASE_URL,
+    },
+  ],
+
+  creator: "SOS Healthcare",
+
+  publisher: "SOS Healthcare",
+
+  category: "Healthcare",
+
+  alternates: {
+    canonical: "/",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+
+    googleBot: {
+      index: true,
+      follow: true,
+
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+
+    url: BASE_URL,
+
+    siteName: "SOS Healthcare",
+
+    title: "SOS Healthcare | Emergency Help & Nearby Hospitals",
+
+    description:
+      "Location-aware emergency tools, nearby hospital discovery, health information sharing, and emergency contact support.",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+
+    title: "SOS Healthcare | Emergency Help & Nearby Hospitals",
+
+    description:
+      "Location-aware emergency tools, nearby hospital discovery, and health information sharing.",
+  },
+
   manifest: "/manifest.json",
+
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "SOS Health",
+    title: "SOS Healthcare",
+  },
+
+  formatDetection: {
+    telephone: false,
+    address: false,
+    email: false,
   },
 };
 
-import { ThemeProvider } from "@/contexts/ThemeContext";
-
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en" className="h-full scroll-smooth" suppressHydrationWarning>
+    <html
+      lang="en"
+      className="h-full scroll-smooth"
+      suppressHydrationWarning
+    >
       <body
         suppressHydrationWarning
         className={`${inter.variable} font-sans h-full bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased transition-colors duration-200`}
@@ -55,6 +114,7 @@ export default function RootLayout({
         <ThemeProvider>
           <AuthProvider>
             {children}
+
             <Toaster />
           </AuthProvider>
         </ThemeProvider>
