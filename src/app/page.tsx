@@ -170,105 +170,99 @@ export default function HomePage() {
           </section>
         )}
 
-        {/* Statistics Section (Rendered on both Authenticated & Public Home) */}
-        <section id="stats" className="py-12 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              {stats.map((stat) => (
-                <div key={stat.label} className="text-center">
-                  <div className="text-3xl sm:text-4xl font-extrabold text-red-600 dark:text-red-500 mb-1">
-                    {stat.value}
-                  </div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-
-        {/* Features - Public Marketing section only (Dashboard has its own interactive feature cards) */}
+        {/* Public Marketing Sections: Only shown when logged out */}
         {!user && (
-          <section id="features" className="py-20 bg-gray-50/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
-                  Everything you need in an emergency
-                </h2>
-                <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto text-base sm:text-lg">
-                  SOS Healthcare is engineered for life-critical incidents. When seconds
-                  matter, get precision dispatch, smartwatch telemetry, and ER bed booking.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {features.map((feature) => (
-                  <div
-                    key={feature.title}
-                    className="bg-white dark:bg-gray-900 rounded-2xl p-6 sm:p-8 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-blue-500/30 dark:hover:border-blue-500/30 transition-all flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-3.5 w-14 h-14 mb-6 flex items-center justify-center shadow-xs">
-                        {feature.icon}
+          <>
+            {/* Statistics Section */}
+            <section id="stats" className="py-12 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                  {stats.map((stat) => (
+                    <div key={stat.label} className="text-center">
+                      <div className="text-3xl sm:text-4xl font-extrabold text-red-600 dark:text-red-500 mb-1">
+                        {stat.value}
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                        {feature.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-                        {feature.description}
-                      </p>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{stat.label}</p>
                     </div>
-
-                    {feature.extraItems && (
-                      <div className="pt-4 border-t border-gray-100 dark:border-gray-800/80 space-y-2">
-                        {feature.extraItems.map((item, idx) => (
-                          <div key={idx} className="flex items-center gap-2 text-xs font-medium text-gray-700 dark:text-gray-300">
-                            <CheckCircle2Icon className="h-4 w-4 text-emerald-500 dark:text-emerald-400 flex-shrink-0" />
-                            <span>{item}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          </section>
-        )}
+            </section>
 
-        {/* CTA Banner */}
-        <section className="py-20 bg-gradient-to-r from-blue-700 via-indigo-600 to-red-600 text-white shadow-inner">
-          <div className="max-w-4xl mx-auto text-center px-4">
-            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">
-              Ready for Real Emergencies?
-            </h2>
-            <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
-              Join thousands of protected users and families who rely on SOS Healthcare for fast,
-              unconditional emergency response.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {user ? (
-                <Link href="/emergency">
-                  <Button variant="secondary" size="lg" className="w-full sm:w-auto font-semibold">
-                    Go to Emergency
-                  </Button>
-                </Link>
-              ) : (
-                <Link href="/auth/signup">
-                  <Button variant="secondary" size="lg" className="w-full sm:w-auto font-semibold">
-                    Create Your Account for Free
-                  </Button>
-                </Link>
-              )}
-              <Link href="/emergency">
-                <Button variant="danger" size="lg" className="w-full sm:w-auto border border-white/20">
-                  <ActivityIcon className="h-5 w-5 mr-2" />
-                  Test Live SOS Beacon
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+            {/* Features Marketing Section */}
+            <section id="features" className="py-20 bg-gray-50/50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-800">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-16">
+                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+                    Everything you need in an emergency
+                  </h2>
+                  <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto text-base sm:text-lg">
+                    SOS Healthcare is engineered for life-critical incidents. When seconds
+                    matter, get precision dispatch, smartwatch telemetry, and ER bed booking.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {features.map((feature) => (
+                    <div
+                      key={feature.title}
+                      className="bg-white dark:bg-gray-900 rounded-2xl p-6 sm:p-8 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-blue-500/30 dark:hover:border-blue-500/30 transition-all flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-3.5 w-14 h-14 mb-6 flex items-center justify-center shadow-xs">
+                          {feature.icon}
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                          {feature.title}
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                          {feature.description}
+                        </p>
+                      </div>
+
+                      {feature.extraItems && (
+                        <div className="pt-4 border-t border-gray-100 dark:border-gray-800/80 space-y-2">
+                          {feature.extraItems.map((item, idx) => (
+                            <div key={idx} className="flex items-center gap-2 text-xs font-medium text-gray-700 dark:text-gray-300">
+                              <CheckCircle2Icon className="h-4 w-4 text-emerald-500 dark:text-emerald-400 flex-shrink-0" />
+                              <span>{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* CTA Banner */}
+            <section className="py-20 bg-gradient-to-r from-blue-700 via-indigo-600 to-red-600 text-white shadow-inner">
+              <div className="max-w-4xl mx-auto text-center px-4">
+                <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">
+                  Ready for Real Emergencies?
+                </h2>
+                <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
+                  Join thousands of protected users and families who rely on SOS Healthcare for fast,
+                  unconditional emergency response.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link href="/auth/signup">
+                    <Button variant="secondary" size="lg" className="w-full sm:w-auto font-semibold">
+                      Create Your Account for Free
+                    </Button>
+                  </Link>
+                  <Link href="/emergency">
+                    <Button variant="danger" size="lg" className="w-full sm:w-auto border border-white/20">
+                      <ActivityIcon className="h-5 w-5 mr-2" />
+                      Test Live SOS Beacon
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </section>
+          </>
+        )}
       </main>
 
       {/* Full Existing Dark Footer Component */}
