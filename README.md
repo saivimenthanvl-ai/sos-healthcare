@@ -4,13 +4,36 @@ SOS Healthcare is a Next.js application for patient emergency requests, hospital
 
 > This repository is a development platform, not a verified emergency service. An SOS screen or estimated arrival time does not prove that an ambulance has been dispatched. For immediate help, use your local emergency service.
 
-## Architecture image
+## Architecture and workflow image
 
-![Patient, doctor, and admin architecture with shared authorization and data flow](docs/architecture/sos-healthcare-architecture.png)
+![SOS Healthcare architecture and workflow: identity, server role resolution, role workspaces, API handlers, Supabase/RLS, live updates and external services, with known gaps marked](docs/architecture/sos-healthcare-architecture.png)
 
-[Download the PNG](docs/architecture/sos-healthcare-architecture.png) · [Open the scalable SVG](docs/architecture/sos-healthcare-architecture.svg)
 
-The image describes the intended architecture. Solid route entries exist in the inspected repository; entries marked **planned** are part of the requested workflow but have no corresponding page yet. A page being present does not establish that its permissions, integrations, or displayed data are production-ready.
+The diagram is organized in six layers, top to bottom: **(1)** identity and session, **(2)** server role resolution, **(3)** role workspaces, **(4)** API handlers, **(5)** Supabase Postgres with RLS, **(6)** live updates and external services. Solid boxes exist in the inspected repository; **dashed** boxes are planned or known gaps. A page being present does not establish that its permissions, integrations, or displayed data are production-ready.
+
+### End-to-end workflow at a glance
+
+| Step | What happens | Where | Status |
+| --- | --- | --- | --- |
+| 1 | User signs in (email/password or Google); callback exchanges the code for a Supabase session | `/auth/*`, `/auth/callback`, `/api/auth/callback` | Present |
+| 2 | Middleware validates the user with `getUser()` on matched page prefixes and redirects to `/auth/login` | `src/middleware.ts` (`/dashboard`, `/profile`, `/emergency`, `/appointments`, `/admin`, `/doctor`, `/dispatch`, `/devices`) | Present; does not cover `/api`, `/paramedic`, `/hospitals`, `/settings` |
+| 3 | Server resolves the trusted role: `profiles.role_v2`, then legacy `profiles.role` | `src/lib/authorization.ts` | Present |
+| 4 | User is routed to a workspace: patient `/dashboard`, doctor `/doctor/dashboard`, admin `/admin/dashboard`, dispatcher `/dispatch`, paramedic `/paramedic` | `src/app/(main)/dashboard/page.tsx` | **Gap:** reads legacy `role`; sends paramedic/dispatcher to admin |
+| 5 | Workspace calls an API handler, which must re-validate identity and authorize ownership, care relationship, consent scope, and expiry | `src/app/api/*` | Partial; only appointments and `authorization.ts` use the shared helper |
+| 6 | PostgreSQL RLS applies a second boundary and persists the result | `supabase/schema.sql`, `supabase/migrations/001–003` | Partial; policies and helper disagree (see section 4) |
+| 7 | UI reads the committed result; Realtime pushes authorized updates (ambulance position, incident status) | `useRealtime`, `useAmbulancePing`, `AmbulanceTracker` | Present |
+| 8 | External calls: Google Maps (hospitals, geocoding), optional Twilio SMS, legacy Fitbit | `src/services/hospitals.ts`, `src/lib/google-maps.ts`, `src/lib/emergency-notifications.ts`, `src/lib/fitbit.ts` | SMS delivery unverified; Fitbit legacy |
+
+#### Role journeys
+
+- **Patient:** sign in → `/dashboard` → profile and health data → book an appointment (`POST /api/appointments`) or trigger SOS (`POST /api/emergencies`) → watch location/ETA (`/emergency/location`).
+- **Doctor:** sign in → `/doctor/dashboard` (assigned appointments) → `/doctor/patients/[patientId]` (chart requires an appointment or active, unexpired sharing permission).
+- **Admin:** sign in → `/admin/dashboard`; user, doctor, hospital, and appointment management pages are planned.
+- **Dispatcher / paramedic:** `/dispatch` assigns and releases ambulances via `/api/dispatch`; `/paramedic` reports position and advances status.
+
+#### SOS lifecycle (target)
+
+`pending → dispatched → en_route → arrived → resolved`, with cancellation handled explicitly and the ambulance released on resolution. The current creation path can return a dispatched-looking response after a failed insert; see section 6.
 
 ## 1. System layers and responsibilities
 
@@ -253,8 +276,6 @@ Migration files are not guaranteed to be safely repeatable. Migration 003 create
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
 ```bash
 npm run lint
 npx tsc --noEmit
@@ -279,4 +300,4 @@ These commands are development checks, not clinical validation. This README upda
 
 ## Documentation scope
 
-The requested patient/doctor/admin architecture and existing operational dispatch modules are documented together. Route presence and implementation gaps were checked against repository source on 6 October 2026. This change replaces documentation and adds architecture images; it does not implement missing routes or repair the application behaviors identified above.
+The requested patient/doctor/admin architecture and existing operational dispatch modules are documented together. Route presence and implementation gaps were checked against repository source on 7 October 2026. This change replaces the architecture/workflow image and updates the documentation; it does not implement missing routes or repair the application behaviors identified above.
