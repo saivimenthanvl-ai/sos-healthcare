@@ -1,81 +1,193 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1640" viewBox="0 0 1800 1640">
-<rect width="1800" height="1640" fill="white"/>
-<rect x="400" y="25" width="1000" height="90" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
-<text x="600" y="67.7" font-family="Times New Roman, Nimbus Roman, serif" font-size="35" font-weight="bold" fill="#172c43">1. AUTHENTICATED USER</text>
-<text x="555" y="102.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">Supabase session → server identity validation</text>
-<polyline points="900,115 900,142" fill="none" stroke="#36536e" stroke-width="3"/>
-<polygon points="893,130 900,142 907,130" fill="#36536e"/>
-<rect x="400" y="145" width="1000" height="95" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
-<text x="605" y="183.24" font-family="Times New Roman, Nimbus Roman, serif" font-size="32" font-weight="bold" fill="#172c43">2. TRUSTED ROLE RESOLUTION</text>
-<text x="497" y="222.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">Target: profiles.role_v2 → workspace; legacy role fallback</text>
-<polyline points="900,240 900,268 330,268 330,296" fill="none" stroke="#36536e" stroke-width="3"/>
-<polygon points="323,284 330,296 337,284" fill="#36536e"/>
-<polyline points="900,268 900,296" fill="none" stroke="#36536e" stroke-width="3"/>
-<polygon points="893,284 900,296 907,284" fill="#36536e"/>
-<polyline points="900,268 1470,268 1470,296" fill="none" stroke="#36536e" stroke-width="3"/>
-<polygon points="1463,284 1470,296 1477,284" fill="#36536e"/>
-<rect x="60" y="300" width="540" height="455" rx="12" fill="#edf5fc" stroke="#36536e" stroke-width="2"/>
-<text x="85" y="347.06" font-family="Times New Roman, Nimbus Roman, serif" font-size="33" font-weight="bold" fill="#172c43">3A. PATIENT</text>
-<text x="85" y="397.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/dashboard</text>
-<text x="85" y="440.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/profile</text>
-<text x="85" y="483.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/profile/health</text>
-<text x="85" y="526.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/appointments</text>
-<text x="85" y="681.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="bold" fill="#172c43">Own health data and appointments</text>
-<text x="85" y="724.5" font-family="Times New Roman, Nimbus Roman, serif" font-size="25" font-weight="normal" fill="#172c43">SOS • GPS/ETA • hospitals • devices</text>
-<polyline points="330,755 330,792 900,792 900,818" fill="none" stroke="#36536e" stroke-width="3"/>
-<polygon points="893,806 900,818 907,806" fill="#36536e"/>
-<rect x="630" y="300" width="540" height="455" rx="12" fill="#edf7f2" stroke="#36536e" stroke-width="2"/>
-<text x="655" y="347.06" font-family="Times New Roman, Nimbus Roman, serif" font-size="33" font-weight="bold" fill="#172c43">3B. DOCTOR</text>
-<text x="655" y="397.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/doctor/dashboard</text>
-<text x="655" y="440.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/doctor/profile</text>
-<text x="655" y="483.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#90600d">/doctor/appointments  [planned]</text>
-<text x="655" y="526.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/doctor/patients/[id]</text>
-<text x="655" y="681.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="bold" fill="#172c43">Assigned appointments and patients</text>
-<text x="655" y="724.5" font-family="Times New Roman, Nimbus Roman, serif" font-size="25" font-weight="normal" fill="#172c43">Chart exists; clinical values are samples</text>
-<polyline points="900,755 900,792 900,792 900,818" fill="none" stroke="#36536e" stroke-width="3"/>
-<polygon points="893,806 900,818 907,806" fill="#36536e"/>
-<rect x="1200" y="300" width="540" height="455" rx="12" fill="#f4effa" stroke="#36536e" stroke-width="2"/>
-<text x="1225" y="347.06" font-family="Times New Roman, Nimbus Roman, serif" font-size="33" font-weight="bold" fill="#172c43">3C. ADMIN</text>
-<text x="1225" y="397.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/admin/dashboard</text>
-<text x="1225" y="440.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">/admin/profile</text>
-<text x="1225" y="483.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#90600d">/admin/users  [planned]</text>
-<text x="1225" y="526.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#90600d">/admin/doctors  [planned]</text>
-<text x="1225" y="569.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#90600d">/admin/hospitals  [planned]</text>
-<text x="1225" y="612.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#90600d">/admin/appointments  [planned]</text>
-<text x="1225" y="681.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="bold" fill="#172c43">Platform administration</text>
-<text x="1225" y="724.5" font-family="Times New Roman, Nimbus Roman, serif" font-size="25" font-weight="normal" fill="#172c43">Directory pages remain to be built</text>
-<polyline points="1470,755 1470,792 900,792 900,818" fill="none" stroke="#36536e" stroke-width="3"/>
-<polygon points="893,806 900,818 907,806" fill="#36536e"/>
-<rect x="60" y="823" width="1680" height="128" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
-<text x="405" y="862.42" font-family="Times New Roman, Nimbus Roman, serif" font-size="31" font-weight="bold" fill="#172c43">4. SHARED SERVER AUTHORIZATION — TARGET CONTRACT</text>
-<text x="245" y="901.96" font-family="Times New Roman, Nimbus Roman, serif" font-size="28" font-weight="normal" fill="#172c43">Validated user + allowed role + resource ownership / doctor–patient relationship</text>
-<text x="340" y="939.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">Consent scope + expiry + allowed action → DENY or authorized service call</text>
-<polyline points="900,951 900,977" fill="none" stroke="#36536e" stroke-width="3"/>
-<polygon points="893,965 900,977 907,965" fill="#36536e"/>
-<rect x="60" y="982" width="1680" height="115" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
-<text x="541" y="1021.42" font-family="Times New Roman, Nimbus Roman, serif" font-size="31" font-weight="bold" fill="#172c43">5. API / WORKFLOW SERVICES</text>
-<text x="210" y="1061.96" font-family="Times New Roman, Nimbus Roman, serif" font-size="28" font-weight="normal" fill="#172c43">Appointments • health/profile access • emergencies • dispatch • hospitals • devices</text>
-<text x="439" y="1094.5" font-family="Times New Roman, Nimbus Roman, serif" font-size="25" font-weight="normal" fill="#172c43">Persist real outcomes; coordinate state changes; audit sensitive actions</text>
-<polyline points="900,1097 900,1123" fill="none" stroke="#36536e" stroke-width="3"/>
-<polygon points="893,1111 900,1123 907,1111" fill="#36536e"/>
-<rect x="60" y="1128" width="1680" height="116" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
-<text x="418" y="1167.42" font-family="Times New Roman, Nimbus Roman, serif" font-size="31" font-weight="bold" fill="#172c43">6. SUPABASE POSTGRESQL + ROW-LEVEL SECURITY</text>
-<text x="212" y="1207.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">Profiles • appointments • health records • sharing • incidents • fleet • locations • audit</text>
-<text x="585" y="1240.5" font-family="Times New Roman, Nimbus Roman, serif" font-size="25" font-weight="normal" fill="#172c43">Database is the source of clinical and workflow truth</text>
-<polyline points="900,1244 900,1270" fill="none" stroke="#36536e" stroke-width="3"/>
-<polygon points="893,1258 900,1270 907,1258" fill="#36536e"/>
-<rect x="60" y="1275" width="1680" height="99" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
-<text x="415" y="1313.42" font-family="Times New Roman, Nimbus Roman, serif" font-size="31" font-weight="bold" fill="#172c43">7. COMMITTED RESULT + AUTHORIZED REALTIME</text>
-<text x="370" y="1352.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="normal" fill="#172c43">Return permitted data; refresh patient, doctor, and admin interfaces</text>
-<rect x="60" y="1400" width="810" height="165" rx="12" fill="#fff8eb" stroke="#b17c26" stroke-width="2"/>
-<text x="80" y="1439.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="bold" fill="#172c43">IMPLEMENTATION STATUS</text>
-<text x="80" y="1481.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">[planned] = route absent in inspected source</text>
-<text x="80" y="1516.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">Shared authorization is not applied consistently yet</text>
-<text x="80" y="1551.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">Role routing, RLS, and wearable flow need alignment</text>
-<rect x="900" y="1400" width="840" height="165" rx="12" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
-<text x="920" y="1439.14" font-family="Times New Roman, Nimbus Roman, serif" font-size="27" font-weight="bold" fill="#172c43">EXISTING OPERATIONAL ROLES</text>
-<text x="920" y="1481.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">DISPATCHER → /dispatch; PARAMEDIC → /paramedic</text>
-<text x="920" y="1516.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">Kept distinct from ADMIN in the target architecture</text>
-<text x="920" y="1551.32" font-family="Times New Roman, Nimbus Roman, serif" font-size="26" font-weight="normal" fill="#172c43">Future chatbot tools must use the same authorization</text>
-<text x="60" y="1613.5" font-family="Times New Roman, Nimbus Roman, serif" font-size="25" font-weight="normal" fill="#172c43">Source inspection: 6 October 2026 • Route presence does not certify live data, dispatch, or production readiness.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1500" viewBox="0 0 1800 1500" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTo3YjM1YTM1Ny03ODVkLTRjYjItOTM5Yy1kMzFiNDkyMjYyYzAAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaFDCJIk19WzBulZsnlfbxX4AAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDpmMTU3YmVmMy1kYzNhLTQ1YjEtOTk2Yi0xYzAyMmM3M2NmMGFscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoa0Dp9JtYF7CIDKG0AS9HwgAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggHI9TLqp+Sa9xKW5QNDXR6LgWxSEiKR+P2bc2WnvkZuykZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaOogEJQoQLTUUspQVpm6k24AAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCDwgrz4aXVschHOzEBCPrMKkcP67gVKvNKfDbLvLXBMlGRuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBiaZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjdiMzVhMzU3LTc4NWQtNGNiMi05MzljLWQzMWI0OTIyNjJjMC9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOmIzYmUzZmMyLTYzYzMtNDhkZC1hM2M2LWYwOTE5YWU3MTZiOHJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCAcj1Muqn5Jr3EpblA0NdHouBbFISIpH4/ZtzZae+Rm7KJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggWQWY0spKpx0lqcV4P+UKOBfgdxBfEWcLuivKaiAagR2iY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggKW0cegytOqUtU7R+20jNeaIOZhMb/iYy/eeemnc46ZV0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQK0kViqGLIWVwCRiWcPpjkwXl1eUXfFLSZMj6dPXjYWEHi8KlYqrhT/hfAXB9pHRcP2gaoCmt6AY92zxjKjKvxg=</c2pa:manifest></metadata><rect width="1800" height="1500" fill="white"/>
+<text x="900.0" y="40" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#172c43">SOS Healthcare — Architecture and Workflow</text>
+<text x="900.0" y="66" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" fill="#52667a">Solid = present in source · Dashed = planned / not yet implemented · Orange = known gap</text>
+<rect x="40" y="90" width="1720" height="150" rx="14" fill="#eef4fa" stroke="#36536e" stroke-width="2"/>
+<text x="58" y="118" font-family="Inter, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" fill="#36536e" letter-spacing="1.2">1 · IDENTITY AND SESSION</text>
+<rect x="70" y="125" width="300" height="95" rx="10" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="220.0" y="153" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#172c43">Auth pages</text>
+<text x="220.0" y="177" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">/auth/login · signup · confirm</text>
+<text x="220.0" y="198" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">forgot / reset password</text>
+<rect x="410" y="125" width="300" height="95" rx="10" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="560.0" y="153" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#172c43">OAuth callbacks</text>
+<text x="560.0" y="177" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">/auth/callback · /api/auth/callback</text>
+<text x="560.0" y="198" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">code → Supabase session</text>
+<rect x="750" y="125" width="300" height="95" rx="10" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="900.0" y="153" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#172c43">AuthContext (browser)</text>
+<text x="900.0" y="177" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">session + profile for UI only</text>
+<text x="900.0" y="198" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">not a security boundary</text>
+<rect x="1090" y="125" width="300" height="95" rx="10" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="1240.0" y="153" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#172c43">middleware.ts</text>
+<text x="1240.0" y="177" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">getUser() on 8 matched page prefixes</text>
+<text x="1240.0" y="198" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">redirect → /auth/login</text>
+<rect x="1430" y="125" width="300" height="95" rx="10" fill="#e9f7ef" stroke="#2f7d4f" stroke-width="2"/>
+<text x="1580.0" y="153" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#172c43">Supabase Auth</text>
+<text x="1580.0" y="177" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">email/password · Google OAuth</text>
+<text x="1580.0" y="198" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">issues JWT session cookie</text>
+<polyline points="370,172 410,172" fill="none" stroke="#36536e" stroke-width="2.5"/>
+<polygon points="410,172 398.9,176.7 398.9,167.3" fill="#36536e"/>
+<polyline points="710,172 750,172" fill="none" stroke="#36536e" stroke-width="2.5"/>
+<polygon points="750,172 738.9,176.7 738.9,167.3" fill="#36536e"/>
+<polyline points="1050,172 1090,172" fill="none" stroke="#36536e" stroke-width="2.5"/>
+<polygon points="1090,172 1078.9,176.7 1078.9,167.3" fill="#36536e"/>
+<rect x="40" y="270" width="1720" height="140" rx="14" fill="#f3eefa" stroke="#6a4a9a" stroke-width="2"/>
+<text x="58" y="298" font-family="Inter, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" fill="#6a4a9a" letter-spacing="1.2">2 · SERVER ROLE RESOLUTION</text>
+<rect x="70" y="305" width="520" height="85" rx="10" fill="#fff" stroke="#6a4a9a" stroke-width="2"/>
+<text x="330.0" y="333" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#172c43">src/lib/authorization.ts</text>
+<text x="330.0" y="357" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">getAuthenticatedUser() → getUser() · role_v2 → legacy role</text>
+<text x="330.0" y="378" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">canDoctorAccessPatient(): appointment OR active, unexpired share</text>
+<rect x="640" y="305" width="480" height="85" rx="10" fill="#fff" stroke="#6a4a9a" stroke-width="2"/>
+<text x="880.0" y="333" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#172c43">Roles</text>
+<text x="880.0" y="357" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">PATIENT · DOCTOR · ADMIN</text>
+<text x="880.0" y="378" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">PARAMEDIC · DISPATCHER (operational)</text>
+<rect x="1170" y="305" width="560" height="85" rx="10" fill="#fff3e6" stroke="#c2570c" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1450.0" y="333" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#8a3b05">GAP: /dashboard router</text>
+<text x="1450.0" y="357" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">reads legacy profile.role, not role_v2;</text>
+<text x="1450.0" y="378" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">sends PARAMEDIC/DISPATCHER to admin dashboard</text>
+<polyline points="1580,220 1580,250 330,250 330,305" fill="none" stroke="#36536e" stroke-width="2.5"/>
+<polygon points="330,305 325.3,293.9 334.7,293.9" fill="#36536e"/>
+<text x="960" y="244" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-style="italic" fill="#36536e" paint-order="stroke" stroke="white" stroke-width="5">validated user</text>
+<rect x="40" y="440" width="1720" height="330" rx="14" fill="#f6fafc" stroke="#36536e" stroke-width="2"/>
+<text x="58" y="468" font-family="Inter, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" fill="#36536e" letter-spacing="1.2">3 · ROLE WORKSPACES (pages)</text>
+<rect x="70" y="475" width="520" height="150" rx="10" fill="#e8f1fb" stroke="#2563a8" stroke-width="2"/>
+<text x="330.0" y="503" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#2563a8">PATIENT</text>
+<text x="330.0" y="527" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">/dashboard (SOS, ETA, hospitals, wearables)</text>
+<text x="330.0" y="548" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">/profile · /profile/health</text>
+<text x="330.0" y="569" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">/appointments · /hospitals · /devices</text>
+<text x="330.0" y="590" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">/emergency · /emergency/location</text>
+<rect x="640" y="475" width="520" height="150" rx="10" fill="#e9f7ef" stroke="#2f7d4f" stroke-width="2"/>
+<text x="900.0" y="503" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#2f7d4f">DOCTOR</text>
+<text x="900.0" y="527" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">/doctor/dashboard (schedule)</text>
+<text x="900.0" y="548" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">/doctor/profile</text>
+<text x="900.0" y="569" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">/doctor/patients/[patientId]</text>
+<text x="900.0" y="590" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">planned: /doctor/appointments</text>
+<rect x="1210" y="475" width="520" height="150" rx="10" fill="#fdf1e3" stroke="#b8660b" stroke-width="2"/>
+<text x="1470.0" y="503" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#b8660b">ADMIN</text>
+<text x="1470.0" y="527" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">/admin/dashboard · /admin/profile</text>
+<text x="1470.0" y="548" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">planned: /admin/users</text>
+<text x="1470.0" y="569" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">planned: /admin/doctors · /hospitals</text>
+<text x="1470.0" y="590" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">planned: /admin/appointments</text>
+<rect x="70" y="645" width="520" height="95" rx="10" fill="#fdecec" stroke="#b3261e" stroke-width="2"/>
+<text x="330.0" y="673" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#b3261e">Operational staff</text>
+<text x="330.0" y="697" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">DISPATCHER → /dispatch  ·  PARAMEDIC → /paramedic</text>
+<text x="330.0" y="718" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">assign / release ambulance · report position</text>
+<rect x="640" y="645" width="520" height="95" rx="10" fill="#fff3e6" stroke="#c2570c" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="900.0" y="673" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#8a3b05">GAP: doctor chart</text>
+<text x="900.0" y="697" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">browser-side appointment check; hard-coded vitals,</text>
+<text x="900.0" y="718" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">does not call canDoctorAccessPatient()</text>
+<rect x="1210" y="645" width="520" height="95" rx="10" fill="#fff3e6" stroke="#c2570c" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1470.0" y="673" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#8a3b05">GAP: admin data</text>
+<text x="1470.0" y="697" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">summary content is sample data; user directory</text>
+<text x="1470.0" y="718" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">needs an authorized backend path (migration 003)</text>
+<polyline points="330,390 330,475" fill="none" stroke="#36536e" stroke-width="2.5"/>
+<polygon points="330,475 325.3,463.9 334.7,463.9" fill="#36536e"/>
+<text x="345" y="440" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-style="italic" fill="#36536e" paint-order="stroke" stroke="white" stroke-width="5">role → workspace</text>
+<polyline points="880,390 880,475" fill="none" stroke="#36536e" stroke-width="2.5"/>
+<polygon points="880,475 875.3,463.9 884.7,463.9" fill="#36536e"/>
+<polyline points="1450,390 1450,420 1450,475" fill="none" stroke="#36536e" stroke-width="2.5"/>
+<polygon points="1450,475 1445.3,463.9 1454.7,463.9" fill="#36536e"/>
+<rect x="40" y="800" width="1720" height="250" rx="14" fill="#fff" stroke="#36536e" stroke-width="2"/>
+<text x="58" y="828" font-family="Inter, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" fill="#36536e" letter-spacing="1.2">4 · API HANDLERS (src/app/api) — each must re-validate the caller; middleware does not cover /api</text>
+<rect x="70" y="835" width="250" height="120" rx="10" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="195.0" y="863" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#172c43">/api/appointments</text>
+<text x="195.0" y="887" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">GET · POST (409 on conflict)</text>
+<text x="195.0" y="908" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">PATCH /[id] (owner check)</text>
+<rect x="330" y="835" width="250" height="120" rx="10" fill="#fff3e6" stroke="#c2570c" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="455.0" y="863" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#172c43">/api/emergencies</text>
+<text x="455.0" y="887" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">POST create · PATCH status</text>
+<text x="455.0" y="908" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">GAP: in-memory fallback on failure</text>
+<rect x="590" y="835" width="250" height="120" rx="10" fill="#fff3e6" stroke="#c2570c" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="715.0" y="863" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#172c43">/api/dispatch</text>
+<text x="715.0" y="887" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">assign / release ambulance</text>
+<text x="715.0" y="908" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">GAP: sequential, non-atomic</text>
+<rect x="850" y="835" width="250" height="120" rx="10" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="975.0" y="863" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#172c43">/api/locations · /api/ambulances</text>
+<text x="975.0" y="887" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">patient + ambulance position</text>
+<text x="975.0" y="908" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">ambulance pings → realtime</text>
+<rect x="1110" y="835" width="250" height="120" rx="10" fill="#f5f8fb" stroke="#36536e" stroke-width="2"/>
+<text x="1235.0" y="863" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#172c43">/api/contacts · /api/hospitals</text>
+<text x="1235.0" y="887" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">contacts · hospital search</text>
+<text x="1235.0" y="908" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">/api/hospitals/book</text>
+<rect x="1370" y="835" width="250" height="120" rx="10" fill="#fff3e6" stroke="#c2570c" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1495.0" y="863" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#172c43">/api/fitbit/* (legacy)</text>
+<text x="1495.0" y="887" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">callback · sos</text>
+<text x="1495.0" y="908" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">GAP: columns removed in 003</text>
+<text x="900" y="1000" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">Rule: role check → ownership or care relationship → consent scope/expiry → action. Target: one shared evaluator for all handlers and future AI tools.</text>
+<text x="900" y="1025" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#b3261e">Not yet true: only appointments + authorization.ts use the helper consistently; other handlers need alignment.</text>
+<polyline points="330,740 330,835" fill="none" stroke="#36536e" stroke-width="2.5"/>
+<polygon points="330,835 325.3,823.9 334.7,823.9" fill="#36536e"/>
+<polyline points="900,740 900,835" fill="none" stroke="#36536e" stroke-width="2.5"/>
+<polygon points="900,835 895.3,823.9 904.7,823.9" fill="#36536e"/>
+<polyline points="1470,740 1470,835" fill="none" stroke="#36536e" stroke-width="2.5"/>
+<polygon points="1470,835 1465.3,823.9 1474.7,823.9" fill="#36536e"/>
+<rect x="40" y="1080" width="1120" height="330" rx="14" fill="#eef7f3" stroke="#2f7d4f" stroke-width="2"/>
+<text x="58" y="1108" font-family="Inter, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" fill="#2f7d4f" letter-spacing="1.2">5 · SUPABASE POSTGRES + RLS (second authorization boundary)</text>
+<rect x="70" y="1115" width="240" height="150" rx="10" fill="#fff" stroke="#2f7d4f" stroke-width="2"/>
+<text x="190.0" y="1143" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#2f7d4f">Identity</text>
+<text x="190.0" y="1167" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">profiles (role, role_v2)</text>
+<text x="190.0" y="1188" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">patient_profiles</text>
+<text x="190.0" y="1209" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">doctor_profiles · availability</text>
+<text x="190.0" y="1230" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">admin_profiles</text>
+<rect x="320" y="1115" width="240" height="150" rx="10" fill="#fff" stroke="#2f7d4f" stroke-width="2"/>
+<text x="440.0" y="1143" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#2f7d4f">Clinical</text>
+<text x="440.0" y="1167" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">appointments (unique slot)</text>
+<text x="440.0" y="1188" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">health_records</text>
+<text x="440.0" y="1209" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">health_sharing_permissions</text>
+<text x="440.0" y="1230" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">audit_logs (backend only)</text>
+<rect x="570" y="1115" width="240" height="150" rx="10" fill="#fff" stroke="#2f7d4f" stroke-width="2"/>
+<text x="690.0" y="1143" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#2f7d4f">Emergency</text>
+<text x="690.0" y="1167" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">emergencies</text>
+<text x="690.0" y="1188" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">ambulances</text>
+<text x="690.0" y="1209" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">user_locations</text>
+<text x="690.0" y="1230" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">ambulance_locations</text>
+<rect x="820" y="1115" width="240" height="150" rx="10" fill="#fff" stroke="#2f7d4f" stroke-width="2"/>
+<text x="940.0" y="1143" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#2f7d4f">Support</text>
+<text x="940.0" y="1167" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">emergency_contacts</text>
+<text x="940.0" y="1188" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">hospitals</text>
+<text x="940.0" y="1209" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">device_connections</text>
+<text x="940.0" y="1230" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">migrations 001 → 003</text>
+<rect x="70" y="1285" width="990" height="95" rx="10" fill="#fff3e6" stroke="#c2570c" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="565.0" y="1313" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#8a3b05">RLS gaps to close</text>
+<text x="565.0" y="1337" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">migration 002 clinical policies accept any appointment; sharing predicate ignores expiry + field scope;</text>
+<text x="565.0" y="1358" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">migration 003 allows patient insert only as pending/unassigned — emergencies API still attempts dispatched insert</text>
+<polyline points="900,955 900,1080" fill="none" stroke="#36536e" stroke-width="2.5"/>
+<polygon points="900,1080 895.3,1068.9 904.7,1068.9" fill="#36536e"/>
+<text x="915" y="1072" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-style="italic" fill="#36536e" paint-order="stroke" stroke="white" stroke-width="5">queries + RLS</text>
+<rect x="1190" y="1080" width="570" height="330" rx="14" fill="#fbf6e9" stroke="#8a6d1d" stroke-width="2"/>
+<text x="1208" y="1108" font-family="Inter, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" fill="#8a6d1d" letter-spacing="1.2">6 · LIVE UPDATES AND EXTERNAL</text>
+<rect x="1215" y="1115" width="520" height="70" rx="10" fill="#fff" stroke="#8a6d1d" stroke-width="2"/>
+<text x="1475.0" y="1143" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#172c43">Supabase Realtime</text>
+<text x="1475.0" y="1167" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">useRealtime · useAmbulancePing · AmbulanceTracker</text>
+<rect x="1215" y="1200" width="250" height="90" rx="10" fill="#fff" stroke="#8a6d1d" stroke-width="2"/>
+<text x="1340.0" y="1228" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#172c43">Google Maps</text>
+<text x="1340.0" y="1252" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">hospital search</text>
+<text x="1340.0" y="1273" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">geocoding · directions</text>
+<rect x="1485" y="1200" width="250" height="90" rx="10" fill="#fff3e6" stroke="#c2570c" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1610.0" y="1228" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#8a3b05">Twilio SMS (optional)</text>
+<text x="1610.0" y="1252" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">GAP: delivery not verified;</text>
+<text x="1610.0" y="1273" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">simulated when unset</text>
+<rect x="1215" y="1305" width="520" height="80" rx="10" fill="#f4f4f4" stroke="#777" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="1475.0" y="1333" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#555">Fitbit (legacy) · Medical chatbot (planned)</text>
+<text x="1475.0" y="1357" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" fill="#33475b">no chatbot / RAG routes in source; future tools must reuse server authz</text>
+<polyline points="1160,1150 1190,1150" fill="none" stroke="#36536e" stroke-width="2.5" stroke-dasharray="8 5"/>
+<polygon points="1190,1150 1178.9,1154.7 1178.9,1145.3" fill="#36536e"/>
+<polyline points="1475,955 1475,1080" fill="none" stroke="#36536e" stroke-width="2.5" stroke-dasharray="8 5"/>
+<polygon points="1475,1080 1470.3,1068.9 1479.7,1068.9" fill="#36536e"/>
+<text x="1490" y="1062" text-anchor="start" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-style="italic" fill="#36536e" paint-order="stroke" stroke="white" stroke-width="5">maps · SMS · realtime</text>
+<rect x="40" y="1430" width="1720" height="60" rx="14" fill="#fff" stroke="#fff" stroke-width="2"/>
+<text x="58" y="1458" font-family="Inter, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" fill="#fff" letter-spacing="1.2"></text>
+<text x="70" y="1466" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#b3261e">SOS lifecycle (target):</text>
+<rect x="290" y="1446" width="130" height="32" rx="16" fill="#fdecec" stroke="#b3261e" stroke-width="1.5"/><text x="355" y="1467" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#8a1a14">pending</text>
+<polyline points="420,1462 450,1462" fill="none" stroke="#b3261e" stroke-width="2.5"/>
+<polygon points="450,1462 438.9,1466.7 438.9,1457.3" fill="#b3261e"/>
+<rect x="450" y="1446" width="130" height="32" rx="16" fill="#fdecec" stroke="#b3261e" stroke-width="1.5"/><text x="515" y="1467" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#8a1a14">dispatched</text>
+<polyline points="580,1462 610,1462" fill="none" stroke="#b3261e" stroke-width="2.5"/>
+<polygon points="610,1462 598.9,1466.7 598.9,1457.3" fill="#b3261e"/>
+<rect x="610" y="1446" width="130" height="32" rx="16" fill="#fdecec" stroke="#b3261e" stroke-width="1.5"/><text x="675" y="1467" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#8a1a14">en_route</text>
+<polyline points="740,1462 770,1462" fill="none" stroke="#b3261e" stroke-width="2.5"/>
+<polygon points="770,1462 758.9,1466.7 758.9,1457.3" fill="#b3261e"/>
+<rect x="770" y="1446" width="130" height="32" rx="16" fill="#fdecec" stroke="#b3261e" stroke-width="1.5"/><text x="835" y="1467" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#8a1a14">arrived</text>
+<polyline points="900,1462 930,1462" fill="none" stroke="#b3261e" stroke-width="2.5"/>
+<polygon points="930,1462 918.9,1466.7 918.9,1457.3" fill="#b3261e"/>
+<rect x="930" y="1446" width="130" height="32" rx="16" fill="#fdecec" stroke="#b3261e" stroke-width="1.5"/><text x="995" y="1467" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#8a1a14">resolved</text>
+<text x="1130" y="1467" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" fill="#52667a">Cancellation handled explicitly; resolution releases the ambulance.</text>
 </svg>
