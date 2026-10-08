@@ -224,9 +224,9 @@ function HospitalsPageContent() {
           hospital={selectedHospitalForBooking}
           userCoords={latitude && longitude ? { lat: latitude, lng: longitude } : null}
           onClose={() => setSelectedHospitalForBooking(null)}
-          onSuccess={(details) => {
+          onSuccess={() => {
             setBookingToast(
-              `Emergency admission booked at ${details.hospitalName} (${details.customization.bedType}).`
+              `Hospital booking request submitted. Confirm availability directly with the hospital.`
             );
           }}
         />
