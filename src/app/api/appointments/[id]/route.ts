@@ -15,8 +15,14 @@ export async function PATCH(
   }
 
   const { id } = await params;
-  const body = await request.json();
-  const { status } = body;
+  const body = await request.json().catch(() => null);
+  const status = body?.status;
+  const transitions: Record<string, string[]> = {
+    PENDING: ["CONFIRMED", "REJECTED", "CANCELLED"],
+    CONFIRMED: ["CANCELLED", "COMPLETED", "NO_SHOW"],
+    CANCELLED: [], COMPLETED: [], NO_SHOW: [], REJECTED: [],
+  };
+  if (typeof status !== "string" || !Object.values(transitions).flat().includes(status)) return NextResponse.json({ error: "Invalid status" }, { status: 400 });
 
   const supabase = await getSupabaseServerClient();
 
@@ -39,10 +45,16 @@ export async function PATCH(
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
+  if (!["PATIENT", "DOCTOR", "ADMIN"].includes(user.role)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (user.role === "PATIENT" && status !== "CANCELLED") return NextResponse.json({ error: "Patients may only cancel appointments" }, { status: 403 });
+  if (user.role === "DOCTOR" && !["CONFIRMED", "REJECTED", "COMPLETED", "NO_SHOW"].includes(status)) return NextResponse.json({ error: "Doctor cannot make this transition" }, { status: 403 });
+  if (!transitions[String(existing.status)]?.includes(status)) return NextResponse.json({ error: "Invalid status transition" }, { status: 409 });
+
   const { data, error } = await supabase
     .from("appointments")
     .update({ status, updated_at: new Date().toISOString() })
     .eq("id", id)
+    .eq("status", existing.status)
     .select()
     .single();
 
