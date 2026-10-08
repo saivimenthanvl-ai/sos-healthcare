@@ -35,16 +35,15 @@ export async function getAuthenticatedUser(_req?: NextRequest): Promise<Requesti
     .eq("id", user.id)
     .maybeSingle();
 
-  if (profileError) {
+  if (profileError || !profile) {
     console.error("[authorization] role lookup failed");
     return null;
   }
 
-  const rawRole = String(profile?.role_v2 || profile?.role || "PATIENT").toUpperCase();
+  const rawRole = String(profile.role_v2 || profile.role || "").toUpperCase();
   const allowed: SystemRole[] = ["PATIENT", "DOCTOR", "ADMIN", "PARAMEDIC", "DISPATCHER"];
-  const role: SystemRole = allowed.includes(rawRole as SystemRole)
-    ? (rawRole as SystemRole)
-    : "PATIENT";
+  if (!allowed.includes(rawRole as SystemRole)) return null;
+  const role = rawRole as SystemRole;
 
   return {
     id: user.id,
