@@ -34,13 +34,13 @@ export async function GET() {
 
     if (error) {
       console.warn("[api/emergencies] fetch query handled:", error.message);
-      return NextResponse.json({ emergencies: [] });
+      return NextResponse.json({ error: "Unable to load emergencies" }, { status: 503 });
     }
 
     return NextResponse.json({ emergencies: data || [] });
   } catch (err: any) {
     console.warn("[api/emergencies] unexpected GET error:", err?.message || err);
-    return NextResponse.json({ emergencies: [] });
+    return NextResponse.json({ error: "Unable to load emergencies" }, { status: 503 });
   }
 }
 
@@ -119,7 +119,8 @@ export async function POST(request: NextRequest) {
       const geocodeData = await geocodeResponse.json();
       if (geocodeData.status === "OK" && geocodeData.results?.length > 0) {
         address = geocodeData.results[0].formatted_address;
-        await supabase.from("emergencies").update({ address }).eq("id", emergency.id);
+        // This patient endpoint cannot alter dispatch-controlled fields under RLS.
+        // Geocoded address is only returned in this response.
       }
     } else {
     console.error("Google Maps API key not found");
