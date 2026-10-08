@@ -9,7 +9,7 @@ interface BookingModalProps {
   hospital: Hospital;
   userCoords: { lat: number; lng: number } | null;
   onClose: () => void;
-  onSuccess: (bookingDetails: any) => void;
+  onSuccess: (bookingDetails: unknown) => void;
 }
 
 export function HospitalBookingModal({

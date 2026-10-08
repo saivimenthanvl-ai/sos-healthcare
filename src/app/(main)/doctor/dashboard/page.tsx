@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function DoctorDashboardPage() {
   const { user, profile } = useAuth();
-  const [appointments, setAppointments] = useState<any[]>([]);
+  const [appointments, setAppointments] = useState<Array<{ id: string; specialty: string; reason: string | null; starts_at: string; status: string; patient_id: string }>>([]);
 
   useEffect(() => {
     const fetchAssigned = async () => {

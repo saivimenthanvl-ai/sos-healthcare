@@ -1,6 +1,15 @@
 import { calculateDistance, calculateETA } from "@/lib/google-maps";
 import type { Hospital } from "@/types/app";
 
+interface GooglePlace {
+  id?: string;
+  displayName?: { text?: string };
+  formattedAddress?: string;
+  internationalPhoneNumber?: string;
+  location?: { latitude?: number; longitude?: number };
+  rating?: number;
+}
+
 export interface NearbyHospitalResult {
   hospitals: Hospital[];
   source: "places_api" | "supabase" | "fallback";
@@ -52,7 +61,7 @@ export async function findNearbyHospitals(
         const data = await response.json();
         if (data.places && Array.isArray(data.places)) {
           const userCoords = { lat: latitude, lng: longitude };
-          const hospitals: Hospital[] = data.places.map((place: any, index: number) => {
+          const hospitals: Hospital[] = data.places.map((place: GooglePlace, index: number) => {
             const hLat = place.location?.latitude ?? latitude;
             const hLng = place.location?.longitude ?? longitude;
             const dist = calculateDistance(userCoords, { lat: hLat, lng: hLng });

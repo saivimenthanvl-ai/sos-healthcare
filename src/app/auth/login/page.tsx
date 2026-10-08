@@ -34,10 +34,10 @@ function LoginForm() {
     try {
       await signIn(email, password);
       router.push("/dashboard");
-    } catch (err: any) {
+    } catch (err: unknown) {
       if (
-        err?.message?.toLowerCase().includes("invalid login credentials") ||
-        err?.code === "invalid_credentials"
+        (err instanceof Error && err.message.toLowerCase().includes("invalid login credentials")) ||
+        (typeof err === "object" && err !== null && "code" in err && err.code === "invalid_credentials")
       ) {
         setError(
           "Invalid login credentials. If you previously registered using Google, please use 'Continue with Google', or use 'Forgot password' below to set or reset your password."
@@ -58,11 +58,11 @@ function LoginForm() {
     try {
       await signInWithGoogle();
       // Browser redirects to Google OAuth
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Google authentication error:", err);
       if (
-        err?.message?.includes("provider is not enabled") ||
-        err?.error_code === "validation_failed"
+        (err instanceof Error && err.message.includes("provider is not enabled")) ||
+        (typeof err === "object" && err !== null && "error_code" in err && err.error_code === "validation_failed")
       ) {
         setError(
           "Google sign-in is currently unavailable. Please try again or use another sign-in method."

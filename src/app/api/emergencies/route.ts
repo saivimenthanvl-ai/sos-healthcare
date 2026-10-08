@@ -37,8 +37,8 @@ export async function GET() {
     }
 
     return NextResponse.json({ emergencies: data || [] });
-  } catch (err: any) {
-    console.warn("[api/emergencies] unexpected GET error:", err?.message || err);
+  } catch (err: unknown) {
+    console.warn("[api/emergencies] unexpected GET error:", err instanceof Error ? err.message : err);
     return NextResponse.json({ error: "Unable to load emergencies" }, { status: 503 });
   }
 }

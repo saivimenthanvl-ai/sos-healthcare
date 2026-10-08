@@ -50,7 +50,7 @@ function HospitalsPageContent() {
 
   useEffect(() => {
     if (latitude != null && longitude != null && user) {
-      fetchNearbyHospitals();
+      void Promise.resolve().then(() => fetchNearbyHospitals());
     }
   }, [latitude, longitude, user, fetchNearbyHospitals]);
 
@@ -131,7 +131,7 @@ function HospitalsPageContent() {
       {error && latitude == null && (
         <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-red-800 dark:text-red-200 rounded-lg flex items-center gap-2 text-sm">
           <AlertCircleIcon className="h-4 w-4 flex-shrink-0" />
-          <span>Location error: {error}. Please click "Allow Location Access" or check your browser permissions.</span>
+          <span>Location error: {error}. Please click &quot;Allow Location Access&quot; or check your browser permissions.</span>
         </div>
       )}
 
@@ -224,9 +224,9 @@ function HospitalsPageContent() {
           hospital={selectedHospitalForBooking}
           userCoords={latitude && longitude ? { lat: latitude, lng: longitude } : null}
           onClose={() => setSelectedHospitalForBooking(null)}
-          onSuccess={(details) => {
+          onSuccess={() => {
             setBookingToast(
-              `Emergency admission booked at ${details.hospitalName} (${details.customization.bedType}).`
+              `Hospital booking request submitted. Confirm availability directly with the hospital.`
             );
           }}
         />
