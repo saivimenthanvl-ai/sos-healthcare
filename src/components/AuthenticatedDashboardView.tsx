@@ -46,8 +46,8 @@ export function AuthenticatedDashboardView() {
           console.warn("[Dashboard] fetchEmergencies query:", error.message);
           setEmergencies([]);
         }
-      } catch (err: any) {
-        console.warn("[Dashboard] fetchEmergencies handled:", err?.message || err);
+      } catch (err: unknown) {
+        console.warn("[Dashboard] fetchEmergencies handled:", err instanceof Error ? err.message : err);
         setEmergencies([]);
       } finally {
         setEmergenciesLoading(false);
