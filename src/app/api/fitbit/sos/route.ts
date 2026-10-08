@@ -52,7 +52,9 @@ export async function POST(request: NextRequest) {
   const etaMinutes = null; // No verified ambulance position or dispatch estimate.
 
   // 3. Create emergency record
-  const description = `${triggerReason}${heartRate ? ` (BPM: ${heartRate})` : ""}`;
+  const safeReason = typeof triggerReason === "string" ? triggerReason.slice(0, 200) : "Smartwatch SOS";
+  const safeHeartRate = Number.isInteger(Number(heartRate)) && Number(heartRate) > 0 && Number(heartRate) < 350 ? Number(heartRate) : null;
+  const description = `${safeReason}${safeHeartRate ? ` (BPM: ${safeHeartRate})` : ""}`;
   const { data: emergency, error: emergencyError } = await supabase
     .from("emergencies")
     .insert({
@@ -85,7 +87,7 @@ export async function POST(request: NextRequest) {
       const geoJson = await geoRes.json();
       if (geoJson.status === "OK" && geoJson.results?.length) {
         formattedAddress = geoJson.results[0].formatted_address;
-        await supabase.from("emergencies").update({ address: formattedAddress }).eq("id", emergency.id);
+        // Address is returned for display; updates to persisted dispatch fields require staff authority.
       }
     } catch (e) {
       console.error("Geocoding failed:", e);
