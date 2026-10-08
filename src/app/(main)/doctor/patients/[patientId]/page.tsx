@@ -23,7 +23,7 @@ export default function DoctorPatientChartPage({
         if (res.ok) {
           const data = await res.json();
           const hasRelationship = data.appointments?.some(
-            (a: any) => a.patient_id === patientId
+            (a: { patient_id: string }) => a.patient_id === patientId
           );
           setAuthorized(hasRelationship ?? false);
         } else {
