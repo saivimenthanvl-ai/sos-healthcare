@@ -75,7 +75,7 @@ export default function SignupPage() {
         "/auth/login?message=" +
           encodeURIComponent("Check your email to verify your account.")
       );
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Failed to sign up");
     } finally {
       setLoading(false);
@@ -89,11 +89,11 @@ export default function SignupPage() {
 
     try {
       await signInWithGoogle();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Google signup error:", err);
       if (
-        err?.message?.includes("provider is not enabled") ||
-        err?.error_code === "validation_failed"
+        (err instanceof Error && err.message.includes("provider is not enabled")) ||
+        (typeof err === "object" && err !== null && "error_code" in err && err.error_code === "validation_failed")
       ) {
         setError(
           "Google sign-in is currently unavailable. Please try again or use another sign-in method."
