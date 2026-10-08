@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { CalendarIcon, ClockIcon, UserIcon, HospitalIcon, CheckCircleIcon, XCircleIcon, AlertCircleIcon } from "lucide-react";
+import { CalendarIcon, CheckCircleIcon, AlertCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 interface Doctor {
@@ -11,6 +11,14 @@ interface Doctor {
   specialty: string;
   hospital: string;
   availableSlots: string[];
+}
+
+interface Appointment {
+  id: string;
+  specialty: string;
+  status: string;
+  hospital_name: string | null;
+  starts_at: string;
 }
 
 const mockDoctors: Doctor[] = [
@@ -47,7 +55,7 @@ export default function AppointmentsPage() {
   const [bookingMessage, setBookingMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const [myAppointments, setMyAppointments] = useState<any[]>([]);
+  const [myAppointments, setMyAppointments] = useState<Appointment[]>([]);
 
   const fetchAppointments = async () => {
     try {
@@ -62,9 +70,18 @@ export default function AppointmentsPage() {
   };
 
   useEffect(() => {
-    if (user) {
-      fetchAppointments();
-    }
+    if (!user) return;
+    const controller = new AbortController();
+    fetch("/api/appointments", { signal: controller.signal })
+      .then(async (res) => {
+        if (!res.ok) return;
+        const data: { appointments?: Appointment[] } = await res.json();
+        if (!controller.signal.aborted) setMyAppointments(data.appointments ?? []);
+      })
+      .catch((error: unknown) => {
+        if (!controller.signal.aborted) console.warn("Failed to fetch appointments:", error);
+      });
+    return () => controller.abort();
   }, [user]);
 
   const handleBook = async (e: React.FormEvent) => {
@@ -98,8 +115,8 @@ export default function AppointmentsPage() {
         setReason("");
         fetchAppointments();
       }
-    } catch (err: any) {
-      setErrorMessage(err.message || "An unexpected error occurred");
+    } catch (err: unknown) {
+      setErrorMessage(err instanceof Error ? err.message : "An unexpected error occurred");
     } finally {
       setBookingLoading(false);
     }
