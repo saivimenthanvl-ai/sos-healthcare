@@ -32,53 +32,48 @@ export async function notifyEmergencyContacts(
 
   const textMessage = `EMERGENCY ALERT: ${details.userName || "Your contact"} has triggered an SOS medical emergency!
 Location: ${details.address || `${details.latitude}, ${details.longitude}`}
-Nearest Hospital: ${details.hospitalName || "Dispatching to nearest emergency room"}
-ETA: ~${details.etaMinutes || 15} mins
-Live Google Maps: ${googleMapsUrl}`;
+Nearest Hospital: ${details.hospitalName || "Not yet assigned"}
+Ambulance ETA: ${details.etaMinutes == null ? "Not confirmed" : `Estimated ${details.etaMinutes} minutes`}
+Map: ${googleMapsUrl}`;
 
-  const results = await Promise.allSettled(
-    contacts.map(async (c) => {
-      // If Twilio or another SMS gateway credentials are configured:
+  return Promise.all(
+    contacts.map(async (contact) => {
       const twilioSid = process.env.TWILIO_ACCOUNT_SID;
       const twilioAuth = process.env.TWILIO_AUTH_TOKEN;
       const twilioPhone = process.env.TWILIO_PHONE_NUMBER;
 
-      if (twilioSid && twilioAuth && twilioPhone) {
-        try {
-          const auth = Buffer.from(`${twilioSid}:${twilioAuth}`).toString("base64");
-          const params = new URLSearchParams({
-            To: c.phone,
-            From: twilioPhone,
-            Body: textMessage,
-          });
-
-          await fetch(
-            `https://api.twilio.com/2010-04-01/Accounts/${twilioSid}/Messages.json`,
-            {
-              method: "POST",
-              headers: {
-                Authorization: `Basic ${auth}`,
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-              body: params.toString(),
-            }
-          );
-        } catch (err) {
-          console.error(`Failed to send SMS to ${c.phone}:`, err);
-        }
-      } else {
-        // Fallback simulation/log for development & deployments without external Twilio keys
-        console.log(`[EMERGENCY SMS DISPATCHED] To: ${c.name} (${c.phone})\nContent: ${textMessage}`);
+      if (contact.notification_method && contact.notification_method !== "sms") {
+        return { phone: contact.phone, status: "unsupported" as const, mapsUrl: googleMapsUrl, hospitalNavUrl };
+      }
+      if (!twilioSid || !twilioAuth || !twilioPhone) {
+        return { phone: contact.phone, status: "not_configured" as const, mapsUrl: googleMapsUrl, hospitalNavUrl };
       }
 
-      return {
-        phone: c.phone,
-        status: "sent",
-        mapsUrl: googleMapsUrl,
-        hospitalNavUrl,
-      };
+      try {
+        const params = new URLSearchParams({ To: contact.phone, From: twilioPhone, Body: textMessage });
+        const response = await fetch(
+          `https://api.twilio.com/2010-04-01/Accounts/${encodeURIComponent(twilioSid)}/Messages.json`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Basic ${Buffer.from(`${twilioSid}:${twilioAuth}`).toString("base64")}`,
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: params.toString(),
+          }
+        );
+        if (!response.ok) {
+          return { phone: contact.phone, status: "failed" as const, mapsUrl: googleMapsUrl, hospitalNavUrl };
+        }
+        const result = await response.json();
+        if (!result?.sid) {
+          return { phone: contact.phone, status: "failed" as const, mapsUrl: googleMapsUrl, hospitalNavUrl };
+        }
+        // "accepted" means provider accepted the message, not handset delivery.
+        return { phone: contact.phone, status: "accepted" as const, providerMessageId: result.sid, mapsUrl: googleMapsUrl, hospitalNavUrl };
+      } catch {
+        return { phone: contact.phone, status: "failed" as const, mapsUrl: googleMapsUrl, hospitalNavUrl };
+      }
     })
   );
-
-  return results;
 }
