@@ -69,8 +69,8 @@ export async function handleAuthCallback(request: NextRequest) {
           console.warn("[OAuth] profile ensure handled/skipped:", profileErr);
         }
       }
-    } catch (err: any) {
-      console.error("[OAuth] unexpected failure:", err?.message || err);
+    } catch (err: unknown) {
+      console.error("[OAuth] unexpected failure:", err instanceof Error ? err.message : err);
       const loginUrl = new URL("/auth/login", origin);
       loginUrl.searchParams.set("error", "google_login_failed");
       return NextResponse.redirect(loginUrl.toString());
