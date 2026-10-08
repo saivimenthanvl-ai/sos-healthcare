@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
-import { calculateDistance, calculateETA } from "@/lib/google-maps";
+
 
 /**
  * GET  /api/emergencies       — list user's recent emergencies
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const { latitude, longitude, description } = body;
 
-  if (!latitude || !longitude) {
+  if (latitude == null || longitude == null || !Number.isFinite(Number(latitude)) || !Number.isFinite(Number(longitude)) || Math.abs(Number(latitude)) > 90 || Math.abs(Number(longitude)) > 180) {
     return NextResponse.json({ error: "Location is required" }, { status: 400 });
   }
 
@@ -80,110 +80,33 @@ export async function POST(request: NextRequest) {
     console.warn("[Emergencies] Hospital lookup non-blocking error:", lookupErr);
   }
 
-  // ---- Step 2: Find nearest available ambulance (if table exists) ----
-  let assignedAmbulanceId: string | null = null;
-  try {
-    const { data: ambulances, error: ambulanceError } = await supabase
-      .from("ambulances")
-      .select("*")
-      .eq("status", "available")
-      .limit(50);
-
-    if (!ambulanceError && ambulances && ambulances.length > 0) {
-      let nearestAmbulance: { id: string; latitude: number; longitude: number } | null = null;
-      let nearestAmbulanceDistance = Infinity;
-
-      for (const ambulance of ambulances) {
-        const distance = calculateDistance(userCoords, {
-          lat: ambulance.latitude,
-          lng: ambulance.longitude,
-        });
-        if (distance < nearestAmbulanceDistance) {
-          nearestAmbulanceDistance = distance;
-          nearestAmbulance = ambulance;
-        }
-      }
-
-      if (nearestAmbulance) {
-        assignedAmbulanceId = nearestAmbulance.id;
-      }
-    }
-  } catch (ambErr) {
-    console.warn("[Emergencies] Ambulance check non-blocking error:", ambErr);
-  }
-
-  // ---- Step 3: Calculate ETA ----
-  const etaMinutes = nearestHospital && nearestHospitalDistance !== Infinity
-    ? calculateETA(nearestHospitalDistance, 30) // 30 km/h average speed in city traffic
-    : 15; // Default 15 min if no hospital found
-
-  // ---- Step 4: Create emergency ----
-  let emergency: any = null;
-  try {
-    const { data: createdEmergency, error: insertError } = await supabase
-      .from("emergencies")
-      .insert({
-        user_id: session.user.id,
-        latitude,
-        longitude,
-        description,
-        assigned_ambulance_id: assignedAmbulanceId,
-        assigned_hospital_id: null, // Places API IDs are strings or can be stored as null to respect uuid FK
-        eta_minutes: Math.min(Math.max(etaMinutes, 10), 20), // clamp to 10-20 min range
-        status: assignedAmbulanceId ? "dispatched" : "pending",
-      })
-      .select()
-      .single();
-
-    if (insertError) {
-      console.error("[Emergencies] Supabase insert error:", insertError.message);
-      // If table doesn't exist, create an in-memory emergency object so SOS still succeeds
-      emergency = {
-        id: `emg_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
-        user_id: session.user.id,
-        latitude: Number(latitude),
-        longitude: Number(longitude),
-        description,
-        assigned_ambulance_id: assignedAmbulanceId,
-        assigned_hospital_id: null,
-        eta_minutes: Math.min(Math.max(etaMinutes, 10), 20),
-        status: "dispatched",
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-    } else {
-      emergency = createdEmergency;
-    }
-  } catch (err: any) {
-    console.warn("[Emergencies] Emergency record fallback:", err);
-    emergency = {
-      id: `emg_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+  // Persist a pending request. Actual ambulance assignment belongs to the dispatcher.
+  // In particular, this insert must agree with migration 003's patient RLS policy.
+  const { data: emergency, error: insertError } = await supabase
+    .from("emergencies")
+    .insert({
       user_id: session.user.id,
       latitude: Number(latitude),
       longitude: Number(longitude),
-      description,
-      assigned_ambulance_id: assignedAmbulanceId,
+      description: typeof description === "string" ? description.slice(0, 1000) : null,
+      assigned_ambulance_id: null,
       assigned_hospital_id: null,
-      eta_minutes: Math.min(Math.max(etaMinutes, 10), 20),
-      status: "dispatched",
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
+      eta_minutes: null,
+      status: "pending",
+    })
+    .select()
+    .single();
+
+  if (insertError || !emergency) {
+    console.error("[Emergencies] Failed to persist SOS:", insertError?.code);
+    return NextResponse.json(
+      { error: "SOS request could not be recorded. Call emergency services directly." },
+      { status: 503 }
+    );
   }
 
-
-  // ---- Step 4b: Link the ambulance to the emergency ----
-  // The ambulance cannot be marked dispatched before the emergency row
-  // exists, because current_emergency_id references it.
-  if (assignedAmbulanceId) {
-    await supabase
-      .from("ambulances")
-      .update({
-        status: "dispatched",
-        current_emergency_id: emergency.id,
-      })
-      .eq("id", assignedAmbulanceId);
-  }
+  const etaMinutes: number | null = null;
+  const assignedAmbulanceId: string | null = null;
 
   // ---- Step 5: Reverse geocode to populate the address field ----
   let address: string | null = null;
@@ -242,7 +165,7 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     emergency,
     nearestHospital,
-    nearestHospitalDistanceKM: nearestHospitalDistance ? nearestHospitalDistance.toFixed(2) : null,
+    nearestHospitalDistanceKM: Number.isFinite(nearestHospitalDistance) ? nearestHospitalDistance.toFixed(2) : null,
     assignedAmbulanceId,
     etaMinutes,
     address,
@@ -272,12 +195,14 @@ export async function PATCH(request: NextRequest) {
 
   const body = await request.json();
   const { status } = body;
+  if (status !== "cancelled") return NextResponse.json({ error: "Only cancellation is permitted" }, { status: 403 });
 
   const { data, error } = await supabase
     .from("emergencies")
     .update({ status, updated_at: new Date().toISOString() })
     .eq("id", id)
     .eq("user_id", session.user.id) // users can only update their own
+    .in("status", ["pending", "dispatched", "en_route"])
     .select()
     .single();
 
