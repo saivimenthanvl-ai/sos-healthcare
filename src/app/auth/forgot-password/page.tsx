@@ -40,7 +40,7 @@ export default function ForgotPasswordPage() {
       setMessage(
         "If an account is associated with this email, you will receive password reset instructions."
       );
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Failed to request password reset");
     } finally {
       setLoading(false);
