@@ -92,8 +92,8 @@ export default function SettingsPage() {
         toast("Password updated successfully! You can now sign in with this password.", "success");
         setNewPassword("");
       }
-    } catch (err: any) {
-      toast(err?.message || "Failed to update password", "error");
+    } catch (err: unknown) {
+      toast(err instanceof Error ? err.message : "Failed to update password", "error");
     } finally {
       setPasswordLoading(false);
     }
