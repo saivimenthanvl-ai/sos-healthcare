@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
-import { calculateDistance, calculateETA } from "@/lib/google-maps";
+import { calculateDistance } from "@/lib/google-maps";
 import { notifyEmergencyContacts } from "@/lib/emergency-notifications";
 import { getAuthenticatedUser } from "@/lib/authorization";
 
@@ -48,24 +48,7 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  // 2. Find nearest ambulance
-  const { data: ambulances } = await supabase
-    .from("ambulances")
-    .select("*")
-    .eq("status", "available")
-    .limit(20);
-
-  let nearestAmbulance: any = null;
-  let minAmbulanceDist = Infinity;
-
-  for (const a of ambulances || []) {
-    const dist = calculateDistance(userCoords, { lat: a.latitude, lng: a.longitude });
-    if (dist < minAmbulanceDist) {
-      minAmbulanceDist = dist;
-      nearestAmbulance = a;
-    }
-  }
-
+  // Provider matching is performed after a dispatcher accepts the request.
   const etaMinutes = null; // No verified ambulance position or dispatch estimate.
 
   // 3. Create emergency record
