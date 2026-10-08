@@ -18,6 +18,8 @@ export async function GET(request: NextRequest) {
     query = query.eq("patient_id", user.id);
   } else if (user.role === "DOCTOR") {
     query = query.eq("doctor_id", user.id);
+  } else if (user.role !== "ADMIN") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   } // ADMIN gets all
 
   const { data, error } = await query;
@@ -37,22 +39,31 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const body = await request.json();
+  if (user.role !== "PATIENT") return NextResponse.json({ error: "Only patients can book" }, { status: 403 });
+  const body = await request.json().catch(() => null);
+  if (!body || typeof body !== "object") return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   const { doctorId, hospitalId, hospitalName, specialty, startsAt, endsAt, reason } = body;
 
   if (!doctorId || !specialty || !startsAt || !endsAt) {
     return NextResponse.json({ error: "Missing required booking details" }, { status: 400 });
   }
 
+  const start = new Date(startsAt).getTime();
+  const end = new Date(endsAt).getTime();
+  if (!Number.isFinite(start) || !Number.isFinite(end) || start >= end || start <= Date.now()) {
+    return NextResponse.json({ error: "Invalid appointment interval" }, { status: 400 });
+  }
   const supabase = await getSupabaseServerClient();
 
+  // Advisory only: the PostgreSQL exclusion constraint prevents concurrent overlap.
   // Server-side double booking prevention check
   const { data: existingConflict } = await supabase
     .from("appointments")
     .select("id")
     .eq("doctor_id", doctorId)
-    .eq("starts_at", startsAt)
-    .neq("status", "CANCELLED")
+    .lt("starts_at", endsAt)
+    .gt("ends_at", startsAt)
+    .in("status", ["PENDING", "CONFIRMED"])
     .limit(1);
 
   if (existingConflict && existingConflict.length > 0) {
@@ -80,7 +91,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (error) {
-    if (error.code === "23505") { // unique constraint violation
+    if (error.code === "23505" || error.code === "23P01") { // unique constraint violation
       return NextResponse.json(
         { error: "Conflict: This slot was just reserved by another patient." },
         { status: 409 }
