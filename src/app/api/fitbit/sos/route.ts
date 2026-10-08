@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
 import { calculateDistance, calculateETA } from "@/lib/google-maps";
 import { notifyEmergencyContacts } from "@/lib/emergency-notifications";
+import { getAuthenticatedUser } from "@/lib/authorization";
 
 /**
  * POST /api/fitbit/sos
@@ -10,16 +11,13 @@ import { notifyEmergencyContacts } from "@/lib/emergency-notifications";
  */
 export async function POST(request: NextRequest) {
   const supabase = await getSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  const body = await request.json().catch(() => ({}));
-  const userId = session?.user?.id || body.userId;
-
-  if (!userId) {
-    return NextResponse.json({ error: "Unauthorized or missing userId" }, { status: 401 });
+  // Browser-session requests only. Device webhooks require separate signed credentials.
+  const user = await getAuthenticatedUser(request);
+  if (!user || user.role !== "PATIENT") {
+    return NextResponse.json({ error: "Authenticated patient required" }, { status: 401 });
   }
+  const body = await request.json().catch(() => ({}));
+  const userId = user.id;
 
   const {
     latitude,
@@ -28,7 +26,7 @@ export async function POST(request: NextRequest) {
     triggerReason = "Smartwatch SOS / Fall Detected",
   } = body;
 
-  if (!latitude || !longitude) {
+  if (!Number.isFinite(Number(latitude)) || !Number.isFinite(Number(longitude)) || Math.abs(Number(latitude)) > 90 || Math.abs(Number(longitude)) > 180 || latitude == null || longitude == null) {
     return NextResponse.json(
       { error: "Location coordinates (latitude, longitude) required" },
       { status: 400 }
@@ -68,7 +66,7 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  const etaMinutes = nearestHospital ? calculateETA(minHospitalDist, 30) : 15;
+  const etaMinutes = null; // No verified ambulance position or dispatch estimate.
 
   // 3. Create emergency record
   const description = `${triggerReason}${heartRate ? ` (BPM: ${heartRate})` : ""}`;
@@ -80,9 +78,9 @@ export async function POST(request: NextRequest) {
       longitude: Number(longitude),
       description,
       assigned_hospital_id: nearestHospital?.id || null,
-      assigned_ambulance_id: nearestAmbulance?.id || null,
-      eta_minutes: Math.min(Math.max(etaMinutes, 10), 20),
-      status: nearestAmbulance ? "dispatched" : "pending",
+      assigned_ambulance_id: null,
+      eta_minutes: null,
+      status: "pending",
     })
     .select()
     .single();
@@ -91,12 +89,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: emergencyError.message }, { status: 500 });
   }
 
-  if (nearestAmbulance) {
-    await supabase
-      .from("ambulances")
-      .update({ status: "dispatched", current_emergency_id: emergency.id })
-      .eq("id", nearestAmbulance.id);
-  }
+  // Ambulance assignment must occur separately through an authorized dispatcher.
 
   // 4. Reverse Geocoding
   let formattedAddress: string | null = null;
@@ -149,6 +142,6 @@ export async function POST(request: NextRequest) {
     emergency,
     nearestHospital,
     hospitalNavUrl,
-    message: "Emergency dispatched from smartwatch. Contacts alerted and hospital navigation ready.",
+    message: "Emergency request recorded; dispatch and contact delivery are not yet confirmed.",
   });
 }
