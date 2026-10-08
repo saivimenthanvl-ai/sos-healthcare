@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
 
   // 1. Locate nearest hospital
   const { data: hospitals } = await supabase.from("hospitals").select("*").limit(50);
-  let nearestHospital: (typeof hospitals)[number] | null = null;
+  let nearestHospital: NonNullable<typeof hospitals>[number] | null = null;
   let minHospitalDist = Infinity;
 
   for (const h of hospitals || []) {
