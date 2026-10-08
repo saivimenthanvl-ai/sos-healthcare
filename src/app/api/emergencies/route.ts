@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
+import { getAuthenticatedUser } from "@/lib/authorization";
 
 
 /**
@@ -16,11 +17,9 @@ import { getSupabaseServerClient } from "@/lib/supabase-server";
 export async function GET() {
   const supabase = await getSupabaseServerClient();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const user = await getAuthenticatedUser();
 
-  if (!session) {
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -28,7 +27,7 @@ export async function GET() {
     const { data, error } = await supabase
       .from("emergencies")
       .select("*, assigned_ambulance:ambulances(*), assigned_hospital:hospitals(*)")
-      .eq("user_id", session.user.id)
+      .eq("user_id", user.id)
       .order("created_at", { ascending: false })
       .limit(10);
 
@@ -48,15 +47,14 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   const supabase = await getSupabaseServerClient();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const user = await getAuthenticatedUser();
 
-  if (!session) {
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const body = await request.json();
+  const body = await request.json().catch(() => null);
+  if (!body || typeof body !== "object") return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
   const { latitude, longitude, description } = body;
 
   if (latitude == null || longitude == null || !Number.isFinite(Number(latitude)) || !Number.isFinite(Number(longitude)) || Math.abs(Number(latitude)) > 90 || Math.abs(Number(longitude)) > 180) {
@@ -85,7 +83,7 @@ export async function POST(request: NextRequest) {
   const { data: emergency, error: insertError } = await supabase
     .from("emergencies")
     .insert({
-      user_id: session.user.id,
+      user_id: user.id,
       latitude: Number(latitude),
       longitude: Number(longitude),
       description: typeof description === "string" ? description.slice(0, 1000) : null,
@@ -134,12 +132,12 @@ export async function POST(request: NextRequest) {
     const { data: contacts } = await supabase
       .from("emergency_contacts")
       .select("name, phone, notification_method")
-      .eq("user_id", session.user.id);
+      .eq("user_id", user.id);
 
     const { data: profile } = await supabase
       .from("profiles")
       .select("full_name")
-      .eq("id", session.user.id)
+      .eq("id", user.id)
       .single();
 
     if (contacts && contacts.length > 0) {
@@ -179,11 +177,9 @@ export async function POST(request: NextRequest) {
  */
 export async function PATCH(request: NextRequest) {
   const supabase = await getSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const user = await getAuthenticatedUser();
 
-  if (!session) {
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -194,15 +190,15 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: "Emergency ID required" }, { status: 400 });
   }
 
-  const body = await request.json();
-  const { status } = body;
+  const body = await request.json().catch(() => null);
+  const status = body?.status;
   if (status !== "cancelled") return NextResponse.json({ error: "Only cancellation is permitted" }, { status: 403 });
 
   const { data, error } = await supabase
     .from("emergencies")
     .update({ status, updated_at: new Date().toISOString() })
     .eq("id", id)
-    .eq("user_id", session.user.id) // users can only update their own
+    .eq("user_id", user.id) // users can only update their own
     .in("status", ["pending", "dispatched", "en_route"])
     .select()
     .single();
