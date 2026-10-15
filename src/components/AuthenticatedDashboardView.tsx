@@ -162,11 +162,11 @@ export function AuthenticatedDashboardView() {
   return (
     <div className="max-w-5xl mx-auto py-6">
       {/* Hero section */}
-      <div className="bg-blue-700 dark:bg-blue-900 rounded-xl p-6 sm:p-8 text-white mb-8">
+      <div className="border-b border-gray-200 dark:border-gray-800 py-5 sm:py-6 text-gray-950 dark:text-white mb-6">
         <h1 className="text-2xl sm:text-3xl font-bold mb-2">
           {profile?.full_name ? `Hello, ${profile.full_name}` : "SOS Healthcare"}
         </h1>
-        <p className="text-blue-100 max-w-2xl">
+        <p className="text-gray-600 dark:text-gray-300 max-w-2xl">
           In a medical emergency, press the SOS button below. We&apos;ll locate the
           nearest hospital and dispatch an ambulance within 10-20 minutes.
           No fees. No delays.

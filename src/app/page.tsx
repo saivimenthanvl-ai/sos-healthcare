@@ -82,7 +82,7 @@ export default function HomePage() {
       {/* Top Application Header with Navigation and Theme Toggle */}
       <header className="bg-white dark:bg-gray-900 shadow-xs border-b border-gray-200 dark:border-gray-800 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between gap-3">
+          <div className="flex h-14 items-center justify-between gap-2">
             <Link href="/" className="flex items-center gap-3 text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
               <span className="text-2xl sm:text-3xl">🚑</span>
               <span>SOS Healthcare</span>
