@@ -81,12 +81,12 @@ export default function HomePage() {
       {/* Top Application Header with Navigation and Theme Toggle */}
       <header className="bg-white dark:bg-gray-900 shadow-xs border-b border-gray-200 dark:border-gray-800 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
-              <span className="text-2xl sm:text-3xl">🚑</span>
+          <div className="flex min-h-16 items-center justify-between gap-3">
+            <Link href="/" aria-label="SOS Healthcare home" className="flex shrink-0 items-center gap-2 whitespace-nowrap text-base sm:text-lg font-bold tracking-tight text-blue-600 dark:text-blue-400">
+              <img src="/sos-logo.svg" alt="" width="28" height="28" className="h-7 w-7 shrink-0" />
               <span>SOS Healthcare</span>
             </Link>
-            <div className="flex items-center gap-3">
+            <div className="flex min-w-0 items-center gap-2">
               <Navigation />
               <ThemeToggle />
               {!user && (
