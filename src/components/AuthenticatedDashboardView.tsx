@@ -162,7 +162,7 @@ export function AuthenticatedDashboardView() {
   return (
     <div className="max-w-5xl mx-auto py-6">
       {/* Hero section */}
-      <div className="bg-gradient-to-r from-blue-600 to-red-500 rounded-xl p-6 sm:p-8 text-white mb-8">
+      <div className="bg-blue-700 dark:bg-blue-900 rounded-xl p-6 sm:p-8 text-white mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold mb-2">
           {profile?.full_name ? `Hello, ${profile.full_name}` : "SOS Healthcare"}
         </h1>
@@ -463,7 +463,7 @@ export function AuthenticatedDashboardView() {
           {/* Card 6: No Fees -> Informational Card */}
           <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col justify-between">
             <div>
-              <div className="bg-purple-50 dark:bg-purple-950/60 text-purple-600 dark:text-purple-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center">
+              <div className="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center">
                 <ClockIcon className="h-6 w-6" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">

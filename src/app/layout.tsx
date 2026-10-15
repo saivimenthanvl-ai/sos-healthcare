@@ -82,6 +82,7 @@ export const metadata: Metadata = {
   },
 
   manifest: "/manifest.json",
+  icons: { icon: "/sos-logo.svg", shortcut: "/sos-logo.svg", apple: "/sos-logo.svg" },
 
   appleWebApp: {
     capable: true,
