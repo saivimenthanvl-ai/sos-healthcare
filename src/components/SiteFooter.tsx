@@ -79,14 +79,15 @@ export function SiteFooter() {
               In severe, life-threatening incidents, dial your national emergency service immediately:
             </p>
             <div className="p-4 bg-red-50 dark:bg-red-950/60 border border-red-200 dark:border-red-900 rounded-xl">
-              <div className="flex items-center gap-3">
-                <PhoneCallIcon className="h-6 w-6 text-red-500 animate-pulse" />
+              <a href="tel:112" aria-label="Call emergency services at 112" className="flex items-center gap-3 rounded focus-visible:outline-2 focus-visible:outline-red-600">
+                <PhoneCallIcon className="h-6 w-6 text-red-500" />
                 <div>
                   <p className="text-xs text-red-700 dark:text-red-400 font-semibold uppercase">Immediate Emergency Line</p>
                   <p className="text-xl font-black text-red-900 dark:text-white">Call 112</p>
                 </div>
-              </div>
+              </a>
             </div>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Tap to call on a supported phone. On desktop, dial using your phone. Emergency numbers vary by country.</p>
           </div>
         </div>
 
