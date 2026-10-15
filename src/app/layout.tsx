@@ -81,7 +81,8 @@ export const metadata: Metadata = {
       "Location-aware emergency tools, nearby hospital discovery, and health information sharing.",
   },
 
-  manifest: "/manifest.json",\n  icons: { icon: "/sos-logo.svg", shortcut: "/sos-logo.svg", apple: "/sos-logo.svg" },
+  manifest: "/manifest.json",
+  icons: { icon: "/sos-logo.svg", shortcut: "/sos-logo.svg", apple: "/sos-logo.svg" },
 
   appleWebApp: {
     capable: true,
