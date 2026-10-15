@@ -10,9 +10,7 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Column 1: Info */}
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-white">
-              <span>🚑</span> SOS Healthcare
-            </Link>
+            <BrandLogo footer />
             <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
               Rapid emergency assistance platform connecting individuals to nearby hospitals, accredited specialists, and first responders. Zero platform fees.
             </p>
