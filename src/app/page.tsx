@@ -53,7 +53,7 @@ const features = [
     extraItems: ["Encrypted medical profile", "Allergy & blood group badge", "Paramedic pre-arrival briefing"],
   },
   {
-    icon: <ShieldIcon className="h-6 w-6 text-purple-600 dark:text-purple-400" />,
+    icon: <ShieldIcon className="h-6 w-6 text-slate-600 dark:text-slate-400" />,
     title: "No Fees",
     description:
       "This service is completely free for users. No hidden charges. Emergency care should never cost you.",
@@ -72,6 +72,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Navigation } from "@/components/Navigation";
 import { AuthenticatedDashboardView } from "@/components/AuthenticatedDashboardView";
 import { SiteFooter } from "@/components/SiteFooter";
+import { BrandLogo } from "@/components/BrandLogo";
 
 export default function HomePage() {
   const { user } = useAuth();
@@ -81,7 +82,7 @@ export default function HomePage() {
       {/* Top Application Header with Navigation and Theme Toggle */}
       <header className="bg-white dark:bg-gray-900 shadow-xs border-b border-gray-200 dark:border-gray-800 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex h-16 items-center justify-between gap-3">
             <Link href="/" className="flex items-center gap-3 text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400">
               <span className="text-2xl sm:text-3xl">🚑</span>
               <span>SOS Healthcare</span>
