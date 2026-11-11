@@ -16,6 +16,8 @@ interface AuthContextType {
     fullName?: string
   ) => Promise<{ data: { user: User | null; session: Session | null }; error: Error | null }>;
   signIn: (email: string, password: string) => Promise<void>;
+  signInWithOtp: (email: string) => Promise<{ error: Error | null }>;
+  verifyOtp: (email: string, token: string) => Promise<{ error: Error | null }>;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
 }
@@ -199,6 +201,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (error) throw error;
   };
 
+  const signInWithOtp = async (email: string) => {
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        shouldCreateUser: true,
+      },
+    });
+    return { error: error ? new Error(error.message) : null };
+  };
+
+  const verifyOtp = async (email: string, token: string) => {
+    const { data, error } = await supabase.auth.verifyOtp({
+      email,
+      token,
+      type: "email",
+    });
+
+    if (error) {
+      return { error: new Error(error.message) };
+    }
+
+    if (data?.session) {
+      setSession(data.session);
+      setUser(data.user);
+    }
+
+    return { error: null };
+  };
+
   const signInWithGoogle = async () => {
     const redirectUrl = `${window.location.origin}/auth/callback`;
     const { error } = await supabase.auth.signInWithOAuth({
@@ -227,6 +258,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         profile,
         signUp,
         signIn,
+        signInWithOtp,
+        verifyOtp,
         signInWithGoogle,
         signOut,
       }}

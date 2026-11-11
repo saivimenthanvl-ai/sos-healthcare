@@ -17,17 +17,20 @@ export default function HomePage() {
       {/* Top Application Header with Navigation and Theme Toggle */}
       <header className="bg-white dark:bg-gray-900 shadow-xs border-b border-gray-200 dark:border-gray-800 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
-              <SosLogo size={32} className="w-8 h-8" priority />
-              <span>SOS Healthcare</span>
+          <div className="flex h-16 items-center justify-between gap-2 sm:gap-4">
+            <Link
+              href="/"
+              className="flex items-center gap-2.5 sm:gap-3 text-lg sm:text-xl font-bold text-gray-900 dark:text-white shrink-0 min-w-0"
+            >
+              <SosLogo size={30} className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" priority />
+              <span className="truncate">SOS Healthcare</span>
             </Link>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
               <Navigation />
               <ThemeToggle />
               {!user && (
-                <Link href="/auth/login">
-                  <Button variant="danger" size="sm" className="hidden sm:inline-flex">
+                <Link href="/auth/login" className="shrink-0">
+                  <Button variant="danger" size="sm" className="hidden sm:inline-flex text-xs px-3 py-1.5">
                     Sign In
                   </Button>
                 </Link>

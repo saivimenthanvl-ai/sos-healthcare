@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import { Toaster } from "@/components/ui/Toaster";
 
 const inter = Inter({
@@ -123,11 +124,13 @@ export default function RootLayout({
         className={`${inter.variable} font-sans h-full bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased transition-colors duration-200`}
       >
         <ThemeProvider>
-          <AuthProvider>
-            {children}
+          <LanguageProvider>
+            <AuthProvider>
+              {children}
 
-            <Toaster />
-          </AuthProvider>
+              <Toaster />
+            </AuthProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>
