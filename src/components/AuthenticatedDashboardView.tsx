@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getLocalizedPatientName } from "@/lib/patient-name";
 import { useLocation } from "@/hooks/useLocation";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/types/supabase";
@@ -27,7 +28,7 @@ type Emergency = Database["public"]["Tables"]["emergencies"]["Row"];
 
 export function AuthenticatedDashboardView() {
   const { user, profile, loading: authLoading } = useAuth();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { latitude, longitude, loading: locationLoading } = useLocation();
   const [emergencies, setEmergencies] = useState<Emergency[]>([]);
   const [emergenciesLoading, setEmergenciesLoading] = useState(true);
@@ -100,7 +101,8 @@ export function AuthenticatedDashboardView() {
     cancelled: "Cancelled",
   };
 
-  const displayName = profile?.full_name || user?.user_metadata?.full_name;
+  const rawName = profile?.full_name || user?.user_metadata?.full_name;
+  const displayName = rawName ? getLocalizedPatientName(rawName, language) : null;
 
   return (
     <div className="max-w-5xl mx-auto py-3 sm:py-5 space-y-4 sm:space-y-6">

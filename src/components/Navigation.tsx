@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getLocalizedPatientName } from "@/lib/patient-name";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { cn } from "@/lib/utils";
 import {
@@ -35,19 +36,21 @@ interface NavItem {
 
 export function Navigation() {
   const { user, profile, signOut } = useAuth();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const pathname = usePathname();
   const router = useRouter();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const displayName =
+  const rawName =
     profile?.full_name ||
     user?.user_metadata?.full_name ||
     user?.user_metadata?.name ||
     user?.email?.split("@")[0] ||
     "Account";
+
+  const displayName = getLocalizedPatientName(rawName, language);
 
   const role = (profile?.role || "PATIENT").toUpperCase();
 

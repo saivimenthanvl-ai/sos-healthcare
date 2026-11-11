@@ -27,7 +27,7 @@ export function LegalLayout({ title, subtitle, lastUpdated, toc, children }: Leg
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 pt-8 pb-14 sm:pt-12 sm:pb-20 space-y-8 sm:space-y-10">
+    <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 pt-12 pb-14 sm:pt-16 sm:pb-20 space-y-8 sm:space-y-10">
       <header className="space-y-2 border-b border-gray-100 dark:border-gray-800 pb-5">
         <h1 className="text-2xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight break-words">
           {title}
