@@ -44,28 +44,29 @@ export function HospitalCard({ hospital, onBook }: HospitalCardProps) {
             {hospital.address}
           </p>
 
-          {/* Distance + ETA */}
+          {/* Distance + Estimated Drive Time */}
           {hospital.distance_km !== undefined && (
-            <div className="flex items-center gap-4 mt-2 text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-4 mt-2 text-xs text-gray-600 dark:text-gray-400">
               <span className="flex items-center gap-1">
-                <CarIcon className="h-4 w-4" />
+                <CarIcon className="h-3.5 w-3.5" />
                 {formatDistance(hospital.distance_km)}
               </span>
               <span className="flex items-center gap-1">
-                <ClockIcon className="h-4 w-4" />
-                ~{etaMinutes} min ETA
+                <ClockIcon className="h-3.5 w-3.5" />
+                Estimated ~{etaMinutes} min drive
               </span>
             </div>
           )}
 
-          {/* Beds + Emergency */}
-          <div className="flex items-center gap-4 mt-2 text-sm text-gray-600 dark:text-gray-400">
-            {hospital.icu_beds !== undefined && (
-              <span>ICU Beds: <strong className="text-gray-900 dark:text-gray-100">{hospital.icu_beds}</strong></span>
+          {/* Verified Directory Department Info */}
+          <div className="flex items-center gap-3 mt-2 text-xs text-gray-600 dark:text-gray-400">
+            {hospital.emergency_department ? (
+              <span className="text-emerald-700 dark:text-emerald-400 font-medium">Emergency Care Facility</span>
+            ) : (
+              <span className="text-gray-500">Outpatient & Medical Facility</span>
             )}
-            {hospital.emergency_department && (
-              <span className="text-green-600 dark:text-green-400 font-medium">Open 24/7</span>
-            )}
+            <span className="text-gray-400">•</span>
+            <span className="text-gray-500 text-[11px]">Accredited Health Center</span>
           </div>
         </div>
       </div>
