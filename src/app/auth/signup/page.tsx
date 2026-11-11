@@ -110,7 +110,7 @@ export default function SignupPage() {
       </h2>
 
       <p className="text-center text-sm text-gray-600 dark:text-gray-400 mb-6">
-        Join Fyzer for healthcare access and emergency response.
+        Join SOS Healthcare for healthcare access, appointment planning, and emergency assistance.
       </p>
 
       {error && (

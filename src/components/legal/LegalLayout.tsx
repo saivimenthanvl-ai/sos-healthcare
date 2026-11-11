@@ -27,14 +27,14 @@ export function LegalLayout({ title, subtitle, lastUpdated, toc, children }: Leg
   }, []);
 
   return (
-    <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 py-10 sm:py-14 space-y-10">
-      <header className="space-y-2">
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight break-words">
+    <div className="max-w-4xl mx-auto w-full px-4 sm:px-6 pt-8 pb-14 sm:pt-12 sm:pb-20 space-y-8 sm:space-y-10">
+      <header className="space-y-2 border-b border-gray-100 dark:border-gray-800 pb-5">
+        <h1 className="text-2xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight break-words">
           {title}
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300">{subtitle}</p>
+        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 font-medium">{subtitle}</p>
         {lastUpdated && (
-          <p className="text-sm text-gray-500 dark:text-gray-400">Last Updated: {lastUpdated}</p>
+          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Last Updated: {lastUpdated}</p>
         )}
       </header>
 
