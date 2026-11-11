@@ -98,7 +98,7 @@ export default function HealthProfilePage() {
               />
             </div>
             <p className="text-[11px] text-blue-800 dark:text-blue-300">
-              When enabled, your blood group, critical allergies, and emergency contacts are securely shared with assigned doctors and dispatched responders upon emergency initiation.
+              When enabled, your blood group, critical allergies, and emergency contacts are securely shared with assigned doctors and dispatched responders only upon active emergency initiation or verified appointment check-in.
             </p>
           </div>
 

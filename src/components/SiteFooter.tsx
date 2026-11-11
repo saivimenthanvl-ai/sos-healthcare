@@ -17,9 +17,9 @@ export function SiteFooter() {
             <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
               Rapid emergency assistance platform connecting individuals to nearby hospitals, accredited specialists, and first responders. Zero platform fees.
             </p>
-            <div className="flex items-center gap-2 text-xs text-emerald-400 font-medium">
+            <div className="flex items-center gap-2 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              Emergency Platform Servers Online
+              Platform Systems Active & Monitored
             </div>
           </div>
 
@@ -93,8 +93,8 @@ export function SiteFooter() {
         </div>
 
         <div className="border-t border-gray-200 dark:border-gray-800 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 dark:text-gray-400 gap-4">
-          <p>&copy; {new Date().getFullYear()} SOS Healthcare Inc. All rights reserved.</p>
-          <p>Designed for immediate emergency care, wearable integration, and patient life safety.</p>
+          <p>&copy; {new Date().getFullYear()} SOS Healthcare. Rapid emergency assistance and hospital discovery platform.</p>
+          <p>Designed for rapid emergency assistance, wearable health data review, and patient safety.</p>
         </div>
       </div>
     </footer>

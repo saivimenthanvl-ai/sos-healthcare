@@ -59,3 +59,4 @@ CREATE POLICY "Admins can view appointment requests"
       AND (role_v2 = 'ADMIN' OR role = 'admin')
     )
   );
+

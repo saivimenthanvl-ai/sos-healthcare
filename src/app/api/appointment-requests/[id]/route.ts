@@ -121,3 +121,4 @@ export async function PATCH(
 
   return NextResponse.json({ error: "Invalid action. Supported actions: 'CANCEL', 'RESCHEDULE'" }, { status: 400 });
 }
+

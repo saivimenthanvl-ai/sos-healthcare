@@ -26,3 +26,4 @@ test("appointment-requests patch strictly enforces cancellation rules and owners
   assert.match(patchCode, /status: "CANCELLED"/);
   assert.match(patchCode, /cancelled_at:/);
 });
+

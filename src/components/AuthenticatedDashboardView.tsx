@@ -14,7 +14,12 @@ import {
   ClockIcon,
   CheckCircleIcon,
   AmbulanceIcon,
+  PhoneCallIcon,
   PlusIcon,
+  ActivityIcon,
+  CalendarDaysIcon,
+  SmartphoneIcon,
+  ArrowRightIcon,
 } from "lucide-react";
 import { useRealtime } from "@/hooks/useRealtime";
 
@@ -25,7 +30,6 @@ export function AuthenticatedDashboardView() {
   const { latitude, longitude, error: locationError, loading: locationLoading } = useLocation();
   const [emergencies, setEmergencies] = useState<Emergency[]>([]);
   const [emergenciesLoading, setEmergenciesLoading] = useState(true);
-  const [fitbitConnecting, setFitbitConnecting] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -72,7 +76,7 @@ export function AuthenticatedDashboardView() {
   if (authLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="text-center">Loading your dashboard...</div>
+        <div className="text-center text-gray-600 dark:text-gray-400">Loading your dashboard...</div>
       </div>
     );
   }
@@ -95,70 +99,6 @@ export function AuthenticatedDashboardView() {
     cancelled: "Cancelled",
   };
 
-  const connectFitbit = async () => {
-    if (fitbitConnecting) return;
-
-    setFitbitConnecting(true);
-
-    try {
-      const {
-        data: { session },
-        error: sessionError,
-      } = await supabase.auth.getSession();
-
-      if (sessionError) {
-        console.error("[Fitbit] session error:", sessionError.message);
-        return;
-      }
-
-      if (!session?.access_token) {
-        console.error("[Fitbit] No authenticated Supabase session");
-        router.push("/auth/login");
-        return;
-      }
-
-      console.log("[Fitbit] user:", session.user.id);
-      console.log("[Fitbit] access token present:", true);
-
-      const { data, error } = await supabase.functions.invoke(
-        "fitbit-connect",
-        {
-          method: "POST",
-          body: {},
-          headers: {
-            Authorization: `Bearer ${session.access_token}`,
-          },
-        }
-      );
-
-      if (error) {
-        console.error("[Fitbit] function error:", error);
-
-        try {
-          const result = await error.context.json();
-          console.error("[Fitbit] Edge Function response:", result);
-        } catch {
-          console.error("[Fitbit] Unable to read function response");
-        }
-
-        return;
-      }
-
-      console.log("[Fitbit] response:", data);
-
-      if (!data?.authorizationUrl) {
-        console.error("[Fitbit] authorizationUrl missing");
-        return;
-      }
-
-      window.location.assign(data.authorizationUrl);
-    } catch (error) {
-      console.error("[Fitbit] unexpected error:", error);
-    } finally {
-      setFitbitConnecting(false);
-    }
-  };
-
   return (
     <div className="max-w-5xl mx-auto py-6">
       {/* Hero section */}
@@ -167,9 +107,7 @@ export function AuthenticatedDashboardView() {
           {profile?.full_name ? `Hello, ${profile.full_name}` : "SOS Healthcare"}
         </h1>
         <p className="text-gray-600 dark:text-gray-300 max-w-2xl">
-          In a medical emergency, press the SOS button below. We&apos;ll locate the
-          nearest hospital and dispatch an ambulance within 10-20 minutes.
-          No fees. No delays.
+          In an acute life-threatening emergency, call 112 immediately or trigger an emergency beacon to transmit your GPS coordinates and notify your registered emergency contacts.
         </p>
       </div>
 
@@ -178,9 +116,9 @@ export function AuthenticatedDashboardView() {
         {locationLoading ? (
           <div className="animate-spin rounded-full h-5 w-5 border-2 border-blue-600 border-t-transparent" />
         ) : latitude != null && longitude != null ? (
-          <MapPinIcon className="h-5 w-5 text-green-500" />
+          <MapPinIcon className="h-5 w-5 text-green-500 shrink-0" />
         ) : (
-          <MapPinIcon className="h-5 w-5 text-red-500" />
+          <MapPinIcon className="h-5 w-5 text-red-500 shrink-0" />
         )}
         <span className="text-sm text-gray-700 dark:text-gray-300">
           {locationLoading
@@ -192,12 +130,12 @@ export function AuthenticatedDashboardView() {
       </div>
 
       {/* SOS Button - Large and prominent */}
-      <div className="flex justify-center py-8">
-        <Link href="/emergency">
+      <div className="flex justify-center py-6">
+        <Link href="/emergency" aria-label="Trigger SOS Emergency Beacon">
           <Button
             variant="danger"
             size="xl"
-            className="w-64 h-64 rounded-full shadow-2xl text-3xl font-bold text-white animate-pulse-slow hover:animate-none transition-all hover:scale-105"
+            className="w-60 h-60 sm:w-64 sm:h-64 rounded-full shadow-2xl text-3xl font-bold text-white transition-all hover:scale-105"
           >
             <span className="flex flex-col items-center">
               <AlertTriangleIcon className="h-16 w-16 mb-2" />
@@ -207,8 +145,155 @@ export function AuthenticatedDashboardView() {
         </Link>
       </div>
 
-      {/* Recent emergencies */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl shadow p-6 border border-gray-100 dark:border-gray-800">
+      {/* Dual Emergency Action Notice: Phone 112 vs App Beacon */}
+      <div className="mb-8 p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex items-start gap-3">
+          <PhoneCallIcon className="h-6 w-6 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm font-bold text-red-900 dark:text-red-200">
+              Direct Emergency Telephone Services (Call 112)
+            </p>
+            <p className="text-xs text-red-700 dark:text-red-300">
+              For immediate critical situations, call national emergency responders directly. The SOS button broadcasts your coordinates via the app.
+            </p>
+          </div>
+        </div>
+        <a
+          href="tel:112"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-lg transition-colors shrink-0"
+        >
+          <PhoneCallIcon className="h-4 w-4" /> Call 112 Now
+        </a>
+      </div>
+
+      {/* Four Core Healthcare Patient Tasks */}
+      <div className="mb-10">
+        <div className="mb-4">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Core Patient Services</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Direct access to your emergency workflows, hospital directory, appointment planner, and devices</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Task 1: Emergency Help */}
+          <Link
+            href="/emergency"
+            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-red-500/40 transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div className="bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <AlertTriangleIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                1. Emergency Assistance & SOS
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                Initiate an emergency incident record with high-precision GPS positioning, share critical health details with first responders, and notify your emergency contacts.
+              </p>
+            </div>
+            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500 shrink-0" /> Real-time GPS coordinate transmission
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500 shrink-0" /> Emergency contact broadcast notification
+              </div>
+              <div className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400 font-semibold mt-2">
+                Open Emergency Center <ArrowRightIcon className="h-3.5 w-3.5 ml-1" />
+              </div>
+            </div>
+          </Link>
+
+          {/* Task 2: Find Hospitals */}
+          <Link
+            href="/hospitals"
+            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-blue-500/40 transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div className="bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <MapPinIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                2. Find Accredited Hospitals
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                Explore nearby hospitals and trauma centers sorted by driving distance. View verified telephone numbers, operating hours, and driving navigation.
+              </p>
+            </div>
+            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500 shrink-0" /> Verified public healthcare directory
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500 shrink-0" /> Direct telephone dispatch & driving routes
+              </div>
+              <div className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400 font-semibold mt-2">
+                Browse Nearby Facilities <ArrowRightIcon className="h-3.5 w-3.5 ml-1" />
+              </div>
+            </div>
+          </Link>
+
+          {/* Task 3: My Appointment Requests */}
+          <Link
+            href="/appointments"
+            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-emerald-500/40 transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div className="bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <CalendarDaysIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                3. My Appointment Requests
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                Manage your private consultation requests. Keep personal scheduling notes, track request status, reschedule, or cancel requests within your secure account.
+              </p>
+            </div>
+            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500 shrink-0" /> Personal scheduling planner (stored in your account)
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500 shrink-0" /> Verified specialist catalog & custom hospital booking
+              </div>
+              <div className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400 font-semibold mt-2">
+                View My Appointments <ArrowRightIcon className="h-3.5 w-3.5 ml-1" />
+              </div>
+            </div>
+          </Link>
+
+          {/* Task 4: Wearable & Health Devices */}
+          <Link
+            href="/devices"
+            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-indigo-500/40 transition-all flex flex-col justify-between"
+          >
+            <div>
+              <div className="bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <SmartphoneIcon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                4. Health Devices & Wearables
+              </h3>
+              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                Connect your Google Health account via OAuth 2.0. Review integration requirements for Apple Health and Wear OS companion apps.
+              </p>
+            </div>
+            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500 shrink-0" /> Google Health API Web OAuth integration
+              </div>
+              <div className="flex items-center gap-1.5 font-medium">
+                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500 shrink-0" /> Companion app status indicators (Apple / Wear OS)
+              </div>
+              <div className="flex items-center gap-1.5 text-blue-600 dark:text-blue-400 font-semibold mt-2">
+                Manage Devices & Vitals <ArrowRightIcon className="h-3.5 w-3.5 ml-1" />
+              </div>
+            </div>
+          </Link>
+        </div>
+      </div>
+
+      {/* Recent emergencies history list */}
+      <div className="bg-white dark:bg-gray-900 rounded-xl shadow p-6 border border-gray-100 dark:border-gray-800 mb-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Your Recent Emergencies</h2>
           <Link
@@ -239,8 +324,8 @@ export function AuthenticatedDashboardView() {
                 className="flex items-center gap-4 p-3 border border-gray-200 dark:border-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/60 cursor-pointer transition-colors"
                 onClick={() => router.push(`/emergency/${e.id}`)}
               >
-                {statusIcons[e.status] || <ClockIcon className="h-5 w-5 text-gray-400" />}
-                <div className="flex-1">
+                {statusIcons[e.status] || <ClockIcon className="h-5 w-5 text-gray-400 shrink-0" />}
+                <div className="flex-1 min-w-0">
                   <p className="font-medium text-gray-900 dark:text-white">
                     {statusLabels[e.status] || e.status}
                   </p>
@@ -249,7 +334,7 @@ export function AuthenticatedDashboardView() {
                   </p>
                 </div>
                 {e.eta_minutes && (
-                  <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                  <span className="text-sm font-medium text-blue-600 dark:text-blue-400 shrink-0">
                     ETA: {e.eta_minutes} min
                   </span>
                 )}
@@ -259,224 +344,41 @@ export function AuthenticatedDashboardView() {
         )}
       </div>
 
-      {/* Quick links */}
-      <div className="mt-8">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+      {/* Quick navigation shortcuts */}
+      <div>
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Navigation</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <Link
             href="/hospitals"
             className="flex flex-col items-center justify-center text-center p-3.5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-blue-500/30 transition-all"
           >
             <AmbulanceIcon className="h-6 w-6 text-blue-600 dark:text-blue-400 mb-2" />
-            <span className="text-xs font-semibold text-gray-900 dark:text-white">Nearby Hospitals</span>
-          </Link>
-
-          <Link
-            href="/hospitals?map=true"
-            className="flex flex-col items-center justify-center text-center p-3.5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-red-500/30 transition-all"
-          >
-            <MapPinIcon className="h-6 w-6 text-red-600 dark:text-red-400 mb-2" />
-            <span className="text-xs font-semibold text-gray-900 dark:text-white">Find Hospitals Near You</span>
-          </Link>
-
-          <Link
-            href="/devices"
-            className="flex flex-col items-center justify-center text-center p-3.5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-emerald-500/30 transition-all"
-          >
-            <PlusIcon className="h-6 w-6 text-emerald-600 dark:text-emerald-400 mb-2" />
-            <span className="text-xs font-semibold text-gray-900 dark:text-white">Connect Fitbit</span>
+            <span className="text-xs font-semibold text-gray-900 dark:text-white">Hospital Directory</span>
           </Link>
 
           <Link
             href="/appointments"
+            className="flex flex-col items-center justify-center text-center p-3.5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-emerald-500/30 transition-all"
+          >
+            <CalendarDaysIcon className="h-6 w-6 text-emerald-600 dark:text-emerald-400 mb-2" />
+            <span className="text-xs font-semibold text-gray-900 dark:text-white">Appointments</span>
+          </Link>
+
+          <Link
+            href="/devices"
             className="flex flex-col items-center justify-center text-center p-3.5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-indigo-500/30 transition-all"
           >
-            <ClockIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400 mb-2" />
-            <span className="text-xs font-semibold text-gray-900 dark:text-white">Book Appointment</span>
+            <SmartphoneIcon className="h-6 w-6 text-indigo-600 dark:text-indigo-400 mb-2" />
+            <span className="text-xs font-semibold text-gray-900 dark:text-white">Health Devices</span>
           </Link>
 
           <Link
             href="/profile/health"
             className="flex flex-col items-center justify-center text-center p-3.5 bg-white dark:bg-gray-900 rounded-xl shadow border border-gray-100 dark:border-gray-800 hover:shadow-md hover:border-pink-500/30 transition-all"
           >
-            <CheckCircleIcon className="h-6 w-6 text-pink-600 dark:text-pink-400 mb-2" />
+            <ActivityIcon className="h-6 w-6 text-pink-600 dark:text-pink-400 mb-2" />
             <span className="text-xs font-semibold text-gray-900 dark:text-white">Health Profile</span>
           </Link>
-        </div>
-      </div>
-
-      {/* Six Feature Entry Point Cards */}
-      <div className="mt-10">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Emergency Services & Integrations</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">Click any card to open the dedicated feature module</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Card 1: One-Tap SOS -> /emergency */}
-          <Link
-            href="/emergency"
-            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-red-500/40 transition-all flex flex-col justify-between"
-          >
-            <div>
-              <div className="bg-red-50 dark:bg-red-950/60 text-red-600 dark:text-red-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <AlertTriangleIcon className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
-                One-Tap SOS
-              </h3>
-              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                Press a single emergency button to immediately alert closest ambulances and hospitals. Your precise GPS coordinates and emergency contacts are notified automatically in seconds.
-              </p>
-            </div>
-            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Instant GPS beacon
-              </div>
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Multi-contact SMS broadcast
-              </div>
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Automated ER dispatch
-              </div>
-            </div>
-          </Link>
-
-          {/* Card 2: 10-20 Min ETA -> /emergency/location */}
-          <Link
-            href="/emergency/location"
-            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-blue-500/40 transition-all flex flex-col justify-between"
-          >
-            <div>
-              <div className="bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <ClockIcon className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                10-20 Min ETA
-              </h3>
-              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                Smart priority ambulance fleet matching routes the nearest available unit directly to your coordinates with turn-by-turn navigation and live arrival countdowns.
-              </p>
-            </div>
-            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Live GPS fleet tracking
-              </div>
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Dynamic traffic routing
-              </div>
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Real-time paramedic chat
-              </div>
-            </div>
-          </Link>
-
-          {/* Card 3: Nearby Hospitals -> /hospitals */}
-          <Link
-            href="/hospitals"
-            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-emerald-500/40 transition-all flex flex-col justify-between"
-          >
-            <div>
-              <div className="bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <MapPinIcon className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                Nearby Hospitals
-              </h3>
-              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                Locate accredited hospitals with real-time verified ICU beds, ER capacity, and direct emergency room triage booking customized to patient needs.
-              </p>
-            </div>
-            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Real-time bed availability
-              </div>
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Direct ER triage reservation
-              </div>
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> One-tap Google Maps directions
-              </div>
-            </div>
-          </Link>
-
-          {/* Card 4: Smartwatch Integration -> /devices */}
-          <Link
-            href="/devices"
-            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-indigo-500/40 transition-all flex flex-col justify-between"
-          >
-            <div>
-              <div className="bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <PlusIcon className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                Smartwatch Integration
-              </h3>
-              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                Seamlessly connect your Fitbit, Apple Watch, or Android Wear device. Automatic fall detection and extreme heart rate spikes trigger emergency help without taking out your phone.
-              </p>
-            </div>
-            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Automated fall detection
-              </div>
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Heart rate spike/drop alerts
-              </div>
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Instant wrist SOS trigger
-              </div>
-            </div>
-          </Link>
-
-          {/* Card 5: Health Data Sharing -> /profile/health */}
-          <Link
-            href="/profile/health"
-            className="group bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-pink-500/40 transition-all flex flex-col justify-between"
-          >
-            <div>
-              <div className="bg-pink-50 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <CheckCircleIcon className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
-                Health Data Sharing
-              </h3>
-              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                Your real-time vitals, blood type, known allergies, chronic conditions, and emergency contacts are securely shared with doctors and incoming paramedics ahead of arrival.
-              </p>
-            </div>
-            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 space-y-1.5 text-xs text-gray-700 dark:text-gray-300">
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Encrypted medical profile
-              </div>
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Allergy & blood group badge
-              </div>
-              <div className="flex items-center gap-1.5 font-medium">
-                <CheckCircleIcon className="h-3.5 w-3.5 text-emerald-500" /> Paramedic pre-arrival briefing
-              </div>
-            </div>
-          </Link>
-
-          {/* Card 6: No Fees -> Informational Card */}
-          <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 text-left border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col justify-between">
-            <div>
-              <div className="bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-xl p-3 w-12 h-12 mb-4 flex items-center justify-center">
-                <ClockIcon className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                No Fees
-              </h3>
-              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                This service is completely free for users. No hidden charges. Emergency care should never cost you.
-              </p>
-            </div>
-            <div className="pt-3 border-t border-gray-100 dark:border-gray-800 text-xs text-gray-500 dark:text-gray-400">
-              <span>SOS Healthcare platform usage is 100% free. Independent hospital fees may apply depending on treatment.</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
