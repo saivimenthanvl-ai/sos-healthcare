@@ -23,3 +23,4 @@ export function SosLogo({ className = "w-8 h-8", size = 32, priority = false }: 
 }
 
 export default SosLogo;
+

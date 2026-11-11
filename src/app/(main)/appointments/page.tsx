@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { CalendarIcon, CheckCircleIcon, AlertCircleIcon } from "lucide-react";
+import { CalendarIcon, CheckCircleIcon, AlertCircleIcon, ClockIcon, StethoscopeIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 interface Doctor {
@@ -10,6 +10,8 @@ interface Doctor {
   name: string;
   specialty: string;
   hospital: string;
+  experienceYears?: number;
+  consultationHours?: string;
   availableSlots: string[];
 }
 
@@ -21,43 +23,43 @@ interface Appointment {
   starts_at: string;
 }
 
-const mockDoctors: Doctor[] = [
-  {
-    id: "doc-1",
-    name: "Dr. Sarah Chen, MD",
-    specialty: "Cardiology & Emergency Triage",
-    hospital: "City Central Medical Center",
-    availableSlots: ["09:00 AM", "11:30 AM", "02:00 PM", "04:30 PM"],
-  },
-  {
-    id: "doc-2",
-    name: "Dr. Rajesh Sharma, MBBS",
-    specialty: "Trauma Care & General Medicine",
-    hospital: "Apex Specialty Hospital",
-    availableSlots: ["10:00 AM", "01:00 PM", "03:30 PM"],
-  },
-  {
-    id: "doc-3",
-    name: "Dr. Elena Rostova, MD",
-    specialty: "Pulmonology & Critical Care",
-    hospital: "Metro General Hospital",
-    availableSlots: ["08:30 AM", "11:00 AM", "02:30 PM"],
-  },
-];
-
 export default function AppointmentsPage() {
   const { user } = useAuth();
-  const [selectedDoctor, setSelectedDoctor] = useState<Doctor>(mockDoctors[0]);
-  const [selectedDate, setSelectedDate] = useState(() => new Date().toISOString().split("T")[0]);
-  const [selectedSlot, setSelectedSlot] = useState(mockDoctors[0].availableSlots[0]);
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
+  const [selectedDate, setSelectedDate] = useState(() => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split("T")[0];
+  });
+  const [selectedSlot, setSelectedSlot] = useState<string>("");
   const [reason, setReason] = useState("");
   const [bookingLoading, setBookingLoading] = useState(false);
   const [bookingMessage, setBookingMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
   const [myAppointments, setMyAppointments] = useState<Appointment[]>([]);
 
-  const fetchAppointments = async () => {
+  // Fetch verified doctors list from API
+  useEffect(() => {
+    let active = true;
+    fetch("/api/doctors")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (active && data?.doctors?.length > 0) {
+          setDoctors(data.doctors);
+          setSelectedDoctor(data.doctors[0]);
+          setSelectedSlot(data.doctors[0].availableSlots[0]);
+        }
+      })
+      .catch((err) => console.warn("Failed to load doctors:", err));
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const fetchAppointments = useCallback(async () => {
+    if (!user) return;
     try {
       const res = await fetch("/api/appointments");
       if (res.ok) {
@@ -67,25 +69,30 @@ export default function AppointmentsPage() {
     } catch (err) {
       console.warn("Failed to fetch appointments:", err);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
+    let active = true;
     if (!user) return;
-    const controller = new AbortController();
-    fetch("/api/appointments", { signal: controller.signal })
-      .then(async (res) => {
-        if (!res.ok) return;
-        const data: { appointments?: Appointment[] } = await res.json();
-        if (!controller.signal.aborted) setMyAppointments(data.appointments ?? []);
+
+    fetch("/api/appointments")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (active && data?.appointments) {
+          setMyAppointments(data.appointments);
+        }
       })
-      .catch((error: unknown) => {
-        if (!controller.signal.aborted) console.warn("Failed to fetch appointments:", error);
-      });
-    return () => controller.abort();
+      .catch((err) => console.warn("Failed to fetch appointments:", err));
+
+    return () => {
+      active = false;
+    };
   }, [user]);
 
   const handleBook = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!selectedDoctor || !selectedSlot) return;
+
     setBookingLoading(true);
     setBookingMessage(null);
     setErrorMessage(null);
@@ -111,7 +118,7 @@ export default function AppointmentsPage() {
       if (!res.ok) {
         setErrorMessage(data.error || "Failed to book appointment");
       } else {
-        setBookingMessage("Appointment confirmed successfully!");
+        setBookingMessage("Verified specialist consultation reserved successfully!");
         setReason("");
         fetchAppointments();
       }
@@ -172,26 +179,45 @@ export default function AppointmentsPage() {
           <form onSubmit={handleBook} className="space-y-4">
             <div>
               <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">
-                Select Specialist & Hospital
+                Select Verified Specialist & Hospital
               </label>
-              <select
-                value={selectedDoctor.id}
-                onChange={(e) => {
-                  const doc = mockDoctors.find((d) => d.id === e.target.value);
-                  if (doc) {
-                    setSelectedDoctor(doc);
-                    setSelectedSlot(doc.availableSlots[0]);
-                  }
-                }}
-                className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-sm border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white"
-              >
-                {mockDoctors.map((doc) => (
-                  <option key={doc.id} value={doc.id}>
-                    {doc.name} — {doc.specialty} ({doc.hospital})
-                  </option>
-                ))}
-              </select>
+              {doctors.length === 0 ? (
+                <div className="text-sm text-gray-500 py-2">Loading verified clinical specialists...</div>
+              ) : (
+                <select
+                  value={selectedDoctor?.id || ""}
+                  onChange={(e) => {
+                    const doc = doctors.find((d) => d.id === e.target.value);
+                    if (doc) {
+                      setSelectedDoctor(doc);
+                      setSelectedSlot(doc.availableSlots[0]);
+                    }
+                  }}
+                  className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-sm border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white"
+                >
+                  {doctors.map((doc) => (
+                    <option key={doc.id} value={doc.id}>
+                      {doc.name} — {doc.specialty} ({doc.hospital})
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
+
+            {selectedDoctor && (
+              <div className="p-3 bg-blue-50/50 dark:bg-blue-950/30 rounded-xl border border-blue-100 dark:border-blue-900/50 text-xs text-gray-700 dark:text-gray-300 flex items-center gap-4">
+                <div className="flex items-center gap-1.5 font-medium">
+                  <StethoscopeIcon className="w-4 h-4 text-blue-600" />
+                  <span>{selectedDoctor.specialty}</span>
+                </div>
+                {selectedDoctor.consultationHours && (
+                  <div className="flex items-center gap-1.5 font-medium">
+                    <ClockIcon className="w-4 h-4 text-blue-600" />
+                    <span>{selectedDoctor.consultationHours}</span>
+                  </div>
+                )}
+              </div>
+            )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -200,6 +226,7 @@ export default function AppointmentsPage() {
                 </label>
                 <input
                   type="date"
+                  min={new Date().toISOString().split("T")[0]}
                   value={selectedDate}
                   onChange={(e) => setSelectedDate(e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-sm border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white"
@@ -216,7 +243,7 @@ export default function AppointmentsPage() {
                   onChange={(e) => setSelectedSlot(e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-sm border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white"
                 >
-                  {selectedDoctor.availableSlots.map((slot) => (
+                  {selectedDoctor?.availableSlots.map((slot) => (
                     <option key={slot} value={slot}>
                       {slot}
                     </option>
@@ -231,14 +258,19 @@ export default function AppointmentsPage() {
               </label>
               <input
                 type="text"
-                placeholder="e.g. Chest pain follow-up, general health check"
+                placeholder="e.g. Chest pain follow-up, post-emergency triage check"
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
                 className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-sm border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white"
               />
             </div>
 
-            <Button type="submit" disabled={bookingLoading} variant="primary" className="w-full">
+            <Button
+              type="submit"
+              disabled={bookingLoading || !selectedDoctor}
+              variant="primary"
+              className="w-full"
+            >
               {bookingLoading ? "Reserving Slot..." : "Confirm Verified Reservation"}
             </Button>
           </form>
@@ -262,7 +294,7 @@ export default function AppointmentsPage() {
                       {app.status}
                     </span>
                   </div>
-                  <p className="text-gray-500">{app.hospital_name}</p>
+                  <p className="text-gray-500">{app.hospital_name || "SOS Network Specialist"}</p>
                   <p className="text-gray-700 dark:text-gray-300 font-mono">
                     {new Date(app.starts_at).toLocaleDateString()} at {new Date(app.starts_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>

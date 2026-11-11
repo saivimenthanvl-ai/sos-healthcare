@@ -1,55 +1,64 @@
 "use client";
 
-import { useState } from "react";
-import { SmartphoneIcon, ActivityIcon, CheckCircleIcon, AlertCircleIcon, ShieldAlertIcon, RefreshCwIcon } from "lucide-react";
+import { useEffect, useState, useTransition } from "react";
+import { SmartphoneIcon, CheckCircleIcon, ShieldAlertIcon, InfoIcon, ExternalLinkIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
-interface SmartwatchProvider {
-  id: string;
-  name: string;
-  status: "CONNECTED" | "NOT_CONFIGURED" | "AWAITING_CREDENTIALS";
-  description: string;
-  metrics: string[];
-  notice?: string;
+interface DeviceStatus {
+  connected: boolean;
+  configured: boolean;
+}
+
+interface DevicesApiResponse {
+  hasGoogleHealthCredentials: boolean;
+  devices: {
+    google_health: DeviceStatus;
+    apple_health: DeviceStatus;
+    wear_os: DeviceStatus;
+  };
 }
 
 export default function DevicesPage() {
+  const [loading, setLoading] = useState(true);
+  const [deviceStatuses, setDeviceStatuses] = useState<DevicesApiResponse | null>(null);
   const [connecting, setConnecting] = useState<string | null>(null);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [, startTransition] = useTransition();
 
-  const devices: SmartwatchProvider[] = [
-    {
-      id: "fitbit",
-      name: "Fitbit / Google Health",
-      status: "AWAITING_CREDENTIALS",
-      description: "Heart rate variability, step tracking, active minutes, and fall detection triggers.",
-      metrics: ["Heart Rate", "Resting HR", "SpO2 Oxygen", "Step Telemetry"],
-      notice: "Legacy Fitbit Web API sunset date scheduled for October 30, 2026. Transitioning to Google Health API.",
-    },
-    {
-      id: "apple_health",
-      name: "Apple Watch / Apple HealthKit",
-      status: "NOT_CONFIGURED",
-      description: "Direct HealthKit integration for iPhone and Apple Watch telemetry.",
-      metrics: ["ECG Vitals", "Fall Detection Sensor", "Heart Spike Warning"],
-      notice: "Requires iOS Companion App or Web HealthKit OAuth bridge.",
-    },
-    {
-      id: "wear_os",
-      name: "Wear OS / Android Smartwatch",
-      status: "NOT_CONFIGURED",
-      description: "Android Health Connect sensor synchronization for Wear OS wrist devices.",
-      metrics: ["Continuous Pulse", "Emergency Beacon Sensor", "Sleep & Vitals"],
-      notice: "Provider access onboarding currently in review with Google Health Platform.",
-    },
-  ];
+  useEffect(() => {
+    // Read status or error query params if redirected from OAuth callback
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const success = params.get("success");
+      const error = params.get("error");
+      if (success === "google_health_connected") {
+        startTransition(() => {
+          setStatusMessage("Google Health & Smartwatch connected successfully!");
+        });
+      } else if (error) {
+        startTransition(() => {
+          setStatusMessage(`Connection notification: ${error}`);
+        });
+      }
+    }
 
-  const handleConnect = (deviceId: string) => {
-    setConnecting(deviceId);
-    setTimeout(() => {
-      setConnecting(null);
-      alert(`${deviceId.toUpperCase()} integration requires approved Google Health / OEM OAuth credentials in server environment.`);
-    }, 800);
+    fetch("/api/devices/status")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data) setDeviceStatuses(data);
+      })
+      .catch((err) => console.warn("Failed to fetch device status:", err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const handleConnectGoogleHealth = () => {
+    setConnecting("google_health");
+    // Directly navigate to verified server-side Google Health OAuth flow
+    window.location.assign("/api/google-health/authorize");
   };
+
+  const isGoogleHealthConnected = deviceStatuses?.devices.google_health.connected ?? false;
+  const isGoogleHealthConfigured = deviceStatuses?.hasGoogleHealthCredentials ?? false;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6 py-4">
@@ -64,6 +73,13 @@ export default function DevicesPage() {
         </p>
       </div>
 
+      {statusMessage && (
+        <div className="bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 rounded-xl p-4 text-sm font-medium text-blue-900 dark:text-blue-200 flex items-center gap-2">
+          <InfoIcon className="h-5 w-5 text-blue-600 flex-shrink-0" />
+          <span>{statusMessage}</span>
+        </div>
+      )}
+
       {/* Safety Notice */}
       <div className="bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 rounded-xl p-4 text-xs text-blue-900 dark:text-blue-200 flex items-start gap-3">
         <ShieldAlertIcon className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
@@ -74,53 +90,178 @@ export default function DevicesPage() {
 
       {/* Device Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {devices.map((device) => (
-          <div
-            key={device.id}
-            className="bg-white dark:bg-gray-900 rounded-2xl shadow border border-gray-200 dark:border-gray-800 p-5 flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-bold text-gray-900 dark:text-white text-base">{device.name}</h3>
-                <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
-                  {device.status === "CONNECTED" ? "Connected" : "Provider Required"}
-                </span>
-              </div>
-              <p className="text-xs text-gray-600 dark:text-gray-400 mb-4">{device.description}</p>
+        {/* Card 1: Google Health / Fitbit */}
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow border border-gray-200 dark:border-gray-800 p-5 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-bold text-gray-900 dark:text-white text-base">Google Health / Fitbit</h3>
+              <span
+                className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
+                  isGoogleHealthConnected
+                    ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200"
+                    : isGoogleHealthConfigured
+                    ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                    : "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                }`}
+              >
+                {isGoogleHealthConnected
+                  ? "Connected"
+                  : isGoogleHealthConfigured
+                  ? "Ready to Connect"
+                  : "Setup Required"}
+              </span>
+            </div>
+            <p className="text-xs text-gray-600 dark:text-gray-400 mb-4">
+              Heart rate variability, step tracking, active minutes, and wrist emergency beacon.
+            </p>
 
-              <div className="mb-4">
-                <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
-                  Telemetry Metrics:
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {device.metrics.map((m, idx) => (
-                    <span
-                      key={idx}
-                      className="text-[10px] bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded-md font-medium"
-                    >
-                      {m}
-                    </span>
-                  ))}
-                </div>
+            <div className="mb-4">
+              <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+                Telemetry Metrics:
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {["Heart Rate", "Resting HR", "Step Telemetry", "Wrist SOS"].map((m, idx) => (
+                  <span
+                    key={idx}
+                    className="text-[10px] bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded-md font-medium"
+                  >
+                    {m}
+                  </span>
+                ))}
               </div>
-
-              {device.notice && (
-                <p className="text-[11px] text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 p-2.5 rounded-lg mb-4">
-                  ⚠️ {device.notice}
-                </p>
-              )}
             </div>
 
-            <Button
-              onClick={() => handleConnect(device.id)}
-              disabled={connecting === device.id}
-              variant="outline"
-              className="w-full text-xs font-semibold py-2"
-            >
-              {connecting === device.id ? "Checking OAuth..." : "Connect Device"}
+            <p className="text-[11px] text-gray-500 dark:text-gray-400 italic mb-4">
+              Powered by Google Health OAuth 2.0 Web Application.
+            </p>
+          </div>
+
+          <div className="pt-2 border-t border-gray-100 dark:border-gray-800">
+            {isGoogleHealthConnected ? (
+              <div className="flex items-center gap-1.5 text-xs text-emerald-600 font-semibold py-2">
+                <CheckCircleIcon className="w-4 h-4 text-emerald-500" />
+                Active Telemetry Sync
+              </div>
+            ) : (
+              <Button
+                variant="primary"
+                size="sm"
+                className="w-full"
+                onClick={handleConnectGoogleHealth}
+                disabled={connecting === "google_health" || loading}
+              >
+                {connecting === "google_health" ? (
+                  "Connecting to Google..."
+                ) : (
+                  <span className="flex items-center justify-center gap-1.5">
+                    Connect Google Health <ExternalLinkIcon className="w-3.5 h-3.5" />
+                  </span>
+                )}
+              </Button>
+            )}
+          </div>
+        </div>
+
+        {/* Card 2: Apple Watch */}
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow border border-gray-200 dark:border-gray-800 p-5 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-bold text-gray-900 dark:text-white text-base">Apple Watch / HealthKit</h3>
+              <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+                Companion App Required
+              </span>
+            </div>
+            <p className="text-xs text-gray-600 dark:text-gray-400 mb-4">
+              Direct Apple HealthKit sensor synchronization for iPhone and Apple Watch telemetry.
+            </p>
+
+            <div className="mb-4">
+              <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+                Telemetry Metrics:
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {["ECG Vitals", "Fall Detection Sensor", "Heart Spike Warning"].map((m, idx) => (
+                  <span
+                    key={idx}
+                    className="text-[10px] bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded-md font-medium"
+                  >
+                    {m}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <p className="text-[11px] text-gray-500 dark:text-gray-400 italic mb-4">
+              Direct HealthKit sync requires the iOS SOS Companion native application.
+            </p>
+          </div>
+
+          <div className="pt-2 border-t border-gray-100 dark:border-gray-800">
+            <Button variant="secondary" size="sm" className="w-full" disabled>
+              Native iOS Companion Required
             </Button>
           </div>
-        ))}
+        </div>
+
+        {/* Card 3: Wear OS / Android */}
+        <div className="bg-white dark:bg-gray-900 rounded-2xl shadow border border-gray-200 dark:border-gray-800 p-5 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-bold text-gray-900 dark:text-white text-base">Wear OS / Health Connect</h3>
+              <span
+                className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
+                  isGoogleHealthConnected
+                    ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200"
+                    : "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                }`}
+              >
+                {isGoogleHealthConnected ? "Connected via Google" : "Google Health Paired"}
+              </span>
+            </div>
+            <p className="text-xs text-gray-600 dark:text-gray-400 mb-4">
+              Android Health Connect and Wear OS wrist sensors via unified Google Health Platform.
+            </p>
+
+            <div className="mb-4">
+              <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+                Telemetry Metrics:
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {["Continuous Pulse", "Emergency Beacon Sensor", "Sleep & Vitals"].map((m, idx) => (
+                  <span
+                    key={idx}
+                    className="text-[10px] bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-0.5 rounded-md font-medium"
+                  >
+                    {m}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <p className="text-[11px] text-gray-500 dark:text-gray-400 italic mb-4">
+              Wear OS synchronizes directly through the Google Health platform link.
+            </p>
+          </div>
+
+          <div className="pt-2 border-t border-gray-100 dark:border-gray-800">
+            {isGoogleHealthConnected ? (
+              <div className="flex items-center gap-1.5 text-xs text-emerald-600 font-semibold py-2">
+                <CheckCircleIcon className="w-4 h-4 text-emerald-500" />
+                Active Wear OS Sync
+              </div>
+            ) : (
+              <Button
+                variant="primary"
+                size="sm"
+                className="w-full"
+                onClick={handleConnectGoogleHealth}
+                disabled={connecting === "google_health" || loading}
+              >
+                Connect with Google Health
+              </Button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
