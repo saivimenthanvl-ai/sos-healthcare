@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { SosLogo } from "@/components/SosLogo";
 
 export default function AuthLayout({
   children,
@@ -13,9 +14,9 @@ export default function AuthLayout({
       </div>
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
-          <Link href="/" className="inline-flex items-center gap-2 text-2xl font-bold text-blue-600 dark:text-blue-400">
-            <span className="text-3xl">🚑</span>
-            SOS Healthcare
+          <Link href="/" className="inline-flex items-center gap-2.5 text-2xl font-bold text-gray-900 dark:text-white">
+            <SosLogo size={36} className="w-9 h-9" priority />
+            <span>SOS Healthcare</span>
           </Link>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Emergency healthcare at your fingertips

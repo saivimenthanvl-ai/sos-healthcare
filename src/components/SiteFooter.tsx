@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PhoneCallIcon } from "lucide-react";
-import { BrandLogo } from "@/components/BrandLogo";
+import { SosLogo } from "@/components/SosLogo";
 
 /** Site footer, shared by the landing page and the public legal pages. */
 export function SiteFooter() {
@@ -10,7 +10,10 @@ export function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Column 1: Info */}
           <div className="space-y-4">
-            <BrandLogo footer />
+            <Link href="/" className="flex items-center gap-2.5 text-2xl font-bold text-gray-950 dark:text-white">
+              <SosLogo size={28} className="w-7 h-7" />
+              <span>SOS Healthcare</span>
+            </Link>
             <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
               Rapid emergency assistance platform connecting individuals to nearby hospitals, accredited specialists, and first responders. Zero platform fees.
             </p>
