@@ -19,16 +19,20 @@ const SCOPES = [
  */
 export async function GET(request: NextRequest) {
   const clientId = process.env.GOOGLE_HEALTH_CLIENT_ID;
-  const redirectUri = process.env.GOOGLE_HEALTH_REDIRECT_URI || "https://sos-healthcare.vercel.app/api/google-health/callback";
+
+  // Derive dynamic redirect URI to support both localhost:3000 development and production
+  const reqUrl = new URL(request.url);
+  const host = reqUrl.host;
+  const isLocal = host.includes("localhost") || host.includes("127.0.0.1");
+  const defaultRedirect = isLocal
+    ? `${reqUrl.protocol}//${host}/api/google-health/callback`
+    : (process.env.GOOGLE_HEALTH_REDIRECT_URI || "https://sos-healthcare.vercel.app/api/google-health/callback");
+
+  const redirectUri = defaultRedirect;
 
   if (!clientId || clientId.trim() === "" || clientId === "undefined") {
-    return NextResponse.json(
-      {
-        error: "Google Health OAuth credentials are not configured in the server environment.",
-        setupRequired: true,
-      },
-      { status: 503 }
-    );
+    const devicesUrl = new URL("/devices?error=missing_credentials", request.url);
+    return NextResponse.redirect(devicesUrl);
   }
 
   const supabase = await getSupabaseServerClient();

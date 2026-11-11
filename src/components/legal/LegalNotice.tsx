@@ -22,7 +22,7 @@ export function LegalNotice({ variant = "warning", title, children }: LegalNotic
     >
       <Icon
         aria-hidden="true"
-        className={`h-5 w-5 flex-shrink-0 mt-0.5 ${isWarning ? "text-red-600 dark:text-red-400" : "text-blue-600 dark:text-blue-400"}`}
+        className={`h-5 w-5 shrink-0 mt-0.5 ${isWarning ? "text-red-600 dark:text-red-400" : "text-blue-600 dark:text-blue-400"}`}
       />
       <div className="text-sm sm:text-base leading-relaxed">
         {title && <p className="font-bold mb-1">{title}</p>}

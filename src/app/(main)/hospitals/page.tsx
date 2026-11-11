@@ -105,7 +105,7 @@ function HospitalsPageContent() {
       {latitude == null && (
         <div className="bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 rounded-2xl p-6 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="bg-blue-600 text-white rounded-full p-3 flex-shrink-0">
+            <div className="bg-blue-600 text-white rounded-full p-3 shrink-0">
               <MapPinIcon className="h-6 w-6" />
             </div>
             <div>
@@ -121,7 +121,7 @@ function HospitalsPageContent() {
             variant="primary"
             onClick={requestLocation}
             loading={locationLoading}
-            className="flex-shrink-0 whitespace-nowrap"
+            className="shrink-0 whitespace-nowrap"
           >
             Allow Location Access
           </Button>
@@ -130,7 +130,7 @@ function HospitalsPageContent() {
 
       {error && latitude == null && (
         <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-red-800 dark:text-red-200 rounded-lg flex items-center gap-2 text-sm">
-          <AlertCircleIcon className="h-4 w-4 flex-shrink-0" />
+          <AlertCircleIcon className="h-4 w-4 shrink-0" />
           <span>Location error: {error}. Please click &quot;Allow Location Access&quot; or check your browser permissions.</span>
         </div>
       )}

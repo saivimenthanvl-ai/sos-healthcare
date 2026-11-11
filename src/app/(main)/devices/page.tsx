@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
-import { SmartphoneIcon, CheckCircleIcon, ShieldAlertIcon, InfoIcon, ExternalLinkIcon } from "lucide-react";
+import { SmartphoneIcon, CheckCircleIcon, ShieldAlertIcon, InfoIcon, ExternalLinkIcon, AlertTriangleIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 
 interface DeviceStatus {
@@ -23,6 +23,7 @@ export default function DevicesPage() {
   const [deviceStatuses, setDeviceStatuses] = useState<DevicesApiResponse | null>(null);
   const [connecting, setConnecting] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [, startTransition] = useTransition();
 
   useEffect(() => {
@@ -37,7 +38,7 @@ export default function DevicesPage() {
         });
       } else if (error) {
         startTransition(() => {
-          setStatusMessage(`Connection notification: ${error}`);
+          setErrorMessage(error);
         });
       }
     }
@@ -53,8 +54,10 @@ export default function DevicesPage() {
 
   const handleConnectGoogleHealth = () => {
     setConnecting("google_health");
-    // Directly navigate to verified server-side Google Health OAuth flow
-    window.location.assign("/api/google-health/authorize");
+    // Standard full-page navigation for external OAuth redirection endpoint using absolute origin
+    if (typeof window !== "undefined") {
+      window.location.href = `${window.location.origin}/api/google-health/authorize`;
+    }
   };
 
   const isGoogleHealthConnected = deviceStatuses?.devices.google_health.connected ?? false;
@@ -74,15 +77,35 @@ export default function DevicesPage() {
       </div>
 
       {statusMessage && (
-        <div className="bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 rounded-xl p-4 text-sm font-medium text-blue-900 dark:text-blue-200 flex items-center gap-2">
-          <InfoIcon className="h-5 w-5 text-blue-600 flex-shrink-0" />
+        <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 rounded-xl p-4 text-sm font-medium text-emerald-900 dark:text-emerald-200 flex items-center gap-2">
+          <InfoIcon className="h-5 w-5 text-emerald-600 shrink-0" />
           <span>{statusMessage}</span>
+        </div>
+      )}
+
+      {errorMessage && (
+        <div className="bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 rounded-xl p-4 text-sm font-medium text-red-900 dark:text-red-200 flex flex-col gap-2">
+          <div className="flex items-center gap-2 font-semibold">
+            <AlertTriangleIcon className="h-5 w-5 text-red-600 shrink-0" />
+            <span>Google Health Authorization Notice</span>
+          </div>
+          <p className="text-xs text-red-700 dark:text-red-300">{errorMessage}</p>
+          <div className="pt-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleConnectGoogleHealth}
+              disabled={connecting === "google_health"}
+            >
+              Retry Connection
+            </Button>
+          </div>
         </div>
       )}
 
       {/* Safety Notice */}
       <div className="bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 rounded-xl p-4 text-xs text-blue-900 dark:text-blue-200 flex items-start gap-3">
-        <ShieldAlertIcon className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+        <ShieldAlertIcon className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
         <div>
           <span className="font-bold">Medical Telemetry Safeguards:</span> Smartwatch sensors provide supplementary personal wellness metrics. Emergency services are never dispatched solely from automated sensor anomalies without patient verification or explicit confirmation.
         </div>

@@ -161,7 +161,7 @@ export default function EmergencyDetailPage({
 
           <dl className="mt-6 space-y-3 text-sm">
             <div className="flex items-start gap-2">
-              <ClockIcon className="h-4 w-4 mt-0.5 text-gray-400 flex-shrink-0" />
+              <ClockIcon className="h-4 w-4 mt-0.5 text-gray-400 shrink-0" />
               <div>
                 <dt className="text-gray-600">Raised</dt>
                 <dd className="text-gray-900 font-medium">
@@ -172,7 +172,7 @@ export default function EmergencyDetailPage({
 
             {emergency.address && (
               <div className="flex items-start gap-2">
-                <MapPinIcon className="h-4 w-4 mt-0.5 text-gray-400 flex-shrink-0" />
+                <MapPinIcon className="h-4 w-4 mt-0.5 text-gray-400 shrink-0" />
                 <div>
                   <dt className="text-gray-600">Location</dt>
                   <dd className="text-gray-900 font-medium">
@@ -184,7 +184,7 @@ export default function EmergencyDetailPage({
 
             {emergency.eta_minutes && (
               <div className="flex items-start gap-2">
-                <AlertTriangleIcon className="h-4 w-4 mt-0.5 text-gray-400 flex-shrink-0" />
+                <AlertTriangleIcon className="h-4 w-4 mt-0.5 text-gray-400 shrink-0" />
                 <div>
                   <dt className="text-gray-600">Estimated arrival</dt>
                   <dd className="text-gray-900 font-medium">

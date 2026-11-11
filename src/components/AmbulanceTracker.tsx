@@ -173,7 +173,7 @@ export function AmbulanceTracker({
           </div>
         ) : (
           <div className="flex items-center gap-4 p-4 bg-yellow-50 rounded-lg">
-            <AlertCircleIcon className="h-6 w-6 text-yellow-600 flex-shrink-0" />
+            <AlertCircleIcon className="h-6 w-6 text-yellow-600 shrink-0" />
             <p className="text-yellow-800">
               Waiting for nearest ambulance to be dispatched...
             </p>

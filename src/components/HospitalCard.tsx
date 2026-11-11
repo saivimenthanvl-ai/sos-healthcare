@@ -24,7 +24,7 @@ export function HospitalCard({ hospital, onBook }: HospitalCardProps) {
   return (
     <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md hover:shadow-lg transition-shadow p-4 border border-gray-100 dark:border-gray-800 flex flex-col justify-between">
       <div className="flex items-start gap-3">
-        <div className="bg-blue-100 dark:bg-blue-900/50 rounded-lg p-2 mt-1 flex-shrink-0">
+        <div className="bg-blue-100 dark:bg-blue-900/50 rounded-lg p-2 mt-1 shrink-0">
           <HospitalIcon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
         </div>
 

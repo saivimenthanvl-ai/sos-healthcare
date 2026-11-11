@@ -151,7 +151,7 @@ export default function DispatchPage() {
 
       {error && (
         <div className="p-4 bg-red-50 text-red-800 rounded-lg flex items-center gap-2">
-          <AlertCircleIcon className="h-5 w-5 flex-shrink-0" />
+          <AlertCircleIcon className="h-5 w-5 shrink-0" />
           {error}
         </div>
       )}
@@ -202,7 +202,7 @@ export default function DispatchPage() {
                       </div>
 
                       <p className="text-sm text-gray-700 mt-2 flex items-start gap-1">
-                        <MapPinIcon className="h-4 w-4 mt-0.5 flex-shrink-0 text-gray-400" />
+                        <MapPinIcon className="h-4 w-4 mt-0.5 shrink-0 text-gray-400" />
                         <span>
                           {emergency.address ||
                             `${emergency.latitude.toFixed(4)}, ${emergency.longitude.toFixed(4)}`}
