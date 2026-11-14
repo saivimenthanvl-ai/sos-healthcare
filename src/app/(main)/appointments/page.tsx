@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   CalendarIcon,
   CheckCircleIcon,
@@ -48,6 +49,7 @@ interface AppointmentRequest {
 
 export default function AppointmentsPage() {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<"requests" | "verified">("requests");
 
   // Verified Specialists State
@@ -79,13 +81,15 @@ export default function AppointmentsPage() {
     fetch("/api/doctors")
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
-        if (active && data?.doctors?.length > 0) {
+        if (active && data?.doctors) {
           setDoctors(data.doctors);
-          setSelectedDoctor(data.doctors[0]);
-          setSelectedSlot(data.doctors[0].availableSlots[0]);
+          if (data.doctors.length > 0) {
+            setSelectedDoctor(data.doctors[0]);
+            setSelectedSlot(data.doctors[0].availableSlots[0]);
+          }
         }
       })
-      .catch((err) => console.warn("Failed to load doctors:", err));
+      .catch((err) => console.warn("Failed to fetch doctors:", err));
 
     return () => {
       active = false;
@@ -259,10 +263,10 @@ export default function AppointmentsPage() {
       <div className="bg-white dark:bg-gray-900 rounded-2xl shadow p-6 border border-gray-200 dark:border-gray-800">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
           <CalendarIcon className="h-6 w-6 text-blue-600" />
-          Appointments & Scheduling Center
+          <span>{t.appointments.title}</span>
         </h1>
         <p className="text-sm text-gray-600 dark:text-gray-300">
-          Manage your private custom appointment requests and scheduled clinical consultations.
+          {t.appointments.description}
         </p>
 
         {/* Navigation Tabs */}
@@ -276,7 +280,7 @@ export default function AppointmentsPage() {
             }`}
           >
             <BuildingIcon className="w-4 h-4" />
-            Custom Appointment Requests ({customRequests.filter((r) => r.status !== "CANCELLED").length})
+            <span>{t.appointments.tabCustomRequests}</span> ({customRequests.filter((r) => r.status !== "CANCELLED").length})
           </button>
           <button
             onClick={() => setActiveTab("verified")}
@@ -287,7 +291,7 @@ export default function AppointmentsPage() {
             }`}
           >
             <StethoscopeIcon className="w-4 h-4" />
-            Specialist Consultations ({myAppointments.filter((a) => a.status !== "CANCELLED").length})
+            <span>{t.appointments.tabSpecialistConsultations}</span> ({myAppointments.filter((a) => a.status !== "CANCELLED").length})
           </button>
         </div>
       </div>
@@ -296,7 +300,8 @@ export default function AppointmentsPage() {
       <div className="p-4 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 rounded-xl text-xs text-red-900 dark:text-red-200 flex items-start gap-3">
         <ShieldAlertIcon className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
         <div className="leading-relaxed">
-          <span className="font-bold">Medical Safety Notice:</span> Appointment requests are for non-emergency scheduling planning. If you or a loved one is experiencing severe chest distress, stroke symptoms, acute bleeding, or unconsciousness, do not wait for an appointment. Dial 112 or trigger one-tap emergency SOS immediately.
+          <span className="font-bold">{t.appointments.medicalSafetyNoticeTitle}: </span>
+          <span>{t.appointments.medicalSafetyNoticeBody}</span>
         </div>
       </div>
 
@@ -305,32 +310,33 @@ export default function AppointmentsPage() {
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow p-6 border border-gray-200 dark:border-gray-800">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
-                <h2 className="text-lg font-bold text-gray-900 dark:text-white">Your Planned Appointment Requests</h2>
+                <h2 className="text-lg font-bold text-gray-900 dark:text-white">{t.appointments.yourPlannedRequests}</h2>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-                  Private scheduling records saved securely within SOS Healthcare.
+                  {t.appointments.yourPlannedRequestsSub}
                 </p>
               </div>
               <Link href="/hospitals" className="inline-block">
                 <Button variant="danger" size="sm">
-                  + New Custom Booking
+                  {t.appointments.newCustomBooking}
                 </Button>
               </Link>
             </div>
 
             {/* Privacy Disclaimer Banner */}
             <div className="mb-6 p-3 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 rounded-xl text-xs text-blue-900 dark:text-blue-200">
-              <span className="font-bold">Privacy Guarantee:</span> Your custom appointment requests are saved strictly inside SOS Healthcare for your planning. They are never sent to external hospital EMRs or third-party clinic databases.
+              <span className="font-bold">{t.appointments.privacyNoticeTitle}: </span>
+              <span>{t.appointments.privacyNoticeBody}</span>
             </div>
 
             {customRequestsLoading ? (
-              <div className="py-8 text-center text-sm text-gray-500">Loading your private appointment requests...</div>
+              <div className="py-8 text-center text-sm text-gray-500">{t.appointments.loadingRequests}</div>
             ) : customRequests.length === 0 ? (
               <div className="py-12 text-center space-y-3">
                 <BuildingIcon className="h-10 w-10 text-gray-400 mx-auto" />
-                <p className="text-sm text-gray-500">You have no custom appointment requests planned.</p>
+                <p className="text-sm text-gray-500">{t.appointments.noRequests}</p>
                 <Link href="/hospitals" className="inline-block pt-1">
                   <Button variant="outline" size="sm">
-                    Browse Nearby Hospitals to Plan
+                    {t.appointments.browseHospitalsToPlan}
                   </Button>
                 </Link>
               </div>
@@ -382,7 +388,7 @@ export default function AppointmentsPage() {
                             {new Date(req.preferred_starts_at).toLocaleTimeString([], {
                               hour: "2-digit",
                               minute: "2-digit",
-                            })} ({req.consultation_mode === "VIRTUAL" ? "Virtual Consultation" : "In-Person Visit"})
+                            })} ({req.consultation_mode === "VIRTUAL" ? t.appointments.consultationVirtual : t.appointments.consultationInPerson})
                           </span>
                         </div>
                         {req.notes && (
@@ -396,7 +402,7 @@ export default function AppointmentsPage() {
                     {/* Rescheduling Form Drawer */}
                     {reschedulingId === req.id && (
                       <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 space-y-2 bg-white dark:bg-gray-900 p-3 rounded-lg">
-                        <p className="text-xs font-bold text-gray-800 dark:text-gray-200">Reschedule Appointment</p>
+                        <p className="text-xs font-bold text-gray-800 dark:text-gray-200">{t.appointments.rescheduleTitle}</p>
                         <div className="grid grid-cols-2 gap-2">
                           <input
                             type="date"
@@ -419,7 +425,7 @@ export default function AppointmentsPage() {
                             className="text-xs"
                             onClick={() => setReschedulingId(null)}
                           >
-                            Cancel
+                            {t.common.cancel}
                           </Button>
                           <Button
                             variant="primary"
@@ -428,7 +434,7 @@ export default function AppointmentsPage() {
                             disabled={actionLoadingId === req.id}
                             onClick={() => handleSaveReschedule(req.id)}
                           >
-                            {actionLoadingId === req.id ? "Saving..." : "Save New Date"}
+                            {actionLoadingId === req.id ? t.appointments.saving : t.appointments.saveNewDate}
                           </Button>
                         </div>
                       </div>
@@ -449,7 +455,7 @@ export default function AppointmentsPage() {
                           }}
                         >
                           <EditIcon className="w-3.5 h-3.5" />
-                          Reschedule
+                          <span>{t.appointments.reschedule}</span>
                         </Button>
                         <Button
                           variant="danger"
@@ -459,7 +465,7 @@ export default function AppointmentsPage() {
                           onClick={() => handleCancelCustomRequest(req.id)}
                         >
                           <XCircleIcon className="w-3.5 h-3.5" />
-                          {actionLoadingId === req.id ? "Cancelling..." : "Cancel Request"}
+                          <span>{actionLoadingId === req.id ? t.appointments.cancelling : t.appointments.cancelRequest}</span>
                         </Button>
                       </div>
                     )}
@@ -481,27 +487,27 @@ export default function AppointmentsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Booking Form */}
           <div className="lg:col-span-2 bg-white dark:bg-gray-900 rounded-2xl shadow p-6 border border-gray-200 dark:border-gray-800">
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Book Specialist Consultation</h2>
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{t.appointments.bookSpecialistTitle}</h2>
 
             {bookingMessage && (
               <div className="mb-4 p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 rounded-xl text-sm font-medium flex items-center gap-2">
-                <CheckCircleIcon className="h-4 w-4" /> {bookingMessage}
+                <CheckCircleIcon className="h-4 w-4" /> <span>{bookingMessage}</span>
               </div>
             )}
 
             {errorMessage && (
               <div className="mb-4 p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 rounded-xl text-sm font-medium flex items-center gap-2">
-                <AlertCircleIcon className="h-4 w-4" /> {errorMessage}
+                <AlertCircleIcon className="h-4 w-4" /> <span>{errorMessage}</span>
               </div>
             )}
 
             <form onSubmit={handleBookSpecialist} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">
-                  Select Verified Specialist & Hospital
+                  {t.appointments.selectSpecialistHospital}
                 </label>
                 {doctors.length === 0 ? (
-                  <div className="text-sm text-gray-500 py-2">Loading verified clinical specialists...</div>
+                  <div className="text-sm text-gray-500 py-2">{t.appointments.loadingSpecialists}</div>
                 ) : (
                   <select
                     value={selectedDoctor?.id || ""}
@@ -541,7 +547,7 @@ export default function AppointmentsPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">
-                    Appointment Date
+                    {t.appointments.appointmentDate}
                   </label>
                   <input
                     type="date"
@@ -555,7 +561,7 @@ export default function AppointmentsPage() {
 
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">
-                    Available Slot
+                    {t.appointments.availableSlot}
                   </label>
                   <select
                     value={selectedSlot}
@@ -573,11 +579,11 @@ export default function AppointmentsPage() {
 
               <div>
                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">
-                  Reason for Consultation (Optional)
+                  {t.appointments.reasonForConsultation}
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. Chest pain follow-up, post-emergency triage check"
+                  placeholder={t.appointments.reasonPlaceholder}
                   value={doctorReason}
                   onChange={(e) => setDoctorReason(e.target.value)}
                   className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-sm border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white"
@@ -590,17 +596,17 @@ export default function AppointmentsPage() {
                 variant="primary"
                 className="w-full"
               >
-                {bookingLoading ? "Reserving Slot..." : "Confirm Verified Reservation"}
+                {bookingLoading ? t.appointments.reservingSlot : t.appointments.confirmReservation}
               </Button>
             </form>
           </div>
 
           {/* Existing Reservations Sidebar */}
           <div className="bg-white dark:bg-gray-900 rounded-2xl shadow p-6 border border-gray-200 dark:border-gray-800 space-y-4">
-            <h2 className="text-base font-bold text-gray-900 dark:text-white">Assigned Consultations</h2>
+            <h2 className="text-base font-bold text-gray-900 dark:text-white">{t.appointments.assignedConsultations}</h2>
 
             {myAppointments.length === 0 ? (
-              <p className="text-xs text-gray-500">No scheduled consultations found.</p>
+              <p className="text-xs text-gray-500">{t.appointments.noConsultations}</p>
             ) : (
               <div className="space-y-3">
                 {myAppointments.map((app) => (

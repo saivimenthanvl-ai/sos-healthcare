@@ -74,27 +74,27 @@ export function AuthenticatedDashboardView() {
 
         if (error) {
           console.warn("[Dashboard] fetchEmergencies query error:", error.code, error.message);
-          // Categorize error distinctly
+          // Categorize error distinctly using localized schema
           if (error.code === "PGRST205" || error.message?.toLowerCase().includes("schema cache") || error.message?.toLowerCase().includes("does not exist")) {
             setSchemaAvailable(false);
             setEmergencyError({
               category: "SCHEMA_MISSING",
-              message: "Emergency service database schema is updating. History will display once table sync finishes.",
+              message: t.emergencyErrors.schemaSyncDesc,
             });
           } else if (error.code === "42501" || error.code === "PGRST301" || error.message?.toLowerCase().includes("jwt") || error.message?.toLowerCase().includes("permission")) {
             setEmergencyError({
               category: "AUTH_FAILURE",
-              message: "Authentication authorization error. Please sign in again to verify account access.",
+              message: t.emergencyErrors.authErrorDesc,
             });
           } else if (error.code === "53300" || error.code === "PGRST000" || error.message?.toLowerCase().includes("unavailable") || error.message?.toLowerCase().includes("timeout")) {
             setEmergencyError({
               category: "DATABASE_UNAVAILABLE",
-              message: "Database service temporarily busy. Please retry in a few moments.",
+              message: t.emergencyErrors.unavailableDesc,
             });
           } else {
             setEmergencyError({
               category: "DATABASE_UNAVAILABLE",
-              message: error.message || "Failed to load emergency history.",
+              message: error.message || t.emergencyErrors.unavailableDesc,
             });
           }
           setEmergencies([]);
@@ -110,12 +110,12 @@ export function AuthenticatedDashboardView() {
         if (msg.toLowerCase().includes("failed to fetch") || msg.toLowerCase().includes("network")) {
           setEmergencyError({
             category: "NETWORK_FAILURE",
-            message: "Network connection lost. Check your internet connection and retry.",
+            message: t.emergencyErrors.netErrorDesc,
           });
         } else {
           setEmergencyError({
             category: "DATABASE_UNAVAILABLE",
-            message: "Unable to retrieve emergency history.",
+            message: t.emergencyErrors.unavailableDesc,
           });
         }
         setEmergencies([]);
@@ -450,12 +450,12 @@ export function AuthenticatedDashboardView() {
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-semibold text-gray-900 dark:text-gray-100">
                   {emergencyError.category === "AUTH_FAILURE"
-                    ? "Authorization Required"
+                    ? t.emergencyErrors.authErrorTitle
                     : emergencyError.category === "SCHEMA_MISSING"
-                    ? "Emergency Service Syncing"
+                    ? t.emergencyErrors.schemaSyncTitle
                     : emergencyError.category === "NETWORK_FAILURE"
-                    ? "Network Unavailable"
-                    : "Service Temporarily Unavailable"}
+                    ? t.emergencyErrors.netErrorTitle
+                    : t.emergencyErrors.unavailableTitle}
                 </p>
                 <p className="text-[11px] text-gray-600 dark:text-gray-300 mt-0.5">
                   {emergencyError.message}
@@ -467,7 +467,7 @@ export function AuthenticatedDashboardView() {
                     className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
                   >
                     <RefreshCwIcon className="h-3 w-3" />
-                    <span>Retry</span>
+                    <span>{t.emergencyErrors.retry}</span>
                   </button>
                   {emergencyError.category === "AUTH_FAILURE" && (
                     <button
@@ -475,7 +475,7 @@ export function AuthenticatedDashboardView() {
                       onClick={() => router.push("/auth/login")}
                       className="px-2 py-1 text-xs text-amber-700 dark:text-amber-300 hover:underline"
                     >
-                      Sign In
+                      {t.common.signIn}
                     </button>
                   )}
                 </div>

@@ -19,28 +19,56 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 const STORAGE_KEY = "sos_healthcare_lang";
+const COOKIE_KEY = "sos_healthcare_lang";
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<SupportedLanguage>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY) as SupportedLanguage | null;
-        if (stored && SUPPORTED_LANGUAGES.some((l) => l.code === stored)) {
-          return stored;
-        }
-      } catch {
-        // localStorage unavailable
+function getInitialLanguage(): SupportedLanguage {
+  if (typeof document !== "undefined") {
+    // Check cookie first (deterministic between SSR and client if cookie was sent)
+    const match = document.cookie.match(new RegExp(`(?:^|; )${COOKIE_KEY}=([^;]*)`));
+    if (match) {
+      const cookieVal = decodeURIComponent(match[1]) as SupportedLanguage;
+      if (SUPPORTED_LANGUAGES.some((l) => l.code === cookieVal)) {
+        return cookieVal;
       }
     }
-    return "en";
-  });
+
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY) as SupportedLanguage | null;
+      if (stored && SUPPORTED_LANGUAGES.some((l) => l.code === stored)) {
+        return stored;
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return "en";
+}
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [language, setLanguageState] = useState<SupportedLanguage>("en");
+
+  // On client mount, sync with persisted preferences without crashing SSR hydration
+  useEffect(() => {
+    const initial = getInitialLanguage();
+    if (initial !== "en") {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLanguageState(initial);
+    }
+  }, []);
 
   const setLanguage = (lang: SupportedLanguage) => {
     setLanguageState(lang);
-    try {
-      localStorage.setItem(STORAGE_KEY, lang);
-    } catch {
-      // ignore
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem(STORAGE_KEY, lang);
+      } catch {
+        // ignore
+      }
+      try {
+        document.cookie = `${COOKIE_KEY}=${encodeURIComponent(lang)}; path=/; max-age=31536000; SameSite=Lax`;
+      } catch {
+        // ignore
+      }
     }
   };
 

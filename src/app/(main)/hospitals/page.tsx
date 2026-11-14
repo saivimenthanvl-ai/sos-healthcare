@@ -4,12 +4,14 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { useLocation } from "@/hooks/useLocation";
 import { HospitalCard } from "@/components/HospitalCard";
 import { MapView, hospitalMarker } from "@/components/MapView";
 import { Button } from "@/components/ui/Button";
 import { MapPinIcon, SearchIcon, AlertCircleIcon } from "lucide-react";
 import type { Hospital } from "@/types/app";
+import { HospitalBookingModal } from "@/components/HospitalBookingModal";
 
 interface ApiResponse {
   hospitals: Hospital[];
@@ -17,10 +19,9 @@ interface ApiResponse {
   radius_km: number;
 }
 
-import { HospitalBookingModal } from "@/components/HospitalBookingModal";
-
 function HospitalsPageContent() {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const searchParams = useSearchParams();
   const { latitude, longitude, error, loading: locationLoading, requestLocation } = useLocation();
   const [hospitals, setHospitals] = useState<Hospital[]>([]);
@@ -85,11 +86,11 @@ function HospitalsPageContent() {
     <div className="max-w-7xl mx-auto space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Nearby Hospitals</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t.hospitals.title}</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">
             {latitude != null
-              ? `Hospitals within ${searchRadius} km of your GPS location`
-              : "Allow location access to discover and book nearby hospitals"}
+              ? t.hospitals.subtitleGps.replace("{radius}", String(searchRadius))
+              : t.hospitals.subtitleNoLocation}
           </p>
         </div>
       </div>
@@ -97,7 +98,9 @@ function HospitalsPageContent() {
       {bookingToast && (
         <div className="p-4 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 rounded-xl text-sm font-medium flex items-center justify-between">
           <span>{bookingToast}</span>
-          <button onClick={() => setBookingToast(null)} className="text-xs uppercase font-bold ml-2">Dismiss</button>
+          <button onClick={() => setBookingToast(null)} className="text-xs uppercase font-bold ml-2">
+            {t.hospitals.dismiss}
+          </button>
         </div>
       )}
 
@@ -110,10 +113,10 @@ function HospitalsPageContent() {
             </div>
             <div>
               <h3 className="font-semibold text-blue-900 dark:text-blue-100 text-lg">
-                Enable Location Permission
+                {t.hospitals.enableLocationTitle}
               </h3>
               <p className="text-sm text-blue-700 dark:text-blue-300 mt-0.5">
-                We need your device location to calculate travel times, display nearby emergency rooms, and dispatch ambulances.
+                {t.hospitals.enableLocationDesc}
               </p>
             </div>
           </div>
@@ -123,7 +126,7 @@ function HospitalsPageContent() {
             loading={locationLoading}
             className="shrink-0 whitespace-nowrap"
           >
-            Allow Location Access
+            {t.hospitals.allowLocationAccess}
           </Button>
         </div>
       )}
@@ -131,20 +134,20 @@ function HospitalsPageContent() {
       {error && latitude == null && (
         <div className="p-3 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-red-800 dark:text-red-200 rounded-lg flex items-center gap-2 text-sm">
           <AlertCircleIcon className="h-4 w-4 shrink-0" />
-          <span>Location error: {error}. Please click &quot;Allow Location Access&quot; or check your browser permissions.</span>
+          <span>{t.hospitals.locationErrorPrefix} {error}.</span>
         </div>
       )}
 
       {/* Search and filters */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1 relative">
-          <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 rtl:left-auto rtl:right-3" />
           <input
             type="text"
-            placeholder="Search hospitals by name or address..."
+            placeholder={t.hospitals.searchPlaceholder}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            className="w-full pl-10 pr-4 rtl:pr-10 rtl:pl-4 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
           />
         </div>
 
@@ -154,10 +157,10 @@ function HospitalsPageContent() {
             onChange={(e) => setSearchRadius(Number(e.target.value))}
             className="px-3 py-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
           >
-            <option value={5}>5 km radius</option>
-            <option value={10}>10 km radius</option>
-            <option value={20}>20 km radius</option>
-            <option value={50}>50 km radius</option>
+            <option value={5}>{t.hospitals.kmRadius.replace("{radius}", "5")}</option>
+            <option value={10}>{t.hospitals.kmRadius.replace("{radius}", "10")}</option>
+            <option value={20}>{t.hospitals.kmRadius.replace("{radius}", "20")}</option>
+            <option value={50}>{t.hospitals.kmRadius.replace("{radius}", "50")}</option>
           </select>
 
           <Button
@@ -165,7 +168,7 @@ function HospitalsPageContent() {
             size="sm"
             onClick={() => setShowMap(!showMap)}
           >
-            {showMap ? "List View" : "Map View"}
+            {showMap ? t.hospitals.listView : t.hospitals.mapView}
           </Button>
         </div>
       </div>
@@ -192,17 +195,17 @@ function HospitalsPageContent() {
           <MapPinIcon className="h-12 w-12 mx-auto text-gray-400 mb-4" />
           <p className="text-gray-700 dark:text-gray-300 font-medium">
             {searchTerm
-              ? "No hospitals match your search"
+              ? t.hospitals.noMatchSearch
               : latitude == null
-              ? "Grant location permission above to see nearest hospitals"
-              : "No hospitals found in this radius"}
+              ? t.hospitals.grantLocationPrompt
+              : t.hospitals.noHospitalsInRadius}
           </p>
           {searchTerm && (
             <button
               onClick={() => setSearchTerm("")}
               className="mt-2 text-sm text-blue-600 hover:text-blue-700"
             >
-              Clear search
+              {t.hospitals.clearSearch}
             </button>
           )}
         </div>
@@ -225,9 +228,7 @@ function HospitalsPageContent() {
           userCoords={latitude && longitude ? { lat: latitude, lng: longitude } : null}
           onClose={() => setSelectedHospitalForBooking(null)}
           onSuccess={() => {
-            setBookingToast(
-              `Hospital booking request submitted. Confirm availability directly with the hospital.`
-            );
+            setBookingToast(t.hospitals.bookingSubmitted);
           }}
         />
       )}

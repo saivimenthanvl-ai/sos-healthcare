@@ -20,11 +20,11 @@ export function SiteFooter() {
 
   return (
     <>
-      <footer dir={dir} className="bg-white dark:bg-gray-950 text-gray-600 dark:text-gray-400 border-t border-gray-200 dark:border-gray-800 py-12 sm:py-16">
+      <footer dir={dir} className="bg-white dark:bg-gray-950 text-gray-600 dark:text-gray-400 border-t border-gray-200 dark:border-gray-800 py-8 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 sm:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Column 1: SOS Healthcare */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <Link href="/" className="flex items-center gap-2.5 text-xl sm:text-2xl font-bold text-gray-950 dark:text-white">
                 <SosLogo size={28} className="w-7 h-7 shrink-0" />
                 <span>{t.common.appName}</span>
@@ -39,8 +39,8 @@ export function SiteFooter() {
 
             {/* Column 2: Healthcare Services */}
             <div>
-              <h3 className="text-gray-950 dark:text-white font-bold tracking-wide uppercase text-xs mb-4">
-                {t.dashboard.coreServicesTitle}
+              <h3 className="text-gray-950 dark:text-white font-bold tracking-wide uppercase text-xs mb-3.5">
+                {t.footer.coreServices || t.dashboard.coreServicesTitle}
               </h3>
               <ul className="space-y-2.5 text-xs sm:text-sm">
                 <li>
@@ -68,8 +68,8 @@ export function SiteFooter() {
 
             {/* Column 3: Legal & Support */}
             <div>
-              <h3 className="text-gray-950 dark:text-white font-bold tracking-wide uppercase text-xs mb-4">
-                Legal & Support
+              <h3 className="text-gray-950 dark:text-white font-bold tracking-wide uppercase text-xs mb-3.5">
+                {t.footer.legalSupport}
               </h3>
               <ul className="space-y-2.5 text-xs sm:text-sm">
                 <li>
@@ -77,7 +77,7 @@ export function SiteFooter() {
                     href="/privacy-policy"
                     className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded"
                   >
-                    Privacy Policy
+                    {t.footer.privacyPolicy}
                   </Link>
                 </li>
                 <li>
@@ -85,17 +85,17 @@ export function SiteFooter() {
                     href="/terms-of-service"
                     className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded"
                   >
-                    Terms of Service
+                    {t.footer.termsOfService}
                   </Link>
                 </li>
                 <li>
                   <button
                     type="button"
                     onClick={() => setAdminModalOpen(true)}
-                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-left flex items-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded"
+                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-left rtl:text-right flex items-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded"
                   >
                     <MailIcon className="h-3.5 w-3.5 text-blue-500" />
-                    <span>{t.common.contactAdmin}</span>
+                    <span>{t.footer.contactAdmin || t.common.contactAdmin}</span>
                   </button>
                 </li>
                 <li>
@@ -103,7 +103,7 @@ export function SiteFooter() {
                     href="/contact"
                     className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded text-xs text-gray-500"
                   >
-                    Support & Privacy Desk
+                    {t.footer.supportDesk}
                   </Link>
                 </li>
               </ul>
@@ -113,12 +113,12 @@ export function SiteFooter() {
             <div className="space-y-3">
               <h3 className="text-gray-950 dark:text-white font-bold tracking-wide uppercase text-xs mb-3 flex items-center gap-1.5">
                 <ShieldAlertIcon className="h-4 w-4 text-red-500 shrink-0" />
-                Emergency Information
+                <span>{t.footer.emergencyInfo}</span>
               </h3>
               <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
                 {t.footer.emergencyDial}
               </p>
-              <div className="p-3.5 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-900 rounded-xl space-y-2">
+              <div className="p-3 bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-900 rounded-xl space-y-2">
                 <a
                   href="tel:112"
                   aria-label="Call emergency services in your region"
@@ -127,11 +127,11 @@ export function SiteFooter() {
                   <PhoneCallIcon className="h-5 w-5 text-red-500 shrink-0" />
                   <div>
                     <p className="text-[10px] text-red-700 dark:text-red-400 font-semibold uppercase">{t.footer.emergencyLine}</p>
-                    <p className="text-lg font-black text-red-900 dark:text-white">Call 112 / 911 / 119</p>
+                    <p className="text-base sm:text-lg font-black text-red-900 dark:text-white">Call 112 / 911 / 119</p>
                   </div>
                 </a>
                 <p className="text-[11px] text-red-800 dark:text-red-300 leading-tight">
-                  Dial 112 (EU/India), 911 (US/Canada), 119 (Japan/Korea) or your local national emergency line.
+                  {t.footer.dialInfo}
                 </p>
               </div>
               <p className="text-[11px] text-gray-500 dark:text-gray-400 leading-relaxed">
@@ -140,7 +140,7 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="border-t border-gray-200 dark:border-gray-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 dark:text-gray-400 gap-3 text-center sm:text-left">
+          <div className="border-t border-gray-200 dark:border-gray-800 mt-8 pt-5 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 dark:text-gray-400 gap-3 text-center sm:text-left">
             <p>&copy; {new Date().getFullYear()} {t.common.appName}. {t.common.tagline}.</p>
             <button
               type="button"
@@ -148,7 +148,7 @@ export function SiteFooter() {
               className="inline-flex items-center gap-1 text-gray-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
             >
               <ArrowUpIcon className="h-3.5 w-3.5" />
-              <span>Back to top</span>
+              <span>{t.footer.backToTop}</span>
             </button>
           </div>
         </div>
