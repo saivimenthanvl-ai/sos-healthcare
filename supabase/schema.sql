@@ -62,7 +62,7 @@ create table public.ambulances (
   latitude double precision not null,
   longitude double precision not null,
   status ambulance_status default 'available',
-  current_emergency_id uuid references public.emergencies(id),
+  current_emergency_id uuid, -- deferred FK: added via ALTER TABLE after public.emergencies is created
   created_at timestamptz default now() not null,
   updated_at timestamptz default now() not null
 );
@@ -95,6 +95,13 @@ create table public.emergencies (
 create index idx_emergencies_user_id on public.emergencies(user_id);
 create index idx_emergencies_status on public.emergencies(status);
 create index idx_emergencies_created_at on public.emergencies(created_at desc);
+
+-- Deferred foreign key: link ambulances.current_emergency_id now that emergencies exists
+alter table public.ambulances
+  add constraint fk_ambulances_current_emergency
+  foreign key (current_emergency_id)
+  references public.emergencies(id)
+  on delete set null;
 
 -- ============================================================
 -- User locations — real-time tracking (updated by Fitbit/device)

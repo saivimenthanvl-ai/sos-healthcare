@@ -28,7 +28,8 @@ export function useRealtime<T extends Row = Row>(
   filter: string | null,
   onInsert?: Handler<T>,
   onUpdate?: Handler<T>,
-  onDelete?: Handler<T>
+  onDelete?: Handler<T>,
+  enabled: boolean = true
 ): void {
   const handlers = useRef({ onInsert, onUpdate, onDelete });
 
@@ -39,6 +40,11 @@ export function useRealtime<T extends Row = Row>(
   }, [onInsert, onUpdate, onDelete]);
 
   useEffect(() => {
+    // If not enabled or table/filter is empty, do not create or subscribe to channel
+    if (!enabled || !table) {
+      return;
+    }
+
     const channel: RealtimeChannel = supabase.channel(
       filter ? `realtime:${table}:${filter}` : `realtime:${table}`
     );
@@ -98,5 +104,5 @@ export function useRealtime<T extends Row = Row>(
     // onInsert/onUpdate/onDelete are deliberately excluded: they are read via
     // `handlers` at call time, so a new inline callback must not resubscribe.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [table, filter]);
+  }, [table, filter, enabled]);
 }

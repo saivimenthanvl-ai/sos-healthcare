@@ -116,7 +116,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="h-full scroll-smooth"
+      className="h-full"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
       <body

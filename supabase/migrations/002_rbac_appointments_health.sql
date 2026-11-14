@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS public.doctor_profiles (
   hospital_name TEXT,
   department TEXT DEFAULT 'Emergency & Outpatient',
   consultation_hours TEXT DEFAULT '09:00 - 17:00',
-  verification_status TEXT DEFAULT 'VERIFIED', -- PENDING, VERIFIED, SUSPENDED
+  verification_status TEXT DEFAULT 'PENDING', -- PENDING, VERIFIED, SUSPENDED
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
   updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
 );

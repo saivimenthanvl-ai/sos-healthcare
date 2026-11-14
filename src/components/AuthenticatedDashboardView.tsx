@@ -21,10 +21,26 @@ import {
   CalendarDaysIcon,
   SmartphoneIcon,
   ArrowRightIcon,
+  RefreshCwIcon,
+  WifiOffIcon,
+  ShieldAlertIcon,
+  DatabaseIcon,
 } from "lucide-react";
 import { useRealtime } from "@/hooks/useRealtime";
 
 type Emergency = Database["public"]["Tables"]["emergencies"]["Row"];
+
+export type EmergencyErrorCategory =
+  | "AUTH_FAILURE"
+  | "SCHEMA_MISSING"
+  | "DATABASE_UNAVAILABLE"
+  | "NETWORK_FAILURE"
+  | null;
+
+interface EmergencyFetchState {
+  category: EmergencyErrorCategory;
+  message: string;
+}
 
 export function AuthenticatedDashboardView() {
   const { user, profile, loading: authLoading } = useAuth();
@@ -32,12 +48,20 @@ export function AuthenticatedDashboardView() {
   const { latitude, longitude, loading: locationLoading } = useLocation();
   const [emergencies, setEmergencies] = useState<Emergency[]>([]);
   const [emergenciesLoading, setEmergenciesLoading] = useState(true);
+  const [emergencyError, setEmergencyError] = useState<EmergencyFetchState | null>(null);
+  const [schemaAvailable, setSchemaAvailable] = useState<boolean>(true);
+  const [retryCount, setRetryCount] = useState<number>(0);
   const router = useRouter();
 
   useEffect(() => {
     if (!user) return;
 
+    let isMounted = true;
+
     const fetchEmergencies = async () => {
+      setEmergenciesLoading(true);
+      setEmergencyError(null);
+
       try {
         const { data, error } = await supabase
           .from("emergencies")
@@ -46,33 +70,81 @@ export function AuthenticatedDashboardView() {
           .order("created_at", { ascending: false })
           .limit(5);
 
-        if (!error) {
-          setEmergencies(data || []);
-        } else {
-          console.warn("[Dashboard] fetchEmergencies query:", error.message);
+        if (!isMounted) return;
+
+        if (error) {
+          console.warn("[Dashboard] fetchEmergencies query error:", error.code, error.message);
+          // Categorize error distinctly
+          if (error.code === "PGRST205" || error.message?.toLowerCase().includes("schema cache") || error.message?.toLowerCase().includes("does not exist")) {
+            setSchemaAvailable(false);
+            setEmergencyError({
+              category: "SCHEMA_MISSING",
+              message: "Emergency service database schema is updating. History will display once table sync finishes.",
+            });
+          } else if (error.code === "42501" || error.code === "PGRST301" || error.message?.toLowerCase().includes("jwt") || error.message?.toLowerCase().includes("permission")) {
+            setEmergencyError({
+              category: "AUTH_FAILURE",
+              message: "Authentication authorization error. Please sign in again to verify account access.",
+            });
+          } else if (error.code === "53300" || error.code === "PGRST000" || error.message?.toLowerCase().includes("unavailable") || error.message?.toLowerCase().includes("timeout")) {
+            setEmergencyError({
+              category: "DATABASE_UNAVAILABLE",
+              message: "Database service temporarily busy. Please retry in a few moments.",
+            });
+          } else {
+            setEmergencyError({
+              category: "DATABASE_UNAVAILABLE",
+              message: error.message || "Failed to load emergency history.",
+            });
+          }
           setEmergencies([]);
+        } else {
+          setSchemaAvailable(true);
+          setEmergencyError(null);
+          setEmergencies(data || []);
         }
       } catch (err: unknown) {
-        console.warn("[Dashboard] fetchEmergencies handled:", err instanceof Error ? err.message : err);
+        if (!isMounted) return;
+        const msg = err instanceof Error ? err.message : String(err);
+        console.warn("[Dashboard] fetchEmergencies network/client exception:", msg);
+        if (msg.toLowerCase().includes("failed to fetch") || msg.toLowerCase().includes("network")) {
+          setEmergencyError({
+            category: "NETWORK_FAILURE",
+            message: "Network connection lost. Check your internet connection and retry.",
+          });
+        } else {
+          setEmergencyError({
+            category: "DATABASE_UNAVAILABLE",
+            message: "Unable to retrieve emergency history.",
+          });
+        }
         setEmergencies([]);
       } finally {
-        setEmergenciesLoading(false);
+        if (isMounted) {
+          setEmergenciesLoading(false);
+        }
       }
     };
 
     fetchEmergencies();
-  }, [user]);
 
-  // Subscribe to realtime updates on user's emergencies
+    return () => {
+      isMounted = false;
+    };
+  }, [user, retryCount]);
+
+  // Subscribe to realtime updates on user's emergencies ONLY when user is authorized and schema is available
   useRealtime<Emergency>(
     "emergencies",
-    user ? `user_id=eq.${user.id}` : null,
+    user && schemaAvailable ? `user_id=eq.${user.id}` : null,
     undefined,
     (updatedEmergency) => {
       setEmergencies((prev) =>
         prev.map((e) => (e.id === updatedEmergency.id ? updatedEmergency : e))
       );
-    }
+    },
+    undefined,
+    Boolean(user && schemaAvailable)
   );
 
   if (authLoading) {
@@ -346,6 +418,56 @@ export function AuthenticatedDashboardView() {
             {[...Array(2)].map((_, i) => (
               <div key={i} className="h-12 bg-gray-100 dark:bg-gray-800 animate-pulse rounded-lg" />
             ))}
+          </div>
+        ) : emergencyError ? (
+          <div className="py-4 px-3.5 rounded-lg border border-amber-200 dark:border-amber-900/60 bg-amber-50/70 dark:bg-amber-950/20 text-gray-800 dark:text-gray-200">
+            <div className="flex items-start gap-2.5">
+              {emergencyError.category === "AUTH_FAILURE" && (
+                <ShieldAlertIcon className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+              )}
+              {emergencyError.category === "SCHEMA_MISSING" && (
+                <DatabaseIcon className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+              )}
+              {emergencyError.category === "NETWORK_FAILURE" && (
+                <WifiOffIcon className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+              )}
+              {emergencyError.category === "DATABASE_UNAVAILABLE" && (
+                <AlertTriangleIcon className="h-4 w-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+              )}
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-gray-900 dark:text-gray-100">
+                  {emergencyError.category === "AUTH_FAILURE"
+                    ? "Authorization Required"
+                    : emergencyError.category === "SCHEMA_MISSING"
+                    ? "Emergency Service Syncing"
+                    : emergencyError.category === "NETWORK_FAILURE"
+                    ? "Network Unavailable"
+                    : "Service Temporarily Unavailable"}
+                </p>
+                <p className="text-[11px] text-gray-600 dark:text-gray-300 mt-0.5">
+                  {emergencyError.message}
+                </p>
+                <div className="mt-2.5 flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setRetryCount((c) => c + 1)}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
+                  >
+                    <RefreshCwIcon className="h-3 w-3" />
+                    <span>Retry</span>
+                  </button>
+                  {emergencyError.category === "AUTH_FAILURE" && (
+                    <button
+                      type="button"
+                      onClick={() => router.push("/auth/login")}
+                      className="px-2 py-1 text-xs text-amber-700 dark:text-amber-300 hover:underline"
+                    >
+                      Sign In
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         ) : emergencies.length === 0 ? (
           <div className="text-center py-5 text-gray-500 dark:text-gray-400">

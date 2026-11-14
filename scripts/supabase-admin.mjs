@@ -66,11 +66,19 @@ async function query(sql) {
   return res.json();
 }
 
-// Order matters: schema.sql creates the enums and tables that the migration
-// and the seeds depend on.
+// Order matters: schema.sql creates the base tables with deferred FK,
+// followed by RBAC, security hardening, appointment integrity, atomic dispatch,
+// alignment, requests, inquiries, and seeds.
 const FILES = [
   "supabase/schema.sql",
   "supabase/migrations/001_roles_and_dispatch.sql",
+  "supabase/migrations/002_rbac_appointments_health.sql",
+  "supabase/migrations/003_security_hardening.sql",
+  "supabase/migrations/004_appointment_integrity.sql",
+  "supabase/migrations/005_atomic_dispatch.sql",
+  "supabase/migrations/006_appointment_rls_alignment.sql",
+  "supabase/migrations/007_appointment_requests.sql",
+  "supabase/migrations/008_admin_inquiries.sql",
   "scripts/seed-hospitals.sql",
   "scripts/seed-ambulances.sql",
 ];
@@ -104,7 +112,9 @@ async function verify() {
     select string_agg(expected, ', ' order by expected) as missing
     from unnest(array[
       'profiles','hospitals','ambulances','emergencies',
-      'user_locations','emergency_contacts','ambulance_locations'
+      'user_locations','emergency_contacts','ambulance_locations',
+      'appointments','patient_profiles','doctor_profiles','admin_profiles',
+      'health_records','device_connections','appointment_requests','admin_inquiries'
     ]) as expected
     where not exists (
       select 1 from information_schema.tables
