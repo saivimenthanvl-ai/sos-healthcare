@@ -58,15 +58,15 @@ export function HospitalCard({ hospital, onBook }: HospitalCardProps) {
             </div>
           )}
 
-          {/* Verified Directory Department Info */}
+          {/* Directory Department Info */}
           <div className="flex items-center gap-3 mt-2 text-xs text-gray-600 dark:text-gray-400">
             {hospital.emergency_department ? (
-              <span className="text-emerald-700 dark:text-emerald-400 font-medium">Emergency Care Facility</span>
+              <span className="text-emerald-700 dark:text-emerald-400 font-medium">Emergency Care Listed</span>
             ) : (
-              <span className="text-gray-500">Outpatient & Medical Facility</span>
+              <span className="text-gray-500">Healthcare Facility</span>
             )}
             <span className="text-gray-400">•</span>
-            <span className="text-gray-500 text-[11px]">Accredited Health Center</span>
+            <span className="text-gray-500 text-[11px]">Directory Listing (Verify Details)</span>
           </div>
         </div>
       </div>

@@ -57,17 +57,16 @@ export default function EmergencyPage() {
   return (
     <div className="space-y-6">
       {/* Emergency disclaimer */}
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 flex items-start gap-3">
-        <InfoIcon className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" />
+      <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/60 rounded-xl p-4 flex items-start gap-3">
+        <InfoIcon className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
         <div>
-          <p className="font-medium text-yellow-900">
-            Medical Emergency Protocol
+          <p className="font-semibold text-amber-950 dark:text-amber-200 text-sm">
+            Emergency Guidance & Contact Alert
           </p>
-          <p className="text-sm text-yellow-800 mt-1">
-            Press the SOS button if you need immediate ambulance assistance.
-            Your location will be shared with nearby hospitals and dispatched
-            ambulances. Response time: 10-20 minutes. No fees charged. If this
-            is life threatening, call your local emergency number first.
+          <p className="text-xs text-amber-900/90 dark:text-amber-300/90 mt-1 leading-relaxed">
+            In an acute life-threatening emergency, call your local national emergency number immediately (e.g., 112 in EU/India, 911 in US, 999 in UK).
+            The SOS button sends your current GPS coordinates to your registered emergency contacts via configured SMS alerts and logs the incident in your secure patient portal.
+            SOS Healthcare is an awareness and emergency guidance tool and does not replace official municipal ambulance dispatch.
           </p>
         </div>
       </div>
