@@ -27,13 +27,19 @@ export async function GET(request: NextRequest) {
     const { data, error } = await query;
     if (error) {
       console.warn("[appointments/route] appointments query notice:", error.message);
-      return NextResponse.json({ appointments: [] });
+      if (error.code === "PGRST205" || error.message?.toLowerCase().includes("schema cache")) {
+        return NextResponse.json(
+          { error: "Appointments service schema is updating. Please try again shortly.", appointments: [] },
+          { status: 503 }
+        );
+      }
+      return NextResponse.json({ error: "Failed to load appointments", appointments: [] }, { status: 500 });
     }
 
     return NextResponse.json({ appointments: data || [] });
   } catch (err: unknown) {
     console.warn("[appointments/route] error handled:", err);
-    return NextResponse.json({ appointments: [] });
+    return NextResponse.json({ error: "Service unavailable", appointments: [] }, { status: 503 });
   }
 }
 
@@ -96,36 +102,38 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      // If table doesn't exist yet, return successful simulated confirmation for the patient
-      return NextResponse.json({
-        success: true,
-        appointment: {
-          id: `app-${Date.now()}`,
-          patient_id: user.id,
-          doctor_id: doctorId,
-          hospital_name: hospitalName,
-          specialty,
-          starts_at: startsAt,
-          ends_at: endsAt,
-          status: "CONFIRMED",
-        },
-      });
+      console.error("[appointments/route] Persistence failure:", error.code, error.message);
+      if (error.code === "PGRST205" || error.message?.toLowerCase().includes("schema cache")) {
+        return NextResponse.json(
+          { error: "Appointment service database schema is updating. Reservation could not be saved." },
+          { status: 503 }
+        );
+      }
+      if (error.code === "23505" || error.message?.toLowerCase().includes("overlap")) {
+        return NextResponse.json(
+          { error: "This specialist slot is already booked. Please choose another time slot." },
+          { status: 409 }
+        );
+      }
+      return NextResponse.json(
+        { error: "Could not save appointment reservation. Please try again." },
+        { status: 500 }
+      );
+    }
+
+    if (!data) {
+      return NextResponse.json(
+        { error: "Failed to confirm appointment persistence." },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ success: true, appointment: data }, { status: 201 });
-  } catch {
-    return NextResponse.json({
-      success: true,
-      appointment: {
-        id: `app-${Date.now()}`,
-        patient_id: user.id,
-        doctor_id: doctorId,
-        hospital_name: hospitalName,
-        specialty,
-        starts_at: startsAt,
-        ends_at: endsAt,
-        status: "CONFIRMED",
-      },
-    });
+  } catch (err: unknown) {
+    console.error("[appointments/route] unexpected POST exception:", err);
+    return NextResponse.json(
+      { error: "An unexpected error occurred while processing your appointment reservation." },
+      { status: 503 }
+    );
   }
 }

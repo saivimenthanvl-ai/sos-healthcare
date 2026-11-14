@@ -40,13 +40,19 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       console.warn("[appointment-requests] query notice:", error.message);
-      return NextResponse.json({ requests: [] });
+      if (error.code === "PGRST205" || error.message?.toLowerCase().includes("schema cache")) {
+        return NextResponse.json(
+          { error: "Appointment requests schema is updating. Please try again shortly.", requests: [] },
+          { status: 503 }
+        );
+      }
+      return NextResponse.json({ error: "Failed to load appointment requests", requests: [] }, { status: 500 });
     }
 
     return NextResponse.json({ requests: data || [] });
   } catch (err: unknown) {
     console.warn("[appointment-requests] error handled:", err);
-    return NextResponse.json({ requests: [] });
+    return NextResponse.json({ error: "Service unavailable", requests: [] }, { status: 503 });
   }
 }
 
@@ -120,16 +126,24 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      console.warn("[appointment-requests] insert fallback notice:", error.message);
-      // Resilient fallback for environments where migration is pending
-      return NextResponse.json({
-        success: true,
-        request: {
-          id: `req-${Date.now()}`,
-          ...newRecord,
-        },
-        notice: "This request is saved only in SOS Healthcare. It has not been sent to or confirmed by the selected hospital.",
-      }, { status: 201 });
+      console.error("[appointment-requests] insert failure:", error.code, error.message);
+      if (error.code === "PGRST205" || error.message?.toLowerCase().includes("schema cache")) {
+        return NextResponse.json(
+          { error: "Appointment planning service schema is updating. Request could not be saved." },
+          { status: 503 }
+        );
+      }
+      return NextResponse.json(
+        { error: "Could not save appointment planning request. Please try again." },
+        { status: 500 }
+      );
+    }
+
+    if (!data) {
+      return NextResponse.json(
+        { error: "Failed to confirm request persistence." },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({
@@ -137,14 +151,11 @@ export async function POST(request: NextRequest) {
       request: data,
       notice: "This request is saved only in SOS Healthcare. It has not been sent to or confirmed by the selected hospital.",
     }, { status: 201 });
-  } catch (_err: unknown) {
-    return NextResponse.json({
-      success: true,
-      request: {
-        id: `req-${Date.now()}`,
-        ...newRecord,
-      },
-      notice: "This request is saved only in SOS Healthcare. It has not been sent to or confirmed by the selected hospital.",
-    }, { status: 201 });
+  } catch (err: unknown) {
+    console.error("[appointment-requests] unexpected POST exception:", err);
+    return NextResponse.json(
+      { error: "An unexpected error occurred while processing your appointment request." },
+      { status: 503 }
+    );
   }
 }
