@@ -149,8 +149,21 @@ export function AuthenticatedDashboardView() {
 
   if (authLoading) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <div className="text-center text-xs text-gray-500 dark:text-gray-400">{t.common.loading}</div>
+      <div className="max-w-5xl mx-auto py-3 sm:py-5 space-y-4 sm:space-y-6 animate-pulse">
+        <div className="border-b border-gray-200 dark:border-gray-800 pb-3 sm:pb-4 space-y-2">
+          <div className="h-7 w-64 bg-gray-200 dark:bg-gray-800 rounded-md" />
+          <div className="h-4 w-96 max-w-full bg-gray-100 dark:bg-gray-850 rounded" />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4 items-stretch">
+          <div className="md:col-span-6 h-36 bg-gray-100 dark:bg-gray-800 rounded-xl" />
+          <div className="md:col-span-6 h-36 bg-gray-100 dark:bg-gray-800 rounded-xl" />
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-2">
+          <div className="h-40 bg-gray-100 dark:bg-gray-800 rounded-xl" />
+          <div className="h-40 bg-gray-100 dark:bg-gray-800 rounded-xl" />
+          <div className="h-40 bg-gray-100 dark:bg-gray-800 rounded-xl" />
+          <div className="h-40 bg-gray-100 dark:bg-gray-800 rounded-xl" />
+        </div>
       </div>
     );
   }

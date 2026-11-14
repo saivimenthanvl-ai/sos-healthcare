@@ -5,9 +5,9 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SosLogo } from "@/components/SosLogo";
 
 export const metadata = {
-  title: "SOS Healthcare — Emergency Ambulance & Hospital Finder",
+  title: "SOS Healthcare — Hospital Discovery & Emergency Guidance",
   description:
-    "SOS Healthcare: Get an ambulance within 10-20 minutes. Real-time location tracking via Fitbit/Smartwatch. Find nearby hospitals. No fees for emergency care.",
+    "SOS Healthcare: Location-aware emergency guidance, emergency contact alerts, nearby hospital discovery, and private appointment planning.",
 };
 
 export default function MainLayout({

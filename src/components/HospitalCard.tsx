@@ -74,14 +74,14 @@ export function HospitalCard({ hospital, onBook }: HospitalCardProps) {
       {/* Action buttons */}
       <div className="mt-4 flex flex-wrap gap-2">
         {hospital.phone && (
-          <a href={`tel:${hospital.phone}`} className="flex-1 min-w-[70px]">
+          <a href={`tel:${hospital.phone}`} className="flex-1 min-w-17.5">
             <Button variant="outline" size="sm" className="w-full">
               <PhoneIcon className="h-4 w-4 mr-1" />
               Call
             </Button>
           </a>
         )}
-        <Link href={`/hospitals/${hospital.id}`} className="flex-1 min-w-[70px]">
+        <Link href={`/hospitals/${hospital.id}`} className="flex-1 min-w-17.5">
           <Button variant="outline" size="sm" className="w-full">
             Details
           </Button>
@@ -89,7 +89,7 @@ export function HospitalCard({ hospital, onBook }: HospitalCardProps) {
         <Button
           variant="danger"
           size="sm"
-          className="flex-1 min-w-[110px]"
+          className="flex-1 min-w-27.5"
           onClick={() => onBook?.(hospital)}
         >
           Book Custom
