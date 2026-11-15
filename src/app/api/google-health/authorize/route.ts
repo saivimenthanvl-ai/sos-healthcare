@@ -57,6 +57,7 @@ export async function GET(request: NextRequest) {
       user_id: user.id,
       provider: "google_health",
       created_at: new Date().toISOString(),
+      expires_at: new Date(Date.now() + 15 * 60 * 1000).toISOString(),
     });
   } catch {
     // Non-blocking if table is optional

@@ -40,37 +40,49 @@ export async function POST(request: NextRequest) {
     customization.specialtyNeeds || "Emergency"
   } ${customization.notes ? `| Notes: ${customization.notes}` : ""}`;
 
-  let emergencyRecord = null;
-  if (userLocation?.lat && userLocation?.lng) {
-    try {
-      const { data: createdEmergency } = await supabase
-        .from("emergencies")
-        .insert({
-          user_id: session.user.id,
-          latitude: userLocation.lat,
-          longitude: userLocation.lng,
-          assigned_hospital_id: null,
-          description,
-          status: customization.requireAmbulance ? "dispatched" : "pending",
-          eta_minutes: 15,
-        })
-        .select()
-        .single();
-
-      emergencyRecord = createdEmergency;
-    } catch (bookingErr) {
-      console.warn("[HospitalBooking] emergencies insert fallback handled:", bookingErr);
-    }
+  if (!userLocation?.lat || !userLocation?.lng) {
+    return NextResponse.json(
+      { error: "Location coordinates (userLocation.lat, userLocation.lng) are required" },
+      { status: 400 }
+    );
   }
 
+  const { data: createdEmergency, error: bookingErr } = await supabase
+    .from("emergencies")
+    .insert({
+      user_id: session.user.id,
+      latitude: Number(userLocation.lat),
+      longitude: Number(userLocation.lng),
+      assigned_hospital_id: null,
+      assigned_ambulance_id: null,
+      eta_minutes: null,
+      description,
+      status: "pending",
+    })
+    .select()
+    .single();
+
+  if (bookingErr || !createdEmergency) {
+    console.error("[HospitalBooking] emergencies insert failure:", bookingErr?.code, bookingErr?.message);
+    if (bookingErr?.code === "PGRST205" || bookingErr?.message?.toLowerCase().includes("schema cache")) {
+      return NextResponse.json(
+        { error: "Emergency triage database schema is updating. Request could not be saved." },
+        { status: 503 }
+      );
+    }
+    return NextResponse.json(
+      { error: "Failed to persist emergency triage booking. Please call emergency services directly." },
+      { status: 500 }
+    );
+  }
 
   return NextResponse.json({
     success: true,
-    bookingId: emergencyRecord?.id || `TRIAGE-${Date.now()}`,
+    bookingId: createdEmergency.id,
     hospitalId,
     hospitalName,
     customization,
     message: `Emergency triage and facility notification request recorded. Live bed allocation is confirmed on-site by ER staff.`,
-    emergency: emergencyRecord,
-  });
+    emergency: createdEmergency,
+  }, { status: 201 });
 }

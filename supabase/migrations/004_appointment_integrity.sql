@@ -4,10 +4,14 @@
 create extension if not exists btree_gist;
 
 alter table public.appointments
+  drop constraint if exists appointments_positive_duration;
+alter table public.appointments
   add constraint appointments_positive_duration check (ends_at > starts_at);
 
 alter table public.appointments
   drop constraint if exists no_double_booking;
+alter table public.appointments
+  drop constraint if exists appointments_no_overlapping_active_slots;
 
 alter table public.appointments
   add constraint appointments_no_overlapping_active_slots
@@ -16,6 +20,7 @@ alter table public.appointments
     tstzrange(starts_at, ends_at, '[)') with &&
   )
   where (status in ('PENDING', 'CONFIRMED'));
+
 
 -- Browser clients may only cancel their own appointments; staff status changes
 -- go through server-side authorization and the lifecycle check below.

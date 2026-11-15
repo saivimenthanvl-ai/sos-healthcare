@@ -4,21 +4,26 @@
 -- Safe to re-run: vehicles are keyed on vehicle_number.
 -- ============================================================
 
+-- ============================================================
+-- Seed the ambulance fleet (Non-Destructive & Idempotent).
+-- Run after schema.sql and migrations/001_roles_and_dispatch.sql.
+-- Safe to re-run: vehicles are inserted only if vehicle_number does not exist.
+-- ============================================================
+
 insert into public.ambulances
   (driver_name, vehicle_number, latitude, longitude, status)
-values
-  ('Amara Osei',   'AMB-01', 12.9716, 77.5946, 'available'),
-  ('Rohan Mehta',  'AMB-02', 12.9784, 77.6408, 'available'),
-  ('Lena Fischer', 'AMB-03', 12.9136, 77.5850, 'available'),
-  ('Diego Alvarez','AMB-04', 13.0358, 77.5970, 'available'),
+select v.driver_name, v.vehicle_number, v.latitude, v.longitude, v.status::public.ambulance_status
+from (values
+  ('Amara Osei',    'AMB-01', 12.9716, 77.5946, 'available'),
+  ('Rohan Mehta',   'AMB-02', 12.9784, 77.6408, 'available'),
+  ('Lena Fischer',  'AMB-03', 12.9136, 77.5850, 'available'),
+  ('Diego Alvarez', 'AMB-04', 13.0358, 77.5970, 'available'),
   ('Sara Lindqvist','AMB-05', 12.9698, 77.7500, 'available')
-on conflict do nothing;
+) as v(driver_name, vehicle_number, latitude, longitude, status)
+where not exists (
+  select 1 from public.ambulances a where a.vehicle_number = v.vehicle_number
+);
 
--- If the table was created without a unique constraint, dedupe by number.
-delete from public.ambulances a
-  using public.ambulances b
-  where a.vehicle_number = b.vehicle_number
-    and a.id > b.id;
 
 -- ============================================================
 -- Demo accounts.

@@ -22,52 +22,60 @@ CREATE TABLE IF NOT EXISTS admin_inquiries (
 );
 
 -- Enable RLS
-ALTER TABLE admin_inquiries ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.admin_inquiries ENABLE ROW LEVEL SECURITY;
 
--- Policy 1: Any user (including anonymous) can insert inquiries via the application
+-- Policy 1: Any user (including anonymous) can insert NEW inquiries via the application without spoofing user_id or status
+DROP POLICY IF EXISTS "Anyone can submit an inquiry" ON public.admin_inquiries;
 CREATE POLICY "Anyone can submit an inquiry"
-  ON admin_inquiries
+  ON public.admin_inquiries
   FOR INSERT
-  WITH CHECK (true);
+  WITH CHECK (
+    status = 'NEW'
+    AND (user_id IS NULL OR user_id = auth.uid())
+  );
 
 -- Policy 2: Admins can view all inquiries
+DROP POLICY IF EXISTS "Admins can view all inquiries" ON public.admin_inquiries;
 CREATE POLICY "Admins can view all inquiries"
-  ON admin_inquiries
+  ON public.admin_inquiries
   FOR SELECT
   USING (
     EXISTS (
-      SELECT 1 FROM profiles
+      SELECT 1 FROM public.profiles
       WHERE profiles.id = auth.uid()
-      AND (profiles.role_v2 = 'ADMIN' OR profiles.role = 'admin')
+      AND (profiles.role_v2 = 'ADMIN' OR profiles.role::text = 'admin')
     )
   );
 
 -- Policy 3: Admins can update inquiries
+DROP POLICY IF EXISTS "Admins can update inquiries" ON public.admin_inquiries;
 CREATE POLICY "Admins can update inquiries"
-  ON admin_inquiries
+  ON public.admin_inquiries
   FOR UPDATE
   USING (
     EXISTS (
-      SELECT 1 FROM profiles
+      SELECT 1 FROM public.profiles
       WHERE profiles.id = auth.uid()
-      AND (profiles.role_v2 = 'ADMIN' OR profiles.role = 'admin')
+      AND (profiles.role_v2 = 'ADMIN' OR profiles.role::text = 'admin')
     )
   )
   WITH CHECK (
     EXISTS (
-      SELECT 1 FROM profiles
+      SELECT 1 FROM public.profiles
       WHERE profiles.id = auth.uid()
-      AND (profiles.role_v2 = 'ADMIN' OR profiles.role = 'admin')
+      AND (profiles.role_v2 = 'ADMIN' OR profiles.role::text = 'admin')
     )
   );
 
 -- Policy 4: Authenticated users can view their own submitted inquiries
+DROP POLICY IF EXISTS "Users can view their own inquiries" ON public.admin_inquiries;
 CREATE POLICY "Users can view their own inquiries"
-  ON admin_inquiries
+  ON public.admin_inquiries
   FOR SELECT
   USING (
     auth.uid() IS NOT NULL AND user_id = auth.uid()
   );
+
 
 -- Index for speedy queries by status, category and reference
 CREATE INDEX IF NOT EXISTS idx_admin_inquiries_status ON admin_inquiries(status);

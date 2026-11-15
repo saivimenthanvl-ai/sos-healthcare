@@ -80,8 +80,8 @@ export async function POST(request: Request) {
 
     const supabase = await getSupabaseServerClient();
     const {
-      data: { session },
-    } = await supabase.auth.getSession();
+      data: { user },
+    } = await supabase.auth.getUser();
 
     const referenceCode = generateReferenceCode();
 
@@ -89,7 +89,7 @@ export async function POST(request: Request) {
       .from("admin_inquiries")
       .insert({
         reference_code: referenceCode,
-        user_id: session?.user?.id || null,
+        user_id: user?.id || null,
         full_name: fullName.trim(),
         email: email.trim().toLowerCase(),
         category,
@@ -99,21 +99,25 @@ export async function POST(request: Request) {
       .select("id, reference_code, created_at")
       .single();
 
-    if (error) {
-      console.error("[Inquiry API] DB error:", error.message);
-      // Fallback gracefully so patient receives a tracked reference even if table is provisioning
-      return NextResponse.json({
-        success: true,
-        reference_code: referenceCode,
-        message: "Your message has been received.",
-      });
+    if (error || !data) {
+      console.error("[Inquiry API] DB error:", error?.code, error?.message);
+      if (error?.code === "PGRST205" || error?.message?.toLowerCase().includes("schema cache")) {
+        return NextResponse.json(
+          { error: "Administrative inquiry service schema is updating. Please try again shortly." },
+          { status: 503 }
+        );
+      }
+      return NextResponse.json(
+        { error: "Could not persist inquiry submission. Please try again." },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({
       success: true,
       reference_code: data.reference_code,
       created_at: data.created_at,
-    });
+    }, { status: 201 });
   } catch (err: unknown) {
     console.error("[Inquiry API] Uncaught:", err);
     return NextResponse.json(

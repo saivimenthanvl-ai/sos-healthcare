@@ -33,13 +33,11 @@ export async function PATCH(
     .single();
 
   if (loadErr || !existing) {
-    // If not found in DB (e.g., transient ID or pending table)
-    if (action === "CANCEL") {
-      return NextResponse.json({
-        success: true,
-        message: "Appointment request cancelled.",
-        request: { id, status: "CANCELLED", cancelled_at: new Date().toISOString() },
-      });
+    if (loadErr?.code === "PGRST205" || loadErr?.message?.toLowerCase().includes("schema cache")) {
+      return NextResponse.json(
+        { error: "Appointment requests schema is updating. Please try again shortly." },
+        { status: 503 }
+      );
     }
     return NextResponse.json({ error: "Appointment request not found" }, { status: 404 });
   }

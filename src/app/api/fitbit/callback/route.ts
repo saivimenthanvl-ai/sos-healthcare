@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     const tokens = await exchangeFitbitCode(code, redirectUri);
 
     // Store Fitbit credentials in the user's profile
-    await supabase
+    const { error: updateErr } = await supabase
       .from("profiles")
       .update({
         fitbit_user_id: tokens.user_id,
@@ -46,6 +46,13 @@ export async function GET(request: NextRequest) {
         smartwatch_connected: true,
       })
       .eq("id", session.user.id);
+
+    if (updateErr) {
+      console.error("[fitbit/callback] profile update failed:", updateErr.code, updateErr.message);
+      return NextResponse.redirect(
+        `${requestUrl.origin}/profile?error=fitbit_persistence_failed`
+      );
+    }
 
     return NextResponse.redirect(`${requestUrl.origin}/profile?success=fitbit_connected`);
   } catch (error) {

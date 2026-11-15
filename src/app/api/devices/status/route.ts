@@ -3,12 +3,14 @@ import { getSupabaseServerClient } from "@/lib/supabase-server";
 
 interface DeviceConnectionRow {
   provider: string;
-  connection_status: string;
+  status?: string | null;
+  connection_status?: string | null;
 }
 
 /**
  * GET /api/devices/status
- * Returns verified connection statuses for smart devices and configured server credentials
+ * Returns verified connection statuses for smart devices and configured server credentials.
+ * Queries only non-sensitive metadata columns; never selects encrypted OAuth credentials.
  */
 export async function GET(_request: NextRequest) {
   const supabase = await getSupabaseServerClient();
@@ -29,27 +31,39 @@ export async function GET(_request: NextRequest) {
   let wearOsConnected = false;
 
   try {
-    const { data: connections } = await supabase
+    const { data: connections, error: connErr } = await supabase
       .from("device_connections")
-      .select("*")
+      .select("id, provider, status, connection_status, scopes, connected_at, last_sync_at, last_synced_at, updated_at")
       .eq("user_id", user.id);
+
+    if (connErr) {
+      return NextResponse.json(
+        { error: "Unable to load device connection status" },
+        { status: 503 }
+      );
+    }
 
     if (connections) {
       connections.forEach((item: unknown) => {
         const conn = item as DeviceConnectionRow;
-        if (conn.provider === "google_health" && conn.connection_status === "CONNECTED") {
+        const normalizedStatus = String(conn.connection_status || conn.status || "").toUpperCase();
+        const isConnected = normalizedStatus === "CONNECTED" || normalizedStatus === "ACTIVE";
+        if (conn.provider === "google_health" && isConnected) {
           googleHealthConnected = true;
         }
-        if (conn.provider === "apple_health" && conn.connection_status === "CONNECTED") {
+        if (conn.provider === "apple_health" && isConnected) {
           appleHealthConnected = true;
         }
-        if (conn.provider === "wear_os" && conn.connection_status === "CONNECTED") {
+        if (conn.provider === "wear_os" && isConnected) {
           wearOsConnected = true;
         }
       });
     }
   } catch (_err: unknown) {
-    // If device_connections not yet populated
+    return NextResponse.json(
+      { error: "Device status service unavailable" },
+      { status: 503 }
+    );
   }
 
   return NextResponse.json({

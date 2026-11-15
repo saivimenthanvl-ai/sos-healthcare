@@ -40,11 +40,15 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("[api/hospitals] Failed to fetch hospitals:", error);
-    return NextResponse.json({
-      hospitals: [],
-      userLocation: { lat, lng },
-      radius_km: radius,
-    });
+    return NextResponse.json(
+      {
+        error: "Unable to load hospital directory at this time.",
+        hospitals: [],
+        userLocation: { lat, lng },
+        radius_km: radius,
+      },
+      { status: 503 }
+    );
   }
 }
 

@@ -22,15 +22,18 @@ drop policy if exists "Patients book own appointments" on public.appointments;
 create policy "Patients book own appointments" on public.appointments
   for insert to authenticated with check (
     auth.uid() = patient_id and public.get_current_role() = 'PATIENT'
-      and status = 'CONFIRMED'
+      and status in ('PENDING', 'CONFIRMED')
   );
 
 drop policy if exists "Admins view all appointments" on public.appointments;
 create policy "Admins view all appointments" on public.appointments
   for select to authenticated using (public.get_current_role() = 'ADMIN');
+
+drop policy if exists "Admins update operational appointments" on public.appointments;
 create policy "Admins update operational appointments" on public.appointments
   for update to authenticated using (public.get_current_role() = 'ADMIN')
   with check (public.get_current_role() = 'ADMIN');
+
 
 -- The prior 004 trigger allowed changes to appointment time, reason and
 -- hospital during a status update. For now keep updates status-only; future

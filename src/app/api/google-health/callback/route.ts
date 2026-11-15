@@ -90,25 +90,37 @@ export async function GET(request: NextRequest) {
       return NextResponse.redirect(devicesUrl);
     }
 
-    // Persist to device_connections table
-    try {
-      await supabase.from("device_connections").upsert({
-        user_id: user.id,
-        provider: "google_health",
-        connection_status: "CONNECTED",
-        last_synced_at: new Date().toISOString(),
-        metrics: ["heart_rate", "activity", "location"],
-        permissions: ["read"],
-      }, { onConflict: "user_id,provider" });
-    } catch (dbErr) {
-      console.warn("[google-health/callback] device_connections upsert notice:", dbErr);
+    // Persist to device_connections table (compatible with existing production status/scopes/last_sync_at and connection_status/last_synced_at)
+    const nowIso = new Date().toISOString();
+    const { error: dbErr } = await supabase.from("device_connections").upsert({
+      user_id: user.id,
+      provider: "google_health",
+      status: "connected",
+      connection_status: "CONNECTED",
+      connected_at: nowIso,
+      last_sync_at: nowIso,
+      last_synced_at: nowIso,
+      scopes: [
+        "https://www.googleapis.com/auth/fitness.heart_rate.read",
+        "https://www.googleapis.com/auth/fitness.activity.read",
+        "https://www.googleapis.com/auth/fitness.location.read",
+      ],
+      metrics: ["heart_rate", "activity", "location"],
+      permissions: ["read"],
+      updated_at: nowIso,
+    }, { onConflict: "user_id,provider" });
+
+    if (dbErr) {
+      console.error("[google-health/callback] device_connections upsert failure:", dbErr.code, dbErr.message);
+      devicesUrl.searchParams.set("error", "device_persistence_failed");
+      return NextResponse.redirect(devicesUrl);
     }
 
     // Update profiles smartwatch connection status
     try {
       await supabase.from("profiles").update({
         smartwatch_connected: true,
-        updated_at: new Date().toISOString(),
+        updated_at: nowIso,
       }).eq("id", user.id);
     } catch (profileErr) {
       console.warn("[google-health/callback] profile update notice:", profileErr);

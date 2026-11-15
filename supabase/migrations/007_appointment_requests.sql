@@ -30,25 +30,36 @@ CREATE INDEX IF NOT EXISTS idx_appointment_requests_starts_at ON public.appointm
 ALTER TABLE public.appointment_requests ENABLE ROW LEVEL SECURITY;
 
 -- Patients can view only their own appointment requests
+DROP POLICY IF EXISTS "Patients can view own appointment requests" ON public.appointment_requests;
 CREATE POLICY "Patients can view own appointment requests"
   ON public.appointment_requests
   FOR SELECT
   USING (auth.uid() = patient_id);
 
 -- Patients can insert their own appointment requests
+DROP POLICY IF EXISTS "Patients can create own appointment requests" ON public.appointment_requests;
 CREATE POLICY "Patients can create own appointment requests"
   ON public.appointment_requests
   FOR INSERT
   WITH CHECK (auth.uid() = patient_id);
 
 -- Patients can update (reschedule or cancel) their own appointment requests
+DROP POLICY IF EXISTS "Patients can update own appointment requests" ON public.appointment_requests;
 CREATE POLICY "Patients can update own appointment requests"
   ON public.appointment_requests
   FOR UPDATE
   USING (auth.uid() = patient_id)
   WITH CHECK (auth.uid() = patient_id);
 
+-- Patients can delete their own appointment requests (required for coordinated account deletion)
+DROP POLICY IF EXISTS "Patients can delete own appointment requests" ON public.appointment_requests;
+CREATE POLICY "Patients can delete own appointment requests"
+  ON public.appointment_requests
+  FOR DELETE
+  USING (auth.uid() = patient_id);
+
 -- Admins can view audit of appointment requests (Read-Only)
+DROP POLICY IF EXISTS "Admins can view appointment requests" ON public.appointment_requests;
 CREATE POLICY "Admins can view appointment requests"
   ON public.appointment_requests
   FOR SELECT
@@ -56,7 +67,8 @@ CREATE POLICY "Admins can view appointment requests"
     EXISTS (
       SELECT 1 FROM public.profiles
       WHERE id = auth.uid()
-      AND (role_v2 = 'ADMIN' OR role = 'admin')
+      AND (role_v2 = 'ADMIN' OR role::text = 'admin')
     )
   );
+
 

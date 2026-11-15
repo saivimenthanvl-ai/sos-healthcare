@@ -29,7 +29,7 @@ export async function POST() {
       supabase.from("appointment_requests").select("id, hospital_name_snapshot, specialty, consultation_type, consultation_mode, preferred_starts_at, timezone, notes, status, created_at, updated_at, cancelled_at").eq("patient_id", user.id),
       supabase.from("appointments").select("id, specialty, hospital_name, starts_at, ends_at, reason, status, created_at").eq("patient_id", user.id),
       supabase.from("emergency_contacts").select("id, name, phone, relationship, notification_method, created_at").eq("user_id", user.id),
-      supabase.from("device_connections").select("id, provider, device_name, status, last_sync_at, created_at").eq("user_id", user.id),
+      supabase.from("device_connections").select("id, provider, status, connection_status, scopes, connected_at, last_sync_at, last_synced_at, created_at").eq("user_id", user.id),
     ]);
 
     const exportBundle = {

@@ -1,27 +1,33 @@
 -- ============================================================
--- Migration 002: RBAC (PATIENT, DOCTOR, ADMIN), Appointments,
--- Health Records, Profiles, and Clinical Security
+-- Migration 002: RBAC (PATIENT, DOCTOR, ADMIN, PARAMEDIC, DISPATCHER),
+-- Appointments, Health Records, Profiles, and Clinical Security
 -- ============================================================
 
--- 1. Extend or create UserRole enum to strictly support PATIENT, DOCTOR, ADMIN
+-- 1. Extend or create app_role enum with all 5 operational & clinical roles up-front
+--    so subsequent migrations never trigger PostgreSQL 55P04 (unsafe use of new enum value in same transaction).
 DO $$ 
 BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'app_role') THEN
-    CREATE TYPE public.app_role AS ENUM ('PATIENT', 'DOCTOR', 'ADMIN');
+    CREATE TYPE public.app_role AS ENUM ('PATIENT', 'DOCTOR', 'ADMIN', 'PARAMEDIC', 'DISPATCHER');
   END IF;
 END $$;
 
--- Add role column to profiles if not present or migrate existing enum
+ALTER TYPE public.app_role ADD VALUE IF NOT EXISTS 'PARAMEDIC';
+ALTER TYPE public.app_role ADD VALUE IF NOT EXISTS 'DISPATCHER';
+
+-- Add role_v2 column to profiles if not present
 ALTER TABLE public.profiles
   ADD COLUMN IF NOT EXISTS role_v2 public.app_role DEFAULT 'PATIENT';
 
--- Map legacy roles if needed
+-- Map legacy roles safely without overwriting established role_v2 assignments
 UPDATE public.profiles
 SET role_v2 = CASE
-  WHEN role::text IN ('paramedic', 'dispatcher') THEN 'ADMIN'::public.app_role
+  WHEN upper(role::text) = 'PARAMEDIC' THEN 'PARAMEDIC'::public.app_role
+  WHEN upper(role::text) = 'DISPATCHER' THEN 'DISPATCHER'::public.app_role
   ELSE 'PATIENT'::public.app_role
 END
 WHERE role_v2 IS NULL;
+
 
 -- 2. Patient Profiles (Role Extension)
 CREATE TABLE IF NOT EXISTS public.patient_profiles (
@@ -129,19 +135,65 @@ CREATE TABLE IF NOT EXISTS public.health_records (
 
 CREATE INDEX IF NOT EXISTS idx_health_records_patient_id ON public.health_records(patient_id);
 
--- 8. Device Connections (Smartwatches)
+-- 8. Device Connections (Smartwatches & Google Health)
+-- Exact match with existing production schema + additive compatible metadata columns.
 CREATE TABLE IF NOT EXISTS public.device_connections (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  provider TEXT NOT NULL, -- 'fitbit', 'apple_health', 'wear_os'
+  provider TEXT NOT NULL, -- 'fitbit', 'apple_health', 'wear_os', 'google_health'
+  provider_user_id TEXT,
+  access_token_encrypted TEXT,
+  refresh_token_encrypted TEXT,
+  token_expires_at TIMESTAMPTZ,
+  scopes TEXT[] NOT NULL DEFAULT '{}'::text[],
+  connected_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  last_sync_at TIMESTAMPTZ,
+  status TEXT NOT NULL DEFAULT 'connected' CHECK (status = ANY (ARRAY['connected'::text, 'disconnected'::text, 'expired'::text, 'error'::text])),
   connection_status TEXT NOT NULL DEFAULT 'DISCONNECTED', -- CONNECTED, DISCONNECTED, PENDING_AUTH
   last_synced_at TIMESTAMPTZ,
   metrics JSONB DEFAULT '[]'::jsonb,
   permissions JSONB DEFAULT '[]'::jsonb,
+  device_name TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
   updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
-  CONSTRAINT unique_user_provider UNIQUE (user_id, provider)
+  CONSTRAINT device_connections_user_provider_unique UNIQUE (user_id, provider)
 );
+
+-- Non-destructively reconcile existing production device_connections schema
+ALTER TABLE public.device_connections
+  ADD COLUMN IF NOT EXISTS provider_user_id TEXT,
+  ADD COLUMN IF NOT EXISTS access_token_encrypted TEXT,
+  ADD COLUMN IF NOT EXISTS refresh_token_encrypted TEXT,
+  ADD COLUMN IF NOT EXISTS token_expires_at TIMESTAMPTZ,
+  ADD COLUMN IF NOT EXISTS scopes TEXT[] NOT NULL DEFAULT '{}'::text[],
+  ADD COLUMN IF NOT EXISTS connected_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  ADD COLUMN IF NOT EXISTS last_sync_at TIMESTAMPTZ,
+  ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'connected',
+  ADD COLUMN IF NOT EXISTS connection_status TEXT NOT NULL DEFAULT 'DISCONNECTED',
+  ADD COLUMN IF NOT EXISTS last_synced_at TIMESTAMPTZ,
+  ADD COLUMN IF NOT EXISTS metrics JSONB DEFAULT '[]'::jsonb,
+  ADD COLUMN IF NOT EXISTS permissions JSONB DEFAULT '[]'::jsonb,
+  ADD COLUMN IF NOT EXISTS device_name TEXT;
+
+-- Sync existing status/last_sync_at values into connection_status/last_synced_at without overwriting
+UPDATE public.device_connections
+SET
+  connection_status = COALESCE(NULLIF(UPPER(status), ''), connection_status, 'DISCONNECTED'),
+  last_synced_at = COALESCE(last_synced_at, last_sync_at, connected_at)
+WHERE status IS NOT NULL OR last_sync_at IS NOT NULL;
+
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM pg_constraint
+    WHERE conrelid = 'public.device_connections'::regclass
+      AND contype = 'u'
+  ) THEN
+    ALTER TABLE public.device_connections
+      ADD CONSTRAINT device_connections_user_provider_unique UNIQUE (user_id, provider);
+  END IF;
+END $$;
+
+
 
 -- 9. Health Sharing Permissions (Doctor-Patient consent)
 CREATE TABLE IF NOT EXISTS public.health_sharing_permissions (
@@ -254,19 +306,79 @@ CREATE POLICY "Patients manage own health records" ON public.health_records
   FOR ALL USING (auth.uid() = patient_id)
   WITH CHECK (auth.uid() = patient_id);
 
--- Doctor can view health records only with appointment/consent relationship
+-- Doctor can view health records only with active appointment or active, non-expired consent relationship
 DROP POLICY IF EXISTS "Doctors view authorized health records" ON public.health_records;
 CREATE POLICY "Doctors view authorized health records" ON public.health_records
   FOR SELECT USING (
     public.get_current_role() = 'DOCTOR' AND (
       EXISTS (
         SELECT 1 FROM public.appointments a
-        WHERE a.patient_id = health_records.patient_id AND a.doctor_id = auth.uid()
+        WHERE a.patient_id = health_records.patient_id
+          AND a.doctor_id = auth.uid()
+          AND a.status IN ('PENDING', 'CONFIRMED')
       ) OR EXISTS (
         SELECT 1 FROM public.health_sharing_permissions p
-        WHERE p.patient_id = health_records.patient_id AND p.doctor_id = auth.uid() AND p.status = 'ACTIVE'
+        WHERE p.patient_id = health_records.patient_id
+          AND p.doctor_id = auth.uid()
+          AND p.status = 'ACTIVE'
+          AND (p.expires_at IS NULL OR p.expires_at > NOW())
       )
     )
+  );
+
+-- Admin Profiles: Administrators view and update only their own admin profile
+DROP POLICY IF EXISTS "Admins view own admin profile" ON public.admin_profiles;
+CREATE POLICY "Admins view own admin profile" ON public.admin_profiles
+  FOR SELECT TO authenticated USING (auth.uid() = user_id AND public.get_current_role() = 'ADMIN');
+
+DROP POLICY IF EXISTS "Admins update own admin profile" ON public.admin_profiles;
+CREATE POLICY "Admins update own admin profile" ON public.admin_profiles
+  FOR UPDATE TO authenticated USING (auth.uid() = user_id AND public.get_current_role() = 'ADMIN')
+  WITH CHECK (auth.uid() = user_id AND public.get_current_role() = 'ADMIN');
+
+-- Doctor Availability: Authenticated users view active availability; Doctors manage only their own slots
+DROP POLICY IF EXISTS "Authenticated users view doctor availability" ON public.doctor_availability;
+CREATE POLICY "Authenticated users view doctor availability" ON public.doctor_availability
+  FOR SELECT TO authenticated USING (is_active = TRUE OR auth.uid() = doctor_id);
+
+DROP POLICY IF EXISTS "Doctors insert own availability" ON public.doctor_availability;
+CREATE POLICY "Doctors insert own availability" ON public.doctor_availability
+  FOR INSERT TO authenticated WITH CHECK (auth.uid() = doctor_id AND public.get_current_role() = 'DOCTOR');
+
+DROP POLICY IF EXISTS "Doctors update own availability" ON public.doctor_availability;
+CREATE POLICY "Doctors update own availability" ON public.doctor_availability
+  FOR UPDATE TO authenticated USING (auth.uid() = doctor_id AND public.get_current_role() = 'DOCTOR')
+  WITH CHECK (auth.uid() = doctor_id AND public.get_current_role() = 'DOCTOR');
+
+DROP POLICY IF EXISTS "Doctors delete own availability" ON public.doctor_availability;
+CREATE POLICY "Doctors delete own availability" ON public.doctor_availability
+  FOR DELETE TO authenticated USING (auth.uid() = doctor_id AND public.get_current_role() = 'DOCTOR');
+
+-- Health Sharing Permissions: Patients manage their own consent grants; Doctors view active grants made to them
+DROP POLICY IF EXISTS "Patients view own sharing permissions" ON public.health_sharing_permissions;
+CREATE POLICY "Patients view own sharing permissions" ON public.health_sharing_permissions
+  FOR SELECT TO authenticated USING (auth.uid() = patient_id);
+
+DROP POLICY IF EXISTS "Patients insert own sharing permissions" ON public.health_sharing_permissions;
+CREATE POLICY "Patients insert own sharing permissions" ON public.health_sharing_permissions
+  FOR INSERT TO authenticated WITH CHECK (auth.uid() = patient_id);
+
+DROP POLICY IF EXISTS "Patients update own sharing permissions" ON public.health_sharing_permissions;
+CREATE POLICY "Patients update own sharing permissions" ON public.health_sharing_permissions
+  FOR UPDATE TO authenticated USING (auth.uid() = patient_id)
+  WITH CHECK (auth.uid() = patient_id);
+
+DROP POLICY IF EXISTS "Patients delete own sharing permissions" ON public.health_sharing_permissions;
+CREATE POLICY "Patients delete own sharing permissions" ON public.health_sharing_permissions
+  FOR DELETE TO authenticated USING (auth.uid() = patient_id);
+
+DROP POLICY IF EXISTS "Doctors view granted sharing permissions" ON public.health_sharing_permissions;
+CREATE POLICY "Doctors view granted sharing permissions" ON public.health_sharing_permissions
+  FOR SELECT TO authenticated USING (
+    auth.uid() = doctor_id
+    AND public.get_current_role() = 'DOCTOR'
+    AND status = 'ACTIVE'
+    AND (expires_at IS NULL OR expires_at > NOW())
   );
 
 -- Devices:

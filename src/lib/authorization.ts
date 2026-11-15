@@ -51,18 +51,12 @@ export async function getAuthenticatedUser(_req?: NextRequest): Promise<Requesti
     console.warn("[authorization] profiles lookup warning:", lookupErr);
   }
 
-  // If profiles table has not yet received migration or user row is being provisioned,
-  // allow legitimate authenticated users with verified Supabase Auth JWT default role of PATIENT
-  const userMetadataRole = (user.user_metadata?.role as string)?.toUpperCase();
-  const allowed: SystemRole[] = ["PATIENT", "DOCTOR", "ADMIN", "PARAMEDIC", "DISPATCHER"];
-  const finalRole: SystemRole = allowed.includes(userMetadataRole as SystemRole)
-    ? (userMetadataRole as SystemRole)
-    : "PATIENT";
-
+  // Never trust privileged roles from user-editable JWT metadata (user.user_metadata.role).
+  // If the profiles table row is missing or still being provisioned, strictly default to PATIENT.
   return {
     id: user.id,
     email: user.email ?? null,
-    role: finalRole,
+    role: "PATIENT",
   };
 }
 

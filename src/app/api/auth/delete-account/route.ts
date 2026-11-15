@@ -27,16 +27,25 @@ export async function POST(request: Request) {
 
   try {
     // 1. Delete user-owned appointment requests
-    await supabase.from("appointment_requests").delete().eq("patient_id", user.id);
+    const { error: reqErr } = await supabase.from("appointment_requests").delete().eq("patient_id", user.id);
+    if (reqErr && reqErr.code !== "PGRST205") {
+      throw new Error(`Failed to remove appointment requests: ${reqErr.message}`);
+    }
 
     // 2. Delete user-owned emergency contacts
-    await supabase.from("emergency_contacts").delete().eq("user_id", user.id);
+    const { error: contactErr } = await supabase.from("emergency_contacts").delete().eq("user_id", user.id);
+    if (contactErr && contactErr.code !== "PGRST205") {
+      throw new Error(`Failed to remove emergency contacts: ${contactErr.message}`);
+    }
 
     // 3. Delete user-owned device connections
-    await supabase.from("device_connections").delete().eq("user_id", user.id);
+    const { error: devErr } = await supabase.from("device_connections").delete().eq("user_id", user.id);
+    if (devErr && devErr.code !== "PGRST205") {
+      throw new Error(`Failed to remove device connections: ${devErr.message}`);
+    }
 
     // 4. Anonymize/Clear profile personal data
-    await supabase
+    const { error: profErr } = await supabase
       .from("profiles")
       .update({
         full_name: "Deleted User",
@@ -46,10 +55,18 @@ export async function POST(request: Request) {
         medical_conditions: null,
         allergies: null,
         blood_type: null,
+        fitbit_user_id: null,
+        fitbit_access_token: null,
+        fitbit_refresh_token: null,
+        fitbit_token_expires_at: null,
         smartwatch_connected: false,
         updated_at: new Date().toISOString(),
       })
       .eq("id", user.id);
+
+    if (profErr && profErr.code !== "PGRST205") {
+      throw new Error(`Failed to anonymize profile: ${profErr.message}`);
+    }
 
     // 5. Sign out the session
     await supabase.auth.signOut();
