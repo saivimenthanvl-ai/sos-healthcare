@@ -54,6 +54,7 @@ export default function AppointmentsPage() {
 
   // Verified Specialists State
   const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [doctorsLoading, setDoctorsLoading] = useState(true);
   const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
   const [selectedDate, setSelectedDate] = useState(() => {
     const tomorrow = new Date();
@@ -85,11 +86,17 @@ export default function AppointmentsPage() {
           setDoctors(data.doctors);
           if (data.doctors.length > 0) {
             setSelectedDoctor(data.doctors[0]);
-            setSelectedSlot(data.doctors[0].availableSlots[0]);
+            setSelectedSlot(data.doctors[0].availableSlots[0] || "");
+          } else {
+            setSelectedDoctor(null);
+            setSelectedSlot("");
           }
         }
       })
-      .catch((err) => console.warn("Failed to fetch doctors:", err));
+      .catch((err) => console.warn("Failed to fetch doctors:", err))
+      .finally(() => {
+        if (active) setDoctorsLoading(false);
+      });
 
     return () => {
       active = false;
@@ -501,21 +508,57 @@ export default function AppointmentsPage() {
               </div>
             )}
 
-            <form onSubmit={handleBookSpecialist} className="space-y-4">
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">
-                  {t.appointments.selectSpecialistHospital}
-                </label>
-                {doctors.length === 0 ? (
-                  <div className="text-sm text-gray-500 py-2">{t.appointments.loadingSpecialists}</div>
-                ) : (
+            {doctorsLoading ? (
+              <div className="py-12 text-center text-sm text-gray-500 flex flex-col items-center justify-center gap-3">
+                <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                <span>{t.appointments.loadingSpecialists}</span>
+              </div>
+            ) : doctors.length === 0 ? (
+              <div className="py-10 text-center space-y-4 bg-gray-50 dark:bg-gray-800/40 rounded-xl p-6 border border-gray-200 dark:border-gray-700/60">
+                <div className="w-12 h-12 bg-amber-100 dark:bg-amber-950/60 rounded-full flex items-center justify-center mx-auto text-amber-600 dark:text-amber-400">
+                  <StethoscopeIcon className="h-6 w-6" />
+                </div>
+                <div className="max-w-md mx-auto space-y-2">
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white">
+                    Verified Clinical Specialist Consultations Unavailable
+                  </h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                    Direct hospital-confirmed consultations are currently unavailable because no clinical specialists have completed verified credentialing. Specialist reservation submissions are temporarily disabled.
+                  </p>
+                  <p className="text-xs text-blue-600 dark:text-blue-400 font-medium pt-1">
+                    Please use Custom Appointment Requests to organize private scheduling, or reach platform administration for urgent provider inquiries.
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("requests")}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+                  >
+                    <BuildingIcon className="w-3.5 h-3.5" />
+                    <span>View Custom Requests</span>
+                  </button>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+                  >
+                    <span>Contact Administrator</span>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleBookSpecialist} className="space-y-4">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">
+                    {t.appointments.selectSpecialistHospital}
+                  </label>
                   <select
                     value={selectedDoctor?.id || ""}
                     onChange={(e) => {
                       const doc = doctors.find((d) => d.id === e.target.value);
                       if (doc) {
                         setSelectedDoctor(doc);
-                        setSelectedSlot(doc.availableSlots[0]);
+                        setSelectedSlot(doc.availableSlots[0] || "");
                       }
                     }}
                     className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-sm border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white"
@@ -526,79 +569,79 @@ export default function AppointmentsPage() {
                       </option>
                     ))}
                   </select>
-                )}
-              </div>
-
-              {selectedDoctor && (
-                <div className="p-3 bg-blue-50/50 dark:bg-blue-950/30 rounded-xl border border-blue-100 dark:border-blue-900/50 text-xs text-gray-700 dark:text-gray-300 flex items-center gap-4">
-                  <div className="flex items-center gap-1.5 font-medium">
-                    <StethoscopeIcon className="w-4 h-4 text-blue-600" />
-                    <span>{selectedDoctor.specialty}</span>
-                  </div>
-                  {selectedDoctor.consultationHours && (
-                    <div className="flex items-center gap-1.5 font-medium">
-                      <ClockIcon className="w-4 h-4 text-blue-600" />
-                      <span>{selectedDoctor.consultationHours}</span>
-                    </div>
-                  )}
                 </div>
-              )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {selectedDoctor && (
+                  <div className="p-3 bg-blue-50/50 dark:bg-blue-950/30 rounded-xl border border-blue-100 dark:border-blue-900/50 text-xs text-gray-700 dark:text-gray-300 flex items-center gap-4">
+                    <div className="flex items-center gap-1.5 font-medium">
+                      <StethoscopeIcon className="w-4 h-4 text-blue-600" />
+                      <span>{selectedDoctor.specialty}</span>
+                    </div>
+                    {selectedDoctor.consultationHours && (
+                      <div className="flex items-center gap-1.5 font-medium">
+                        <ClockIcon className="w-4 h-4 text-blue-600" />
+                        <span>{selectedDoctor.consultationHours}</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">
+                      {t.appointments.appointmentDate}
+                    </label>
+                    <input
+                      type="date"
+                      min={new Date().toISOString().split("T")[0]}
+                      value={selectedDate}
+                      onChange={(e) => setSelectedDate(e.target.value)}
+                      className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-sm border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">
+                      {t.appointments.availableSlot}
+                    </label>
+                    <select
+                      value={selectedSlot}
+                      onChange={(e) => setSelectedSlot(e.target.value)}
+                      className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-sm border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white"
+                    >
+                      {selectedDoctor?.availableSlots.map((slot) => (
+                        <option key={slot} value={slot}>
+                          {slot}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">
-                    {t.appointments.appointmentDate}
+                    {t.appointments.reasonForConsultation}
                   </label>
                   <input
-                    type="date"
-                    min={new Date().toISOString().split("T")[0]}
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
+                    type="text"
+                    placeholder={t.appointments.reasonPlaceholder}
+                    value={doctorReason}
+                    onChange={(e) => setDoctorReason(e.target.value)}
                     className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-sm border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white"
-                    required
                   />
                 </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">
-                    {t.appointments.availableSlot}
-                  </label>
-                  <select
-                    value={selectedSlot}
-                    onChange={(e) => setSelectedSlot(e.target.value)}
-                    className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-sm border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white"
-                  >
-                    {selectedDoctor?.availableSlots.map((slot) => (
-                      <option key={slot} value={slot}>
-                        {slot}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase mb-1">
-                  {t.appointments.reasonForConsultation}
-                </label>
-                <input
-                  type="text"
-                  placeholder={t.appointments.reasonPlaceholder}
-                  value={doctorReason}
-                  onChange={(e) => setDoctorReason(e.target.value)}
-                  className="w-full px-3 py-2 border rounded-lg bg-white dark:bg-gray-800 text-sm border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                disabled={bookingLoading || !selectedDoctor}
-                variant="primary"
-                className="w-full"
-              >
-                {bookingLoading ? t.appointments.reservingSlot : t.appointments.confirmReservation}
-              </Button>
-            </form>
+                <Button
+                  type="submit"
+                  disabled={bookingLoading || !selectedDoctor || (selectedDoctor.availableSlots && selectedDoctor.availableSlots.length === 0)}
+                  variant="primary"
+                  className="w-full"
+                >
+                  {bookingLoading ? t.appointments.reservingSlot : t.appointments.confirmReservation}
+                </Button>
+              </form>
+            )}
           </div>
 
           {/* Existing Reservations Sidebar */}
