@@ -1,210 +1,210 @@
 {
   "privacy": {
-    "title": "Privacy Policy",
-    "subtitle": "SOS Healthcare Patient Portal",
-    "lastUpdated": "11 November 2026",
-    "tocTitle": "Contents",
+    "title": "ಗೌಪ್ಯತಾ ನೀತಿ",
+    "subtitle": "SOS Healthcare ರೋಗಿ ಪೋರ್ಟಲ್",
+    "lastUpdated": "11 ನವೆಂಬರ್ 2026",
+    "tocTitle": "ಪರಿವಿಡಿ",
     "notice": {
       "variant": "info",
-      "title": "Patient Privacy Commitment",
-      "text": "SOS Healthcare is dedicated to patient privacy, transparency, and personal health data control. Appointment requests created within our portal are maintained securely within the platform and are never automatically transmitted to hospital databases or external electronic health records."
+      "title": "ರೋಗಿ ಗೌಪ್ಯತಾ ಬದ್ಧತೆ",
+      "text": "SOS Healthcare ರೋಗಿಗಳ ಗೌಪ್ಯತೆ, ಪಾರದರ್ಶಕತೆ ಮತ್ತು ವೈಯಕ್ತಿಕ ಆರೋಗ್ಯ ಡೇಟಾ ನಿಯಂತ್ರಣಕ್ಕೆ ಸಮರ್ಪಿತವಾಗಿದೆ. ನಮ್ಮ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ರಚಿಸಲಾದ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ವಿನಂತಿಗಳನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ನಿರ್ವಹಿಸಲಾಗುತ್ತದೆ ಮತ್ತು ಆಸ್ಪತ್ರೆಯ ಡೇಟಾಬೇಸ್‌ಗಳಿಗೆ ಅಥವಾ ಬಾಹ್ಯ ಎಲೆಕ್ಟ್ರಾನಿಕ್ ಆರೋಗ್ಯ ದಾಖಲೆಗಳಿಗೆ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ರವಾನಿಸಲಾಗುವುದಿಲ್ಲ."
     },
     "sections": [
       {
         "id": "introduction",
         "number": 1,
-        "heading": "Introduction",
+        "heading": "ಪರಿಚಯ",
         "paragraphs": [
-          "SOS Healthcare provides healthcare awareness, nearby hospital discovery, emergency telephone guidance, and private appointment-planning services.",
-          "This Privacy Policy describes how personal information and healthcare preferences are collected, used, protected, and handled when you access our application. SOS Healthcare is a software assistance platform and does not directly own or operate hospital treatment centers."
+          "SOS Healthcare ಆರೋಗ್ಯ ಜಾಗೃತಿ, ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗಳ ಹುಡುಕಾಟ, ತುರ್ತು ದೂರವಾಣಿ ಮಾರ್ಗದರ್ಶನ ಮತ್ತು ಖಾಸಗಿ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಯೋಜನೆ ಸೇವೆಗಳನ್ನು ಒದಗಿಸುತ್ತದೆ.",
+          "ನೀವು ನಮ್ಮ ಅಪ್ಲಿಕೇಶನ್ ಬಳಸುವಾಗ ವೈಯಕ್ತಿಕ ಮಾಹಿತಿ ಮತ್ತು ಆರೋಗ್ಯ ಆದ್ಯತೆಗಳನ್ನು ಹೇಗೆ ಸಂಗ್ರಹಿಸಲಾಗುತ್ತದೆ, ಬಳಸಲಾಗುತ್ತದೆ, ರಕ್ಷಿಸಲಾಗುತ್ತದೆ ಮತ್ತು ನಿರ್ವಹಿಸಲಾಗುತ್ತದೆ ಎಂಬುದನ್ನು ಈ ಗೌಪ್ಯತಾ ನೀತಿಯು ವಿವರಿಸುತ್ತದೆ. SOS Healthcare ಒಂದು ಸಾಫ್ಟ್‌ವೇರ್ ನೆರವು ವೇದಿಕೆಯಾಗಿದ್ದು, ಆಸ್ಪತ್ರೆ ಚಿಕಿತ್ಸಾ ಕೇಂದ್ರಗಳನ್ನು ನೇರವಾಗಿ ಹೊಂದುವುದಿಲ್ಲ ಅಥವಾ ನಿರ್ವಹಿಸುವುದಿಲ್ಲ."
         ]
       },
       {
         "id": "information-collected",
         "number": 2,
-        "heading": "Information We Collect",
+        "heading": "ನಾವು ಸಂಗ್ರಹಿಸುವ ಮಾಹಿತಿ",
         "paragraphs": [
-          "We collect only the information necessary to fulfill our digital healthcare awareness and planning services:"
+          "ನಮ್ಮ ಡಿಜಿಟಲ್ ಆರೋಗ್ಯ ರಕ್ಷಣೆ ಜಾಗೃತಿ ಮತ್ತು ಯೋಜನೆ ಸೇವೆಗಳನ್ನು ಪೂರೈಸಲು ಅಗತ್ಯವಿರುವ ಮಾಹಿತಿಯನ್ನು ಮಾತ್ರ ನಾವು ಸಂಗ್ರಹಿಸುತ್ತೇವೆ:"
         ],
         "bullets": [
-          "Name and Contact Details: Name and email address used for account registration and authentication.",
-          "Account Information: Profile credentials, preferences, and security access logs.",
-          "Emergency Contact Details: Names, phone numbers, and relationship designations for family or trusted individuals you choose to notify during emergencies.",
-          "Location Information: Real-time browser GPS coordinates when explicitly permitted by you to calculate driving distances to nearby medical centers or transmit coordinates during an emergency beacon.",
-          "Private Appointment Requests: Selected medical specialties, preferred dates, visit reasons, and status notes saved in your personal planner.",
-          "Hospital Preferences: Bookmarked facilities and search history.",
-          "Optional Health Information: Self-reported blood group, vitals, allergies, and chronic medical history stored in your health profile.",
-          "Wearable-Device Information: Heart rate, step count, or activity telemetry accessed only when you explicitly connect Google Health.",
-          "Support Inquiries: Communications submitted through our administrator inquiry form."
+          "ಹೆಸರು ಮತ್ತು ಸಂಪರ್ಕ ವಿವರಗಳು: ಖಾತೆ ನೋಂದಣಿ ಮತ್ತು ದೃಢೀಕರಣಕ್ಕಾಗಿ ಬಳಸುವ ಹೆಸರು ಮತ್ತು ಇಮೇಲ್ ವಿಳಾಸ.",
+          "ಖಾತೆ ಮಾಹಿತಿ: ಪ್ರೊಫೈಲ್ ರುಜುವಾತುಗಳು, ಆದ್ಯತೆಗಳು ಮತ್ತು ಭದ್ರತಾ ಪ್ರವೇಶ ಲಾಗ್‌ಗಳು.",
+          "ತುರ್ತು ಸಂಪರ್ಕ ವಿವರಗಳು: ತುರ್ತು ಸಂದರ್ಭದಲ್ಲಿ ನೀವು ತಿಳಿಸಲು ಆಯ್ಕೆ ಮಾಡುವ ಕುಟುಂಬ ಅಥವಾ ವಿಶ್ವಾಸಾರ್ಹ ವ್ಯಕ್ತಿಗಳ ಹೆಸರುಗಳು, ಫೋನ್ ಸಂಖ್ಯೆಗಳು ಮತ್ತು ಸಂಬಂಧ.",
+          "ಸ್ಥಳ ಮಾಹಿತಿ: ಹತ್ತಿರದ ವೈದ್ಯಕೀಯ ಕೇಂದ್ರಗಳ ಅಂತರವನ್ನು ಲೆಕ್ಕಹಾಕಲು ಅಥವಾ ತುರ್ತು SOS ಸಮಯದಲ್ಲಿ ಕಳುಹಿಸಲು ನಿಮ್ಮ ಸ್ಪಷ್ಟ ಅನುಮತಿಯೊಂದಿಗೆ ಬ್ರೌಸರ್ ವರದಿ ಮಾಡುವ ನೈಜ-ಸಮಯದ GPS ನಿರ್ದೇಶಾಂಕಗಳು.",
+          "ಖಾಸಗಿ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ವಿನಂತಿಗಳು: ನಿಮ್ಮ ವೈಯಕ್ತಿಕ ಯೋಜನೆಯಲ್ಲಿ ಉಳಿಸಲಾದ ವೈದ್ಯಕೀಯ ವಿಭಾಗಗಳು, ದಿನಾಂಕಗಳು, ಭೇಟಿಯ ಕಾರಣಗಳು ಮತ್ತು ಸ್ಥಿತಿ ಟಿಪ್ಪಣಿಗಳು.",
+          "ಆಸ್ಪತ್ರೆ ಆದ್ಯತೆಗಳು: ಬುಕ್‌ಮಾರ್ಕ್ ಮಾಡಲಾದ ಸೌಲಭ್ಯಗಳು ಮತ್ತು ಹುಡುಕಾಟ ಇತಿಹಾಸ.",
+          "ಐಚ್ಛಿಕ ಆರೋಗ್ಯ ಮಾಹಿತಿ: ನಿಮ್ಮ ಆರೋಗ್ಯ ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ದಾಖಲಾದ ರಕ್ತದ ಗುಂಪು, ಪ್ರಮುಖ ಸೂಚಕಗಳು, ಅಲರ್ಜಿಗಳು ಮತ್ತು ದೀರ್ಘಕಾಲದ ವೈದ್ಯಕೀಯ ಇತಿಹಾಸ.",
+          "ಧರಿಸಬಹುದಾದ ಸಾಧನದ ಮಾಹಿತಿ: ನೀವು Google Health ಅನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ಸಂಪರ್ಕಿಸಿದಾಗ ಮಾತ್ರ ಪಡೆಯಲಾಗುವ ಹೃದಯ ಬಡಿತ, ಹೆಜ್ಜೆಗಳ ಎಣಿಕೆ ಅಥವಾ ಚಟುವಟಿಕೆ ಟೆಲಿಮೆಟ್ರಿ.",
+          "ಬೆಂಬಲ ವಿಚಾರಣೆಗಳು: ನಮ್ಮ ನಿರ್ವಾಹಕರ ವಿಚಾರಣಾ ನಮೂನೆಯ ಮೂಲಕ ಸಲ್ಲಿಸಲಾದ ಸಂವಹನಗಳು."
         ]
       },
       {
         "id": "purpose-of-collecting",
         "number": 3,
-        "heading": "Purpose of Collecting Information",
+        "heading": "ಮಾಹಿತಿ ಸಂಗ್ರಹಣೆಯ ಉದ್ದೇಶ",
         "paragraphs": [
-          "We process your information for clear, patient-centered purposes:"
+          "ರೋಗಿ-ಕೇಂದ್ರಿತ ಸ್ಪಷ್ಟ ಉದ್ದೇಶಗಳಿಗಾಗಿ ನಾವು ನಿಮ್ಮ ಮಾಹಿತಿಯನ್ನು ಪ್ರಕ್ರಿಯೆಗೊಳಿಸುತ್ತೇವೆ:"
         ],
         "bullets": [
-          "Managing your patient account and authenticating your access securely.",
-          "Helping you identify and locate nearby accredited healthcare facilities.",
-          "Maintaining your private consultation requests and personal scheduling notes.",
-          "Supporting emergency contact notifications when an SOS beacon is activated.",
-          "Displaying authorized wearable wellness data in your patient dashboard.",
-          "Responding to platform feedback and administrative support requests.",
-          "Protecting accounts against unauthorized access and preventing platform misuse."
+          "ನಿಮ್ಮ ರೋಗಿ ಖಾತೆಯನ್ನು ನಿರ್ವಹಿಸುವುದು ಮತ್ತು ನಿಮ್ಮ ಪ್ರವೇಶವನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ದೃಢೀಕರಿಸುವುದು.",
+          "ಹತ್ತಿರದ ಮಾನ್ಯತೆ ಪಡೆದ ಆರೋಗ್ಯ ಸೌಲಭ್ಯಗಳನ್ನು ಗುರುತಿಸಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡುವುದು.",
+          "ನಿಮ್ಮ ಖಾಸಗಿ ಸಮಾಲೋಚನೆ ವಿನಂತಿಗಳು ಮತ್ತು ವೈಯಕ್ತಿಕ ವೇಳಾಪಟ್ಟಿ ಟಿಪ್ಪಣಿಗಳನ್ನು ನಿರ್ವಹಿಸುವುದು.",
+          "SOS ಬೀಕನ್ ಸಕ್ರಿಯಗೊಳಿಸಿದಾಗ ತುರ್ತು ಸಂಪರ್ಕ ಅಧಿಸೂಚನೆಗಳನ್ನು ಬೆಂಬಲಿಸುವುದು.",
+          "ನಿಮ್ಮ ರೋಗಿ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್‌ನಲ್ಲಿ ಧರಿಸಬಹುದಾದ ಕ್ಷೇಮ ಡೇಟಾವನ್ನು ಪ್ರದರ್ಶಿಸುವುದು.",
+          "ವೇದಿಕೆಯ ಪ್ರತಿಕ್ರಿಯೆ ಮತ್ತು ಆಡಳಿತಾತ್ಮಕ ಬೆಂಬಲ ವಿನಂತಿಗಳಿಗೆ ಪ್ರತಿಕ್ರಿಯಿಸುವುದು.",
+          "ಅನಧಿಕೃತ ಪ್ರವೇಶದಿಂದ ಖಾತೆಗಳನ್ನು ರಕ್ಷಿಸುವುದು ಮತ್ತು ವೇದಿಕೆಯ ದುರುಪಯೋಗವನ್ನು ತಡೆಯುವುದು."
         ]
       },
       {
         "id": "patient-privacy",
         "number": 4,
-        "heading": "Patient Privacy and Confidentiality",
+        "heading": "ರೋಗಿ ಗೌಪ್ಯತೆ ಮತ್ತು ರಹಸ್ಯ ಕಾಪಾಡುವಿಕೆ",
         "paragraphs": [
-          "SOS Healthcare restricts access to personal information to legitimate, authorized purposes. Your health records and private consultation preferences are confidential. We maintain technical controls so that individual patient information is accessible only to the authenticated account holder."
+          "SOS Healthcare ವೈಯಕ್ತಿಕ ಮಾಹಿತಿಯ ಪ್ರವೇಶವನ್ನು ಕಾನೂನುಬದ್ಧ, ಅಧಿಕೃತ ಉದ್ದೇಶಗಳಿಗೆ ಮಾತ್ರ ಕಟ್ಟುನಿಟ್ಟಾಗಿ ಮಿತಿಗೊಳಿಸುತ್ತದೆ. ನಿಮ್ಮ ಆರೋಗ್ಯ ದಾಖಲೆಗಳು ಮತ್ತು ಖಾಸಗಿ ಸಮಾಲೋಚನಾ ಆದ್ಯತೆಗಳು ಗೌಪ್ಯವಾಗಿರುತ್ತವೆ. ದೃಢೀಕೃತ ಖಾತೆದಾರರಿಗೆ ಮಾತ್ರ ಮಾಹಿತಿ ಲಭ್ಯವಾಗುವಂತೆ ತಾಂತ್ರಿಕ ನಿಯಂತ್ರಣಗಳನ್ನು ನಾವು ನಿರ್ವಹಿಸುತ್ತೇವೆ."
         ]
       },
       {
         "id": "hospital-directory",
         "number": 5,
-        "heading": "Hospital Information and Directory Services",
+        "heading": "ಆಸ್ಪತ್ರೆ ಮಾಹಿತಿ ಮತ್ತು ಡೈರೆಕ್ಟರಿ ಸೇವೆಗಳು",
         "paragraphs": [
-          "Hospital and clinic information is compiled from public healthcare listings to help users identify medical facilities in their area.",
-          "Inclusion in our directory does not automatically establish a formal commercial relationship, affiliation, or operational partnership between SOS Healthcare and the hospital."
+          "ಬಳಕೆದಾರರು ತಮ್ಮ ಪ್ರದೇಶದಲ್ಲಿನ ವೈದ್ಯಕೀಯ ಸೌಲಭ್ಯಗಳನ್ನು ಗುರುತಿಸಲು ಸಹಾಯ ಮಾಡಲು ಸಾರ್ವಜನಿಕ ಆರೋಗ್ಯ ಪಟ್ಟಿಗಳಿಂದ ಆಸ್ಪತ್ರೆ ಮತ್ತು ಚಿಕಿತ್ಸಾಲಯ ಮಾಹಿತಿಯನ್ನು ಸಂಗ್ರಹಿಸಲಾಗಿದೆ.",
+          "ನಮ್ಮ ಡೈರೆಕ್ಟರಿಯಲ್ಲಿ ಸೇರ್ಪಡೆಗೊಳ್ಳುವುದು SOS Healthcare ಮತ್ತು ಆಸ್ಪತ್ರೆಯ ನಡುವೆ ಯಾವುದೇ ಔಪಚಾರಿಕ ವಾಣಿಜ್ಯ ಸಂಬಂಧ ಅಥವಾ ಪಾಲುದಾರಿಕೆಯನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸ್ಥಾಪಿಸುವುದಿಲ್ಲ."
         ]
       },
       {
         "id": "private-appointments",
         "number": 6,
-        "heading": "Private Appointment Requests",
+        "heading": "ಖಾಸಗಿ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ವಿನಂತಿಗಳು",
         "notice": {
           "variant": "info",
-          "title": "Important Notice Regarding Appointment Requests",
-          "text": "\"Appointment requests saved through SOS Healthcare are maintained within the SOS Healthcare platform and are not automatically submitted to hospitals or added to hospital medical records.\""
+          "title": "ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ವಿನಂತಿಗಳಿಗೆ ಸಂಬಂಧಿಸಿದ ಪ್ರಮುಖ ಸೂಚನೆ",
+          "text": "“SOS Healthcare ಮೂಲಕ ಉಳಿಸಲಾದ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ವಿನಂತಿಗಳನ್ನು ವೇದಿಕೆಯೊಳಗೆ ಮಾತ್ರ ನಿರ್ವಹಿಸಲಾಗುತ್ತದೆ ಮತ್ತು ಆಸ್ಪತ್ರೆಗಳಿಗೆ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಸಲ್ಲಿಸಲಾಗುವುದಿಲ್ಲ ಅಥವಾ ಆಸ್ಪತ್ರೆಯ ವೈದ್ಯಕೀಯ ದಾಖಲೆಗಳಿಗೆ ಸೇರಿಸಲಾಗುವುದಿಲ್ಲ.”"
         },
         "paragraphs": [
-          "Saving a request in your portal does not guarantee hospital availability or confirm an appointment slot with hospital staff. Patients may reschedule or cancel their private requests at any time.",
-          "Cancelling a private request in SOS Healthcare does not cancel an independently arranged appointment at a hospital clinic. External hospital booking requires a separately authorized, verified integration."
+          "ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ವಿನಂತಿಯನ್ನು ಉಳಿಸುವುದು ಆಸ್ಪತ್ರೆಯ ಲಭ್ಯತೆಯನ್ನು ಖಾತರಿಪಡಿಸುವುದಿಲ್ಲ ಅಥವಾ ಸಿಬ್ಬಂದಿಯೊಂದಿಗೆ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಅನ್ನು ಖಚಿತಪಡಿಸುವುದಿಲ್ಲ. ರೋಗಿಗಳು ತಮ್ಮ ವಿನಂತಿಗಳನ್ನು ಯಾವಾಗ ಬೇಕಾದರೂ ಮರುಹೊಂದಿಸಬಹುದು ಅಥವಾ ರದ್ದುಗೊಳಿಸಬಹುದು.",
+          "SOS Healthcare ನಲ್ಲಿ ಖಾಸಗಿ ವಿನಂತಿಯನ್ನು ರದ್ದುಗೊಳಿಸುವುದು ಆಸ್ಪತ್ರೆಯ ಕ್ಲಿನಿಕ್‌ನಲ್ಲಿ ನೀವು ಸ್ವತಂತ್ರವಾಗಿ ವ್ಯವಸ್ಥೆಗೊಳಿಸಿದ ಭೇಟಿಯನ್ನು ರದ್ದುಗೊಳಿಸುವುದಿಲ್ಲ. ಬಾಹ್ಯ ಆಸ್ಪತ್ರೆ ಬುಕಿಂಗ್‌ಗೆ ಪ್ರತ್ಯೇಕವಾಗಿ ಪರಿಶೀಲಿಸಿದ ಏಕೀಕರಣದ ಅಗತ್ಯವಿದೆ."
         ]
       },
       {
         "id": "emergency-assistance",
         "number": 7,
-        "heading": "Emergency Assistance and Location Information",
+        "heading": "ತುರ್ತು ನೆರವು ಮತ್ತು ಸ್ಥಳ ಮಾಹಿತಿ",
         "paragraphs": [
-          "Location permission is requested only when necessary to calculate proximity to nearby hospitals or when initiating an emergency beacon.",
-          "When an SOS beacon is activated, your browser-reported coordinates at that moment are transmitted to your registered emergency contacts. SOS Healthcare does not track your location in the background when the app is inactive. Public emergency responders (such as 112 or 911 dispatchers) do not automatically receive web beacon data unless formal municipal dispatch connectivity is verified in your jurisdiction.",
-          "You may withdraw location permissions at any time through your device or browser settings."
+          "ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗಳ ಸಾಮೀಪ್ಯವನ್ನು ಲೆಕ್ಕಹಾಕಲು ಅಥವಾ ತುರ್ತು ಬೀಕನ್ ಪ್ರಾರಂಭಿಸುವಾಗ ಅಗತ್ಯವಿದ್ದಾಗ ಮಾತ್ರ ಸ್ಥಳ ಅನುಮತಿಯನ್ನು ಕೋರಲಾಗುತ್ತದೆ.",
+          "SOS ಬೀಕನ್ ಸಕ್ರಿಯಗೊಂಡಾಗ, ಆ ಕ್ಷಣದಲ್ಲಿ ನಿಮ್ಮ ಬ್ರೌಸರ್ ವರದಿ ಮಾಡಿದ ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ನಿಮ್ಮ ತುರ್ತು ಸಂಪರ್ಕಗಳಿಗೆ ರವಾನಿಸಲಾಗುತ್ತದೆ.",
+          "ನಿಮ್ಮ ಬ್ರೌಸರ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳ ಮೂಲಕ ನೀವು ಯಾವಾಗ ಬೇಕಾದರೂ ಸ್ಥಳ ಅನುಮತಿಯನ್ನು ಹಿಂಪಡೆಯಬಹುದು; ಹಿಂಪಡೆಯುವುದರಿಂದ ನಿರ್ದೇಶಾಂಕ ರವಾನೆ ನಿಲ್ಲುತ್ತದೆ."
         ]
       },
       {
         "id": "health-wearables",
         "number": 8,
-        "heading": "Health and Wearable Information",
+        "heading": "ಆರೋಗ್ಯ ಮತ್ತು ಧರಿಸಬಹುದಾದ ಸಾಧನ ಮಾಹಿತಿ",
         "paragraphs": [
-          "Connected wearable information (such as Google Health API integration) is retrieved only with your explicit permission. Data is queried on-demand to display wellness trends in your portal.",
-          "Connecting a wearable device does not create an automated emergency ambulance dispatch service. You may revoke access at any time via your Devices settings or your Google Account permissions, which immediately terminates data retrieval and purges cached metrics."
+          "ಸಂಪರ್ಕಿತ ಸಾಧನದ ಮಾಹಿತಿಯನ್ನು (Google Health API ನಂತಹವು) ನಿಮ್ಮ ಸ್ಪಷ್ಟ ಒಪ್ಪಿಗೆಯೊಂದಿಗೆ ಮಾತ್ರ ಹಿಂಪಡೆಯಲಾಗುತ್ತದೆ. ನಿಮ್ಮ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಆರೋಗ್ಯ ಪ್ರವೃತ್ತಿಗಳನ್ನು ಪ್ರದರ್ಶಿಸಲು ಅಗತ್ಯವಿದ್ದಾಗ ಡೇಟಾವನ್ನು ಪಡೆಯಲಾಗುತ್ತದೆ.",
+          "ಸಾಧನವನ್ನು ಸಂಪರ್ಕಿಸುವುದರಿಂದ ಸ್ವಯಂಚಾಲಿತ ಆಂಬ್ಯುಲೆನ್ಸ್ ರವಾನೆ ಸೇವೆಯು ಸೃಷ್ಟಿಯಾಗುವುದಿಲ್ಲ. ಸಾಧನ ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಅಥವಾ Google ಖಾತೆ ಅನುಮತಿಗಳ ಮೂಲಕ ನೀವು ಯಾವಾಗ ಬೇಕಾದರೂ ಪ್ರವೇಶವನ್ನು ರದ್ದುಗೊಳಿಸಬಹುದು."
         ]
       },
       {
         "id": "patient-consent",
         "number": 9,
-        "heading": "Patient Consent and Control",
+        "heading": "ರೋಗಿಯ ಒಪ್ಪಿಗೆ ಮತ್ತು ನಿಯಂತ್ರಣ",
         "paragraphs": [
-          "We believe patients should maintain granular control over their information. You can review and update permissions at any time:"
+          "ರೋಗಿಗಳು ತಮ್ಮ ಮಾಹಿತಿಯ ಮೇಲೆ ಸಂಪೂರ್ಣ ನಿಯಂತ್ರಣ ಹೊಂದಿರಬೇಕು ಎಂದು ನಾವು ನಂಬುತ್ತೇವೆ. ನೀವು ಯಾವುದೇ ಸಮಯದಲ್ಲಿ ಅನುಮತಿಗಳನ್ನು ಪರಿಶೀಲಿಸಬಹುದು ಮತ್ತು ನವೀಕರಿಸಬಹುದು:"
         ],
         "bullets": [
-          "Modify emergency contact details and notification settings.",
-          "Toggle doctor pre-arrival sharing preferences in your Health Profile.",
-          "Disconnect wearable services with immediate token invalidation.",
-          "Request deletion of your account and personal records."
+          "ತುರ್ತು ಸಂಪರ್ಕ ವಿವರಗಳು ಮತ್ತು ಅಧಿಸೂಚನೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಮಾರ್ಪಡಿಸಿ.",
+          "ಆರೋಗ್ಯ ಪ್ರೊಫೈಲ್‌ನಲ್ಲಿ ವೈದ್ಯರು ಬರುವ ಮುನ್ನ ಮಾಹಿತಿ ಹಂಚಿಕೊಳ್ಳುವ ಆಯ್ಕೆಯನ್ನು ಆನ್ ಅಥವಾ ಆಫ್ ಮಾಡಿ.",
+          "ಟೋಕನ್‌ಗಳನ್ನು ತಕ್ಷಣ ಅಮಾನ್ಯಗೊಳಿಸುವುದರೊಂದಿಗೆ ಸಾಧನ ಸೇವೆಗಳನ್ನು ಸಂಪರ್ಕ ಕಡಿತಗೊಳಿಸಿ.",
+          "ನಿಮ್ಮ ಖಾತೆ ಮತ್ತು ದಾಖಲೆಗಳನ್ನು ಅಳಿಸಲು ವಿನಂತಿಸಿ."
         ]
       },
       {
         "id": "healthcare-sharing",
         "number": 10,
-        "heading": "Healthcare Information Sharing and Confidentiality",
+        "heading": "ಆರೋಗ್ಯ ಮಾಹಿತಿ ಹಂಚಿಕೆ ಮತ್ತು ಗೌಪ್ಯತೆ",
         "paragraphs": [
-          "Personal or health information is never automatically disclosed to hospitals merely because a user browses a hospital card or saves a private appointment request.",
-          "Information may only be disclosed under the following circumstances:"
+          "ಬಳಕೆದಾರರು ಆಸ್ಪತ್ರೆಯ ಕಾರ್ಡ್ ವೀಕ್ಷಿಸಿದ ಕಾರಣಕ್ಕಾಗಿ ವೈಯಕ್ತಿಕ ಅಥವಾ ಆರೋಗ್ಯ ಮಾಹಿತಿಯನ್ನು ಆಸ್ಪತ್ರೆಗಳಿಗೆ ಎಂದಿಗೂ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಬಹಿರಂಗಪಡಿಸಲಾಗುವುದಿಲ್ಲ.",
+          "ಮಾಹಿತಿಯನ್ನು ಈ ಕೆಳಗಿನ ಕಟ್ಟುನಿಟ್ಟಾದ ಸಂದರ್ಭಗಳಲ್ಲಿ ಮಾತ್ರ ಬಹಿರಂಗಪಡಿಸಬಹುದು:"
         ],
         "bullets": [
-          "With your explicit, verified authorization.",
-          "To designated emergency contacts when you actively trigger an emergency beacon.",
-          "To essential infrastructure service providers necessary to operate the application.",
-          "Where required by applicable law, statutory subpoena, or valid court order."
+          "ನಿಮ್ಮ ಸ್ಪಷ್ಟ, ಪರಿಶೀಲಿಸಿದ ಅಧಿಕಾರದೊಂದಿಗೆ.",
+          "ನೀವು ತುರ್ತು ಬೀಕನ್ ಅನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿದಾಗ ಗೊತ್ತುಪಡಿಸಿದ ತುರ್ತು ಸಂಪರ್ಕಗಳಿಗೆ.",
+          "ಅಪ್ಲಿಕೇಶನ್ ನಿರ್ವಹಿಸಲು ಅಗತ್ಯವಿರುವ ಮೂಲಸೌಕರ್ಯ ಕ್ಲೌಡ್ ಪೂರೈಕೆದಾರರಿಗೆ.",
+          "ಕಾನೂನು, ಶಾಸನಬದ್ಧ ಸಮನ್ಸ್ ಅಥವಾ ಮಾನ್ಯ ನ್ಯಾಯಾಲಯದ ಆದೇಶದ ಮೇರೆಗೆ ಅಗತ್ಯವಿರುವಲ್ಲಿ."
         ]
       },
       {
         "id": "patient-safeguards",
         "number": 11,
-        "heading": "Patient Information Safeguards",
+        "heading": "ರೋಗಿ ಮಾಹಿತಿ ಸಂರಕ್ಷಣಾ ಕ್ರಮಗಳು",
         "paragraphs": [
-          "We implement administrative and technical safeguards designed to protect personal information:"
+          "ವೈಯಕ್ತಿಕ ಮಾಹಿತಿಯನ್ನು ರಕ್ಷಿಸಲು ನಾವು ಆಡಳಿತಾತ್ಮಕ ಮತ್ತು ತಾಂತ್ರಿಕ ಸುರಕ್ಷತೆಗಳನ್ನು ಜಾರಿಗೊಳಿಸುತ್ತೇವೆ:"
         ],
         "bullets": [
-          "Access to private accounts and appointment records is strictly restricted to authenticated users.",
-          "Health information and emergency notes are handled with high standards of confidentiality.",
-          "Database isolation rules ensure that users cannot inspect other patients' data.",
-          "Encrypted transport protocols protect information exchanged between your device and our servers."
+          "ಖಾಸಗಿ ಖಾತೆಗಳು ಮತ್ತು ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ದಾಖಲೆಗಳ ಪ್ರವೇಶವನ್ನು ದೃಢೀಕೃತ ಬಳಕೆದಾರರಿಗೆ ಮಾತ್ರ ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ.",
+          "ಆರೋಗ್ಯ ಮಾಹಿತಿ ಮತ್ತು ತುರ್ತು ಟಿಪ್ಪಣಿಗಳನ್ನು ಉನ್ನತ ಗೌಪ್ಯತೆಯೊಂದಿಗೆ ನಿರ್ವಹಿಸಲಾಗುತ್ತದೆ.",
+          "ಡೇಟಾಬೇಸ್ ಸಾಲು ಮಟ್ಟದ ಭದ್ರತೆ (RLS) ನಿಯಮಗಳು ಇತರ ರೋಗಿಗಳ ಡೇಟಾವನ್ನು ವೀಕ್ಷಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ ಎಂದು ಖಚಿತಪಡಿಸುತ್ತವೆ.",
+          "ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಪ್ರೋಟೋಕಾಲ್‌ಗಳು ನಿಮ್ಮ ಸಾಧನ ಮತ್ತು ಸರ್ವರ್‌ಗಳ ನಡುವಿನ ಸಂವಹನವನ್ನು ರಕ್ಷಿಸುತ್ತವೆ."
         ],
         "subparagraphs": [
-          "Users are encouraged to protect their account credentials and report any suspected unauthorized access to our administration desk immediately."
+          "ಬಳಕೆದಾರರು ತಮ್ಮ ಖಾತೆಯ ರುಜುವಾತುಗಳನ್ನು ರಕ್ಷಿಸಲು ಮತ್ತು ಯಾವುದೇ ಅನುಮಾನಾಸ್ಪದ ಪ್ರವೇಶವನ್ನು ತಕ್ಷಣವೇ ಆಡಳಿತಕ್ಕೆ ವರದಿ ಮಾಡಲು ಪ್ರೋತ್ಸಾಹಿಸಲಾಗುತ್ತದೆ."
         ]
       },
       {
         "id": "information-retention",
         "number": 12,
-        "heading": "Information Retention",
+        "heading": "ಮಾಹಿತಿ ಧಾರಣ",
         "paragraphs": [
-          "Records are retained only for as long as your account remains active or as needed to deliver our healthcare planning and awareness features.",
-          "Private appointment requests, emergency logs, and support inquiries are retained within your secure portal until you remove them or submit an account closure request."
+          "ನಿಮ್ಮ ಖಾತೆಯು ಸಕ್ರಿಯವಾಗಿರುವವರೆಗೆ ಮಾತ್ರ ದಾಖಲೆಗಳನ್ನು ಇರಿಸಲಾಗುತ್ತದೆ.",
+          "ಖಾಸಗಿ ವಿನಂತಿಗಳು, ತುರ್ತು ಲಾಗ್‌ಗಳು ಮತ್ತು ವಿಚಾರಣೆಗಳನ್ನು ನಿಮ್ಮ ಸುರಕ್ಷಿತ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಇರಿಸಲಾಗುತ್ತದೆ."
         ]
       },
       {
         "id": "patient-rights",
         "number": 13,
-        "heading": "Patient Rights",
+        "heading": "ರೋಗಿಯ ಹಕ್ಕುಗಳು",
         "paragraphs": [
-          "Depending on your jurisdiction, you may exercise applicable rights regarding your information:"
+          "ಕಾನೂನಿನ ಪ್ರಕಾರ, ನಿಮ್ಮ ಮಾಹಿತಿಗೆ ಸಂಬಂಧಿಸಿದಂತೆ ನೀವು ಈ ಕೆಳಗಿನ ಹಕ್ಕುಗಳನ್ನು ಚಲಾಯಿಸಬಹುದು:"
         ],
         "bullets": [
-          "Request access to the personal information we maintain about you.",
-          "Request correction of inaccurate or incomplete health profile records.",
-          "Withdraw optional consent for location or health device integrations.",
-          "Request deletion of your account where permitted by applicable law.",
-          "Submit questions or privacy inquiries to our administration team."
+          "ನಿಮ್ಮ ಬಗ್ಗೆ ನಾವು ನಿರ್ವಹಿಸುವ ವೈಯಕ್ತಿಕ ಮಾಹಿತಿಯನ್ನು ಪ್ರವೇಶಿಸಲು ವಿನಂತಿಸುವುದು.",
+          "ತಪ್ಪಾದ ಅಥವಾ ಅಪೂರ್ಣ ಆರೋಗ್ಯ ದಾಖಲೆಗಳನ್ನು ಸರಿಪಡಿಸಲು ವಿನಂತಿಸುವುದು.",
+          "ಸ್ಥಳ ಅಥವಾ ಆರೋಗ್ಯ ಸಾಧನ ಏಕೀಕರಣಕ್ಕೆ ನೀಡಿದ ಒಪ್ಪಿಗೆಯನ್ನು ಹಿಂಪಡೆಯುವುದು.",
+          "ಕಾನೂನು ಅನುಮತಿಸುವ ಕಡೆಗಳಲ್ಲಿ ನಿಮ್ಮ ಖಾತೆಯನ್ನು ಅಳಿಸಲು ವಿನಂತಿಸುವುದು.",
+          "ನಮ್ಮ ಆಡಳಿತ ತಂಡಕ್ಕೆ ಗೌಪ್ಯತಾ ವಿಚಾರಣೆಗಳನ್ನು ಸಲ್ಲಿಸುವುದು."
         ]
       },
       {
         "id": "childrens-privacy",
         "number": 14,
-        "heading": "Children's Privacy",
+        "heading": "ಮಕ್ಕಳ ಗೌಪ್ಯತೆ",
         "paragraphs": [
-          "SOS Healthcare is designed for use by individuals who have reached the age of majority or minors using the service under the active supervision and consent of a parent or legal guardian."
+          "SOS Healthcare ವಯಸ್ಕರ ಬಳಕೆಗಾಗಿ ಅಥವಾ ಪೋಷಕರ ಸಕ್ರಿಯ ಮೇಲ್ವಿಚಾರಣೆಯಲ್ಲಿ ಅಪ್ರಾಪ್ತ ವಯಸ್ಕರ ಬಳಕೆಗಾಗಿ ವಿನ್ಯಾಸಗೊಳಿಸಲಾಗಿದೆ."
         ]
       },
       {
         "id": "international-awareness",
         "number": 15,
-        "heading": "International Healthcare Awareness",
+        "heading": "ಅಂತರರಾಷ್ಟ್ರೀಯ ಆರೋಗ್ಯ ರಕ್ಷಣೆ ಜಾಗೃತಿ",
         "paragraphs": [
-          "SOS Healthcare provides information across 22 languages to assist users internationally. Providing multilingual information does not imply local clinical licensing, direct hospital operational affiliation, or municipal emergency dispatch coverage in every country."
+          "SOS Healthcare ಜಾಗತಿಕ ಬಳಕೆದಾರರಿಗೆ ಸಹಾಯ ಮಾಡಲು 25 ಭಾಷೆಗಳಲ್ಲಿ ಮಾಹಿತಿಯನ್ನು ಒದಗಿಸುತ್ತದೆ. ಬಹುಭಾಷಾ ಮಾಹಿತಿಯನ್ನು ನೀಡುವುದು ಸ್ಥಳೀಯ ವೈದ್ಯಕೀಯ ಪರವಾನಗಿ ಅಥವಾ ಆಂಬ್ಯುಲೆನ್ಸ್ ರವಾನೆ ಬೆಂಬಲವನ್ನು ಸೂಚಿಸುವುದಿಲ್ಲ."
         ]
       },
       {
         "id": "policy-updates",
         "number": 16,
-        "heading": "Policy Updates",
+        "heading": "ನೀತಿ ನವೀಕರಣಗಳು",
         "paragraphs": [
-          "We may periodically update this policy to reflect enhancements in patient safety, new platform features, or evolving legal standards. The latest revision date is prominently displayed at the top of this document."
+          "ರೋಗಿಗಳ ಸುರಕ್ಷತೆ ಮತ್ತು ಕಾನೂನು ಮಾನದಂಡಗಳನ್ನು ಸುಧಾರಿಸಲು ನಾವು ಕಾಲಕಾಲಕ್ಕೆ ಈ ನೀತಿಯನ್ನು ನವೀಕರಿಸಬಹುದು. ಇತ್ತೀಚಿನ ಪರಿಷ್ಕರಣೆ ದಿನಾಂಕವನ್ನು ಈ ದಾಖಲೆಯ ಮೇಲ್ಭಾಗದಲ್ಲಿ ಪ್ರದರ್ಶಿಸಲಾಗುತ್ತದೆ."
         ]
       },
       {
         "id": "contact-administrator",
         "number": 17,
-        "heading": "Contact Administrator",
+        "heading": "ನಿರ್ವಾಹಕರನ್ನು ಸಂಪರ್ಕಿಸಿ",
         "paragraphs": [
-          "For privacy inquiries, patient data requests, or directory corrections, you may contact our administration desk directly:"
+          "ಗೌಪ್ಯತೆ ವಿಚಾರಣೆಗಳು, ರೋಗಿ ಡೇಟಾ ವಿನಂತಿಗಳು ಅಥವಾ ತಿದ್ದುಪಡಿಗಳಿಗಾಗಿ, ನೀವು ನೇರವಾಗಿ ನಮ್ಮ ಆಡಳಿತ ಡೆಸ್ಕ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಬಹುದು:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"
@@ -212,175 +212,175 @@
     ]
   },
   "terms": {
-    "title": "Terms of Service",
-    "subtitle": "Healthcare Service Rules & Conditions of Use",
-    "lastUpdated": "11 November 2026",
-    "tocTitle": "Contents",
+    "title": "ಸೇವಾ ನಿಯಮಗಳು",
+    "subtitle": "ಆರೋಗ್ಯ ರಕ್ಷಣೆ ಸೇವಾ ನಿಯಮಗಳು & ಬಳಕೆಯ ಷರತ್ತುಗಳು",
+    "lastUpdated": "11 ನವೆಂಬರ್ 2026",
+    "tocTitle": "ಪರಿವಿಡಿ",
     "notice": {
       "variant": "warning",
-      "title": "Emergency Medical Notice",
-      "text": "SOS Healthcare is an informational assistance platform and is not a substitute for official emergency responders. In a life-threatening crisis, immediately dial your local emergency telephone service."
+      "title": "ತುರ್ತು ವೈದ್ಯಕೀಯ ಸೂಚನೆ",
+      "text": "SOS Healthcare ಒಂದು ಮಾಹಿತಿ ನೆರವು ವೇದಿಕೆಯಾಗಿದೆ ಮತ್ತು ಅಧಿಕೃತ ತುರ್ತು ಪ್ರತಿಸ್ಪಂದಕರಿಗೆ ಪರ್ಯಾಯವಲ್ಲ. ಜೀವಕ್ಕೆ ಅಪಾಯಕಾರಿ ಬಿಕ್ಕಟ್ಟಿನಲ್ಲಿ, ತಕ್ಷಣವೇ ನಿಮ್ಮ ಸ್ಥಳೀಯ ತುರ್ತು ಸೇವೆಗೆ (112) ಕರೆ ಮಾಡಿ."
     },
     "sections": [
       {
         "id": "acceptance",
         "number": 1,
-        "heading": "Acceptance of Terms",
+        "heading": "ನಿಯಮಗಳ ಸ್ವೀಕಾರ",
         "paragraphs": [
-          "By accessing, registering for, or using SOS Healthcare services, you acknowledge that you have read and understood these Terms of Service and agree to comply with the applicable conditions of use. If you do not agree with these terms, you should discontinue use of the services."
+          "SOS Healthcare ಸೇವೆಗಳನ್ನು ಪ್ರವೇಶಿಸುವ ಮೂಲಕ, ನೋಂದಾಯಿಸಿಕೊಳ್ಳುವ ಮೂಲಕ ಅಥವಾ ಬಳಸುವ ಮೂಲಕ, ನೀವು ಈ ಸೇವಾ ನಿಯಮಗಳನ್ನು ಓದಿದ್ದೀರಿ, ಅರ್ಥಮಾಡಿಕೊಂಡಿದ್ದೀರಿ ಮತ್ತು ಷರತ್ತುಗಳನ್ನು ಪಾಲಿಸಲು ಒಪ್ಪುತ್ತೀರಿ ಎಂದು ದೃಢೀಕರಿಸುತ್ತೀರಿ. ನೀವು ಒಪ್ಪದಿದ್ದರೆ, ಸೇವೆಯನ್ನು ನಿಲ್ಲಿಸಬೇಕು."
         ]
       },
       {
         "id": "eligibility",
         "number": 2,
-        "heading": "Eligibility and Account Responsibilities",
+        "heading": "ಅರ್ಹತೆ ಮತ್ತು ಖಾತೆ ಜವಾಬ್ದಾರಿಗಳು",
         "paragraphs": [
-          "Users must be of legal age of majority or use the platform under the supervision of a parent or legal guardian. You agree to provide accurate information when creating an account, safeguard your credentials, and report any unauthorized access promptly. You remain responsible for all activities originating from your account."
+          "ಬಳಕೆದಾರರು ಕಾನೂನುಬದ್ಧ ವಯಸ್ಸಿನವರಾಗಿರಬೇಕು ಅಥವಾ ಪೋಷಕರ ಮೇಲ್ವಿಚಾರಣೆಯಲ್ಲಿ ವೇದಿಕೆಯನ್ನು ಬಳಸಬೇಕು. ನಿಖರವಾದ ಮಾಹಿತಿಯನ್ನು ಒದಗಿಸಲು, ರುಜುವಾತುಗಳನ್ನು ರಕ್ಷಿಸಲು ಮತ್ತು ಯಾವುದೇ ಅನಧಿಕೃತ ಪ್ರವೇಶವನ್ನು ತಕ್ಷಣವೇ ವರದಿ ಮಾಡಲು ನೀವು ಒಪ್ಪುತ್ತೀರಿ. ನಿಮ್ಮ ಖಾತೆಯಿಂದ ನಡೆಯುವ ಎಲ್ಲಾ ಚಟುವಟಿಕೆಗಳಿಗೆ ನೀವೇ ಜವಾಬ್ದಾರರಾಗಿರುತ್ತೀರಿ."
         ]
       },
       {
         "id": "services",
         "number": 3,
-        "heading": "Nature of SOS Healthcare Services",
+        "heading": "SOS Healthcare ಸೇವೆಗಳ ಸ್ವರೂಪ",
         "paragraphs": [
-          "SOS Healthcare provides digital healthcare awareness, nearby hospital discovery, emergency telephone guidance, private appointment planning, and authorized health-device information display.",
-          "The platform is a communication and planning tool and does not provide direct medical treatment or clinical prescriptions."
+          "SOS Healthcare ಡಿಜಿಟಲ್ ಆರೋಗ್ಯ ಜಾಗೃತಿ, ಆಸ್ಪತ್ರೆಗಳ ಹುಡುಕಾಟ, ತುರ್ತು ದೂರವಾಣಿ ಮಾರ್ಗದರ್ಶನ, ಖಾಸಗಿ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಯೋಜನೆ ಮತ್ತು ಆರೋಗ್ಯ ಸಾಧನದ ಡೇಟಾ ಪ್ರದರ್ಶನವನ್ನು ಒದಗಿಸುತ್ತದೆ.",
+          "ವೇದಿಕೆಯು ಸಂವಹನ ಮತ್ತು ಯೋಜನಾ ಸಾಧನವಾಗಿದೆ ಮತ್ತು ನೇರ ವೈದ್ಯಕೀಯ ಚಿಕಿತ್ಸೆ ಅಥವಾ ಪ್ರಿಸ್ಕ್ರಿಪ್ಷನ್‌ಗಳನ್ನು ಒದಗಿಸುವುದಿಲ್ಲ."
         ]
       },
       {
         "id": "hospitals",
         "number": 4,
-        "heading": "Hospital Directory Information",
+        "heading": "ಆಸ್ಪತ್ರೆ ಡೈರೆಕ್ಟರಿ ಮಾಹಿತಿ",
         "paragraphs": [
-          "Hospital names, addresses, and listed departments are provided for general informational orientation. Directory details may change, and emergency triage availability should always be verified directly with the facility. Inclusion in our directory does not imply formal partnership or commercial endorsement."
+          "ಆಸ್ಪತ್ರೆಯ ಹೆಸರುಗಳು, ವಿಳಾಸಗಳು ಮತ್ತು ವಿಭಾಗಗಳನ್ನು ಸಾಮಾನ್ಯ ಮಾಹಿತಿ ಮಾರ್ಗದರ್ಶನಕ್ಕಾಗಿ ಒದಗಿಸಲಾಗಿದೆ. ಲಭ್ಯತೆಯನ್ನು ನೇರವಾಗಿ ಆಸ್ಪತ್ರೆಯೊಂದಿಗೆ ಪರಿಶೀಲಿಸಬೇಕು. ಪಟ್ಟಿಯಲ್ಲಿ ಇರುವುದು ವಾಣಿಜ್ಯ ಅನುಮೋದನೆಯನ್ನು ಸೂಚಿಸುವುದಿಲ್ಲ."
         ]
       },
       {
         "id": "doctors",
         "number": 5,
-        "heading": "Doctor Information",
+        "heading": "ವೈದ್ಯರ ಮಾಹಿತಿ",
         "paragraphs": [
-          "Information regarding medical specialists is intended to help users identify independent healthcare providers. Listed doctors are not partners of the platform, and listing does not imply an exclusive endorsement or automated intake agreement without verified authorization."
+          "ವೈದ್ಯಕೀಯ ತಜ್ಞರ ಬಗೆಗಿನ ಮಾಹಿತಿಯು ಸ್ವತಂತ್ರ ವೈದ್ಯರನ್ನು ಹುಡುಕಲು ಬಳಕೆದಾರರಿಗೆ ಸಹಾಯ ಮಾಡುವ ಉದ್ದೇಶವನ್ನು ಹೊಂದಿದೆ. ಪಟ್ಟಿ ಮಾಡಲಾದ ವೈದ್ಯರು ವೇದಿಕೆಯ ಪಾಲುದಾರರಲ್ಲ."
         ]
       },
       {
         "id": "private-appointments",
         "number": 6,
-        "heading": "Private Appointment Requests",
+        "heading": "ಖಾಸಗಿ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ವಿನಂತಿಗಳು",
         "paragraphs": [
-          "The platform allows patients to store personal appointment preferences and consultation requests. These requests do not create hospital-confirmed reservations. Hospital schedules and front-desk booking procedures may differ, and users are responsible for confirming actual visits directly with the hospital."
+          "ವೇದಿಕೆಯು ರೋಗಿಗಳಿಗೆ ವೈಯಕ್ತಿಕ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಆದ್ಯತೆಗಳನ್ನು ಸಂಗ್ರಹಿಸಲು ಅನುಮತಿಸುತ್ತದೆ. ಈ ವಿನಂತಿಗಳು ಆಸ್ಪತ್ರೆಯಿಂದ ದೃಢೀಕರಿಸಲ್ಪಟ್ಟ ಬುಕಿಂಗ್‌ಗಳನ್ನು ರಚಿಸುವುದಿಲ್ಲ. ಭೇಟಿಗಳನ್ನು ನೇರವಾಗಿ ಆಸ್ಪತ್ರೆಯೊಂದಿಗೆ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳುವುದು ಬಳಕೆದಾರರ ಜವಾಬ್ದಾರಿಯಾಗಿದೆ."
         ]
       },
       {
         "id": "cancellation",
         "number": 7,
-        "heading": "Cancellation and Rescheduling",
+        "heading": "ರದ್ದತಿ ಮತ್ತು ಮರುಹೊಂದಿಸುವಿಕೆ",
         "paragraphs": [
-          "Patients may cancel or reschedule eligible private requests within their portal. Modifying a request affects only the record stored in SOS Healthcare; it does not automatically cancel an independently arranged hospital appointment. Cancellation records are retained in accordance with the Privacy Policy."
+          "ರೋಗಿಗಳು ತಮ್ಮ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಖಾಸಗಿ ವಿನಂತಿಗಳನ್ನು ರದ್ದುಗೊಳಿಸಬಹುದು ಅಥವಾ ಮರುಹೊಂದಿಸಬಹುದು. ವಿನಂತಿಯನ್ನು ಮಾರ್ಪಡಿಸುವುದು SOS Healthcare ನಲ್ಲಿನ ದಾಖಲೆಯನ್ನು ಮಾತ್ರ ಬದಲಾಯಿಸುತ್ತದೆ; ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ನೇರವಾಗಿ ಮಾಡಿದ ಬುಕಿಂಗ್ ರದ್ದಾಗುವುದಿಲ್ಲ."
         ]
       },
       {
         "id": "emergency",
         "number": 8,
-        "heading": "Emergency Assistance",
+        "heading": "ತುರ್ತು ನೆರವು",
         "paragraphs": [
-          "SOS Healthcare is not a substitute for official public emergency services. Users must contact their local emergency number (e.g. 112, 911, or local emergency line) for life-threatening emergencies.",
-          "Transmitting an SOS beacon notifies designated emergency contacts via the app; emergency contacts are not equivalent to municipal ambulance dispatch providers."
+          "SOS Healthcare ಅಧಿಕೃತ ಸಾರ್ವಜನಿಕ ತುರ್ತು ಸೇವೆಗಳಿಗೆ ಬದಲಿಯಾಗಿಲ್ಲ. ಜೀವಕ್ಕೆ ಅಪಾಯಕಾರಿ ತುರ್ತು ಸಂದರ್ಭಗಳಲ್ಲಿ ಬಳಕೆದಾರರು ತಮ್ಮ ಸ್ಥಳೀಯ ತುರ್ತು ಸಂಖ್ಯೆಯನ್ನು (ಉದಾ. 112) ಸಂಪರ್ಕಿಸಬೇಕು.",
+          "SOS ಬೀಕನ್ ಕಳುಹಿಸುವುದು ಅಪ್ಲಿಕೇಶನ್ ಮೂಲಕ ಗೊತ್ತುಪಡಿಸಿದ ತುರ್ತು ಸಂಪರ್ಕಗಳಿಗೆ ಮಾತ್ರ ತಿಳಿಸುತ್ತದೆ; ತುರ್ತು ಸಂಪರ್ಕಗಳು ಆಂಬ್ಯುಲೆನ್ಸ್ ರವಾನೆ ಕೇಂದ್ರಕ್ಕೆ ಸಮನಾಗಿರುವುದಿಲ್ಲ."
         ]
       },
       {
         "id": "medical-disclaimer",
         "number": 9,
-        "heading": "Medical Information Disclaimer",
+        "heading": "ವೈದ್ಯಕೀಯ ಮಾಹಿತಿ ನಿರಾಕರಣೆ",
         "paragraphs": [
-          "Information provided on the platform is educational and informational. It is not medical advice, diagnosis, or treatment. Users should consult licensed healthcare professionals regarding any health condition. Emergency symptoms require urgent attention from licensed emergency providers."
+          "ವೇದಿಕೆಯಲ್ಲಿ ಒದಗಿಸಲಾದ ಮಾಹಿತಿಯು ಶೈಕ್ಷಣಿಕ ಮತ್ತು ಸಾಮಾನ್ಯ ಮಾಹಿತಿಗಾಗಿ ಮಾತ್ರ. ಇದು ವೈದ್ಯಕೀಯ ಸಲಹೆ, ರೋಗನಿರ್ಣಯ ಅಥವಾ ಚಿಕಿತ್ಸೆಯಲ್ಲ. ಆರೋಗ್ಯದ ಸ್ಥಿತಿಯ ಬಗ್ಗೆ ಪರವಾನಗಿ ಪಡೆದ ವೈದ್ಯರನ್ನು ಸಂಪರ್ಕಿಸಿ."
         ]
       },
       {
         "id": "wearables",
         "number": 10,
-        "heading": "Wearable Devices",
+        "heading": "ಧರಿಸಬಹುದಾದ ಸಾಧನಗಳು",
         "paragraphs": [
-          "Wearable data displayed through integrations (such as Google Health) depends on third-party sensor accuracy. Measurements may be delayed or unavailable. Wearable data is not diagnostic clinical information, and no automatic emergency response is promised based on wearable metrics."
+          "ಪ್ರದರ್ಶಿಸಲಾದ ಧರಿಸಬಹುದಾದ ಡೇಟಾವು ಮೂರನೇ ವ್ಯಕ್ತಿಯ ಸಂವೇದಕ ನಿಖರತೆಯನ್ನು ಅವಲಂಬಿಸಿರುತ್ತದೆ. ಮಾಪನಗಳು ವಿಳಂಬವಾಗಬಹುದು. ಡೇಟಾವು ವೈದ್ಯಕೀಯ ರೋಗನಿರ್ಣಯದ ಮಾಹಿತಿಯಲ್ಲ ಮತ್ತು ಅದರ ಆಧಾರದ ಮೇಲೆ ಯಾವುದೇ ಸ್ವಯಂಚಾಲಿತ ತುರ್ತು ನೆರವನ್ನು ಭರವಸೆ ನೀಡಲಾಗುವುದಿಲ್ಲ."
         ]
       },
       {
         "id": "responsibilities",
         "number": 11,
-        "heading": "Patient Responsibilities",
+        "heading": "ರೋಗಿಯ ಜವಾಬ್ದಾರಿಗಳು",
         "paragraphs": [
-          "Patients are responsible for maintaining accurate contact details, using emergency features conscientiously, and respecting the confidentiality of personal medical information stored in their accounts."
+          "ನಿಖರವಾದ ಸಂಪರ್ಕ ವಿವರಗಳನ್ನು ನಿರ್ವಹಿಸಲು, ತುರ್ತು ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ಜವಾಬ್ದಾರಿಯುತವಾಗಿ ಬಳಸಲು ಮತ್ತು ಖಾತೆಯಲ್ಲಿ ಸಂಗ್ರಹವಾಗಿರುವ ವೈಯಕ್ತಿಕ ವೈದ್ಯಕೀಯ ಮಾಹಿತಿಯ ಗೌಪ್ಯತೆಯನ್ನು ಗೌರವಿಸಲು ರೋಗಿಗಳು ಜವಾಬ್ದಾರರಾಗಿರುತ್ತಾರೆ."
         ]
       },
       {
         "id": "prohibited",
         "number": 12,
-        "heading": "Prohibited Conduct",
+        "heading": "ನಿಷೇಧಿತ ನಡವಳಿಕೆ",
         "paragraphs": [
-          "Users may not:"
+          "ಬಳಕೆದಾರರು ಈ ಕೆಳಗಿನವುಗಳನ್ನು ಮಾಡಬಾರದು:"
         ],
         "bullets": [
-          "Attempt unauthorized access to other accounts or administrative systems.",
-          "Trigger fraudulent or abusive emergency beacons that waste responder resources.",
-          "Harass healthcare providers, administrators, or other patients.",
-          "Misrepresent professional medical credentials or patient identity.",
-          "Interfere with the security or operational integrity of the service."
+          "ಇತರ ಖಾತೆಗಳಲ್ಲಿ ಅಥವಾ ಆಡಳಿತಾತ್ಮಕ ವ್ಯವಸ್ಥೆಗಳಲ್ಲಿ ಅನಧಿಕೃತ ಪ್ರವೇಶವನ್ನು ಪ್ರಯತ್ನಿಸುವುದು.",
+          "ತುರ್ತು ಸಂಪನ್ಮೂಲಗಳನ್ನು ವ್ಯರ್ಥ ಮಾಡುವ ನಕಲಿ ಅಥವಾ ದುರುದ್ದೇಶಪೂರಿತ SOS ಬೀಕನ್‌ಗಳನ್ನು ಕಳುಹಿಸುವುದು.",
+          "ಆರೋಗ್ಯ ರಕ್ಷಣೆ ನೀಡುಗರು, ನಿರ್ವಾಹಕರು ಅಥವಾ ಇತರ ರೋಗಿಗಳಿಗೆ ಕಿರುಕುಳ ನೀಡುವುದು.",
+          "ವೈದ್ಯಕೀಯ ರುಜುವಾತುಗಳನ್ನು ಅಥವಾ ರೋಗಿಯ ಗುರುತನ್ನು ತಪ್ಪಾಗಿ ಬಿಂಬಿಸುವುದು.",
+          "ಸೇವೆಯ ಭದ್ರತೆ ಅಥವಾ ಕಾರ್ಯಾಚರಣೆಯ ಸಮಗ್ರತೆಗೆ ಅಡ್ಡಿಪಡಿಸುವುದು."
         ]
       },
       {
         "id": "privacy",
         "number": 13,
-        "heading": "Privacy and Patient Confidentiality",
+        "heading": "ಗೌಪ್ಯತೆ ಮತ್ತು ರೋಗಿ ರಹಸ್ಯ ರಕ್ಷಣೆ",
         "paragraphs": [
-          "Handling of personal information and healthcare preferences is governed by our Privacy Policy. Please review the Privacy Policy for details regarding our confidentiality safeguards and patient rights."
+          "ವೈಯಕ್ತಿಕ ಮಾಹಿತಿ ಮತ್ತು ಆರೋಗ್ಯ ಆದ್ಯತೆಗಳ ನಿರ್ವಹಣೆಯನ್ನು ನಮ್ಮ ಗೌಪ್ಯತಾ ನೀತಿಯಿಂದ ನಿಯಂತ್ರಿಸಲಾಗುತ್ತದೆ. ವಿವರಗಳಿಗಾಗಿ ದಯವಿಟ್ಟು ಗೌಪ್ಯತಾ ನೀತಿಯನ್ನು ಪರಿಶೀಲಿಸಿ."
         ]
       },
       {
         "id": "availability",
         "number": 14,
-        "heading": "Service Availability",
+        "heading": "ಸೇವಾ ಲಭ್ಯತೆ",
         "paragraphs": [
-          "Platform availability depends on cellular connectivity, internet routing, and scheduled maintenance. While we aim for reliable service, uninterrupted healthcare software availability cannot be guaranteed."
+          "ವೇದಿಕೆಯ ಲಭ್ಯತೆಯು ಮೊಬೈಲ್ ನೆಟ್‌ವರ್ಕ್, ಇಂಟರ್ನೆಟ್ ಮತ್ತು ನಿಗದಿತ ನಿರ್ವಹಣೆಯ ಮೇಲೆ ಅವಲಂಬಿತವಾಗಿರುತ್ತದೆ. ನಿರಂತರ ಸಾಫ್ಟ್‌ವೇರ್ ಲಭ್ಯತೆಯನ್ನು ಖಾತರಿಪಡಿಸಲಾಗುವುದಿಲ್ಲ."
         ]
       },
       {
         "id": "fees",
         "number": 15,
-        "heading": "Service Fees",
+        "heading": "ಸೇವಾ ಶುಲ್ಕಗಳು",
         "paragraphs": [
-          "Access to the SOS Healthcare digital platform is free for users. External hospital, consultation, transportation, or medical treatment fees charged by independent healthcare providers remain the responsibility of the patient."
+          "SOS Healthcare ವೇದಿಕೆಯ ಪ್ರವೇಶವು ಬಳಕೆದಾರರಿಗೆ ಉಚಿತವಾಗಿದೆ. ಸ್ವತಂತ್ರ ಆಸ್ಪತ್ರೆಗಳು ಅಥವಾ ವೈದ್ಯರು ವಿಧಿಸುವ ಬಾಹ್ಯ ಶುಲ್ಕಗಳು ರೋಗಿಯ ಜವಾಬ್ದಾರಿಯಾಗಿರುತ್ತವೆ."
         ]
       },
       {
         "id": "suspension",
         "number": 16,
-        "heading": "Account Suspension and Closure",
+        "heading": "ಖಾತೆ ಅಮಾನತು ಮತ್ತು ಮುಚ್ಚುವಿಕೆ",
         "paragraphs": [
-          "We reserve the right to suspend or close accounts that engage in fraudulent emergency alerts, violate acceptable use rules, or compromise platform security, subject to applicable notice and review procedures."
+          "ನಕಲಿ ಎಚ್ಚರಿಕೆಗಳನ್ನು ಕಳುಹಿಸುವ ಅಥವಾ ನಿಯಮಗಳನ್ನು ಉಲ್ಲಂಘಿಸುವ ಖಾತೆಗಳನ್ನು ಅಮಾನತುಗೊಳಿಸುವ ಅಥವಾ ಮುಚ್ಚುವ ಹಕ್ಕನ್ನು ನಾವು ಕಾಯ್ದಿರಿಸಿದ್ದೇವೆ."
         ]
       },
       {
         "id": "changes",
         "number": 17,
-        "heading": "Changes to Terms",
+        "heading": "ನಿಯಮಗಳಲ್ಲಿ ಬದಲಾವಣೆಗಳು",
         "paragraphs": [
-          "Material changes to these Terms will be communicated through the platform with an updated version date. Continued use following updates constitutes agreement to the revised conditions."
+          "ಈ ನಿಯಮಗಳಲ್ಲಿನ ಬದಲಾವಣೆಗಳನ್ನು ನವೀಕರಿಸಿದ ದಿನಾಂಕದೊಂದಿಗೆ ವೇದಿಕೆಯ ಮೂಲಕ ತಿಳಿಸಲಾಗುವುದು. ಬದಲಾವಣೆಗಳ ನಂತರ ಸೇವೆಯನ್ನು ಮುಂದುವರಿಸುವುದು ಪರಿಷ್ಕೃತ ನಿಯಮಗಳ ಒಪ್ಪಂದವೆಂದು ಪರಿಗಣಿಸಲಾಗುತ್ತದೆ."
         ]
       },
       {
         "id": "disputes",
         "number": 18,
-        "heading": "Applicable Law and Dispute Resolution",
+        "heading": "ಅನ್ವಯವಾಗುವ ಕಾನೂನು ಮತ್ತು ವಿವಾದ ಪರಿಹಾರ",
         "paragraphs": [
-          "These Terms are governed by applicable national consumer and digital healthcare regulations. Disputes should first be addressed through good-faith administrative communication before pursuing formal proceedings."
+          "ಈ ನಿಯಮಗಳು ಗ್ರಾಹಕ ಮತ್ತು ಡಿಜಿಟಲ್ ಆರೋಗ್ಯ ರಕ್ಷಣೆ ನಿಯಮಗಳಿಂದ ನಿಯಂತ್ರಿಸಲ್ಪಡುತ್ತವೆ. ವಿವಾದಗಳನ್ನು ಮೊದಲು ಸೌಹಾರ್ದಯುತ ಆಡಳಿತಾತ್ಮಕ ಸಂವಹನದ ಮೂಲಕ ಪರಿಹರಿಸಿಕೊಳ್ಳಬೇಕು."
         ]
       },
       {
         "id": "administrative-contact",
         "number": 19,
-        "heading": "Administrative Contact",
+        "heading": "ಆಡಳಿತಾತ್ಮಕ ಸಂಪರ್ಕ",
         "paragraphs": [
-          "For questions regarding these service conditions, please contact our administrative desk:"
+          "ಈ ಸೇವಾ ಷರತ್ತುಗಳಿಗೆ ಸಂಬಂಧಿಸಿದ ಪ್ರಶ್ನೆಗಳಿಗೆ, ದಯವಿಟ್ಟು ನಮ್ಮ ಆಡಳಿತ ಡೆಸ್ಕ್ ಅನ್ನು ಸಂಪರ್ಕಿಸಿ:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"

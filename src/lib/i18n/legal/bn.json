@@ -1,210 +1,210 @@
 {
   "privacy": {
-    "title": "Privacy Policy",
-    "subtitle": "SOS Healthcare Patient Portal",
-    "lastUpdated": "11 November 2026",
-    "tocTitle": "Contents",
+    "title": "গোপনীয়তা নীতি",
+    "subtitle": "SOS Healthcare রোগী পোর্টাল",
+    "lastUpdated": "১১ নভেম্বর ২০২৬",
+    "tocTitle": "সূচিপত্র",
     "notice": {
       "variant": "info",
-      "title": "Patient Privacy Commitment",
-      "text": "SOS Healthcare is dedicated to patient privacy, transparency, and personal health data control. Appointment requests created within our portal are maintained securely within the platform and are never automatically transmitted to hospital databases or external electronic health records."
+      "title": "রোগীর গোপনীয়তা প্রতিশ্রুতি",
+      "text": "SOS Healthcare রোগীর গোপনীয়তা, স্বচ্ছতা এবং ব্যক্তিগত স্বাস্থ্য তথ্যের সম্পূর্ণ নিয়ন্ত্রণে প্রতিশ্রুতিবদ্ধ। আমাদের পোর্টালে সংরক্ষিত অ্যাপয়েন্টমেন্ট অনুরোধগুলি সম্পূর্ণ নিরাপদে থাকে এবং হাসপাতালের ডেটাবেস বা বহিরাগত স্বাস্থ্য রেকর্ডে স্বয়ংক্রিয়ভাবে পাঠানো হয় না।"
     },
     "sections": [
       {
         "id": "introduction",
         "number": 1,
-        "heading": "Introduction",
+        "heading": "ভূমিকা",
         "paragraphs": [
-          "SOS Healthcare provides healthcare awareness, nearby hospital discovery, emergency telephone guidance, and private appointment-planning services.",
-          "This Privacy Policy describes how personal information and healthcare preferences are collected, used, protected, and handled when you access our application. SOS Healthcare is a software assistance platform and does not directly own or operate hospital treatment centers."
+          "SOS Healthcare স্বাস্থ্য সচেতনতা, কাছাকাছি হাসপাতাল অনুসন্ধান, জরুরি টেলিফোন দিকনির্দেশনা এবং ব্যক্তিগত অ্যাপয়েন্টমেন্ট পরিকল্পনা সেবা প্রদান করে।",
+          "এই গোপনীয়তা নীতি বর্ণনা করে কীভাবে আপনি আমাদের অ্যাপ্লিকেশন ব্যবহার করার সময় ব্যক্তিগত তথ্য এবং স্বাস্থ্য পছন্দগুলি সংগ্রহ, ব্যবহার, সুরক্ষিত এবং পরিচালনা করা হয়। SOS Healthcare একটি সফটওয়্যার সহায়তা প্ল্যাটফর্ম এবং এটি সরাসরি কোনো হাসপাতাল চিকিৎসা কেন্দ্র পরিচালনা করে না।"
         ]
       },
       {
         "id": "information-collected",
         "number": 2,
-        "heading": "Information We Collect",
+        "heading": "আমরা যে তথ্য সংগ্রহ করি",
         "paragraphs": [
-          "We collect only the information necessary to fulfill our digital healthcare awareness and planning services:"
+          "আমাদের ডিজিটাল স্বাস্থ্যসেবা সচেতনতা এবং পরিকল্পনা পরিষেবাগুলি পূরণ করার জন্য আমরা কেবল প্রয়োজনীয় তথ্য সংগ্রহ করি:"
         ],
         "bullets": [
-          "Name and Contact Details: Name and email address used for account registration and authentication.",
-          "Account Information: Profile credentials, preferences, and security access logs.",
-          "Emergency Contact Details: Names, phone numbers, and relationship designations for family or trusted individuals you choose to notify during emergencies.",
-          "Location Information: Real-time browser GPS coordinates when explicitly permitted by you to calculate driving distances to nearby medical centers or transmit coordinates during an emergency beacon.",
-          "Private Appointment Requests: Selected medical specialties, preferred dates, visit reasons, and status notes saved in your personal planner.",
-          "Hospital Preferences: Bookmarked facilities and search history.",
-          "Optional Health Information: Self-reported blood group, vitals, allergies, and chronic medical history stored in your health profile.",
-          "Wearable-Device Information: Heart rate, step count, or activity telemetry accessed only when you explicitly connect Google Health.",
-          "Support Inquiries: Communications submitted through our administrator inquiry form."
+          "নাম এবং যোগাযোগের বিবরণ: অ্যাকাউন্ট নিবন্ধন এবং প্রমাণীকরণের জন্য ব্যবহৃত নাম এবং ইমেল ঠিকানা।",
+          "অ্যাকাউন্টের তথ্য: প্রোফাইল শংসাপত্র, পছন্দসমূহ এবং নিরাপত্তা অ্যাক্সেস লগ।",
+          "জরুরি যোগাযোগের বিবরণ: জরুরি অবস্থায় অবহিত করার জন্য আপনার নির্বাচিত পরিবার বা বিশ্বস্ত ব্যক্তিদের নাম, ফোন নম্বর এবং সম্পর্ক।",
+          "অবস্থান সংক্রান্ত তথ্য: কাছাকাছি চিকিৎসা কেন্দ্রের দূরত্ব গণনা করতে বা জরুরি SOS সংকেতের সময় পাঠানোর জন্য আপনার স্পষ্ট অনুমতিতে ব্রাউজার দ্বারা রিপোর্ট করা রিয়েল-টাইম GPS স্থানাঙ্ক।",
+          "ব্যক্তিগত অ্যাপয়েন্টমেন্টের অনুরোধ: আপনার ব্যক্তিগত পরিকল্পনাকারীতে সংরক্ষিত নির্বাচিত চিকিৎসা বিভাগ, পছন্দের তারিখ, পরিদর্শনের কারণ এবং স্ট্যাটাস নোট।",
+          "হাসপাতাল পছন্দসমূহ: বুকমার্ক করা সুবিধাসমূহ এবং অনুসন্ধানের ইতিহাস।",
+          "ঐচ্ছিক স্বাস্থ্য তথ্য: আপনার স্বাস্থ্য প্রোফাইলে সংরক্ষিত স্ব-প্রতিবেদিত রক্তের গ্রুপ, ভাইটাল, অ্যালার্জি এবং দীর্ঘস্থায়ী চিকিৎসার ইতিহাস।",
+          "পরিধানযোগ্য ডিভাইসের তথ্য: আপনি স্পষ্টভাবে Google Health সংযুক্ত করলেই কেবল অ্যাক্সেস করা হার্ট রেট, পদক্ষেপ গণনা বা কার্যকলাপের ডেটা।",
+          "সহায়তা সংক্রান্ত অনুসন্ধান: আমাদের অ্যাডমিনিস্ট্রেটর অনুসন্ধান ফর্মের মাধ্যমে জমা দেওয়া বার্তা।"
         ]
       },
       {
         "id": "purpose-of-collecting",
         "number": 3,
-        "heading": "Purpose of Collecting Information",
+        "heading": "তথ্য সংগ্রহের উদ্দেশ্য",
         "paragraphs": [
-          "We process your information for clear, patient-centered purposes:"
+          "আমরা স্পষ্ট, রোগী-কেন্দ্রিক উদ্দেশ্যে আপনার তথ্য প্রক্রিয়া করি:"
         ],
         "bullets": [
-          "Managing your patient account and authenticating your access securely.",
-          "Helping you identify and locate nearby accredited healthcare facilities.",
-          "Maintaining your private consultation requests and personal scheduling notes.",
-          "Supporting emergency contact notifications when an SOS beacon is activated.",
-          "Displaying authorized wearable wellness data in your patient dashboard.",
-          "Responding to platform feedback and administrative support requests.",
-          "Protecting accounts against unauthorized access and preventing platform misuse."
+          "আপনার রোগী অ্যাকাউন্ট পরিচালনা করা এবং আপনার অ্যাক্সেস নিরাপদে প্রমাণীকরণ করা।",
+          "কাছাকাছি স্বীকৃত স্বাস্থ্যসেবা কেন্দ্রগুলি সনাক্ত করতে আপনাকে সহায়তা করা।",
+          "আপনার ব্যক্তিগত পরামর্শের অনুরোধ এবং সময়সূচী নোট সংরক্ষণ করা।",
+          "SOS বীকন সক্রিয় হলে জরুরি যোগাযোগের বিজ্ঞপ্তি পাঠানো সমর্থন করা।",
+          "রোগীর ড্যাশবোর্ডে অনুমোদিত স্বাস্থ্য ডেটা প্রদর্শন করা।",
+          "প্ল্যাটফর্মের প্রতিক্রিয়া এবং প্রশাসনিক সহায়তার অনুরোধের জবাব দেওয়া।",
+          "অননুমোদিত অ্যাক্সেস থেকে অ্যাকাউন্ট রক্ষা করা এবং প্ল্যাটফর্মের অপব্যবহার রোধ করা।"
         ]
       },
       {
         "id": "patient-privacy",
         "number": 4,
-        "heading": "Patient Privacy and Confidentiality",
+        "heading": "রোগীর গোপনীয়তা এবং সুরক্ষা",
         "paragraphs": [
-          "SOS Healthcare restricts access to personal information to legitimate, authorized purposes. Your health records and private consultation preferences are confidential. We maintain technical controls so that individual patient information is accessible only to the authenticated account holder."
+          "SOS Healthcare ব্যক্তিগত তথ্যের অ্যাক্সেস কঠোরভাবে বৈধ এবং অনুমোদিত উদ্দেশ্যে সীমাবদ্ধ করে। আপনার স্বাস্থ্য রেকর্ড এবং ব্যক্তিগত পরামর্শ পছন্দগুলি সম্পূর্ণ গোপনীয়। প্রযুক্তিগত সুরক্ষার মাধ্যমে নিশ্চিত করা হয় যে কেবল প্রমাণীকৃত অ্যাকাউন্টধারীর কাছেই তথ্য উপলব্ধ থাকে।"
         ]
       },
       {
         "id": "hospital-directory",
         "number": 5,
-        "heading": "Hospital Information and Directory Services",
+        "heading": "হাসপাতালের তথ্য এবং ডিরেক্টরি পরিষেবা",
         "paragraphs": [
-          "Hospital and clinic information is compiled from public healthcare listings to help users identify medical facilities in their area.",
-          "Inclusion in our directory does not automatically establish a formal commercial relationship, affiliation, or operational partnership between SOS Healthcare and the hospital."
+          "ব্যবহারকারীদের তাদের এলাকায় চিকিৎসা সুবিধা সনাক্ত করতে সহায়তা করার জন্য সর্বজনীন স্বাস্থ্য তালিকা থেকে হাসপাতাল এবং ক্লিনিকের তথ্য সংকলন করা হয়।",
+          "আমাদের ডিরেক্টরিতে অন্তর্ভুক্তি SOS Healthcare এবং হাসপাতালের মধ্যে আনুষ্ঠানিক ব্যবসায়িক সম্পর্ক বা অংশীদারিত্ব বোঝায় না।"
         ]
       },
       {
         "id": "private-appointments",
         "number": 6,
-        "heading": "Private Appointment Requests",
+        "heading": "ব্যক্তিগত অ্যাপয়েন্টমেন্টের অনুরোধ",
         "notice": {
           "variant": "info",
-          "title": "Important Notice Regarding Appointment Requests",
-          "text": "\"Appointment requests saved through SOS Healthcare are maintained within the SOS Healthcare platform and are not automatically submitted to hospitals or added to hospital medical records.\""
+          "title": "অ্যাপয়েন্টমেন্ট অনুরোধ সংক্রান্ত গুরুত্বপূর্ণ বিজ্ঞপ্তি",
+          "text": "“SOS Healthcare এর মাধ্যমে সংরক্ষিত অ্যাপয়েন্টমেন্টের অনুরোধগুলি প্ল্যাটফর্মের মধ্যেই থাকে এবং হাসপাতালে স্বয়ংক্রিয়ভাবে জমা দেওয়া হয় না বা হাসপাতালের মেডিকেল রেকর্ডে যোগ করা হয় না।”"
         },
         "paragraphs": [
-          "Saving a request in your portal does not guarantee hospital availability or confirm an appointment slot with hospital staff. Patients may reschedule or cancel their private requests at any time.",
-          "Cancelling a private request in SOS Healthcare does not cancel an independently arranged appointment at a hospital clinic. External hospital booking requires a separately authorized, verified integration."
+          "আপনার পোর্টালে একটি অনুরোধ সংরক্ষণ করা হাসপাতালের প্রাপ্যতা নিশ্চিত করে না। রোগীরা যেকোনো সময় তাদের অনুরোধ পুনঃনির্ধারণ বা বাতিল করতে পারেন।",
+          "SOS Healthcare এ ব্যক্তিগত অনুরোধ বাতিল করা হাসপাতালে সরাসরি নির্ধারিত অ্যাপয়েন্টমেন্ট বাতিল করে না।"
         ]
       },
       {
         "id": "emergency-assistance",
         "number": 7,
-        "heading": "Emergency Assistance and Location Information",
+        "heading": "জরুরি সহায়তা এবং অবস্থান সংক্রান্ত তথ্য",
         "paragraphs": [
-          "Location permission is requested only when necessary to calculate proximity to nearby hospitals or when initiating an emergency beacon.",
-          "When an SOS beacon is activated, your browser-reported coordinates at that moment are transmitted to your registered emergency contacts. SOS Healthcare does not track your location in the background when the app is inactive. Public emergency responders (such as 112 or 911 dispatchers) do not automatically receive web beacon data unless formal municipal dispatch connectivity is verified in your jurisdiction.",
-          "You may withdraw location permissions at any time through your device or browser settings."
+          "কাছাকাছি হাসপাতালের দূরত্ব গণনা করতে বা জরুরি বীকন শুরু করার প্রয়োজনেই কেবল অবস্থানের অনুমতি চাওয়া হয়।",
+          "যখন একটি SOS বীকন সক্রিয় করা হয়, তখন ব্রাউজারের রিপোর্ট করা স্থানাঙ্কগুলি আপনার জরুরি পরিচিতিদের কাছে পাঠানো হয়।",
+          "আপনি ব্রাউজার সেটিংসের মাধ্যমে যেকোনো সময় অবস্থানের অনুমতি প্রত্যাহার করতে পারেন।"
         ]
       },
       {
         "id": "health-wearables",
         "number": 8,
-        "heading": "Health and Wearable Information",
+        "heading": "স্বাস্থ্য এবং পরিধানযোগ্য ডিভাইসের তথ্য",
         "paragraphs": [
-          "Connected wearable information (such as Google Health API integration) is retrieved only with your explicit permission. Data is queried on-demand to display wellness trends in your portal.",
-          "Connecting a wearable device does not create an automated emergency ambulance dispatch service. You may revoke access at any time via your Devices settings or your Google Account permissions, which immediately terminates data retrieval and purges cached metrics."
+          "সংযুক্ত পরিধানযোগ্য তথ্য (যেমন Google Health API) কেবল আপনার স্পষ্ট অনুমতি নিয়েই অ্যাক্সেস করা হয়। চাহিদামতো ডেটা আনা হয় স্বাস্থ্য ট্রেন্ড দেখানোর জন্য।",
+          "একটি পরিধানযোগ্য ডিভাইস সংযোগ করা স্বয়ংক্রিয় জরুরি অ্যাম্বুলেন্স প্রেরণ পরিষেবা তৈরি করে না। আপনি যেকোনো সময় সংযোগ বিচ্ছিন্ন করতে পারেন।"
         ]
       },
       {
         "id": "patient-consent",
         "number": 9,
-        "heading": "Patient Consent and Control",
+        "heading": "রোগীর সম্মতি এবং নিয়ন্ত্রণ",
         "paragraphs": [
-          "We believe patients should maintain granular control over their information. You can review and update permissions at any time:"
+          "আমরা বিশ্বাস করি রোগীদের তাদের তথ্যের উপর সম্পূর্ণ নিয়ন্ত্রণ থাকা উচিত। আপনি যেকোনো সময় অনুমতি আপডেট করতে পারেন:"
         ],
         "bullets": [
-          "Modify emergency contact details and notification settings.",
-          "Toggle doctor pre-arrival sharing preferences in your Health Profile.",
-          "Disconnect wearable services with immediate token invalidation.",
-          "Request deletion of your account and personal records."
+          "জরুরি যোগাযোগের বিবরণ এবং বিজ্ঞপ্তি সেটিংস পরিবর্তন করুন।",
+          "স্বাস্থ্য প্রোফাইলে ডাক্তারের সাথে তথ্য ভাগাভাগির পছন্দ সক্রিয় বা নিষ্ক্রিয় করুন।",
+          "পরিধানযোগ্য ডিভাইসের সংযোগ বিচ্ছিন্ন করুন।",
+          "আপনার অ্যাকাউন্ট এবং রেকর্ড মুছে ফেলার অনুরোধ করুন।"
         ]
       },
       {
         "id": "healthcare-sharing",
         "number": 10,
-        "heading": "Healthcare Information Sharing and Confidentiality",
+        "heading": "স্বাস্থ্য তথ্য শেয়ারিং এবং গোপনীয়তা",
         "paragraphs": [
-          "Personal or health information is never automatically disclosed to hospitals merely because a user browses a hospital card or saves a private appointment request.",
-          "Information may only be disclosed under the following circumstances:"
+          "ব্যবহারকারী কোনো হাসপাতালের তথ্য ব্রাউজ করলেই স্বাস্থ্য তথ্য স্বয়ংক্রিয়ভাবে হাসপাতালে প্রকাশ করা হয় না।",
+          "তথ্য কেবল নিম্নলিখিত নির্দিষ্ট পরিস্থিতিতে প্রকাশ করা যেতে পারে:"
         ],
         "bullets": [
-          "With your explicit, verified authorization.",
-          "To designated emergency contacts when you actively trigger an emergency beacon.",
-          "To essential infrastructure service providers necessary to operate the application.",
-          "Where required by applicable law, statutory subpoena, or valid court order."
+          "আপনার স্পষ্ট এবং যাচাইকৃত অনুমোদনের মাধ্যমে।",
+          "আপনি সক্রিয়ভাবে SOS বীকন চালু করলে জরুরি পরিচিতিদের কাছে।",
+          "অ্যাপ্লিকেশনটি পরিচালনা করার জন্য প্রয়োজনীয় ক্লাউড অবকাঠামো প্রদানকারীদের কাছে।",
+          "প্রযোজ্য আইন বা আদালতের আদেশের অধীনে প্রয়োজনীয় হলে।"
         ]
       },
       {
         "id": "patient-safeguards",
         "number": 11,
-        "heading": "Patient Information Safeguards",
+        "heading": "রোগীর তথ্য সুরক্ষা ব্যবস্থা",
         "paragraphs": [
-          "We implement administrative and technical safeguards designed to protect personal information:"
+          "ব্যক্তিগত তথ্য রক্ষা করার জন্য আমরা কঠোর প্রযুক্তিগত সুরক্ষা ব্যবস্থা প্রয়োগ করি:"
         ],
         "bullets": [
-          "Access to private accounts and appointment records is strictly restricted to authenticated users.",
-          "Health information and emergency notes are handled with high standards of confidentiality.",
-          "Database isolation rules ensure that users cannot inspect other patients' data.",
-          "Encrypted transport protocols protect information exchanged between your device and our servers."
+          "ব্যক্তিগত অ্যাকাউন্ট এবং রেকর্ডের অ্যাক্সেস কেবল যাচাইকৃত ব্যবহারকারীদের জন্য সীমাবদ্ধ।",
+          "স্বাস্থ্য তথ্য উচ্চ গোপনীয়তার সাথে পরিচালনা করা হয়।",
+          "ডেটাবেস রো-লেভেল সিকিউরিটি (RLS) অন্যদের ডেটা দেখা প্রতিরোধ করে।",
+          "এনক্রিপ্ট করা প্রোটোকল সার্ভারের সাথে যোগাযোগের সুরক্ষা নিশ্চিত করে।"
         ],
         "subparagraphs": [
-          "Users are encouraged to protect their account credentials and report any suspected unauthorized access to our administration desk immediately."
+          "ব্যবহারকারীদের তাদের অ্যাকাউন্টের শংসাপত্র সুরক্ষিত রাখার পরামর্শ দেওয়া হচ্ছে।"
         ]
       },
       {
         "id": "information-retention",
         "number": 12,
-        "heading": "Information Retention",
+        "heading": "তথ্য সংরক্ষণ",
         "paragraphs": [
-          "Records are retained only for as long as your account remains active or as needed to deliver our healthcare planning and awareness features.",
-          "Private appointment requests, emergency logs, and support inquiries are retained within your secure portal until you remove them or submit an account closure request."
+          "আপনার অ্যাকাউন্ট সক্রিয় থাকা পর্যন্তই কেবল রেকর্ড সংরক্ষণ করা হয়।",
+          "অ্যাপয়েন্টমেন্টের অনুরোধ এবং জরুরি লগ আপনার নিরাপদ পোর্টালে সংরক্ষিত থাকবে।"
         ]
       },
       {
         "id": "patient-rights",
         "number": 13,
-        "heading": "Patient Rights",
+        "heading": "রোগীর অধিকার",
         "paragraphs": [
-          "Depending on your jurisdiction, you may exercise applicable rights regarding your information:"
+          "আইন অনুযায়ী, আপনার তথ্য সম্পর্কিত নিম্নলিখিত অধিকারগুলি আপনি প্রয়োগ করতে পারেন:"
         ],
         "bullets": [
-          "Request access to the personal information we maintain about you.",
-          "Request correction of inaccurate or incomplete health profile records.",
-          "Withdraw optional consent for location or health device integrations.",
-          "Request deletion of your account where permitted by applicable law.",
-          "Submit questions or privacy inquiries to our administration team."
+          "আমাদের কাছে থাকা আপনার ব্যক্তিগত তথ্য দেখার অনুরোধ করা।",
+          "ভুল স্বাস্থ্য প্রোফাইল রেকর্ড সংশোধনের অনুরোধ করা।",
+          "অবস্থান বা ডিভাইসের সম্মতি প্রত্যাহার করা।",
+          "আইন অনুযায়ী অ্যাকাউন্ট মুছে ফেলার অনুরোধ করা।",
+          "গোপনীয়তা সম্পর্কিত প্রশ্ন প্রশাসন দলের কাছে জমা দেওয়া।"
         ]
       },
       {
         "id": "childrens-privacy",
         "number": 14,
-        "heading": "Children's Privacy",
+        "heading": "শিশুদের গোপনীয়তা",
         "paragraphs": [
-          "SOS Healthcare is designed for use by individuals who have reached the age of majority or minors using the service under the active supervision and consent of a parent or legal guardian."
+          "SOS Healthcare প্রাপ্তবয়স্ক ব্যক্তিদের ব্যবহারের জন্য বা অভিভাবকদের সরাসরি তত্ত্বাবধানে অপ্রাপ্তবয়স্কদের ব্যবহারের জন্য তৈরি।"
         ]
       },
       {
         "id": "international-awareness",
         "number": 15,
-        "heading": "International Healthcare Awareness",
+        "heading": "আন্তর্জাতিক স্বাস্থ্য সচেতনতা",
         "paragraphs": [
-          "SOS Healthcare provides information across 22 languages to assist users internationally. Providing multilingual information does not imply local clinical licensing, direct hospital operational affiliation, or municipal emergency dispatch coverage in every country."
+          "SOS Healthcare বিশ্বব্যাপী ব্যবহারকারীদের জন্য ২৫টি ভাষায় তথ্য প্রদান করে। বহুভাষিক তথ্য প্রদান স্থানীয় ক্লিনিকাল লাইসেন্স বা জরুরি অ্যাম্বুলেন্স প্রেরণ কভারেজ বোঝায় না।"
         ]
       },
       {
         "id": "policy-updates",
         "number": 16,
-        "heading": "Policy Updates",
+        "heading": "নীতি আপডেট",
         "paragraphs": [
-          "We may periodically update this policy to reflect enhancements in patient safety, new platform features, or evolving legal standards. The latest revision date is prominently displayed at the top of this document."
+          "রোগীর সুরক্ষা এবং আইনি মান উন্নত করতে আমরা এই নীতি আপডেট করতে পারি। সর্বশেষ তারিখ ডকুমেন্টের শীর্ষে দেখানো হবে।"
         ]
       },
       {
         "id": "contact-administrator",
         "number": 17,
-        "heading": "Contact Administrator",
+        "heading": "প্রশাসকের সাথে যোগাযোগ করুন",
         "paragraphs": [
-          "For privacy inquiries, patient data requests, or directory corrections, you may contact our administration desk directly:"
+          "গোপনীয়তা অনুসন্ধান বা রোগী ডেটা অনুরোধের জন্য সরাসরি আমাদের প্রশাসন ডেস্কে যোগাযোগ করতে পারেন:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"
@@ -212,175 +212,175 @@
     ]
   },
   "terms": {
-    "title": "Terms of Service",
-    "subtitle": "Healthcare Service Rules & Conditions of Use",
-    "lastUpdated": "11 November 2026",
-    "tocTitle": "Contents",
+    "title": "সেবা শর্তাবলী",
+    "subtitle": "স্বাস্থ্যসেবা নিয়ম ও ব্যবহারের শর্তাবলী",
+    "lastUpdated": "১১ নভেম্বর ২০২৬",
+    "tocTitle": "সূচিপত্র",
     "notice": {
       "variant": "warning",
-      "title": "Emergency Medical Notice",
-      "text": "SOS Healthcare is an informational assistance platform and is not a substitute for official emergency responders. In a life-threatening crisis, immediately dial your local emergency telephone service."
+      "title": "জরুরি চিকিৎসা সংক্রান্ত নোটিশ",
+      "text": "SOS Healthcare একটি তথ্য সহায়তা প্ল্যাটফর্ম এবং অফিসিয়াল জরুরি সেবার বিকল্প নয়। জীবনঘাতী সংকটে অবিলম্বে জাতীয় জরুরি নম্বরে (১১২) কল করুন।"
     },
     "sections": [
       {
         "id": "acceptance",
         "number": 1,
-        "heading": "Acceptance of Terms",
+        "heading": "শর্তাবলীর গ্রহণযোগ্যতা",
         "paragraphs": [
-          "By accessing, registering for, or using SOS Healthcare services, you acknowledge that you have read and understood these Terms of Service and agree to comply with the applicable conditions of use. If you do not agree with these terms, you should discontinue use of the services."
+          "SOS Healthcare সেবা ব্যবহার করার মাধ্যমে আপনি নিশ্চিত করছেন যে আপনি এই শর্তাবলী পড়েছেন, বুঝেছেন এবং মেনে চলতে সম্মত হয়েছেন। সম্মত না হলে সেবা ব্যবহার বন্ধ করুন।"
         ]
       },
       {
         "id": "eligibility",
         "number": 2,
-        "heading": "Eligibility and Account Responsibilities",
+        "heading": "যোগ্যতা এবং অ্যাকাউন্টের দায়িত্ব",
         "paragraphs": [
-          "Users must be of legal age of majority or use the platform under the supervision of a parent or legal guardian. You agree to provide accurate information when creating an account, safeguard your credentials, and report any unauthorized access promptly. You remain responsible for all activities originating from your account."
+          "ব্যবহারকারীদের প্রাপ্তবয়স্ক হতে হবে অথবা অভিভাবকদের তত্ত্বাবধানে প্ল্যাটফর্মটি ব্যবহার করতে হবে। সঠিক তথ্য প্রদান করতে এবং শংসাপত্র সুরক্ষিত রাখতে আপনি সম্মত। আপনার অ্যাকাউন্টের সমস্ত ক্রিয়াকলাপের জন্য আপনি নিজেই দায়ী।"
         ]
       },
       {
         "id": "services",
         "number": 3,
-        "heading": "Nature of SOS Healthcare Services",
+        "heading": "SOS Healthcare সেবার প্রকৃতি",
         "paragraphs": [
-          "SOS Healthcare provides digital healthcare awareness, nearby hospital discovery, emergency telephone guidance, private appointment planning, and authorized health-device information display.",
-          "The platform is a communication and planning tool and does not provide direct medical treatment or clinical prescriptions."
+          "SOS Healthcare ডিজিটাল স্বাস্থ্য সচেতনতা, হাসপাতাল অনুসন্ধান, জরুরি টেলিফোন সহায়তা, অ্যাপয়েন্টমেন্ট পরিকল্পনা এবং পরিধানযোগ্য ডিভাইসের তথ্য প্রদর্শন করে।",
+          "প্ল্যাটফর্মটি একটি যোগাযোগ এবং পরিকল্পনার সরঞ্জাম এবং এটি সরাসরি কোনো চিকিৎসা বা প্রেসক্রিপশন প্রদান করে না।"
         ]
       },
       {
         "id": "hospitals",
         "number": 4,
-        "heading": "Hospital Directory Information",
+        "heading": "হাসপাতাল ডিরেক্টরি তথ্য",
         "paragraphs": [
-          "Hospital names, addresses, and listed departments are provided for general informational orientation. Directory details may change, and emergency triage availability should always be verified directly with the facility. Inclusion in our directory does not imply formal partnership or commercial endorsement."
+          "হাসপাতালের তথ্য সাধারণ দিকনির্দেশনার জন্য দেওয়া হয়েছে। জরুরি চিকিৎসার প্রাপ্যতা সরাসরি হাসপাতালের সাথে যাচাই করা উচিত। তালিকায় থাকা বাণিজ্যিক অনুমোদন নির্দেশ করে না।"
         ]
       },
       {
         "id": "doctors",
         "number": 5,
-        "heading": "Doctor Information",
+        "heading": "ডাক্তারের তথ্য",
         "paragraphs": [
-          "Information regarding medical specialists is intended to help users identify independent healthcare providers. Listed doctors are not partners of the platform, and listing does not imply an exclusive endorsement or automated intake agreement without verified authorization."
+          "চিকিৎসক সম্পর্কিত তথ্য ব্যবহারকারীদের ডাক্তার খুঁজে পেতে সহায়তা করার উদ্দেশ্যে দেওয়া হয়েছে। তালিকাভুক্ত ডাক্তাররা প্ল্যাটফর্মের অংশীদার নন।"
         ]
       },
       {
         "id": "private-appointments",
         "number": 6,
-        "heading": "Private Appointment Requests",
+        "heading": "ব্যক্তিগত অ্যাপয়েন্টমেন্টের অনুরোধ",
         "paragraphs": [
-          "The platform allows patients to store personal appointment preferences and consultation requests. These requests do not create hospital-confirmed reservations. Hospital schedules and front-desk booking procedures may differ, and users are responsible for confirming actual visits directly with the hospital."
+          "প্ল্যাটফর্মটি রোগীদের অ্যাপয়েন্টমেন্টের পছন্দ সংরক্ষণের সুযোগ দেয়। এই অনুরোধগুলি হাসপাতাল দ্বারা নিশ্চিত বুকিং তৈরি করে না। প্রকৃত ভিজিট নিশ্চিত করার দায়িত্ব ব্যবহারকারীর।"
         ]
       },
       {
         "id": "cancellation",
         "number": 7,
-        "heading": "Cancellation and Rescheduling",
+        "heading": "বাতিল এবং পুনঃনির্ধারণ",
         "paragraphs": [
-          "Patients may cancel or reschedule eligible private requests within their portal. Modifying a request affects only the record stored in SOS Healthcare; it does not automatically cancel an independently arranged hospital appointment. Cancellation records are retained in accordance with the Privacy Policy."
+          "রোগীরা তাদের পোর্টালে ব্যক্তিগত অনুরোধ বাতিল বা পুনঃনির্ধারণ করতে পারেন। এটি কেবল SOS Healthcare এর রেকর্ড পরিবর্তন করে; হাসপাতালের সরাসরি বুকিং বাতিল করে না।"
         ]
       },
       {
         "id": "emergency",
         "number": 8,
-        "heading": "Emergency Assistance",
+        "heading": "জরুরি সহায়তা",
         "paragraphs": [
-          "SOS Healthcare is not a substitute for official public emergency services. Users must contact their local emergency number (e.g. 112, 911, or local emergency line) for life-threatening emergencies.",
-          "Transmitting an SOS beacon notifies designated emergency contacts via the app; emergency contacts are not equivalent to municipal ambulance dispatch providers."
+          "SOS Healthcare সরকারি জরুরি সেবার বিকল্প নয়। জীবনঘাতী পরিস্থিতিতে স্থানীয় জরুরি নম্বরে (১১২) যোগাযোগ করুন।",
+          "SOS বীকন কেবল জরুরি পরিচিতিদের কাছে নোটিফিকেশন পাঠায়; এটি অ্যাম্বুলেন্স প্রেরণ কেন্দ্রের সমতুল্য নয়।"
         ]
       },
       {
         "id": "medical-disclaimer",
         "number": 9,
-        "heading": "Medical Information Disclaimer",
+        "heading": "চিকিৎসা সংক্রান্ত দাবিত্যাগ",
         "paragraphs": [
-          "Information provided on the platform is educational and informational. It is not medical advice, diagnosis, or treatment. Users should consult licensed healthcare professionals regarding any health condition. Emergency symptoms require urgent attention from licensed emergency providers."
+          "প্ল্যাটফর্মের তথ্য কেবল শিক্ষামূলক এবং সাধারণ তথ্যের জন্য। এটি কোনো চিকিৎসা পরামর্শ বা রোগ নির্ণয় নয়। স্বাস্থ্য সম্পর্কিত যেকোনো বিষয়ে ডাক্তারের পরামর্শ নিন।"
         ]
       },
       {
         "id": "wearables",
         "number": 10,
-        "heading": "Wearable Devices",
+        "heading": "পরিধানযোগ্য ডিভাইস",
         "paragraphs": [
-          "Wearable data displayed through integrations (such as Google Health) depends on third-party sensor accuracy. Measurements may be delayed or unavailable. Wearable data is not diagnostic clinical information, and no automatic emergency response is promised based on wearable metrics."
+          "প্রদর্শিত পরিধানযোগ্য ডেটা তৃতীয় পক্ষের সেন্সর নির্ভুলতার উপর নির্ভর করে। পরিধানযোগ্য ডেটা ক্লিনিকাল তথ্য নয় ಮತ್ತು এর ভিত্তিতে স্বয়ংক্রিয় জরুরি প্রতিক্রিয়া নিশ্চিত নয়।"
         ]
       },
       {
         "id": "responsibilities",
         "number": 11,
-        "heading": "Patient Responsibilities",
+        "heading": "রোগীর দায়িত্ব",
         "paragraphs": [
-          "Patients are responsible for maintaining accurate contact details, using emergency features conscientiously, and respecting the confidentiality of personal medical information stored in their accounts."
+          "সঠিক যোগাযোগের তথ্য বজায় রাখা, দায়িত্বশীলভাবে জরুরি ফিচার ব্যবহার করা এবং অ্যাকাউন্টে সংরক্ষিত তথ্যের গোপনীয়তা রক্ষা করার দায়িত্ব রোগীর।"
         ]
       },
       {
         "id": "prohibited",
         "number": 12,
-        "heading": "Prohibited Conduct",
+        "heading": "নিষিদ্ধ আচরণ",
         "paragraphs": [
-          "Users may not:"
+          "ব্যবহারকারীরা নিম্নলিখিত কাজগুলি করতে পারবেন না:"
         ],
         "bullets": [
-          "Attempt unauthorized access to other accounts or administrative systems.",
-          "Trigger fraudulent or abusive emergency beacons that waste responder resources.",
-          "Harass healthcare providers, administrators, or other patients.",
-          "Misrepresent professional medical credentials or patient identity.",
-          "Interfere with the security or operational integrity of the service."
+          "অন্যের অ্যাকাউন্টে বা প্রশাসনিক সিস্টেমে অননুমোদিত অ্যাক্সেসের চেষ্টা করা।",
+          "জরুরি পরিষেবার অপচয় ঘটায় এমন ভুয়া SOS বীকন পাঠানো।",
+          "স্বাস্থ্যকর্মী, প্রশাসক বা অন্যান্য রোগীদের হয়রানি করা।",
+          "ভুয়া চিকিৎসা যোগ্যতা বা রোগীর পরিচয় প্রকাশ করা।",
+          "সেবার নিরাপত্তা বা স্বাভাবিক কার্যক্রমে হস্তক্ষেপ করা।"
         ]
       },
       {
         "id": "privacy",
         "number": 13,
-        "heading": "Privacy and Patient Confidentiality",
+        "heading": "গোপনীয়তা এবং রোগীর তথ্য সুরক্ষা",
         "paragraphs": [
-          "Handling of personal information and healthcare preferences is governed by our Privacy Policy. Please review the Privacy Policy for details regarding our confidentiality safeguards and patient rights."
+          "ব্যক্তিগত তথ্যের ব্যবহার আমাদের গোপনীয়তা নীতি দ্বারা নিয়ন্ত্রিত হয়। বিস্তারিত জানার জন্য গোপনীয়তা নীতি পর্যালোচনা করুন।"
         ]
       },
       {
         "id": "availability",
         "number": 14,
-        "heading": "Service Availability",
+        "heading": "সেবার প্রাপ্যতা",
         "paragraphs": [
-          "Platform availability depends on cellular connectivity, internet routing, and scheduled maintenance. While we aim for reliable service, uninterrupted healthcare software availability cannot be guaranteed."
+          "প্ল্যাটফর্মের প্রাপ্যতা নেটওয়ার্ক এবং নির্ধারিত রক্ষণাবেক্ষণের উপর নির্ভর করে। নিরবচ্ছিন্ন সেবার সম্পূর্ণ নিশ্চয়তা দেওয়া সম্ভব নয়।"
         ]
       },
       {
         "id": "fees",
         "number": 15,
-        "heading": "Service Fees",
+        "heading": "সেবা ফি",
         "paragraphs": [
-          "Access to the SOS Healthcare digital platform is free for users. External hospital, consultation, transportation, or medical treatment fees charged by independent healthcare providers remain the responsibility of the patient."
+          "SOS Healthcare ডিজিটাল প্ল্যাটফর্ম ব্যবহার বিনামূল্যে। হাসপাতালের ফি বা চিকিৎসার খরচ রোগীর নিজস্ব দায়িত্ব।"
         ]
       },
       {
         "id": "suspension",
         "number": 16,
-        "heading": "Account Suspension and Closure",
+        "heading": "অ্যাকাউন্ট স্থগিত ও বন্ধ",
         "paragraphs": [
-          "We reserve the right to suspend or close accounts that engage in fraudulent emergency alerts, violate acceptable use rules, or compromise platform security, subject to applicable notice and review procedures."
+          "ভুয়া সতর্কতা পাঠানো বা নিয়ম লঙ্ঘনকারী অ্যাকাউন্ট স্থগিত বা বন্ধ করার অধিকার আমাদের রয়েছে।"
         ]
       },
       {
         "id": "changes",
         "number": 17,
-        "heading": "Changes to Terms",
+        "heading": "শর্তাবলীর পরিবর্তন",
         "paragraphs": [
-          "Material changes to these Terms will be communicated through the platform with an updated version date. Continued use following updates constitutes agreement to the revised conditions."
+          "শর্তাবলীর যেকোনো পরিবর্তন প্ল্যাটফর্মে জানানো হবে। পরিবর্তনের পরেও সেবা ব্যবহার অব্যাহত রাখলে নতুন শর্তাবলী গ্রহণযোগ্য বলে গণ্য হবে।"
         ]
       },
       {
         "id": "disputes",
         "number": 18,
-        "heading": "Applicable Law and Dispute Resolution",
+        "heading": "প্রযোজ্য আইন এবং বিরোধ নিষ্পত্তি",
         "paragraphs": [
-          "These Terms are governed by applicable national consumer and digital healthcare regulations. Disputes should first be addressed through good-faith administrative communication before pursuing formal proceedings."
+          "এই শর্তাবলী প্রযোজ্য ডিজিটাল স্বাস্থ্যসেবা আইন দ্বারা পরিচালিত হয়। যেকোনো বিরোধ প্রথমে প্রশাসনিক যোগাযোগের মাধ্যমে সমাধানের চেষ্টা করা উচিত।"
         ]
       },
       {
         "id": "administrative-contact",
         "number": 19,
-        "heading": "Administrative Contact",
+        "heading": "প্রশাসনিক যোগাযোগ",
         "paragraphs": [
-          "For questions regarding these service conditions, please contact our administrative desk:"
+          "এই সেবার শর্তাবলী সম্পর্কিত যেকোনো প্রশ্নের জন্য আমাদের প্রশাসনিক ডেস্কে যোগাযোগ করুন:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"

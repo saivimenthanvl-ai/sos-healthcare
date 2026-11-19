@@ -15,8 +15,8 @@
         "number": 1,
         "heading": "परिचय",
         "paragraphs": [
-          "SOS Healthcare provides healthcare awareness, nearby hospital discovery, emergency telephone guidance, and private appointment-planning services.",
-          "This Privacy Policy describes how personal information and healthcare preferences are collected, used, protected, and handled when you access our application. SOS Healthcare is a software assistance platform and does not directly own or operate hospital treatment centers."
+          "SOS Healthcare आरोग्य जनजागृती, जवळचे रुग्णालय शोधणे, आपत्कालीन टेलिफोन मार्गदर्शन आणि खाजगी भेटीचे नियोजन सेवा प्रदान करते.",
+          "हे गोपनीयता धोरण स्पष्ट करते की जेव्हा आपण आमच्या ॲप्लिकेशनचा वापर करता तेव्हा वैयक्तिक माहिती आणि आरोग्य प्राधान्ये कशी गोळा केली जातात, वापरली जातात, सुरक्षित ठेवली जातात आणि हाताळली जातात. SOS Healthcare हे एक सॉफ्टवेअर सहाय्य प्लॅटफॉर्म आहे आणि ते थेट रुग्णालयातील उपचार केंद्रांची मालकी किंवा संचालन करत नाही."
         ]
       },
       {
@@ -24,18 +24,18 @@
         "number": 2,
         "heading": "आम्ही गोळा करत असलेली माहिती",
         "paragraphs": [
-          "We collect only the information necessary to fulfill our digital healthcare awareness and planning services:"
+          "आम्ही आमच्या डिजिटल आरोग्य सेवा जागरूकता आणि नियोजन सेवा पूर्ण करण्यासाठी केवळ आवश्यक माहिती गोळा करतो:"
         ],
         "bullets": [
-          "Name and Contact Details: Name and email address used for account registration and authentication.",
-          "Account Information: Profile credentials, preferences, and security access logs.",
-          "Emergency Contact Details: Names, phone numbers, and relationship designations for family or trusted individuals you choose to notify during emergencies.",
-          "Location Information: Real-time browser GPS coordinates when explicitly permitted by you to calculate driving distances to nearby medical centers or transmit coordinates during an emergency beacon.",
-          "Private Appointment Requests: Selected medical specialties, preferred dates, visit reasons, and status notes saved in your personal planner.",
-          "Hospital Preferences: Bookmarked facilities and search history.",
-          "Optional Health Information: Self-reported blood group, vitals, allergies, and chronic medical history stored in your health profile.",
-          "Wearable-Device Information: Heart rate, step count, or activity telemetry accessed only when you explicitly connect Google Health.",
-          "Support Inquiries: Communications submitted through our administrator inquiry form."
+          "नाव आणि संपर्क तपशील: खाते नोंदणी आणि प्रमाणीकरणासाठी वापरलेले नाव आणि ईमेल पत्ता.",
+          "खाते माहिती: प्रोफाइल ओळखपत्रे, प्राधान्ये आणि सुरक्षितता प्रवेश नोंदी.",
+          "आपत्कालीन संपर्क तपशील: कुटुंब किंवा विश्वासू व्यक्तींची नावे, फोन नंबर आणि नातेसंबंध ज्यांना आपण आणीबाणीच्या वेळी सूचित करण्याचे निवडता.",
+          "स्थान माहिती: जवळच्या वैद्यकीय केंद्रांचे वाहन अंतर मोजण्यासाठी किंवा आपत्कालीन बीकन दरम्यान समन्वय प्रसारित करण्यासाठी आपल्या स्पष्ट परवानगीवर रिअल-टाइम ब्राउझर जीपीएस समन्वय.",
+          "खाजगी भेटीच्या विनंत्या: आपल्या वैयक्तिक नियोजकामध्ये जतन केलेली निवडक वैद्यकीय वैशिष्ट्ये, पसंतीच्या तारखा, भेटीची कारणे आणि स्थिती नोंदी.",
+          "रुग्णालय प्राधान्ये: बुकमार्क केलेल्या आरोग्य सुविधा आणि शोध इतिहास.",
+          "पर्यायी आरोग्य माहिती: आपल्या आरोग्य प्रोफाइलमध्ये जतन केलेले स्वतः नोंदवलेले रक्तगट, महत्त्वाच्या आरोग्य खुणा, ॲलर्जी आणि जुनाट आजारांचा इतिहास.",
+          "वेअरेबल उपकरण माहिती: हृदय गती, पावले मोजणे, किंवा क्रियाकलाप टेलिमेट्री जी केवळ आपण Google Health स्पष्टपणे कनेक्ट केल्यावरच मिळवली जाते.",
+          "मदत चौकशी: आमच्या प्रशासक चौकशी अर्जाद्वारे पाठवलेले संदेश."
         ]
       },
       {
@@ -43,16 +43,16 @@
         "number": 3,
         "heading": "माहिती गोळा करण्याचा उद्देश",
         "paragraphs": [
-          "We process your information for clear, patient-centered purposes:"
+          "आम्ही स्पष्ट, रुग्ण-केंद्रित उद्देशांसाठी आपली माहिती प्रक्रिया करतो:"
         ],
         "bullets": [
-          "Managing your patient account and authenticating your access securely.",
-          "Helping you identify and locate nearby accredited healthcare facilities.",
-          "Maintaining your private consultation requests and personal scheduling notes.",
-          "Supporting emergency contact notifications when an SOS beacon is activated.",
-          "Displaying authorized wearable wellness data in your patient dashboard.",
-          "Responding to platform feedback and administrative support requests.",
-          "Protecting accounts against unauthorized access and preventing platform misuse."
+          "आपले रुग्ण खाते व्यवस्थापित करणे आणि आपला प्रवेश सुरक्षितपणे प्रमाणित करणे.",
+          "जवळपासच्या मान्यताप्राप्त आरोग्य सुविधा ओळखण्यात आणि शोधण्यात आपल्याला मदत करणे.",
+          "आपल्या खाजगी सल्लामसलत विनंत्या आणि वैयक्तिक वेळापत्रक नोंदी राखणे.",
+          "SOS बीकन सक्रिय केल्यावर आपत्कालीन संपर्क सूचना पाठवण्यास मदत करणे.",
+          "आपल्या रुग्ण डॅशबोर्डमध्ये अधिकृत वेअरेबल वेलनेस डेटा प्रदर्शित करणे.",
+          "प्लॅटफॉर्म अभिप्राय आणि प्रशासकीय समर्थन विनंत्यांना प्रतिसाद देणे.",
+          "अनधिकृत प्रवेशापासून खात्यांचे रक्षण करणे आणि प्लॅटफॉर्मचा गैरवापर रोखणे."
         ]
       },
       {
@@ -60,7 +60,7 @@
         "number": 4,
         "heading": "रुग्ण गोपनीयता आणि गुप्तता",
         "paragraphs": [
-          "SOS Healthcare restricts access to personal information to legitimate, authorized purposes. Your health records and private consultation preferences are confidential. We maintain technical controls so that individual patient information is accessible only to the authenticated account holder."
+          "SOS Healthcare वैयक्तिक माहितीचा प्रवेश केवळ कायदेशीर, अधिकृत हेतूंसाठी मर्यादित ठेवते. आपल्या आरोग्याच्या नोंदी आणि खाजगी सल्लामसलत प्राधान्ये गोपनीय आहेत. आम्ही कठोर तांत्रिक नियंत्रणे राखतो जेणेकरून वैयक्तिक रुग्णाची माहिती केवळ प्रमाणित खातेधारकासाठीच उपलब्ध असेल."
         ]
       },
       {
@@ -68,8 +68,8 @@
         "number": 5,
         "heading": "रुग्णालय माहिती व निर्देशिका सेवा",
         "paragraphs": [
-          "Hospital and clinic information is compiled from public healthcare listings to help users identify medical facilities in their area.",
-          "Inclusion in our directory does not automatically establish a formal commercial relationship, affiliation, or operational partnership between SOS Healthcare and the hospital."
+          "वापरकर्त्यांना त्यांच्या परिसरातील वैद्यकीय सुविधा ओळखण्यात मदत करण्यासाठी रुग्णालय आणि दवाखान्यांची माहिती सार्वजनिक आरोग्य सूचीमधून संकलित केली जाते.",
+          "आमच्या निर्देशिकेत समावेश केल्याने SOS Healthcare आणि रुग्णालय यांच्यात आपोआप कोणताही औपचारिक व्यावसायिक संबंध, संलग्नता किंवा ऑपरेशनल भागीदारी स्थापित होत नाही."
         ]
       },
       {
@@ -78,12 +78,12 @@
         "heading": "खाजगी भेटीच्या विनंत्या",
         "notice": {
           "variant": "info",
-          "title": "Important Notice Regarding Appointment Requests",
-          "text": "\"Appointment requests saved through SOS Healthcare are maintained within the SOS Healthcare platform and are not automatically submitted to hospitals or added to hospital medical records.\""
+          "title": "भेटीच्या विनंत्यांबाबत महत्त्वाची सूचना",
+          "text": "“SOS Healthcare द्वारे जतन केलेल्या भेटीच्या विनंत्या SOS Healthcare प्लॅटफॉर्ममध्ये ठेवल्या जातात आणि रुग्णालयांना स्वयंचलितपणे सादर केल्या जात नाहीत किंवा रुग्णालयाच्या वैद्यकीय नोंदींमध्ये जोडल्या जात नाहीत.”"
         },
         "paragraphs": [
-          "Saving a request in your portal does not guarantee hospital availability or confirm an appointment slot with hospital staff. Patients may reschedule or cancel their private requests at any time.",
-          "Cancelling a private request in SOS Healthcare does not cancel an independently arranged appointment at a hospital clinic. External hospital booking requires a separately authorized, verified integration."
+          "आपल्या पोर्टलवर विनंती जतन केल्याने रुग्णालयात जागा उपलब्ध असण्याची हमी मिळत नाही किंवा रुग्णालय कर्मचाऱ्यांसह भेटीची पुष्टी होत नाही. रुग्ण त्यांच्या खाजगी विनंत्या कधीही पुन्हा नियोजित किंवा रद्द करू शकतात.",
+          "SOS Healthcare मधील खाजगी विनंती रद्द केल्याने रुग्णालयाच्या दवाखान्यात स्वतंत्रपणे निश्चित केलेली भेट रद्द होत नाही. बाह्य रुग्णालय बुकिंगसाठी स्वतंत्रपणे अधिकृत, सत्यापित एकत्रीकरणाची आवश्यकता असते."
         ]
       },
       {
@@ -91,9 +91,9 @@
         "number": 7,
         "heading": "आपत्कालीन मदत आणि स्थान माहिती",
         "paragraphs": [
-          "Location permission is requested only when necessary to calculate proximity to nearby hospitals or when initiating an emergency beacon.",
-          "When an SOS beacon is activated, your browser-reported coordinates at that moment are transmitted to your registered emergency contacts. SOS Healthcare does not track your location in the background when the app is inactive. Public emergency responders (such as 112 or 911 dispatchers) do not automatically receive web beacon data unless formal municipal dispatch connectivity is verified in your jurisdiction.",
-          "You may withdraw location permissions at any time through your device or browser settings."
+          "जवळच्या रुग्णालयांचे अंतर मोजण्यासाठी किंवा आपत्कालीन बीकन सुरू करण्यासाठी आवश्यक असेल तेव्हाच स्थान परवानगी मागितली जाते.",
+          "जेव्हा SOS बीकन सक्रिय केला जातो, तेव्हा त्या क्षणी आपल्या ब्राउझरने नोंदवलेले समन्वय आपल्या पूर्व-नियुक्त आपत्कालीन संपर्कांना पाठवले जातात.",
+          "आपण आपल्या ब्राउझर सेटिंग्जद्वारे कधीही स्थान परवानग्या मागे घेऊ शकता; मागे घेतल्याने समन्वय पाठवणे थांबेल, परंतु अंतरानुसार रुग्णालये शोधण्याची क्षमता मर्यादित होऊ शकते."
         ]
       },
       {
@@ -101,8 +101,8 @@
         "number": 8,
         "heading": "आरोग्य आणि वेअरेबल उपकरण माहिती",
         "paragraphs": [
-          "Connected wearable information (such as Google Health API integration) is retrieved only with your explicit permission. Data is queried on-demand to display wellness trends in your portal.",
-          "Connecting a wearable device does not create an automated emergency ambulance dispatch service. You may revoke access at any time via your Devices settings or your Google Account permissions, which immediately terminates data retrieval and purges cached metrics."
+          "कनेक्ट केलेली वेअरेबल माहिती (उदा. Google Health API एकत्रीकरण) केवळ आपल्या स्पष्ट संमतीने मिळवली जाते. आपल्या पोर्टलमध्ये आरोग्यविषयक कल दाखवण्यासाठी आवश्यकतेनुसार डेटा मागवला जातो.",
+          "वेअरेबल उपकरण कनेक्ट केल्याने स्वयंचलित आपत्कालीन रुग्णवाहिका पाठवण्याची सेवा तयार होत नाही. आपण आपल्या डिव्हाइस सेटिंग्ज किंवा Google खात्याच्या परवानग्यांद्वारे कधीही प्रवेश रद्द करू शकता, ज्यामुळे डेटा पुनर्प्राप्ती त्वरित संपुष्टात येते आणि कॅश केलेला डेटा नष्ट होतो."
         ]
       },
       {
@@ -110,13 +110,13 @@
         "number": 9,
         "heading": "रुग्णाची संमती आणि नियंत्रण",
         "paragraphs": [
-          "We believe patients should maintain granular control over their information. You can review and update permissions at any time:"
+          "आमचा असा विश्वास आहे की रुग्णांनी त्यांच्या माहितीवर सूक्ष्म नियंत्रण राखले पाहिजे. आपण कोणत्याही वेळी परवानग्यांचे पुनरावलोकन आणि अद्यतन करू शकता:"
         ],
         "bullets": [
-          "Modify emergency contact details and notification settings.",
-          "Toggle doctor pre-arrival sharing preferences in your Health Profile.",
-          "Disconnect wearable services with immediate token invalidation.",
-          "Request deletion of your account and personal records."
+          "आपत्कालीन संपर्क तपशील आणि सूचना सेटिंग्ज बदला.",
+          "आपल्या आरोग्य प्रोफाइलमध्ये डॉक्टर आगमनापूर्वी माहिती सामायिक करण्याचे पर्याय चालू किंवा बंद करा.",
+          "तात्काळ टोकन अवैधतेसह वेअरेबल सेवा खंडित करा.",
+          "आपले खाते आणि वैयक्तिक नोंदी हटवण्याची विनंती करा."
         ]
       },
       {
@@ -124,14 +124,14 @@
         "number": 10,
         "heading": "आरोग्य माहिती देवाणघेवाण आणि गोपनीयता",
         "paragraphs": [
-          "Personal or health information is never automatically disclosed to hospitals merely because a user browses a hospital card or saves a private appointment request.",
-          "Information may only be disclosed under the following circumstances:"
+          "वापरकर्त्याने रुग्णालयाचे कार्ड पाहिले किंवा खाजगी भेटीची विनंती जतन केली म्हणून वैयक्तिक किंवा आरोग्य माहिती रुग्णालयांना कधीही स्वयंचलितपणे उघड केली जात नाही.",
+          "माहिती केवळ खालील अत्यंत मर्यादित परिस्थितीत उघड केली जाऊ शकते:"
         ],
         "bullets": [
-          "With your explicit, verified authorization.",
-          "To designated emergency contacts when you actively trigger an emergency beacon.",
-          "To essential infrastructure service providers necessary to operate the application.",
-          "Where required by applicable law, statutory subpoena, or valid court order."
+          "आपल्या स्पष्ट आणि सत्यापित अधिकाराने.",
+          "जेव्हा आपण सक्रियपणे आपत्कालीन बीकन सुरू करता तेव्हा नियुक्त केलेल्या आपत्कालीन संपर्कांना.",
+          "ॲप्लिकेशन चालवण्यासाठी आवश्यक असलेल्या पायाभूत सुविधा क्लाउड सेवा प्रदात्यांना.",
+          "जिथे लागू कायदा, वैधानिक समन्स किंवा वैध न्यायालयाच्या आदेशानुसार आवश्यक असेल."
         ]
       },
       {
@@ -139,16 +139,16 @@
         "number": 11,
         "heading": "रुग्ण माहिती संरक्षण उपाय",
         "paragraphs": [
-          "We implement administrative and technical safeguards designed to protect personal information:"
+          "आम्ही वैयक्तिक माहितीच्या संरक्षणासाठी प्रशासकीय आणि तांत्रिक सुरक्षा उपाय लागू करतो:"
         ],
         "bullets": [
-          "Access to private accounts and appointment records is strictly restricted to authenticated users.",
-          "Health information and emergency notes are handled with high standards of confidentiality.",
-          "Database isolation rules ensure that users cannot inspect other patients' data.",
-          "Encrypted transport protocols protect information exchanged between your device and our servers."
+          "खाजगी खाती आणि भेटीच्या नोंदींचा प्रवेश केवळ प्रमाणित वापरकर्त्यांसाठीच मर्यादित आहे.",
+          "आरोग्य माहिती आणि आणीबाणीच्या नोंदी उच्च गोपनीयतेच्या मानकांसह हाताळल्या जातात.",
+          "डेटाबेस रो लेव्हल सुरक्षा (RLS) नियम हे सुनिश्चित करतात की वापरकर्ते इतर रुग्णांचा डेटा तपासू शकत नाहीत.",
+          "एनक्रिप्टेड ट्रान्सपोर्ट प्रोटोकॉल आपल्या डिव्हाइस आणि आमच्या सर्व्हर दरम्यान माहितीचे रक्षण करतात."
         ],
         "subparagraphs": [
-          "Users are encouraged to protect their account credentials and report any suspected unauthorized access to our administration desk immediately."
+          "वापरकर्त्यांना त्यांच्या खात्याची ओळखपत्रे सुरक्षित ठेवण्यास आणि कोणत्याही संशयास्पद अनधिकृत प्रवेशाची त्वरित आमच्या प्रशासन कक्षाला तक्रार करण्यास प्रोत्साहित केले जाते."
         ]
       },
       {
@@ -156,8 +156,8 @@
         "number": 12,
         "heading": "माहिती धारणा",
         "paragraphs": [
-          "Records are retained only for as long as your account remains active or as needed to deliver our healthcare planning and awareness features.",
-          "Private appointment requests, emergency logs, and support inquiries are retained within your secure portal until you remove them or submit an account closure request."
+          "नोंदी केवळ आपले खाते सक्रिय असेपर्यंत किंवा आमची आरोग्य नियोजन आणि जागरूकता वैशिष्ट्ये वितरित करण्यासाठी आवश्यक असेपर्यंतच ठेवल्या जातात.",
+          "खाजगी भेटीच्या विनंत्या, आपत्कालीन नोंदी आणि चौकशी आपल्या सुरक्षित पोर्टलमध्ये जोपर्यंत आपण त्या काढून टाकत नाही किंवा खाते बंद करण्याची विनंती सादर करत नाही तोपर्यंत ठेवल्या जातात."
         ]
       },
       {
@@ -165,14 +165,14 @@
         "number": 13,
         "heading": "रुग्णांचे अधिकार",
         "paragraphs": [
-          "Depending on your jurisdiction, you may exercise applicable rights regarding your information:"
+          "आपल्या अधिकारक्षेत्रावर आधारित, आपण आपल्या माहितीच्या संदर्भात खालील अधिकारांचा वापर करू शकता:"
         ],
         "bullets": [
-          "Request access to the personal information we maintain about you.",
-          "Request correction of inaccurate or incomplete health profile records.",
-          "Withdraw optional consent for location or health device integrations.",
-          "Request deletion of your account where permitted by applicable law.",
-          "Submit questions or privacy inquiries to our administration team."
+          "आम्ही आपल्याबद्दल ठेवलेल्या वैयक्तिक माहितीमध्ये प्रवेशाची विनंती करणे.",
+          "अचूक किंवा अपूर्ण आरोग्य प्रोफाइल नोंदी दुरुस्त करण्याची विनंती करणे.",
+          "स्थान किंवा आरोग्य उपकरण एकत्रीकरणासाठी दिलेली पर्यायी संमती मागे घेणे.",
+          "लागू कायद्यानुसार आपले खाते आणि डेटा हटवण्याची विनंती करणे.",
+          "आमच्या प्रशासन टीमकडे गोपनीयता चौकशी किंवा प्रश्न सादर करणे."
         ]
       },
       {
@@ -180,7 +180,7 @@
         "number": 14,
         "heading": "मुलांची गोपनीयता",
         "paragraphs": [
-          "SOS Healthcare is designed for use by individuals who have reached the age of majority or minors using the service under the active supervision and consent of a parent or legal guardian."
+          "SOS Healthcare हे बहुमताचे कायदेशीर वय गाठलेल्या व्यक्तींच्या वापरासाठी किंवा पालक किंवा कायदेशीर पालकांच्या सक्रिय देखरेखीखाली आणि संमतीने सेवा वापरणाऱ्या अल्पवयीनांसाठी डिझाइन केलेले आहे."
         ]
       },
       {
@@ -188,7 +188,7 @@
         "number": 15,
         "heading": "आंतरराष्ट्रीय आरोग्य जागरूकता",
         "paragraphs": [
-          "SOS Healthcare provides information across 22 languages to assist users internationally. Providing multilingual information does not imply local clinical licensing, direct hospital operational affiliation, or municipal emergency dispatch coverage in every country."
+          "SOS Healthcare आंतरराष्ट्रीय पातळीवर वापरकर्त्यांना मदत करण्यासाठी 25 भाषांमध्ये माहिती प्रदान करते. बहुभाषिक माहिती देणे म्हणजे स्थानिक वैद्यकीय परवाना, रुग्णालयाशी थेट संबंध किंवा प्रत्येक देशात नगरपालिका आपत्कालीन रुग्णवाहिका कव्हरेज असणे असा होत नाही."
         ]
       },
       {
@@ -196,7 +196,7 @@
         "number": 16,
         "heading": "धोरण अद्यतने",
         "paragraphs": [
-          "We may periodically update this policy to reflect enhancements in patient safety, new platform features, or evolving legal standards. The latest revision date is prominently displayed at the top of this document."
+          "रुग्ण सुरक्षिततेमधील सुधारणा, नवीन वैशिष्ट्ये किंवा कायदेशीर मानके प्रतिबिंबित करण्यासाठी आम्ही वेळोवेळी हे धोरण अद्यतनित करू शकतो. नवीनतम पुनरावृत्ती तारीख या दस्तऐवजाच्या शीर्षस्थानी ठळकपणे दर्शविली आहे."
         ]
       },
       {
@@ -204,7 +204,7 @@
         "number": 17,
         "heading": "प्रशासकाशी संपर्क साधा",
         "paragraphs": [
-          "For privacy inquiries, patient data requests, or directory corrections, you may contact our administration desk directly:"
+          "गोपनीयता चौकशी, रुग्ण डेटा विनंत्या किंवा रुग्णालय माहिती दुरुस्तीसाठी आपण थेट आमच्या प्रशासन कक्षाशी संपर्क साधू शकता:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"
@@ -227,7 +227,7 @@
         "number": 1,
         "heading": "अटींची स्वीकृती",
         "paragraphs": [
-          "By accessing, registering for, or using SOS Healthcare services, you acknowledge that you have read and understood these Terms of Service and agree to comply with the applicable conditions of use. If you do not agree with these terms, you should discontinue use of the services."
+          "SOS Healthcare सेवांमध्ये प्रवेश करून, नोंदणी करून किंवा वापरून आपण कबूल करता की आपण या सेवा अटी वाचल्या आणि समजून घेतल्या आहेत आणि वापराच्या लागू अटींचे पालन करण्यास सहमती दर्शविली आहे. आपण या अटींशी सहमत नसल्यास, आपण सेवांचा वापर त्वरित बंद करावा."
         ]
       },
       {
@@ -235,7 +235,7 @@
         "number": 2,
         "heading": "पात्रता आणि खाते जबाबदाऱ्या",
         "paragraphs": [
-          "Users must be of legal age of majority or use the platform under the supervision of a parent or legal guardian. You agree to provide accurate information when creating an account, safeguard your credentials, and report any unauthorized access promptly. You remain responsible for all activities originating from your account."
+          "वापरकर्ते कायदेशीर बहुमताचे असणे आवश्यक आहे किंवा पालकांच्या देखरेखीखाली प्लॅटफॉर्म वापरणे आवश्यक आहे. खाते तयार करताना अचूक माहिती देण्यास, आपल्या लॉगिन तपशिलांचे रक्षण करण्यास आणि अनधिकृत प्रवेशाची त्वरित तक्रार करण्यास आपण सहमती दर्शवता. आपल्या खात्यातून होणाऱ्या सर्व क्रियांसाठी आपण पूर्णपणे जबाबदार आहात."
         ]
       },
       {
@@ -243,8 +243,8 @@
         "number": 3,
         "heading": "SOS Healthcare सेवांचे स्वरूप",
         "paragraphs": [
-          "SOS Healthcare provides digital healthcare awareness, nearby hospital discovery, emergency telephone guidance, private appointment planning, and authorized health-device information display.",
-          "The platform is a communication and planning tool and does not provide direct medical treatment or clinical prescriptions."
+          "SOS Healthcare डिजिटल आरोग्य जागरूकता, जवळचे रुग्णालय शोधणे, आपत्कालीन टेलिफोन मार्गदर्शन, खाजगी भेटीचे नियोजन आणि अधिकृत आरोग्य उपकरण माहिती प्रदर्शन प्रदान करते.",
+          "प्लॅटफॉर्म हे संवाद आणि नियोजनाचे साधन आहे आणि ते थेट वैद्यकीय उपचार किंवा वैद्यकीय प्रिस्क्रिप्शन देत नाही."
         ]
       },
       {
@@ -252,7 +252,7 @@
         "number": 4,
         "heading": "रुग्णालय निर्देशिका माहिती",
         "paragraphs": [
-          "Hospital names, addresses, and listed departments are provided for general informational orientation. Directory details may change, and emergency triage availability should always be verified directly with the facility. Inclusion in our directory does not imply formal partnership or commercial endorsement."
+          "रुग्णालयांची नावे, पत्ते आणि विभाग सामान्य माहितीसाठी दिले आहेत. निर्देशिकेतील तपशील बदलू शकतात आणि आपत्कालीन ट्राइएजची उपलब्धता थेट रुग्णालयाशी सत्यापित केली पाहिजे. निर्देशिकेत समावेश असणे म्हणजे औपचारिक भागीदारी किंवा व्यावसायिक समर्थन नाही."
         ]
       },
       {
@@ -260,7 +260,7 @@
         "number": 5,
         "heading": "डॉक्टर माहिती",
         "paragraphs": [
-          "Information regarding medical specialists is intended to help users identify independent healthcare providers. Listed doctors are not partners of the platform, and listing does not imply an exclusive endorsement or automated intake agreement without verified authorization."
+          "वैद्यकीय तज्ञांविषयी माहिती वापरकर्त्यांना स्वतंत्र आरोग्य सेवा प्रदाते शोधण्यात मदत करण्यासाठी आहे. सूचीबद्ध डॉक्टर प्लॅटफॉर्मचे भागीदार नाहीत आणि सूचीचा अर्थ विशेष समर्थन किंवा थेट भेटीचा करार नाही."
         ]
       },
       {
@@ -268,7 +268,7 @@
         "number": 6,
         "heading": "खाजगी भेटीच्या विनंत्या",
         "paragraphs": [
-          "The platform allows patients to store personal appointment preferences and consultation requests. These requests do not create hospital-confirmed reservations. Hospital schedules and front-desk booking procedures may differ, and users are responsible for confirming actual visits directly with the hospital."
+          "प्लॅटफॉर्म रुग्णांना वैयक्तिक भेटीची प्राधान्ये आणि सल्लामसलत विनंत्या जतन करण्याची परवानगी देतो. या विनंत्या रुग्णालयाने पुष्टी केलेले आरक्षण तयार करत नाहीत. रुग्णालयांच्या कार्यपद्धती वेगळ्या असू शकतात आणि प्रत्यक्ष भेटीची पुष्टी करण्याची जबाबदारी वापरकर्त्यांची आहे."
         ]
       },
       {
@@ -276,7 +276,7 @@
         "number": 7,
         "heading": "रद्द करणे आणि पुनर्नियोजन",
         "paragraphs": [
-          "Patients may cancel or reschedule eligible private requests within their portal. Modifying a request affects only the record stored in SOS Healthcare; it does not automatically cancel an independently arranged hospital appointment. Cancellation records are retained in accordance with the Privacy Policy."
+          "रुग्ण त्यांच्या पोर्टलमध्ये पात्र खाजगी विनंत्या रद्द किंवा पुनर्नियोजित करू शकतात. विनंतीमध्ये बदल केल्यास केवळ SOS Healthcare मध्ये जतन केलेली नोंद बदलते; रुग्णालयात स्वतंत्रपणे घेतलेली भेट आपोआप रद्द होत नाही. रद्दीकरण नोंदी गोपनीयता धोरणानुसार ठेवल्या जातात."
         ]
       },
       {
@@ -284,8 +284,8 @@
         "number": 8,
         "heading": "आपत्कालीन सहाय्य",
         "paragraphs": [
-          "SOS Healthcare is not a substitute for official public emergency services. Users must contact their local emergency number (e.g. 112, 911, or local emergency line) for life-threatening emergencies.",
-          "Transmitting an SOS beacon notifies designated emergency contacts via the app; emergency contacts are not equivalent to municipal ambulance dispatch providers."
+          "SOS Healthcare ही अधिकृत सार्वजनिक आपत्कालीन सेवांची जागा घेत नाही. जीवघेण्या आणीबाणीसाठी वापरकर्त्यांनी त्यांच्या स्थानिक आपत्कालीन क्रमांकावर (उदा. 112 किंवा स्थानिक आपत्कालीन फोन) संपर्क साधला पाहिजे.",
+          "SOS बीकन पाठवल्याने ॲपद्वारे नियुक्त केलेल्या आपत्कालीन संपर्कांना सूचित केले जाते; आपत्कालीन संपर्क म्हणजे पालिकेचे रुग्णवाहिका केंद्र नाही."
         ]
       },
       {
@@ -293,7 +293,7 @@
         "number": 9,
         "heading": "वैद्यकीय माहिती अस्वीकरण",
         "paragraphs": [
-          "Information provided on the platform is educational and informational. It is not medical advice, diagnosis, or treatment. Users should consult licensed healthcare professionals regarding any health condition. Emergency symptoms require urgent attention from licensed emergency providers."
+          "प्लॅटफॉर्मवर दिलेली सर्व माहिती केवळ शैक्षणिक आणि सामान्य माहितीसाठी आहे. हा वैद्यकीय सल्ला, निदान किंवा उपचार नाही. कोणत्याही आरोग्य स्थितीबद्दल वापरकर्त्यांनी परवानाधारक आरोग्य व्यावसायिकांचा सल्ला घ्यावा. आपत्कालीन लक्षणांसाठी तातडीने आपत्कालीन वैद्यकीय मदत घेणे आवश्यक आहे."
         ]
       },
       {
@@ -301,7 +301,7 @@
         "number": 10,
         "heading": "वेअरेबल उपकरणे",
         "paragraphs": [
-          "Wearable data displayed through integrations (such as Google Health) depends on third-party sensor accuracy. Measurements may be delayed or unavailable. Wearable data is not diagnostic clinical information, and no automatic emergency response is promised based on wearable metrics."
+          "एकत्रीकरणाद्वारे (उदा. Google Health) दाखवलेला वेअरेबल डेटा तृतीय-पक्ष सेन्सरच्या अचूकतेवर अवलंबून असतो. मोजमाप मिळण्यात विलंब होऊ शकतो. वेअरेबल डेटा हा वैद्यकीय निदानाचा डेटा नाही आणि त्यावर आधारित कोणतीही स्वयंचलित रुग्णवाहिका पाठवण्याची खात्री दिली जात नाही."
         ]
       },
       {
@@ -309,7 +309,7 @@
         "number": 11,
         "heading": "रुग्णाच्या जबाबदाऱ्या",
         "paragraphs": [
-          "Patients are responsible for maintaining accurate contact details, using emergency features conscientiously, and respecting the confidentiality of personal medical information stored in their accounts."
+          "रुग्ण अचूक संपर्क तपशील राखण्यासाठी, आणीबाणीच्या वैशिष्ट्यांचा जबाबदारीने वापर करण्यासाठी आणि खात्यात साठवलेल्या वैयक्तिक वैद्यकीय माहितीची गोपनीयता जपण्यासाठी जबाबदार आहेत."
         ]
       },
       {
@@ -317,14 +317,14 @@
         "number": 12,
         "heading": "प्रतिबंधित वर्तणूक",
         "paragraphs": [
-          "Users may not:"
+          "वापरकर्त्यांना खालील गोष्टी करण्यास सक्त मनाई आहे:"
         ],
         "bullets": [
-          "Attempt unauthorized access to other accounts or administrative systems.",
-          "Trigger fraudulent or abusive emergency beacons that waste responder resources.",
-          "Harass healthcare providers, administrators, or other patients.",
-          "Misrepresent professional medical credentials or patient identity.",
-          "Interfere with the security or operational integrity of the service."
+          "इतर खात्यांमध्ये किंवा प्रशासकीय प्रणालींमध्ये अनधिकृत प्रवेश करण्याचा प्रयत्न करणे.",
+          "खोटे किंवा फसवे SOS बीकन पाठवणे ज्यामुळे आपत्कालीन यंत्रणेचा वेळ वाया जातो.",
+          "आरोग्य सेवा प्रदाते, प्रशासक किंवा इतर रुग्णांना त्रास देणे.",
+          "वैद्यकीय पदवी किंवा रुग्णाच्या ओळखीबद्दल खोटी माहिती देणे.",
+          "सेवेची सुरक्षितता किंवा सामान्य कामकाजात अडथळा आणणे."
         ]
       },
       {
@@ -332,7 +332,7 @@
         "number": 13,
         "heading": "गोपनीयता आणि रुग्ण गुप्तता",
         "paragraphs": [
-          "Handling of personal information and healthcare preferences is governed by our Privacy Policy. Please review the Privacy Policy for details regarding our confidentiality safeguards and patient rights."
+          "वैयक्तिक माहिती आणि आरोग्य प्राधान्यांची हाताळणी आमच्या गोपनीयता धोरणाद्वारे नियंत्रित केली जाते. आमच्या सुरक्षा उपायांच्या आणि रुग्ण अधिकारांच्या तपशीलांसाठी कृपया गोपनीयता धोरण वाचा."
         ]
       },
       {
@@ -340,7 +340,7 @@
         "number": 14,
         "heading": "सेवा उपलब्धता",
         "paragraphs": [
-          "Platform availability depends on cellular connectivity, internet routing, and scheduled maintenance. While we aim for reliable service, uninterrupted healthcare software availability cannot be guaranteed."
+          "प्लॅटफॉर्मची उपलब्धता मोबाईल नेटवर्क, इंटरनेट कनेक्टिव्हिटी आणि नियोजित देखभालीवर अवलंबून असते. आम्ही विश्वासार्ह सेवेसाठी प्रयत्न करत असलो तरी आरोग्य सॉफ्टवेअर अखंड सुरू राहण्याची पूर्ण हमी देता येत नाही."
         ]
       },
       {
@@ -348,7 +348,7 @@
         "number": 15,
         "heading": "सेवा शुल्क",
         "paragraphs": [
-          "Access to the SOS Healthcare digital platform is free for users. External hospital, consultation, transportation, or medical treatment fees charged by independent healthcare providers remain the responsibility of the patient."
+          "वापरकर्त्यांसाठी SOS Healthcare डिजिटल प्लॅटफॉर्म वापरणे पूर्णपणे विनामूल्य आहे. स्वतंत्र रुग्णालये, डॉक्टर, रुग्णवाहिका किंवा औषधोपचार यांचे बाह्य शुल्क रुग्णाने स्वतः भरणे आवश्यक आहे."
         ]
       },
       {
@@ -356,7 +356,7 @@
         "number": 16,
         "heading": "खाते निलंबन आणि बंद करणे",
         "paragraphs": [
-          "We reserve the right to suspend or close accounts that engage in fraudulent emergency alerts, violate acceptable use rules, or compromise platform security, subject to applicable notice and review procedures."
+          "खोटे आपत्कालीन इशारे देणाऱ्या, वापराच्या नियमांचे उल्लंघन करणाऱ्या किंवा प्लॅटफॉर्मच्या सुरक्षिततेला धोका निर्माण करणाऱ्यांची खाती निलंबित करण्याचा किंवा बंद करण्याचा अधिकार आम्ही राखून ठेवतो."
         ]
       },
       {
@@ -364,7 +364,7 @@
         "number": 17,
         "heading": "अटींमध्ये बदल",
         "paragraphs": [
-          "Material changes to these Terms will be communicated through the platform with an updated version date. Continued use following updates constitutes agreement to the revised conditions."
+          "या अटींमधील महत्त्वाचे बदल अद्ययावत तारखेसह प्लॅटफॉर्मद्वारे कळवले जातील. अद्यतनांनंतर सेवा वापरणे चालू ठेवल्यास आपण सुधारित अटींशी सहमत आहात असे मानले जाईल."
         ]
       },
       {
@@ -372,7 +372,7 @@
         "number": 18,
         "heading": "लागू कायदा आणि विवाद निराकरण",
         "paragraphs": [
-          "These Terms are governed by applicable national consumer and digital healthcare regulations. Disputes should first be addressed through good-faith administrative communication before pursuing formal proceedings."
+          "या अटी लागू राष्ट्रीय ग्राहक आणि डिजिटल आरोग्य नियमांद्वारे नियंत्रित केल्या जातात. औपचारिक कायदेशीर कारवाई करण्यापूर्वी विवादांचे निराकरण प्रथम प्रशासकीय संवादाद्वारे केले जावे."
         ]
       },
       {
@@ -380,7 +380,7 @@
         "number": 19,
         "heading": "प्रशासकीय संपर्क",
         "paragraphs": [
-          "For questions regarding these service conditions, please contact our administrative desk:"
+          "या सेवा अटींबद्दल काही प्रश्न असल्यास, कृपया आमच्या प्रशासकीय कक्षाशी संपर्क साधा:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"

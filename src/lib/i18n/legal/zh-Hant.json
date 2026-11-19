@@ -15,8 +15,8 @@
         "number": 1,
         "heading": "前言與簡介",
         "paragraphs": [
-          "SOS Healthcare provides healthcare awareness, nearby hospital discovery, emergency telephone guidance, and private appointment-planning services.",
-          "This Privacy Policy describes how personal information and healthcare preferences are collected, used, protected, and handled when you access our application. SOS Healthcare is a software assistance platform and does not directly own or operate hospital treatment centers."
+          "SOS Healthcare 提供醫療健康資訊、附近醫院查詢、緊急救援電話指引，以及私人預約規劃服務。",
+          "本隱私權政策說明當您使用我們的應用程式時，個人資料與就醫偏好如何被收集、使用、保護與管理。SOS Healthcare 屬於軟體輔助平台，本身並不直接擁有或經營任何實體醫療院所。"
         ]
       },
       {
@@ -24,18 +24,18 @@
         "number": 2,
         "heading": "我們所收集的資料",
         "paragraphs": [
-          "We collect only the information necessary to fulfill our digital healthcare awareness and planning services:"
+          "我們僅收集提供數位醫療資訊與規劃服務所必需的資料："
         ],
         "bullets": [
-          "Name and Contact Details: Name and email address used for account registration and authentication.",
-          "Account Information: Profile credentials, preferences, and security access logs.",
-          "Emergency Contact Details: Names, phone numbers, and relationship designations for family or trusted individuals you choose to notify during emergencies.",
-          "Location Information: Real-time browser GPS coordinates when explicitly permitted by you to calculate driving distances to nearby medical centers or transmit coordinates during an emergency beacon.",
-          "Private Appointment Requests: Selected medical specialties, preferred dates, visit reasons, and status notes saved in your personal planner.",
-          "Hospital Preferences: Bookmarked facilities and search history.",
-          "Optional Health Information: Self-reported blood group, vitals, allergies, and chronic medical history stored in your health profile.",
-          "Wearable-Device Information: Heart rate, step count, or activity telemetry accessed only when you explicitly connect Google Health.",
-          "Support Inquiries: Communications submitted through our administrator inquiry form."
+          "姓名與聯絡方式：用於帳戶註冊與身分驗證的姓名與電子郵件地址。",
+          "帳戶資訊：個人檔案憑證、個人偏好設定以及安全存取紀錄。",
+          "緊急聯絡人資訊：您選擇在遭遇緊急狀況時通知的親友或受託人士之姓名、電話號碼與關係。",
+          "位置資訊：經您明確授權許可時，瀏覽器回報之即時 GPS 座標，用於計算至鄰近醫療院所之路程距離，或於觸發緊急求救信標時發送座標。",
+          "私人門診預約申請：儲存於您個人規劃行程中的指定醫療專科、偏好就診日期、就診原因與狀態備忘。",
+          "醫院偏好：已加入收藏的醫療機構與查詢歷程紀錄。",
+          "選填健康資訊：儲存於健康檔案中由患者自行填寫之血型、生命徵象、過敏史與慢性病史。",
+          "穿戴式裝置資訊：僅在您明確連結 Google Health 等服務時存取的心率、步數或活動遙測數據。",
+          "支援諮詢紀錄：透過系統管理員諮詢表單所送出之溝通訊息。"
         ]
       },
       {
@@ -43,16 +43,16 @@
         "number": 3,
         "heading": "收集資料之目的",
         "paragraphs": [
-          "We process your information for clear, patient-centered purposes:"
+          "我們基於明確、以患者為中心的目的處理您的資訊："
         ],
         "bullets": [
-          "Managing your patient account and authenticating your access securely.",
-          "Helping you identify and locate nearby accredited healthcare facilities.",
-          "Maintaining your private consultation requests and personal scheduling notes.",
-          "Supporting emergency contact notifications when an SOS beacon is activated.",
-          "Displaying authorized wearable wellness data in your patient dashboard.",
-          "Responding to platform feedback and administrative support requests.",
-          "Protecting accounts against unauthorized access and preventing platform misuse."
+          "管理您的患者帳戶並安全驗證您的登入權限。",
+          "協助您尋找並定位鄰近已認證的醫療機構。",
+          "維護您的私人門診預約申請與個人就診排程備忘。",
+          "在觸發 SOS 信標時支援向指定緊急聯絡人發送通知。",
+          "於患者儀表板中顯示經授權的智慧穿戴裝置健康數據。",
+          "回覆平台意見反饋與行政支援諮詢申請。",
+          "保護帳戶免於未經授權之存取，並防止平台遭不當濫用。"
         ]
       },
       {
@@ -60,7 +60,7 @@
         "number": 4,
         "heading": "患者隱私與保密義務",
         "paragraphs": [
-          "SOS Healthcare restricts access to personal information to legitimate, authorized purposes. Your health records and private consultation preferences are confidential. We maintain technical controls so that individual patient information is accessible only to the authenticated account holder."
+          "SOS Healthcare 嚴格將個人資料的存取權限限制於正當且經授權之目的。您的健康紀錄與私人諮詢偏好均屬機密。我們維持技術控管措施，確保個別患者的資料僅限已通過身分驗證的帳戶持有人存取。"
         ]
       },
       {
@@ -68,8 +68,8 @@
         "number": 5,
         "heading": "醫院資訊與名錄導引服務",
         "paragraphs": [
-          "Hospital and clinic information is compiled from public healthcare listings to help users identify medical facilities in their area.",
-          "Inclusion in our directory does not automatically establish a formal commercial relationship, affiliation, or operational partnership between SOS Healthcare and the hospital."
+          "醫院與診所資訊彙整自公開醫療名冊，旨在協助使用者識別其所在地區的醫療機構設施。",
+          "收錄於我們的名錄中並不代表 SOS Healthcare 與該醫院之間自動建立正式商業夥伴關係、附屬關係或營運合作。"
         ]
       },
       {
@@ -78,12 +78,12 @@
         "heading": "私人門診預約申請",
         "notice": {
           "variant": "info",
-          "title": "Important Notice Regarding Appointment Requests",
-          "text": "\"Appointment requests saved through SOS Healthcare are maintained within the SOS Healthcare platform and are not automatically submitted to hospitals or added to hospital medical records.\""
+          "title": "關於預約申請的重要注意事項",
+          "text": "「透過 SOS Healthcare 儲存的預約申請僅保留在 SOS Healthcare 平台內，不會自動提交至醫院，亦不會記入醫院的正式病歷系統中。」"
         },
         "paragraphs": [
-          "Saving a request in your portal does not guarantee hospital availability or confirm an appointment slot with hospital staff. Patients may reschedule or cancel their private requests at any time.",
-          "Cancelling a private request in SOS Healthcare does not cancel an independently arranged appointment at a hospital clinic. External hospital booking requires a separately authorized, verified integration."
+          "在個人入口網站中儲存預約申請並不保證醫院尚有名額，亦不代表已向醫護人員確認掛號預約。患者可隨時更改時間或取消私人申請。",
+          "在 SOS Healthcare 中取消私人申請，並不會取消您向實體醫院診所個別安排的掛號。外部醫院掛號必須透過獨立授權並經驗證的串接管道完成。"
         ]
       },
       {
@@ -91,9 +91,9 @@
         "number": 7,
         "heading": "緊急救援與位置資訊",
         "paragraphs": [
-          "Location permission is requested only when necessary to calculate proximity to nearby hospitals or when initiating an emergency beacon.",
-          "When an SOS beacon is activated, your browser-reported coordinates at that moment are transmitted to your registered emergency contacts. SOS Healthcare does not track your location in the background when the app is inactive. Public emergency responders (such as 112 or 911 dispatchers) do not automatically receive web beacon data unless formal municipal dispatch connectivity is verified in your jurisdiction.",
-          "You may withdraw location permissions at any time through your device or browser settings."
+          "位置權限僅在計算鄰近醫院距離或觸發緊急信標所必要時才會徵詢您的授權。",
+          "當啟動 SOS 求救信標時，瀏覽器當下回報的座標將傳輸至您事先指定的緊急聯絡人。",
+          "您可隨時透過瀏覽器設定撤回位置存取權限；撤回後將停止座標發送，但可能會限制依距離遠近排序醫院名單的功能。"
         ]
       },
       {
@@ -101,8 +101,8 @@
         "number": 8,
         "heading": "健康數據與穿戴式裝置",
         "paragraphs": [
-          "Connected wearable information (such as Google Health API integration) is retrieved only with your explicit permission. Data is queried on-demand to display wellness trends in your portal.",
-          "Connecting a wearable device does not create an automated emergency ambulance dispatch service. You may revoke access at any time via your Devices settings or your Google Account permissions, which immediately terminates data retrieval and purges cached metrics."
+          "連結的智慧穿戴式裝置數據（例如 Google Health API 整合）僅在取得您的明確授權時才會讀取。資料乃依需要即時查詢，以在您的入口網站中呈現健康趨勢。",
+          "連結穿戴式裝置並不會建立自動化的緊急救護車派遣服務。您可隨時在「裝置設定」或 Google 帳戶授權管理中撤銷存取權限，系統將立即終止數據讀取並清除快取的量測指標。"
         ]
       },
       {
@@ -110,13 +110,13 @@
         "number": 9,
         "heading": "患者知情同意與自主掌控",
         "paragraphs": [
-          "We believe patients should maintain granular control over their information. You can review and update permissions at any time:"
+          "我們堅信患者應對其個人資訊保有細緻的自主掌控權。您可隨時檢視並更新各項授權設定："
         ],
         "bullets": [
-          "Modify emergency contact details and notification settings.",
-          "Toggle doctor pre-arrival sharing preferences in your Health Profile.",
-          "Disconnect wearable services with immediate token invalidation.",
-          "Request deletion of your account and personal records."
+          "修改緊急聯絡人資料與通報警示偏好。",
+          "在個人健康檔案中開啟或關閉「到院前醫師共享偏好」。",
+          "隨時中斷穿戴裝置連結，存取權限權杖將即刻失效。",
+          "依法請求刪除您的使用者帳戶與個人紀錄。"
         ]
       },
       {
@@ -124,14 +124,14 @@
         "number": 10,
         "heading": "醫療資訊共享與保密規範",
         "paragraphs": [
-          "Personal or health information is never automatically disclosed to hospitals merely because a user browses a hospital card or saves a private appointment request.",
-          "Information may only be disclosed under the following circumstances:"
+          "僅因為使用者瀏覽某家醫院卡片或儲存私人門診申請，系統絕不會自動向醫院揭露任何個人或健康資訊。",
+          "僅在下列嚴格限制之情形下，資訊方可能予以揭露："
         ],
         "bullets": [
-          "With your explicit, verified authorization.",
-          "To designated emergency contacts when you actively trigger an emergency beacon.",
-          "To essential infrastructure service providers necessary to operate the application.",
-          "Where required by applicable law, statutory subpoena, or valid court order."
+          "取得您明確且經驗證之事前授權時。",
+          "在您主動啟動緊急求救信標時向指定的緊急聯絡人發送。",
+          "提供給運作本應用程式所必需的基礎雲端設施供應商。",
+          "依適用法律規定、法定傳票或有效法院裁判命令所要求時。"
         ]
       },
       {
@@ -139,16 +139,16 @@
         "number": 11,
         "heading": "患者資料安全防護機制",
         "paragraphs": [
-          "We implement administrative and technical safeguards designed to protect personal information:"
+          "我們嚴格實施行政與技術防護措施以保護個人資訊："
         ],
         "bullets": [
-          "Access to private accounts and appointment records is strictly restricted to authenticated users.",
-          "Health information and emergency notes are handled with high standards of confidentiality.",
-          "Database isolation rules ensure that users cannot inspect other patients' data.",
-          "Encrypted transport protocols protect information exchanged between your device and our servers."
+          "私人帳戶與門診預約紀錄之存取權限嚴格限制於已登入身分驗證之使用者。",
+          "健康資料與緊急備忘錄皆以高度嚴密之保密標準處理。",
+          "資料庫資料列級隔離規則（RLS）確保使用者絕無法查閱其他患者之資料。",
+          "採用高規格傳輸加密通訊協定，保障您的裝置與伺服器間之通訊安全。"
         ],
         "subparagraphs": [
-          "Users are encouraged to protect their account credentials and report any suspected unauthorized access to our administration desk immediately."
+          "我們強烈建議使用者妥善保管其帳戶登入憑證，若發現任何疑似未經授權之存取，請立即向我們的管理服務台通報。"
         ]
       },
       {
@@ -156,8 +156,8 @@
         "number": 12,
         "heading": "資料保存期限",
         "paragraphs": [
-          "Records are retained only for as long as your account remains active or as needed to deliver our healthcare planning and awareness features.",
-          "Private appointment requests, emergency logs, and support inquiries are retained within your secure portal until you remove them or submit an account closure request."
+          "資料僅在您的帳戶保持有效啟用狀態期間，或為提供我們的醫療健康規劃與指引功能所必需之期間內予以留存。",
+          "私人門診申請、緊急事件日誌與客服諮詢紀錄將保留於您的安全入口網站中，直至您主動移除或提出帳戶關閉申請為止。"
         ]
       },
       {
@@ -165,14 +165,14 @@
         "number": 13,
         "heading": "患者法定權利",
         "paragraphs": [
-          "Depending on your jurisdiction, you may exercise applicable rights regarding your information:"
+          "依據您所在司法管轄區之法規，您得行使下列適用之個人資訊相關權利："
         ],
         "bullets": [
-          "Request access to the personal information we maintain about you.",
-          "Request correction of inaccurate or incomplete health profile records.",
-          "Withdraw optional consent for location or health device integrations.",
-          "Request deletion of your account where permitted by applicable law.",
-          "Submit questions or privacy inquiries to our administration team."
+          "請求查閱我們所持有關於您的個人資訊。",
+          "請求更正不準確或不完整之健康檔案紀錄。",
+          "撤回對地理位置或健康裝置整合之選擇性同意授權。",
+          "在適用法律允許之範圍內，請求刪除您的帳戶及相關資料。",
+          "向我們的系統管理團隊提出個人隱私權相關問題或諮詢。"
         ]
       },
       {
@@ -180,7 +180,7 @@
         "number": 14,
         "heading": "未成年人隱私權保護",
         "paragraphs": [
-          "SOS Healthcare is designed for use by individuals who have reached the age of majority or minors using the service under the active supervision and consent of a parent or legal guardian."
+          "SOS Healthcare 係設計供已達法定成年年齡之人士使用，或在父母或法定監護人之積極監督與明確同意下供未成年人使用。"
         ]
       },
       {
@@ -188,7 +188,7 @@
         "number": 15,
         "heading": "國際醫療認知與免責聲明",
         "paragraphs": [
-          "SOS Healthcare provides information across 22 languages to assist users internationally. Providing multilingual information does not imply local clinical licensing, direct hospital operational affiliation, or municipal emergency dispatch coverage in every country."
+          "SOS Healthcare 以多達 25 種語言提供資訊以協助跨國全球使用者。提供多國語言資訊並不代表我們在所有國家皆取得當地臨床執業執照、與當地醫院具直接營運隸屬關係，或具備該市區之緊急救護派遣涵蓋能力。"
         ]
       },
       {
@@ -196,7 +196,7 @@
         "number": 16,
         "heading": "隱私權政策修訂與更新",
         "paragraphs": [
-          "We may periodically update this policy to reflect enhancements in patient safety, new platform features, or evolving legal standards. The latest revision date is prominently displayed at the top of this document."
+          "我們可能定期修訂本政策，以反映患者安全機制的精進、全新平台功能之推出或法規標準之最新演進。最新修訂日期將明確標示於本文件首部。"
         ]
       },
       {
@@ -204,7 +204,7 @@
         "number": 17,
         "heading": "聯絡系統管理員",
         "paragraphs": [
-          "For privacy inquiries, patient data requests, or directory corrections, you may contact our administration desk directly:"
+          "如對隱私權政策有任何疑問、欲申請查閱個人資料或勘誤醫院資訊，可直接聯繫我們的管理服務台："
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"
@@ -227,7 +227,7 @@
         "number": 1,
         "heading": "服務條款之接受與同意",
         "paragraphs": [
-          "By accessing, registering for, or using SOS Healthcare services, you acknowledge that you have read and understood these Terms of Service and agree to comply with the applicable conditions of use. If you do not agree with these terms, you should discontinue use of the services."
+          "當您存取、註冊或使用 SOS Healthcare 各項服務時，即代表您確認已詳細閱讀並瞭解本服務條款，且同意遵守各項適用之使用規範。若您不同意本條款，應立即停止使用各項服務。"
         ]
       },
       {
@@ -235,7 +235,7 @@
         "number": 2,
         "heading": "使用者資格與帳戶責任",
         "paragraphs": [
-          "Users must be of legal age of majority or use the platform under the supervision of a parent or legal guardian. You agree to provide accurate information when creating an account, safeguard your credentials, and report any unauthorized access promptly. You remain responsible for all activities originating from your account."
+          "使用者須達到法定成年年齡，或在父母或法定監護人之監督指導下使用本平台。您同意在建立帳戶時提供正確無誤之資料、妥善保管帳號憑證，並於發現未經授權存取時立即回報。對於源自您帳戶之所有操作行為，您須自行承擔完全責任。"
         ]
       },
       {
@@ -243,8 +243,8 @@
         "number": 3,
         "heading": "SOS Healthcare 服務性質說明",
         "paragraphs": [
-          "SOS Healthcare provides digital healthcare awareness, nearby hospital discovery, emergency telephone guidance, private appointment planning, and authorized health-device information display.",
-          "The platform is a communication and planning tool and does not provide direct medical treatment or clinical prescriptions."
+          "SOS Healthcare 提供數位醫療資訊指引、鄰近醫院搜尋定位、緊急電話撥打指引、私人門診排程規劃，以及經授權之健康裝置資訊呈現服務。",
+          "本平台屬於通訊協調與行程規劃工具，並不提供任何直接醫療治療或開立臨床處方籤。"
         ]
       },
       {
@@ -252,7 +252,7 @@
         "number": 4,
         "heading": "醫院名錄與醫療機構資訊",
         "paragraphs": [
-          "Hospital names, addresses, and listed departments are provided for general informational orientation. Directory details may change, and emergency triage availability should always be verified directly with the facility. Inclusion in our directory does not imply formal partnership or commercial endorsement."
+          "醫院名稱、地址與刊登科別僅供一般資訊參考導引。醫療院所之詳細資訊隨時可能變更，急診檢傷分類與收治能量務必向該機構直接查證確認。收錄於名錄中絕不代表雙方存有正式合夥關係或商業代言背書。"
         ]
       },
       {
@@ -260,7 +260,7 @@
         "number": 5,
         "heading": "專科醫師資訊說明",
         "paragraphs": [
-          "Information regarding medical specialists is intended to help users identify independent healthcare providers. Listed doctors are not partners of the platform, and listing does not imply an exclusive endorsement or automated intake agreement without verified authorization."
+          "刊載之專科醫師資訊旨在協助使用者認識獨立執業之醫事人員。所列醫師並非本平台之合夥人，刊登資訊亦不代表排他性推薦保證，未經驗證授權前亦不包含自動掛號接診約定。"
         ]
       },
       {
@@ -268,7 +268,7 @@
         "number": 6,
         "heading": "私人門診預約申請規範",
         "paragraphs": [
-          "The platform allows patients to store personal appointment preferences and consultation requests. These requests do not create hospital-confirmed reservations. Hospital schedules and front-desk booking procedures may differ, and users are responsible for confirming actual visits directly with the hospital."
+          "本平台允許患者記錄個人就診偏好與諮詢需求。此類申請並不會產生經醫院正式確認之掛號預約。各醫院排班與現場櫃台報到流程各有規範，使用者須親自直接與醫院確認正式就診細節。"
         ]
       },
       {
@@ -276,7 +276,7 @@
         "number": 7,
         "heading": "預約改期與取消規則",
         "paragraphs": [
-          "Patients may cancel or reschedule eligible private requests within their portal. Modifying a request affects only the record stored in SOS Healthcare; it does not automatically cancel an independently arranged hospital appointment. Cancellation records are retained in accordance with the Privacy Policy."
+          "患者得於個人入口網站中取消或變更符合資格之私人申請。修改或取消申請僅會影響儲存於 SOS Healthcare 平台內之紀錄；並不會自動取消您向實體醫院自行安排之掛號。各項取消紀錄均依據隱私權政策妥善保存。"
         ]
       },
       {
@@ -284,8 +284,8 @@
         "number": 8,
         "heading": "緊急求助輔助功能",
         "paragraphs": [
-          "SOS Healthcare is not a substitute for official public emergency services. Users must contact their local emergency number (e.g. 112, 911, or local emergency line) for life-threatening emergencies.",
-          "Transmitting an SOS beacon notifies designated emergency contacts via the app; emergency contacts are not equivalent to municipal ambulance dispatch providers."
+          "SOS Healthcare 絕非官方公共緊急救護服務之替代品。當面臨危及生命之重大緊急情況時，使用者必須直接撥打當地緊急報案電話（如 119、112 或當地急救號碼）。",
+          "發送 SOS 信標僅會透過應用程式向您指定的緊急聯絡人發送通報；指定緊急聯絡人絕不等於市政救護車調度派遣單位。"
         ]
       },
       {
@@ -293,7 +293,7 @@
         "number": 9,
         "heading": "醫療免責聲明",
         "paragraphs": [
-          "Information provided on the platform is educational and informational. It is not medical advice, diagnosis, or treatment. Users should consult licensed healthcare professionals regarding any health condition. Emergency symptoms require urgent attention from licensed emergency providers."
+          "本平台上所提供之所有資訊僅供衛教與通識參考，絕不構成專業醫療建議、臨床診斷或治療處方。使用者遇有任何健康疑慮，應主動諮詢合格執業醫師。如出現急重症徵兆，必須立即向合格急診醫護人員求助。"
         ]
       },
       {
@@ -301,7 +301,7 @@
         "number": 10,
         "heading": "智慧穿戴式裝置數據",
         "paragraphs": [
-          "Wearable data displayed through integrations (such as Google Health) depends on third-party sensor accuracy. Measurements may be delayed or unavailable. Wearable data is not diagnostic clinical information, and no automatic emergency response is promised based on wearable metrics."
+          "透過外部整合（如 Google Health）所呈現之穿戴裝置量測數據，取決於第三方感測器硬體之精確度。數值回報可能出現延遲或短暫中斷。穿戴裝置數據絕非臨床診斷資訊，平台亦不承諾根據穿戴數值提供自動緊急應變反應。"
         ]
       },
       {
@@ -309,7 +309,7 @@
         "number": 11,
         "heading": "就診患者責任與義務",
         "paragraphs": [
-          "Patients are responsible for maintaining accurate contact details, using emergency features conscientiously, and respecting the confidentiality of personal medical information stored in their accounts."
+          "患者有義務維持通訊資料之正確性、審慎合理使用緊急求救功能，並尊重妥善維護其帳戶內所儲存之個人就醫健康機密資訊。"
         ]
       },
       {
@@ -317,14 +317,14 @@
         "number": 12,
         "heading": "禁止之違規行為",
         "paragraphs": [
-          "Users may not:"
+          "使用者嚴格禁止從事下列行為："
         ],
         "bullets": [
-          "Attempt unauthorized access to other accounts or administrative systems.",
-          "Trigger fraudulent or abusive emergency beacons that waste responder resources.",
-          "Harass healthcare providers, administrators, or other patients.",
-          "Misrepresent professional medical credentials or patient identity.",
-          "Interfere with the security or operational integrity of the service."
+          "企圖以未經授權之方式存取其他使用者帳戶或後台管理系統。",
+          "蓄意發送虛假或濫用性緊急信標，浪費緊急救護與系統資源。",
+          "騷擾醫療專業人員、系統管理員或其他患者使用者。",
+          "虛偽冒用專業醫事人員資格或冒用他人患者身分。",
+          "蓄意破壞或干擾本服務之安全性、正常運作或系統完整性。"
         ]
       },
       {
@@ -332,7 +332,7 @@
         "number": 13,
         "heading": "隱私權維護與患者機密保護",
         "paragraphs": [
-          "Handling of personal information and healthcare preferences is governed by our Privacy Policy. Please review the Privacy Policy for details regarding our confidentiality safeguards and patient rights."
+          "個人資料與醫療偏好之處理作業全面受本平台《隱私權政策》之約束。請參閱《隱私權政策》以深入了解我們的機密防護措施與患者各項權利。"
         ]
       },
       {
@@ -340,7 +340,7 @@
         "number": 14,
         "heading": "服務可用性與中斷免責",
         "paragraphs": [
-          "Platform availability depends on cellular connectivity, internet routing, and scheduled maintenance. While we aim for reliable service, uninterrupted healthcare software availability cannot be guaranteed."
+          "本平台之可用性取決於行動通訊網路、網際網路路由狀態與例行排程維護。雖然我們致力於維持穩定可靠之服務，但無法保證醫療軟體能無間斷持續提供運作。"
         ]
       },
       {
@@ -348,7 +348,7 @@
         "number": 15,
         "heading": "服務費用說明",
         "paragraphs": [
-          "Access to the SOS Healthcare digital platform is free for users. External hospital, consultation, transportation, or medical treatment fees charged by independent healthcare providers remain the responsibility of the patient."
+          "使用者存取 SOS Healthcare 數位平台功能完全免費。由獨立第三方醫療機構所收取之外部看診掛號、諮詢費、交通運輸或各項醫療處置費用，概由患者自行依法承擔。"
         ]
       },
       {
@@ -356,7 +356,7 @@
         "number": 16,
         "heading": "帳戶停權與終止服務",
         "paragraphs": [
-          "We reserve the right to suspend or close accounts that engage in fraudulent emergency alerts, violate acceptable use rules, or compromise platform security, subject to applicable notice and review procedures."
+          "若使用者涉及虛假通報緊急事故、嚴重違反合理使用規範或危害平台安全，我們保留依法通知並經審核程序後，暫停或終止該帳戶存取權限之權利。"
         ]
       },
       {
@@ -364,7 +364,7 @@
         "number": 17,
         "heading": "服務條款之變更與修訂",
         "paragraphs": [
-          "Material changes to these Terms will be communicated through the platform with an updated version date. Continued use following updates constitutes agreement to the revised conditions."
+          "本條款如有任何重大變更，將透過本平台公告發布並更新生效版本日期。於修訂公告後繼續使用本服務，即代表您同意接受修訂後之條款約束。"
         ]
       },
       {
@@ -372,7 +372,7 @@
         "number": 18,
         "heading": "準據法與爭議管轄法院",
         "paragraphs": [
-          "These Terms are governed by applicable national consumer and digital healthcare regulations. Disputes should first be addressed through good-faith administrative communication before pursuing formal proceedings."
+          "本條款悉依各國適用之消費者保護及數位醫療衛生法規為準據法。遇有爭議時，各方應秉持誠信原則先循行政溝通管道協商解決，始得進行正式法律訴訟程序。"
         ]
       },
       {
@@ -380,7 +380,7 @@
         "number": 19,
         "heading": "行政管理聯絡窗口",
         "paragraphs": [
-          "For questions regarding these service conditions, please contact our administrative desk:"
+          "如對本服務條款或各項服務條件有任何疑問，歡迎聯絡我們的行政管理服務台："
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"

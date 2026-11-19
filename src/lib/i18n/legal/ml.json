@@ -1,210 +1,210 @@
 {
   "privacy": {
-    "title": "Privacy Policy",
-    "subtitle": "SOS Healthcare Patient Portal",
-    "lastUpdated": "11 November 2026",
-    "tocTitle": "Contents",
+    "title": "സ്വകാര್ಯതാ നയം",
+    "subtitle": "SOS Healthcare രോഗി പോർട്ടൽ",
+    "lastUpdated": "11 നവംബർ 2026",
+    "tocTitle": "ഉള്ളടക്കം",
     "notice": {
       "variant": "info",
-      "title": "Patient Privacy Commitment",
-      "text": "SOS Healthcare is dedicated to patient privacy, transparency, and personal health data control. Appointment requests created within our portal are maintained securely within the platform and are never automatically transmitted to hospital databases or external electronic health records."
+      "title": "രോഗി സ്വകാര്യതാ പ്രതിബദ്ധത",
+      "text": "SOS Healthcare രോഗികളുടെ സ്വകാര്യത, സുതാര്യത, വ്യക്തിഗത ആരോഗ്യ വിവരങ്ങളുടെ നിയന്ത്രണം എന്നിവയ്ക്ക് പൂർണ്ണമായും പ്രതിജ്ഞാബദ്ധമാണ്. ഞങ്ങളുടെ പോർട്ടലിൽ സൃഷ്ടിച്ച അപ്പോയിന്റ്മെന്റ് അഭ്യർത്ഥനകൾ സുരക്ഷിതമായി സൂക്ഷിക്കുന്നു, അവ ആശുപത്രി ഡാറ്റാബേസുകളിലേക്കോ ബാഹ്യ ഇലക്ട്രോണിക് ആരോഗ്യ രേഖകളിലേക്കോ സ്വയമേവ കൈമാറില്ല."
     },
     "sections": [
       {
         "id": "introduction",
         "number": 1,
-        "heading": "Introduction",
+        "heading": "ആമുഖം",
         "paragraphs": [
-          "SOS Healthcare provides healthcare awareness, nearby hospital discovery, emergency telephone guidance, and private appointment-planning services.",
-          "This Privacy Policy describes how personal information and healthcare preferences are collected, used, protected, and handled when you access our application. SOS Healthcare is a software assistance platform and does not directly own or operate hospital treatment centers."
+          "SOS Healthcare ആരോഗ്യ അവബോധം, അടുത്തുള്ള ആശുപത്രികൾ കണ്ടെത്തൽ, അടിയന്തര ടെലിഫോൺ മാർഗ്ഗനിർദ്ദേശം, സ്വകാര്യ അപ്പോയിന്റ്മെന്റ് ആസൂത്രണ സേവനങ്ങൾ എന്നിവ നൽകുന്നു.",
+          "ഞങ്ങളുടെ ആപ്ലിക്കേഷൻ ഉപയോഗിക്കുമ്പോൾ വ്യക്തിഗത വിവരങ്ങളും ആരോഗ്യ മുൻഗണനകളും എങ്ങനെ ശേഖരിക്കപ്പെടുന്നു, ഉപയോഗിക്കുന്നു, പരിരക്ഷിക്കുന്നു എന്ന് ഈ സ്വകാര്യതാ നയം വിശദീകരിക്കുന്നു. SOS Healthcare ഒരു സോഫ്റ്റ്‌വെയർ സഹായ പ്ലാറ്റ്‌ഫോമാണ്, ആശുപത്രി ചികിത്സാ കേന്ദ്രങ്ങൾ നേരിട്ട് സ്വന്തമാക്കുകയോ പ്രവർത്തിപ്പിക്കുകയോ ചെയ്യുന്നില്ല."
         ]
       },
       {
         "id": "information-collected",
         "number": 2,
-        "heading": "Information We Collect",
+        "heading": "ഞങ്ങൾ ശേഖരിക്കുന്ന വിവരങ്ങൾ",
         "paragraphs": [
-          "We collect only the information necessary to fulfill our digital healthcare awareness and planning services:"
+          "ഞങ്ങളുടെ ഡിജിറ്റൽ ആരോഗ്യ സേവനങ്ങളും ആസൂത്രണങ്ങളും ലഭ്യമാക്കാൻ ആവശ്യമായ വിവരങ്ങൾ മാത്രമേ ഞങ്ങൾ ശേഖരിക്കൂ:"
         ],
         "bullets": [
-          "Name and Contact Details: Name and email address used for account registration and authentication.",
-          "Account Information: Profile credentials, preferences, and security access logs.",
-          "Emergency Contact Details: Names, phone numbers, and relationship designations for family or trusted individuals you choose to notify during emergencies.",
-          "Location Information: Real-time browser GPS coordinates when explicitly permitted by you to calculate driving distances to nearby medical centers or transmit coordinates during an emergency beacon.",
-          "Private Appointment Requests: Selected medical specialties, preferred dates, visit reasons, and status notes saved in your personal planner.",
-          "Hospital Preferences: Bookmarked facilities and search history.",
-          "Optional Health Information: Self-reported blood group, vitals, allergies, and chronic medical history stored in your health profile.",
-          "Wearable-Device Information: Heart rate, step count, or activity telemetry accessed only when you explicitly connect Google Health.",
-          "Support Inquiries: Communications submitted through our administrator inquiry form."
+          "പേരും ബന്ധപ്പെടാനുള്ള വിവരങ്ങളും: അക്കൗണ്ട് രജിസ്ട്രേഷനും പ്രാമാണീകരണത്തിനുമായി ഉപയോഗിക്കുന്ന പേരും ഇമെയിൽ വിലാസവും.",
+          "അക്കൗണ്ട് വിവരങ്ങൾ: പ്രൊഫൈൽ വിവരങ്ങൾ, മുൻഗണനകൾ, സുരക്ഷാ ആക്സസ് ലോഗുകൾ.",
+          "അടിയന്തര കോൺടാക്റ്റ് വിവരങ്ങൾ: അടിയന്തിര ഘട്ടങ്ങളിൽ അറിയിക്കാൻ നിങ്ങൾ തിരഞ്ഞെടുക്കുന്ന കുടുംബാംഗങ്ങളുടെയോ വിശ്വസ്തരുടെയോ പേരുകൾ, ഫോൺ നമ്പറുകൾ, ബന്ധം.",
+          "ലൊക്കേഷൻ വിവരങ്ങൾ: അടുത്തുള്ള ആശുപത്രികളിലേക്കുള്ള ദൂരം കണക്കാക്കാനോ അടിയന്തര SOS സമയത്ത് ലൊക്കേഷൻ കൈമാറാനോ നിങ്ങളുടെ വ്യക്തമായ അനുമതിയോടെ ബ്രൗസർ റിപ്പോർട്ട് ചെയ്യുന്ന തത്സമയ ജിപിഎസ് കോർഡിനേറ്റുകൾ.",
+          "സ്വകാര്യ അപ്പോയിന്റ്മെന്റ് അഭ്യർത്ഥനകൾ: തിരഞ്ഞെടുത്ത മെഡിക്കൽ സ്പെഷ്യാലിറ്റികൾ, തീയതികൾ, സന്ദർശന കാരണങ്ങൾ, സ്റ്റാറ്റസ് കുറിപ്പുകൾ.",
+          "ആശുപത്രി മുൻഗണനകൾ: ബുക്ക്മാർക്ക് ചെയ്ത സൗകര്യങ്ങളും തിരയൽ ചരിത്രവും.",
+          "ഓപ്ഷണൽ ആരോഗ്യ വിവരങ്ങൾ: നിങ്ങളുടെ ആരോഗ്യ പ്രൊഫൈലിൽ സ്വയം രേഖപ്പെടുത്തിയ രക്തഗ്രൂപ്പ്, അലർജികൾ, വിട്ടുമാറാത്ത രോഗ ചരിത്രം.",
+          "ധരിക്കാവുന്ന ഉപകരണ വിവരങ്ങൾ: നിങ്ങൾ Google Health വ്യക്തമായി ബന്ധിപ്പിക്കുമ്പോൾ മാത്രം ആക്സസ് ചെയ്യുന്ന ഹൃദയമിടിപ്പ്, പടികളുടെ എണ്ണം തുടങ്ങിയ വിവരങ്ങൾ.",
+          "പിന്തുണ അന്വേഷണങ്ങൾ: അഡ്മിനിസ്ട്രേറ്റർ അന്വേഷണ ഫോം വഴി അയച്ച സന്ദേശങ്ങൾ."
         ]
       },
       {
         "id": "purpose-of-collecting",
         "number": 3,
-        "heading": "Purpose of Collecting Information",
+        "heading": "വിവര ശേഖരണത്തിന്റെ ലക്ഷ്യം",
         "paragraphs": [
-          "We process your information for clear, patient-centered purposes:"
+          "രോഗി കേന്ദ്രീകൃതമായ വ്യക്തമായ ആവശ്യങ്ങൾക്കായി ഞങ്ങൾ നിങ്ങളുടെ വിവരങ്ങൾ ഉപയോഗിക്കുന്നു:"
         ],
         "bullets": [
-          "Managing your patient account and authenticating your access securely.",
-          "Helping you identify and locate nearby accredited healthcare facilities.",
-          "Maintaining your private consultation requests and personal scheduling notes.",
-          "Supporting emergency contact notifications when an SOS beacon is activated.",
-          "Displaying authorized wearable wellness data in your patient dashboard.",
-          "Responding to platform feedback and administrative support requests.",
-          "Protecting accounts against unauthorized access and preventing platform misuse."
+          "രോഗി അക്കൗണ്ട് കൈകാര്യം ചെയ്യാനും ആക്സസ് സുരക്ഷിതമായി പ്രാമാണീകരിക്കാനും.",
+          "അടുത്തുള്ള അംഗീകൃത ആരോഗ്യ സൗകര്യങ്ങൾ തിരിച്ചറിയാൻ നിങ്ങളെ സഹായിക്കാൻ.",
+          "നിങ്ങളുടെ സ്വകാര്യ കൺസൾട്ടേഷൻ അഭ്യർത്ഥനകളും ഷെഡ്യൂളിംഗ് കുറിപ്പുകളും സൂക്ഷിക്കാൻ.",
+          "SOS ബീക്കൺ പ്രവർത്തനക്ഷമമാക്കുമ്പോൾ അടിയന്തര കോൺടാക്റ്റ് അറിയിപ്പുകൾ അയക്കാൻ.",
+          "രോഗി ഡാഷ്‌ബോർഡിൽ അംഗീകൃത ആരോഗ്യ ഡാറ്റ പ്രദർശിപ്പിക്കാൻ.",
+          "പ്ലാറ്റ്‌ഫോം ഫീഡ്‌ബാക്കിനും അഡ്മിനിസ്ട്രേറ്റീവ് പിന്തുണക്കും മറുപടി നൽകാൻ.",
+          "അനധികൃത ആക്‌സസിൽ നിന്ന് അക്കൗണ്ടുകൾ സംരക്ഷിക്കാനും ദുരുപയോഗം തടയാനും."
         ]
       },
       {
         "id": "patient-privacy",
         "number": 4,
-        "heading": "Patient Privacy and Confidentiality",
+        "heading": "രോഗി സ്വകാര്യതയും രഹസ്യസ്വഭാവവും",
         "paragraphs": [
-          "SOS Healthcare restricts access to personal information to legitimate, authorized purposes. Your health records and private consultation preferences are confidential. We maintain technical controls so that individual patient information is accessible only to the authenticated account holder."
+          "SOS Healthcare വ്യക്തിഗത വിവരങ്ങളിലേക്കുള്ള ആക്സസ് നിയമാനുസൃതവും അംഗീകൃതവുമായ ആവശ്യങ്ങൾക്ക് മാത്രമായി പരിമിതപ്പെടുത്തുന്നു. നിങ്ങളുടെ ആരോഗ്യ രേഖകളും സ്വകാര്യ വിവരങ്ങളും രഹസ്യമാണ്. രോഗിയുടെ വിവരങ്ങൾ അക്കൗണ്ട് ഉടമയ്ക്ക് മാത്രം ലഭ്യമാണെന്ന് സാങ്കേതിക നിയന്ത്രണങ്ങൾ ഉറപ്പാക്കുന്നു."
         ]
       },
       {
         "id": "hospital-directory",
         "number": 5,
-        "heading": "Hospital Information and Directory Services",
+        "heading": "ആശുപത്രി വിവരങ്ങളും ഡയറക്ടറി സേവനങ്ങളും",
         "paragraphs": [
-          "Hospital and clinic information is compiled from public healthcare listings to help users identify medical facilities in their area.",
-          "Inclusion in our directory does not automatically establish a formal commercial relationship, affiliation, or operational partnership between SOS Healthcare and the hospital."
+          "തങ്ങളുടെ പ്രദേശത്തെ മെഡിക്കൽ സൗകര്യങ്ങൾ എളുപ്പത്തിൽ കണ്ടെത്താൻ പൊതു ആരോഗ്യ ലിസ്റ്റിംഗുകളിൽ നിന്നാണ് വിവരങ്ങൾ സമാഹരിച്ചിരിക്കുന്നത്.",
+          "ഞങ്ങളുടെ ഡയറക്ടറിയിൽ ഉൾപ്പെടുത്തിയത് SOS Healthcare ഉം ആശുപത്രിയും തമ്മിൽ ഔദ്യോഗിക വാണിജ്യ പങ്കാളിത്തം ഉള്ളതായി അർത്ഥമാക്കുന്നില്ല."
         ]
       },
       {
         "id": "private-appointments",
         "number": 6,
-        "heading": "Private Appointment Requests",
+        "heading": "സ്വകാര്യ അപ്പോയിന്റ്മെന്റ് അഭ്യർത്ഥനകൾ",
         "notice": {
           "variant": "info",
-          "title": "Important Notice Regarding Appointment Requests",
-          "text": "\"Appointment requests saved through SOS Healthcare are maintained within the SOS Healthcare platform and are not automatically submitted to hospitals or added to hospital medical records.\""
+          "title": "അപ്പോയിന്റ്മെന്റ് സംബന്ധിച്ച പ്രധാന അറിയിപ്പ്",
+          "text": "“SOS Healthcare വഴി സംരക്ഷിച്ച അപ്പോയിന്റ്മെന്റ് അഭ്യർത്ഥനകൾ പ്ലാറ്റ്‌ഫോമിനുള്ളിൽ മാത്രമായി സൂക്ഷിക്കുന്നു, അവ ആശുപത്രികളിലേക്ക് സ്വയമേവ സമർപ്പിക്കുകയോ മെഡിക്കൽ രേഖകളിൽ ചേർക്കുകയോ ഇല്ല.”"
         },
         "paragraphs": [
-          "Saving a request in your portal does not guarantee hospital availability or confirm an appointment slot with hospital staff. Patients may reschedule or cancel their private requests at any time.",
-          "Cancelling a private request in SOS Healthcare does not cancel an independently arranged appointment at a hospital clinic. External hospital booking requires a separately authorized, verified integration."
+          "പോർട്ടലിൽ ഒരു അഭ്യർത്ഥന സൂക്ഷിക്കുന്നത് ആശുപത്രിയിലെ ലഭ്യത ഉറപ്പ് നൽകുന്നില്ല. രോഗികൾക്ക് അവരുടെ സ്വകാര്യ അഭ്യർത്ഥനകൾ എപ്പോൾ വേണമെങ്കിലും മാറ്റുകയോ റദ്ദാക്കുകയോ ചെയ്യാം.",
+          "SOS Healthcare ലെ സ്വകാര്യ അഭ്യർത്ഥന റദ്ദാക്കുന്നത് ആശുപത്രി ക്ലിനിക്കിൽ നിങ്ങൾ നേരിട്ട് ക്രമീകരിച്ച അപ്പോയിന്റ്മെന്റ് റദ്ദാക്കില്ല."
         ]
       },
       {
         "id": "emergency-assistance",
         "number": 7,
-        "heading": "Emergency Assistance and Location Information",
+        "heading": "അടിയന്തര സഹായവും ലൊക്കേഷൻ വിവരങ്ങളും",
         "paragraphs": [
-          "Location permission is requested only when necessary to calculate proximity to nearby hospitals or when initiating an emergency beacon.",
-          "When an SOS beacon is activated, your browser-reported coordinates at that moment are transmitted to your registered emergency contacts. SOS Healthcare does not track your location in the background when the app is inactive. Public emergency responders (such as 112 or 911 dispatchers) do not automatically receive web beacon data unless formal municipal dispatch connectivity is verified in your jurisdiction.",
-          "You may withdraw location permissions at any time through your device or browser settings."
+          "അടുത്തുള്ള ആശുപത്രികളിലേക്കുള്ള ദൂരം കണക്കാക്കാനോ അടിയന്തര ബീക്കൺ ആരംഭിക്കാനോ ആവശ്യമുള്ളപ്പോൾ മാത്രമേ ലൊക്കേഷൻ അനുമതി ചോദിക്കൂ.",
+          "SOS ബീക്കൺ പ്രവർത്തനക്ഷമമാക്കുമ്പോൾ, ആ സമയത്ത് ബ്രൗസർ റിപ്പോർട്ട് ചെയ്യുന്ന ലൊക്കേഷൻ വിവരങ്ങൾ അടിയന്തര കോൺടാക്റ്റുകളിലേക്ക് കൈമാറും.",
+          "ബ്രൗസർ ക്രമീകരണങ്ങൾ വഴി നിങ്ങൾക്ക് എപ്പോൾ വേണമെങ്കിലും ലൊക്കേഷൻ അനുമതികൾ പിൻവലിക്കാം."
         ]
       },
       {
         "id": "health-wearables",
         "number": 8,
-        "heading": "Health and Wearable Information",
+        "heading": "ആരോഗ്യ വിവരങ്ങളും ധരിക്കാവുന്ന ഉപകരണങ്ങളും",
         "paragraphs": [
-          "Connected wearable information (such as Google Health API integration) is retrieved only with your explicit permission. Data is queried on-demand to display wellness trends in your portal.",
-          "Connecting a wearable device does not create an automated emergency ambulance dispatch service. You may revoke access at any time via your Devices settings or your Google Account permissions, which immediately terminates data retrieval and purges cached metrics."
+          "ബന്ധിപ്പിച്ച ഉപകരണ വിവരങ്ങൾ (Google Health API പോലുള്ളവ) നിങ്ങളുടെ വ്യക്തമായ അനുമതിയോടെ മാത്രമേ ആക്സസ് ചെയ്യൂ. ആവശ്യപ്പെടുമ്പോൾ മാത്രമാണ് ഡാറ്റ വീണ്ടെടുക്കുന്നത്.",
+          "ഉപകരണം ബന്ധിപ്പിക്കുന്നത് സ്വയമേവയുള്ള അടിയന്തര ആംബുലൻസ് ഡിസ്പാച്ച് സേവനം സൃഷ്ടിക്കുന്നില്ല. ഉപകരണ ക്രമീകരണങ്ങൾ വഴി നിങ്ങൾക്ക് എപ്പോൾ വേണമെങ്കിലും ആക്സസ് റദ്ദാക്കാം."
         ]
       },
       {
         "id": "patient-consent",
         "number": 9,
-        "heading": "Patient Consent and Control",
+        "heading": "രോഗിയുടെ സമ്മതവും നിയന്ത്രണവും",
         "paragraphs": [
-          "We believe patients should maintain granular control over their information. You can review and update permissions at any time:"
+          "രോഗികൾക്ക് അവരുടെ വിവരങ്ങളിൽ പൂർണ്ണ നിയന്ത്രണം ഉണ്ടായിരിക്കണമെന്ന് ഞങ്ങൾ വിശ്വസിക്കുന്നു. നിങ്ങൾക്ക് എപ്പോൾ വേണമെങ്കിലും അനുമതികൾ മാറ്റാം:"
         ],
         "bullets": [
-          "Modify emergency contact details and notification settings.",
-          "Toggle doctor pre-arrival sharing preferences in your Health Profile.",
-          "Disconnect wearable services with immediate token invalidation.",
-          "Request deletion of your account and personal records."
+          "അടിയന്തര കോൺടാക്റ്റ് വിവരങ്ങളും അറിയിപ്പ് ക്രമീകരണങ്ങളും മാറ്റുക.",
+          "ഡോക്ടർ വരുന്നതിന് മുമ്പ് വിവരങ്ങൾ പങ്കിടുന്ന മുൻഗണനകൾ ക്രമീകരിക്കുക.",
+          "ഉപകരണ സേവനങ്ങൾ വിച്ഛേദിക്കുക.",
+          "നിങ്ങളുടെ അക്കൗണ്ടും വ്യക്തിഗത രേഖകളും ഇല്ലാതാക്കാൻ അഭ്യർത്ഥിക്കുക."
         ]
       },
       {
         "id": "healthcare-sharing",
         "number": 10,
-        "heading": "Healthcare Information Sharing and Confidentiality",
+        "heading": "ആരോഗ്യ വിവര പങ്കിടലും രഹസ്യസ്വഭാവവും",
         "paragraphs": [
-          "Personal or health information is never automatically disclosed to hospitals merely because a user browses a hospital card or saves a private appointment request.",
-          "Information may only be disclosed under the following circumstances:"
+          "ഒരു ഉപയോക്താവ് ആശുപത്രി കാർഡ് കണ്ടതുകൊണ്ട് മാത്രം വ്യക്തിഗത വിവരങ്ങൾ ഒരിക്കലും ആശുപത്രികൾക്ക് കൈമാറില്ല.",
+          "ഇനിപ്പറയുന്ന സാഹചര്യങ്ങളിൽ മാത്രമേ വിവരങ്ങൾ വെളിപ്പെടുത്താൻ പാടുള്ളൂ:"
         ],
         "bullets": [
-          "With your explicit, verified authorization.",
-          "To designated emergency contacts when you actively trigger an emergency beacon.",
-          "To essential infrastructure service providers necessary to operate the application.",
-          "Where required by applicable law, statutory subpoena, or valid court order."
+          "നിങ്ങളുടെ വ്യക്തമായ മുൻകൂർ അനുമതിയോടെ.",
+          "നിങ്ങൾ സജീവമായി അടിയന്തര SOS ബീക്കൺ ട്രിഗർ ചെയ്യുമ്പോൾ അടിയന്തര കോൺടാക്റ്റുകളിലേക്ക്.",
+          "ആപ്ലിക്കേഷൻ പ്രവർത്തിപ്പിക്കുന്നതിന് ആവശ്യമായ ക്ലൗഡ് സേവന ദാതാക്കൾക്ക്.",
+          "ബാധകമായ നിയമപ്രകാരമോ കോടതി ഉത്തരവ് പ്രകാരമോ ആവശ്യമുള്ളിടത്ത്."
         ]
       },
       {
         "id": "patient-safeguards",
         "number": 11,
-        "heading": "Patient Information Safeguards",
+        "heading": "രോഗി വിവര സംരക്ഷണ നടപടികൾ",
         "paragraphs": [
-          "We implement administrative and technical safeguards designed to protect personal information:"
+          "വ്യക്തിഗത വിവരങ്ങൾ പരിരക്ഷിക്കുന്നതിന് കർശനമായ സുരക്ഷാ മുൻകരുതലുകൾ ഞങ്ങൾ നടപ്പിലാക്കുന്നു:"
         ],
         "bullets": [
-          "Access to private accounts and appointment records is strictly restricted to authenticated users.",
-          "Health information and emergency notes are handled with high standards of confidentiality.",
-          "Database isolation rules ensure that users cannot inspect other patients' data.",
-          "Encrypted transport protocols protect information exchanged between your device and our servers."
+          "സ്വകാര്യ അക്കൗണ്ടുകളിലേക്കുള്ള ആക്സസ് പരിശോധിച്ചുറപ്പിച്ച ഉപയോക്താക്കൾക്ക് മാത്രമായി പരിമിതപ്പെടുത്തിയിരിക്കുന്നു.",
+          "ആരോഗ്യ വിവരങ്ങളും കുറിപ്പുകളും ഉയർന്ന രഹസ്യസ്വഭാവത്തോടെ കൈകാര്യം ചെയ്യുന്നു.",
+          "ഡാറ്റാബേസ് റോ ലെവൽ സെക്യൂരിറ്റി (RLS) മറ്റുള്ളവരുടെ ഡാറ്റ കാണുന്നത് തടയുന്നു.",
+          "എൻക്രിപ്റ്റ് ചെയ്ത പ്രോട്ടോക്കോളുകൾ സർവറുകളുമായുള്ള ആശയവിനിമയം സംരക്ഷിക്കുന്നു."
         ],
         "subparagraphs": [
-          "Users are encouraged to protect their account credentials and report any suspected unauthorized access to our administration desk immediately."
+          "ലോഗിൻ വിവരങ്ങൾ സുരക്ഷിതമായി സൂക്ഷിക്കാനും അനധികൃത ആക്സസ് ശ്രദ്ധയിൽപ്പെട്ടാൽ അഡ്മിനിസ്ട്രേഷൻ ഡെസ്കിൽ അറിയിക്കാനും നിർദ്ദേശിക്കുന്നു."
         ]
       },
       {
         "id": "information-retention",
         "number": 12,
-        "heading": "Information Retention",
+        "heading": "വിവരങ്ങൾ സൂക്ഷിക്കൽ",
         "paragraphs": [
-          "Records are retained only for as long as your account remains active or as needed to deliver our healthcare planning and awareness features.",
-          "Private appointment requests, emergency logs, and support inquiries are retained within your secure portal until you remove them or submit an account closure request."
+          "നിങ്ങളുടെ അക്കൗണ്ട് സജീവമായിരിക്കുന്നിടത്തോളം മാത്രമേ റെക്കോർഡുകൾ സൂക്ഷിക്കൂ.",
+          "സ്വകാര്യ അപ്പോയിന്റ്മെന്റ് അഭ്യർത്ഥനകളും ലോഗുകളും സുരക്ഷിത പോർട്ടലിൽ സംരക്ഷിക്കപ്പെടും."
         ]
       },
       {
         "id": "patient-rights",
         "number": 13,
-        "heading": "Patient Rights",
+        "heading": "രോഗിയുടെ അവകാശങ്ങൾ",
         "paragraphs": [
-          "Depending on your jurisdiction, you may exercise applicable rights regarding your information:"
+          "നിയമപ്രകാരം, നിങ്ങളുടെ വിവരങ്ങൾ സംബന്ധിച്ച് ഇനിപ്പറയുന്ന അവകാശങ്ങൾ നിങ്ങൾക്ക് വിനിയോഗിക്കാം:"
         ],
         "bullets": [
-          "Request access to the personal information we maintain about you.",
-          "Request correction of inaccurate or incomplete health profile records.",
-          "Withdraw optional consent for location or health device integrations.",
-          "Request deletion of your account where permitted by applicable law.",
-          "Submit questions or privacy inquiries to our administration team."
+          "ഞങ്ങൾ സൂക്ഷിക്കുന്ന വിവരങ്ങളിലേക്ക് പ്രവേശനം അഭ്യർത്ഥിക്കുക.",
+          "കൃത്യമല്ലാത്ത ആരോഗ്യ വിവരങ്ങൾ തിരുത്താൻ ആവശ്യപ്പെടുക.",
+          "ലൊക്കേഷൻ അല്ലെങ്കിൽ ഡിവൈസ് അനുമതികൾ പിൻവലിക്കുക.",
+          "നിയമം അനുവദിക്കുന്നിടത്ത് അക്കൗണ്ട് ഇല്ലാതാക്കാൻ അഭ്യർത്ഥിക്കുക.",
+          "സ്വകാര്യത സംബന്ധിച്ച സംശയങ്ങൾ അഡ്മിനിസ്ട്രേഷൻ ടീമിന് സമർപ്പിക്കുക."
         ]
       },
       {
         "id": "childrens-privacy",
         "number": 14,
-        "heading": "Children's Privacy",
+        "heading": "കുട്ടികളുടെ സ്വകാര്യത",
         "paragraphs": [
-          "SOS Healthcare is designed for use by individuals who have reached the age of majority or minors using the service under the active supervision and consent of a parent or legal guardian."
+          "SOS Healthcare പ്രായപൂർത്തിയായവർക്കോ രക്ഷിതാക്കളുടെ മേൽനോട്ടത്തിൽ കുട്ടികൾക്കോ ഉപയോഗിക്കാൻ രൂപകൽപ്പന ചെയ്തിട്ടുള്ളതാണ്."
         ]
       },
       {
         "id": "international-awareness",
         "number": 15,
-        "heading": "International Healthcare Awareness",
+        "heading": "അന്താരാഷ്ട്ര ആരോഗ്യ അവബോധം",
         "paragraphs": [
-          "SOS Healthcare provides information across 22 languages to assist users internationally. Providing multilingual information does not imply local clinical licensing, direct hospital operational affiliation, or municipal emergency dispatch coverage in every country."
+          "ലോകമെമ്പാടുമുള്ള ഉപയോക്താക്കളെ സഹായിക്കാൻ SOS Healthcare 25 ഭാഷകളിൽ വിവരങ്ങൾ നൽകുന്നു. ബഹുഭാഷാ വിവരങ്ങൾ നൽകുന്നത് പ്രാദേശിക ക്ലിനിക്കൽ ലൈസൻസിംഗിനെയോ ആംബുലൻസ് ഡിസ്പാച്ച് കവറേജിനെയോ അർത്ഥമാക്കുന്നില്ല."
         ]
       },
       {
         "id": "policy-updates",
         "number": 16,
-        "heading": "Policy Updates",
+        "heading": "നയ അപ്‌ഡേറ്റുകൾ",
         "paragraphs": [
-          "We may periodically update this policy to reflect enhancements in patient safety, new platform features, or evolving legal standards. The latest revision date is prominently displayed at the top of this document."
+          "രോഗികളുടെ സുരക്ഷയും നിയമ മാനദണ്ഡങ്ങളും മുൻനിർത്തി ഞങ്ങൾ ഈ നയം കാലാനുസൃതമായി പുതുക്കിയേക്കാം. ഏറ്റവും പുതിയ തീയതി മുകളിൽ കാണിക്കും."
         ]
       },
       {
         "id": "contact-administrator",
         "number": 17,
-        "heading": "Contact Administrator",
+        "heading": "അഡ്മിനിസ്ട്രേറ്ററെ ബന്ധപ്പെടുക",
         "paragraphs": [
-          "For privacy inquiries, patient data requests, or directory corrections, you may contact our administration desk directly:"
+          "ഡാറ്റാ സംബന്ധമായ സംശയങ്ങൾക്കോ തിരുത്തലുകൾക്കോ അഡ്മിനിസ്ട്രേഷൻ ഡെസ്കുമായി നേരിട്ട് ബന്ധപ്പെടാം:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"
@@ -212,175 +212,175 @@
     ]
   },
   "terms": {
-    "title": "Terms of Service",
-    "subtitle": "Healthcare Service Rules & Conditions of Use",
-    "lastUpdated": "11 November 2026",
-    "tocTitle": "Contents",
+    "title": "സേവന നിബന്ധനകൾ",
+    "subtitle": "ആരോഗ്യ സേവന നിയമങ്ങളും ഉപയോഗ വ്യവസ്ഥകളും",
+    "lastUpdated": "11 നവംബർ 2026",
+    "tocTitle": "ഉള്ളടക്കം",
     "notice": {
       "variant": "warning",
-      "title": "Emergency Medical Notice",
-      "text": "SOS Healthcare is an informational assistance platform and is not a substitute for official emergency responders. In a life-threatening crisis, immediately dial your local emergency telephone service."
+      "title": "അടിയന്തര മെഡിക്കൽ അറിയിപ്പ്",
+      "text": "SOS Healthcare വിവര സഹായ പ്ലാറ്റ്‌ഫോമാണ്, ഔദ്യോഗിക അടിയന്തര പ്രതികരണ സംവിധാനങ്ങൾക്ക് പകരമല്ല. ജീവന് ഭീഷണിയുള്ള അടിയന്തിരാവസ്ഥയിൽ ഉടൻ തന്നെ പ്രാദേശിക അടിയന്തര നമ്പറിൽ (112) വിളിക്കുക."
     },
     "sections": [
       {
         "id": "acceptance",
         "number": 1,
-        "heading": "Acceptance of Terms",
+        "heading": "വ്യവസ്ഥകളുടെ സ്വീകാര്യത",
         "paragraphs": [
-          "By accessing, registering for, or using SOS Healthcare services, you acknowledge that you have read and understood these Terms of Service and agree to comply with the applicable conditions of use. If you do not agree with these terms, you should discontinue use of the services."
+          "SOS Healthcare സേവനങ്ങൾ ഉപയോഗിക്കുന്നതിലൂടെ, നിങ്ങൾ ഈ സേവന നിബന്ധനകൾ വായിച്ചു മനസ്സിലാക്കിയതായും വ്യവസ്ഥകൾ പാലിക്കാൻ സമ്മതിക്കുന്നതായും വ്യക്തമാക്കുന്നു. നിബന്ധനകൾ അംഗീകരിക്കുന്നില്ലെങ്കിൽ സേവനങ്ങളുടെ ഉപയോഗം നിർത്തണം."
         ]
       },
       {
         "id": "eligibility",
         "number": 2,
-        "heading": "Eligibility and Account Responsibilities",
+        "heading": "യോഗ്യതയും അക്കൗണ്ട് ഉത്തരവാദിത്തങ്ങളും",
         "paragraphs": [
-          "Users must be of legal age of majority or use the platform under the supervision of a parent or legal guardian. You agree to provide accurate information when creating an account, safeguard your credentials, and report any unauthorized access promptly. You remain responsible for all activities originating from your account."
+          "ഉപയോക്താക്കൾ പ്രായപൂർത്തിയായവരോ രക്ഷിതാക്കളുടെ മേൽനോട്ടത്തിൽ പ്ലാറ്റ്‌ഫോം ഉപയോഗിക്കുന്നവരോ ആയിരിക്കണം. കൃത്യമായ വിവരങ്ങൾ നൽകാനും ലോഗിൻ വിവരങ്ങൾ സുരക്ഷിതമായി സൂക്ഷിക്കാനും സമ്മതിക്കുന്നു. അക്കൗണ്ടിൽ നിന്നുള്ള എല്ലാ പ്രവർത്തനങ്ങൾക്കും ഉപയോക്താവ് മാത്രമായിരിക്കും ഉത്തരവാദി."
         ]
       },
       {
         "id": "services",
         "number": 3,
-        "heading": "Nature of SOS Healthcare Services",
+        "heading": "SOS Healthcare സേവനങ്ങളുടെ സ്വഭാവം",
         "paragraphs": [
-          "SOS Healthcare provides digital healthcare awareness, nearby hospital discovery, emergency telephone guidance, private appointment planning, and authorized health-device information display.",
-          "The platform is a communication and planning tool and does not provide direct medical treatment or clinical prescriptions."
+          "SOS Healthcare ഡിജിറ്റൽ ആരോഗ്യ അവബോധം, ആശുപത്രി കണ്ടെത്തൽ, അടിയന്തര ഫോൺ മാർഗ്ഗനിർദ്ദേശം, അപ്പോയിന്റ്മെന്റ് ആസൂത്രണം എന്നിവ നൽകുന്നു.",
+          "പ്ലാറ്റ്‌ഫോം ഒരു ആശയവിനിമയ സഹായി മാത്രമാണ്, നേരിട്ടുള്ള മെഡിക്കൽ ചികിത്സയോ കുറിപ്പടിയോ നൽകുന്നില്ല."
         ]
       },
       {
         "id": "hospitals",
         "number": 4,
-        "heading": "Hospital Directory Information",
+        "heading": "ആശുപത്രി ഡയറക്ടറി വിവരങ്ങൾ",
         "paragraphs": [
-          "Hospital names, addresses, and listed departments are provided for general informational orientation. Directory details may change, and emergency triage availability should always be verified directly with the facility. Inclusion in our directory does not imply formal partnership or commercial endorsement."
+          "ആശുപത്രി വിവരങ്ങൾ പൊതുവായ അറിവിലേക്കായി നൽകിയിട്ടുള്ളതാണ്. അടിയന്തര ലഭ്യത നേരിട്ട് ആശുപത്രിയുമായി സ്ഥിരീകരിക്കണം. ഡയറക്ടറിയിൽ ഉൾപ്പെടുത്തിയത് വാണിജ്യ അംഗീകാരമല്ല."
         ]
       },
       {
         "id": "doctors",
         "number": 5,
-        "heading": "Doctor Information",
+        "heading": "ഡോക്ടർ വിവരങ്ങൾ",
         "paragraphs": [
-          "Information regarding medical specialists is intended to help users identify independent healthcare providers. Listed doctors are not partners of the platform, and listing does not imply an exclusive endorsement or automated intake agreement without verified authorization."
+          "ഡോക്ടർമാരെക്കുറിച്ചുള്ള വിവരങ്ങൾ കണ്ടെത്തലിന് സഹായിക്കാൻ മാത്രമുള്ളതാണ്. ലിസ്റ്റ് ചെയ്തിട്ടുള്ള ഡോക്ടർമാർ പ്ലാറ്റ്‌ഫോമിന്റെ പങ്കാളികളല്ല."
         ]
       },
       {
         "id": "private-appointments",
         "number": 6,
-        "heading": "Private Appointment Requests",
+        "heading": "സ്വകാര്യ അപ്പോയിന്റ്മെന്റ് അഭ്യർത്ഥനകൾ",
         "paragraphs": [
-          "The platform allows patients to store personal appointment preferences and consultation requests. These requests do not create hospital-confirmed reservations. Hospital schedules and front-desk booking procedures may differ, and users are responsible for confirming actual visits directly with the hospital."
+          "പ്ലാറ്റ്‌ഫോമിൽ രോഗികൾക്ക് മുൻഗണനകൾ സൂക്ഷിക്കാം. ഈ അഭ്യർത്ഥനകൾ ആശുപത്രി സ്ഥിരീകരിച്ച ബുക്കിംഗുകളല്ല. സന്ദർശനം ആശുപത്രിയുമായി നേരിട്ട് ഉറപ്പാക്കേണ്ടതാണ്."
         ]
       },
       {
         "id": "cancellation",
         "number": 7,
-        "heading": "Cancellation and Rescheduling",
+        "heading": "റദ്ദാക്കലും പുനഃക്രമീകരണവും",
         "paragraphs": [
-          "Patients may cancel or reschedule eligible private requests within their portal. Modifying a request affects only the record stored in SOS Healthcare; it does not automatically cancel an independently arranged hospital appointment. Cancellation records are retained in accordance with the Privacy Policy."
+          "രോഗികൾക്ക് അവരുടെ പോർട്ടലിൽ അപ്പോയിന്റ്മെന്റ് മാറ്റുകയോ റദ്ദാക്കുകയോ ചെയ്യാം. ഇത് SOS Healthcare ലെ രേഖയിൽ മാത്രമേ മാറ്റം വരുത്തൂ; ആശുപത്രിയിലെ നേരിട്ടുള്ള ബുക്കിംഗ് റദ്ദാക്കില്ല."
         ]
       },
       {
         "id": "emergency",
         "number": 8,
-        "heading": "Emergency Assistance",
+        "heading": "അടിയന്തര സഹായം",
         "paragraphs": [
-          "SOS Healthcare is not a substitute for official public emergency services. Users must contact their local emergency number (e.g. 112, 911, or local emergency line) for life-threatening emergencies.",
-          "Transmitting an SOS beacon notifies designated emergency contacts via the app; emergency contacts are not equivalent to municipal ambulance dispatch providers."
+          "SOS Healthcare ഔദ്യോഗിക അടിയന്തര സേവനങ്ങൾക്ക് പകരമല്ല. ജീവന് ഭീഷണിയുള്ള ഘട്ടങ്ങളിൽ അടിയന്തര നമ്പറിൽ (112) ബന്ധപ്പെടുക.",
+          "SOS ബീക്കൺ അടിയന്തര കോൺടാക്റ്റുകളിലേക്ക് മാത്രമേ സന്ദേശമയക്കൂ; അത് ആംബുലൻസ് ഡിസ്പാച്ചിന് തുല്യമല്ല."
         ]
       },
       {
         "id": "medical-disclaimer",
         "number": 9,
-        "heading": "Medical Information Disclaimer",
+        "heading": "മെഡിക്കൽ വിവര നിരാകരണം",
         "paragraphs": [
-          "Information provided on the platform is educational and informational. It is not medical advice, diagnosis, or treatment. Users should consult licensed healthcare professionals regarding any health condition. Emergency symptoms require urgent attention from licensed emergency providers."
+          "പ്ലാറ്റ്‌ഫോമിലെ വിവരങ്ങൾ പൊതുവായ അറിവിന് മാത്രമുള്ളതാണ്. ഇത് വൈദ്യോപദേശമോ രോഗനിർണ്ണയമോ ചികിത്സയോ അല്ല. ആരോഗ്യ പ്രശ്നങ്ങൾക്ക് യോഗ്യതയുള്ള ഡോക്ടറെ സമീപിക്കുക."
         ]
       },
       {
         "id": "wearables",
         "number": 10,
-        "heading": "Wearable Devices",
+        "heading": "ധരിക്കാവുന്ന ഉപകരണങ്ങൾ",
         "paragraphs": [
-          "Wearable data displayed through integrations (such as Google Health) depends on third-party sensor accuracy. Measurements may be delayed or unavailable. Wearable data is not diagnostic clinical information, and no automatic emergency response is promised based on wearable metrics."
+          "ധരിക്കാവുന്ന ഉപകരണങ്ങളിൽ നിന്നുള്ള വിവരങ്ങൾ ഉപകരണ സെൻസറുകളുടെ കൃത്യതയെ ആശ്രയിച്ചിരിക്കുന്നു. ഇത് ക്ലിനിക്കൽ ഡാറ്റയല്ല, യാന്ത്രിക അടിയന്തര സഹായം ഉറപ്പുനൽകുന്നില്ല."
         ]
       },
       {
         "id": "responsibilities",
         "number": 11,
-        "heading": "Patient Responsibilities",
+        "heading": "രോഗിയുടെ ഉത്തരവാദിത്തങ്ങൾ",
         "paragraphs": [
-          "Patients are responsible for maintaining accurate contact details, using emergency features conscientiously, and respecting the confidentiality of personal medical information stored in their accounts."
+          "കൃത്യമായ വിവരങ്ങൾ നൽകാനും അടിയന്തര ഫീച്ചറുകൾ വിവേകത്തോടെ ഉപയോഗിക്കാനും വിവരങ്ങളുടെ രഹസ്യസ്വഭാവം കാത്തുസൂക്ഷിക്കാനും രോഗികൾ ബാധ്യസ്ഥരാണ്."
         ]
       },
       {
         "id": "prohibited",
         "number": 12,
-        "heading": "Prohibited Conduct",
+        "heading": "നിരോധിത പ്രവർത്തനങ്ങൾ",
         "paragraphs": [
-          "Users may not:"
+          "ഉപയോക്താക്കൾ ഇനിപ്പറയുന്നവ ചെയ്യാൻ പാടില്ല:"
         ],
         "bullets": [
-          "Attempt unauthorized access to other accounts or administrative systems.",
-          "Trigger fraudulent or abusive emergency beacons that waste responder resources.",
-          "Harass healthcare providers, administrators, or other patients.",
-          "Misrepresent professional medical credentials or patient identity.",
-          "Interfere with the security or operational integrity of the service."
+          "മറ്റ് അക്കൗണ്ടുകളിലോ സിസ്റ്റങ്ങളിലോ അനധികൃതമായി പ്രവേശിക്കാൻ ശ്രമിക്കുക.",
+          "അടിയന്തര സംവിധാനങ്ങളെ ദുരുപയോഗം ചെയ്യുന്ന വ്യാജ SOS ബീക്കൺ അയക്കുക.",
+          "ആരോഗ്യ പ്രവർത്തകരെയോ മറ്റ് രോഗികളെയോ ഉപദ്രവിക്കുക.",
+          "വ്യാജ മെഡിക്കൽ യോഗ്യതകളോ വ്യക്തിവിവരങ്ങളോ നൽകുക.",
+          "സേവനത്തിന്റെ സുരക്ഷ തടസ്സപ്പെടുത്തുക."
         ]
       },
       {
         "id": "privacy",
         "number": 13,
-        "heading": "Privacy and Patient Confidentiality",
+        "heading": "സ്വകാര്യതയും രഹസ്യസ്വഭാവവും",
         "paragraphs": [
-          "Handling of personal information and healthcare preferences is governed by our Privacy Policy. Please review the Privacy Policy for details regarding our confidentiality safeguards and patient rights."
+          "വ്യക്തിഗത വിവരങ്ങൾ കൈകാര്യം ചെയ്യുന്നത് സ്വകാര്യതാ നയത്തിന് വിധേയമാണ്. കൂടുതൽ വിവരങ്ങൾക്ക് സ്വകാര്യതാ നയം വായിക്കുക."
         ]
       },
       {
         "id": "availability",
         "number": 14,
-        "heading": "Service Availability",
+        "heading": "സേവന ലഭ്യത",
         "paragraphs": [
-          "Platform availability depends on cellular connectivity, internet routing, and scheduled maintenance. While we aim for reliable service, uninterrupted healthcare software availability cannot be guaranteed."
+          "നെറ്റ്‌വർക്ക്, ഇന്റർനെറ്റ് എന്നിവയെ ആശ്രയിച്ചാണ് സേവന ലഭ്യത. തടസ്സമില്ലാത്ത പ്രവർത്തനം ഉറപ്പുനൽകാൻ കഴിയില്ല."
         ]
       },
       {
         "id": "fees",
         "number": 15,
-        "heading": "Service Fees",
+        "heading": "സേവന ഫീസ്",
         "paragraphs": [
-          "Access to the SOS Healthcare digital platform is free for users. External hospital, consultation, transportation, or medical treatment fees charged by independent healthcare providers remain the responsibility of the patient."
+          "SOS Healthcare പ്ലാറ്റ്‌ഫോം ഉപയോഗം സൗജന്യമാണ്. ആശുപത്രികൾ ഈടാക്കുന്ന കൺസൾട്ടേഷൻ, ചികിത്സാ ഫീസുകൾ രോഗിയുടെ ഉത്തരവാദിത്തമാണ്."
         ]
       },
       {
         "id": "suspension",
         "number": 16,
-        "heading": "Account Suspension and Closure",
+        "heading": "അക്കൗണ്ട് സസ്പെൻഷനും റദ്ദാക്കലും",
         "paragraphs": [
-          "We reserve the right to suspend or close accounts that engage in fraudulent emergency alerts, violate acceptable use rules, or compromise platform security, subject to applicable notice and review procedures."
+          "വ്യാജ അലേർട്ടുകൾ നൽകുന്നതോ നിബന്ധനകൾ ലംഘിക്കുന്നതോ ആയ അക്കൗണ്ടുകൾ നിർജ്ജീവമാക്കാൻ ഞങ്ങൾക്ക് അവകാശമുണ്ട്."
         ]
       },
       {
         "id": "changes",
         "number": 17,
-        "heading": "Changes to Terms",
+        "heading": "നിബന്ധനകളിലെ മാറ്റങ്ങൾ",
         "paragraphs": [
-          "Material changes to these Terms will be communicated through the platform with an updated version date. Continued use following updates constitutes agreement to the revised conditions."
+          "നിബന്ധനകളിലെ മാറ്റങ്ങൾ പ്ലാറ്റ്‌ഫോം വഴി അറിയിക്കും. തുടർന്നും സേവനം ഉപയോഗിക്കുന്നത് മാറ്റങ്ങൾ അംഗീകരിച്ചതായി കണക്കാക്കും."
         ]
       },
       {
         "id": "disputes",
         "number": 18,
-        "heading": "Applicable Law and Dispute Resolution",
+        "heading": "ബാധകമായ നിയമവും തർക്ക പരിഹാരവും",
         "paragraphs": [
-          "These Terms are governed by applicable national consumer and digital healthcare regulations. Disputes should first be addressed through good-faith administrative communication before pursuing formal proceedings."
+          "ഈ നിബന്ധനകൾ പ്രാദേശിക ഉപഭോക്തൃ, ആരോഗ്യ നിയന്ത്രണങ്ങൾക്ക് വിധേയമാണ്. തർക്കങ്ങൾ ആദ്യം രമ്യമായി പരിഹരിക്കാൻ ശ്രമിക്കേണ്ടതാണ്."
         ]
       },
       {
         "id": "administrative-contact",
         "number": 19,
-        "heading": "Administrative Contact",
+        "heading": "അഡ്മിനിസ്ട്രേറ്റീവ് കോൺടാക്റ്റ്",
         "paragraphs": [
-          "For questions regarding these service conditions, please contact our administrative desk:"
+          "ഈ സേവന വ്യവസ്ഥകളെക്കുറിച്ചുള്ള ചോദ്യങ്ങൾക്ക് അഡ്മിനിസ്ട്രേഷൻ ഡെസ്കുമായി ബന്ധപ്പെടുക:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"

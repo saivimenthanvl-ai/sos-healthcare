@@ -1,210 +1,210 @@
 {
   "privacy": {
-    "title": "Privacy Policy",
-    "subtitle": "SOS Healthcare Patient Portal",
-    "lastUpdated": "11 November 2026",
-    "tocTitle": "Contents",
+    "title": "Privacybeleid",
+    "subtitle": "SOS Healthcare Patiëntenportaal",
+    "lastUpdated": "11 november 2026",
+    "tocTitle": "Inhoudsopgave",
     "notice": {
       "variant": "info",
-      "title": "Patient Privacy Commitment",
-      "text": "SOS Healthcare is dedicated to patient privacy, transparency, and personal health data control. Appointment requests created within our portal are maintained securely within the platform and are never automatically transmitted to hospital databases or external electronic health records."
+      "title": "Toewijding aan Patiëntprivacy",
+      "text": "SOS Healthcare stelt patiëntprivacy, transparantie en eigen controle over gezondheidsgegevens voorop. Afspraakverzoeken die op ons portaal worden aangemaakt, worden veilig binnen het platform bewaard en worden nooit automatisch doorgegeven aan ziekenhuisdatabases of externe patiëntendossiers."
     },
     "sections": [
       {
         "id": "introduction",
         "number": 1,
-        "heading": "Introduction",
+        "heading": "Inleiding",
         "paragraphs": [
-          "SOS Healthcare provides healthcare awareness, nearby hospital discovery, emergency telephone guidance, and private appointment-planning services.",
-          "This Privacy Policy describes how personal information and healthcare preferences are collected, used, protected, and handled when you access our application. SOS Healthcare is a software assistance platform and does not directly own or operate hospital treatment centers."
+          "SOS Healthcare biedt gezondheidsvoorlichting, het lokaliseren van ziekenhuizen in de buurt, telefonische begeleiding bij noodgevallen en besloten afspraakplanning.",
+          "Dit Privacybeleid legt uit hoe persoonsgegevens en zorgvoorkeuren worden verzameld, gebruikt, beveiligd en beheerd bij het gebruik van onze applicatie. SOS Healthcare is een technologisch ondersteuningsplatform en bezit noch exploiteert zelfstandig ziekenhuisinstellingen."
         ]
       },
       {
         "id": "information-collected",
         "number": 2,
-        "heading": "Information We Collect",
+        "heading": "Gegevens die Wij Verzamelen",
         "paragraphs": [
-          "We collect only the information necessary to fulfill our digital healthcare awareness and planning services:"
+          "Wij verzamelen uitsluitend de informatie die noodzakelijk is om onze digitale zorg- en planningsdiensten te leveren:"
         ],
         "bullets": [
-          "Name and Contact Details: Name and email address used for account registration and authentication.",
-          "Account Information: Profile credentials, preferences, and security access logs.",
-          "Emergency Contact Details: Names, phone numbers, and relationship designations for family or trusted individuals you choose to notify during emergencies.",
-          "Location Information: Real-time browser GPS coordinates when explicitly permitted by you to calculate driving distances to nearby medical centers or transmit coordinates during an emergency beacon.",
-          "Private Appointment Requests: Selected medical specialties, preferred dates, visit reasons, and status notes saved in your personal planner.",
-          "Hospital Preferences: Bookmarked facilities and search history.",
-          "Optional Health Information: Self-reported blood group, vitals, allergies, and chronic medical history stored in your health profile.",
-          "Wearable-Device Information: Heart rate, step count, or activity telemetry accessed only when you explicitly connect Google Health.",
-          "Support Inquiries: Communications submitted through our administrator inquiry form."
+          "Naam en Contactgegevens: Naam en e-mailadres voor accountregistratie en veilige authenticatie.",
+          "Accountinformatie: Profielinstellingen, voorkeuren en beveiligingslogboeken.",
+          "Noodcontacten: Namen, telefoonnummers en relaties van vertrouwenspersonen die u opgeeft voor berichtgeving bij noodsituaties.",
+          "Locatiegegevens: Realtime GPS-coördinaten van de browser, uitsluitend met uw uitdrukkelijke toestemming, om loopafstanden naar ziekenhuizen te berekenen of uw positie te delen bij een SOS-melding.",
+          "Persoonlijke Afspraakverzoeken: Gekozen specialismen, gewenste data, redenen van bezoek en aantekeningen in uw afsprakenplanner.",
+          "Ziekenhuisvoorkeuren: Opgeslagen favoriete zorginstellingen en recente zoekgeschiedenis.",
+          "Optionele Gezondheidsgegevens: Zelf opgegeven bloedgroep, vitale functies, allergieën en medische voorgeschiedenis in uw gezondheidsprofiel.",
+          "Gegevens van Gekoppelde Apparaten: Hartslag, stappen of sensorgegevens die alleen worden opgehaald wanneer u Google Health uitdrukkelijk koppelt.",
+          "Ondersteuningsvragen: Berichten die u verzendt via ons administratieve contactformulier."
         ]
       },
       {
         "id": "purpose-of-collecting",
         "number": 3,
-        "heading": "Purpose of Collecting Information",
+        "heading": "Doel van de Gegevensverwerking",
         "paragraphs": [
-          "We process your information for clear, patient-centered purposes:"
+          "Wij verwerken uw gegevens voor transparante en patiëntgerichte doeleinden:"
         ],
         "bullets": [
-          "Managing your patient account and authenticating your access securely.",
-          "Helping you identify and locate nearby accredited healthcare facilities.",
-          "Maintaining your private consultation requests and personal scheduling notes.",
-          "Supporting emergency contact notifications when an SOS beacon is activated.",
-          "Displaying authorized wearable wellness data in your patient dashboard.",
-          "Responding to platform feedback and administrative support requests.",
-          "Protecting accounts against unauthorized access and preventing platform misuse."
+          "Het beheren van uw patiëntenaccount en het waarborgen van veilige toegang.",
+          "Het helpen vinden en lokaliseren van zorginstellingen in uw omgeving.",
+          "Het bewaren van uw persoonlijke afspraaknotities en planningen.",
+          "Het verzenden van berichten naar uw noodcontacten wanneer een SOS-signaal wordt geactiveerd.",
+          "Het tonen van geautoriseerde welzijnsmetingen uit gekoppelde apparaten op het patiëntendashboard.",
+          "Het beantwoorden van vragen en administratieve ondersteuningsverzoeken.",
+          "Het beschermen van accounts tegen ongeoorloofde toegang en platformmisbruik."
         ]
       },
       {
         "id": "patient-privacy",
         "number": 4,
-        "heading": "Patient Privacy and Confidentiality",
+        "heading": "Patiëntprivacy en Vertrouwelijkheid",
         "paragraphs": [
-          "SOS Healthcare restricts access to personal information to legitimate, authorized purposes. Your health records and private consultation preferences are confidential. We maintain technical controls so that individual patient information is accessible only to the authenticated account holder."
+          "SOS Healthcare beperkt de toegang tot persoonsgegevens strikt tot legitieme en goedgekeurde doeleinden. Uw gezondheidsnotities en persoonlijke verzoeken zijn vertrouwelijk. Wij hanteren strenge technische maatregelen zodat uw gegevens alleen toegankelijk zijn voor de geauthenticeerde accounthouder."
         ]
       },
       {
         "id": "hospital-directory",
         "number": 5,
-        "heading": "Hospital Information and Directory Services",
+        "heading": "Ziekenhuisoverzicht en Informatiediensten",
         "paragraphs": [
-          "Hospital and clinic information is compiled from public healthcare listings to help users identify medical facilities in their area.",
-          "Inclusion in our directory does not automatically establish a formal commercial relationship, affiliation, or operational partnership between SOS Healthcare and the hospital."
+          "Gegevens over ziekenhuizen en klinieken worden samengesteld uit openbare gezondheidsbronnen om gebruikers te informeren over de beschikbare voorzieningen.",
+          "Opname in ons overzicht betekent niet automatisch een zakelijk partnerschap, contractuele band of gedeelde exploitatie tussen SOS Healthcare en de betreffende zorginstelling."
         ]
       },
       {
         "id": "private-appointments",
         "number": 6,
-        "heading": "Private Appointment Requests",
+        "heading": "Persoonlijke Afspraakverzoeken",
         "notice": {
           "variant": "info",
-          "title": "Important Notice Regarding Appointment Requests",
-          "text": "\"Appointment requests saved through SOS Healthcare are maintained within the SOS Healthcare platform and are not automatically submitted to hospitals or added to hospital medical records.\""
+          "title": "Belangrijke Kennisgeving over Afspraakverzoeken",
+          "text": "“Afspraakverzoeken die binnen SOS Healthcare worden opgeslagen, blijven exclusief binnen het SOS Healthcare platform en worden niet automatisch doorgestuurd naar ziekenhuizen noch toegevoegd aan ziekenhuisdossiers.”"
         },
         "paragraphs": [
-          "Saving a request in your portal does not guarantee hospital availability or confirm an appointment slot with hospital staff. Patients may reschedule or cancel their private requests at any time.",
-          "Cancelling a private request in SOS Healthcare does not cancel an independently arranged appointment at a hospital clinic. External hospital booking requires a separately authorized, verified integration."
+          "Het opslaan van een verzoek in uw portaal garandeert geen plaats of bevestigde afspraak bij het medisch personeel. Patiënten kunnen hun verzoeken op ieder gewenst moment wijzigen of verwijderen.",
+          "Het annuleren van een verzoek in SOS Healthcare annuleert geen afspraak die rechtstreeks bij de balie van een ziekenhuis is gemaakt. Rechtstreekse boeking vereist een afzonderlijke, geverifieerde integratie."
         ]
       },
       {
         "id": "emergency-assistance",
         "number": 7,
-        "heading": "Emergency Assistance and Location Information",
+        "heading": "Noodhulp en Locatiebepaling",
         "paragraphs": [
-          "Location permission is requested only when necessary to calculate proximity to nearby hospitals or when initiating an emergency beacon.",
-          "When an SOS beacon is activated, your browser-reported coordinates at that moment are transmitted to your registered emergency contacts. SOS Healthcare does not track your location in the background when the app is inactive. Public emergency responders (such as 112 or 911 dispatchers) do not automatically receive web beacon data unless formal municipal dispatch connectivity is verified in your jurisdiction.",
-          "You may withdraw location permissions at any time through your device or browser settings."
+          "Locatietoestemming wordt alleen gevraagd wanneer dit strikt noodzakelijk is om afstanden tot nabijgelegen ziekenhuizen te berekenen of een noodsignaal uit te zenden.",
+          "Bij het activeren van een SOS-signaal worden de actuele coördinaten van uw apparaat rechtstreeks doorgestuurd naar uw ingestelde noodcontacten.",
+          "U kunt locatietoestemming op elk moment intrekken via de browserinstellingen; hierdoor stopt de doorgifte van coördinaten, maar kunnen afstanden niet langer automatisch worden berekend."
         ]
       },
       {
         "id": "health-wearables",
         "number": 8,
-        "heading": "Health and Wearable Information",
+        "heading": "Gezondheidsgegevens en Wearables",
         "paragraphs": [
-          "Connected wearable information (such as Google Health API integration) is retrieved only with your explicit permission. Data is queried on-demand to display wellness trends in your portal.",
-          "Connecting a wearable device does not create an automated emergency ambulance dispatch service. You may revoke access at any time via your Devices settings or your Google Account permissions, which immediately terminates data retrieval and purges cached metrics."
+          "Gegevens van smartwatches en externe sensoren (zoals via Google Health) worden uitsluitend uitgelezen met uw uitdrukkelijke toestemming. Deze gegevens worden op aanvraag geraadpleegd om welzijnstrends te tonen.",
+          "Het verbinden van een wearable brengt geen automatische alarmering van ambulancediensten tot stand. U kunt apparaten op elk gewenst moment ontkoppelen via de instellingen."
         ]
       },
       {
         "id": "patient-consent",
         "number": 9,
-        "heading": "Patient Consent and Control",
+        "heading": "Toestemming en Controle van de Patiënt",
         "paragraphs": [
-          "We believe patients should maintain granular control over their information. You can review and update permissions at any time:"
+          "Wij vinden dat patiënten volledige controle over hun gegevens moeten behouden. U kunt uw voorkeuren en toestemmingen te allen tijde aanpassen:"
         ],
         "bullets": [
-          "Modify emergency contact details and notification settings.",
-          "Toggle doctor pre-arrival sharing preferences in your Health Profile.",
-          "Disconnect wearable services with immediate token invalidation.",
-          "Request deletion of your account and personal records."
+          "Het bijwerken van noodcontacten en waarschuwingsinstellingen.",
+          "Het in- of uitschakelen van vooraf delen met uw arts in uw Gezondheidsprofiel.",
+          "Het ontkoppelen van wearables met directe intrekking van het toegangstoken.",
+          "Het aanvragen van definitieve verwijdering van uw account en opgeslagen dossiers."
         ]
       },
       {
         "id": "healthcare-sharing",
         "number": 10,
-        "heading": "Healthcare Information Sharing and Confidentiality",
+        "heading": "Delen van Gegevens en Vertrouwelijkheid",
         "paragraphs": [
-          "Personal or health information is never automatically disclosed to hospitals merely because a user browses a hospital card or saves a private appointment request.",
-          "Information may only be disclosed under the following circumstances:"
+          "Persoonsgegevens of medische informatie worden nooit automatisch gedeeld met ziekenhuizen enkel omdat u een profiel bekijkt of een afspraakverzoek opslaat.",
+          "Gegevens worden uitsluitend gedeeld in de volgende welomschreven situaties:"
         ],
         "bullets": [
-          "With your explicit, verified authorization.",
-          "To designated emergency contacts when you actively trigger an emergency beacon.",
-          "To essential infrastructure service providers necessary to operate the application.",
-          "Where required by applicable law, statutory subpoena, or valid court order."
+          "Met uw uitdrukkelijke en vooraf geverifieerde toestemming.",
+          "Met uw aangewezen noodcontacten wanneer u vrijwillig het SOS-signaal activeert.",
+          "Met clouddienstverleners die noodzakelijk zijn voor de veilige werking van de applicatie.",
+          "Wanneer dit wettelijk verplicht is op grond van een gerechtelijk bevel of wettelijk voorschrift."
         ]
       },
       {
         "id": "patient-safeguards",
         "number": 11,
-        "heading": "Patient Information Safeguards",
+        "heading": "Beveiligingsmaatregelen voor Patiëntgegevens",
         "paragraphs": [
-          "We implement administrative and technical safeguards designed to protect personal information:"
+          "Wij treffen strikte organisatorische en technische maatregelen om uw persoonlijke gegevens te beveiligen:"
         ],
         "bullets": [
-          "Access to private accounts and appointment records is strictly restricted to authenticated users.",
-          "Health information and emergency notes are handled with high standards of confidentiality.",
-          "Database isolation rules ensure that users cannot inspect other patients' data.",
-          "Encrypted transport protocols protect information exchanged between your device and our servers."
+          "Toegang tot privégegevens is strikt voorbehouden aan geauthenticeerde accounthouders.",
+          "Gezondheidsgegevens en noodnotities worden behandeld volgens de hoogste medische vertrouwelijkheidsnormen.",
+          "Row Level Security (RLS) op databaseniveau voorkomt dat gegevens van verschillende patiënten kunnen worden ingezien.",
+          "Versleutelde verbindingen (end-to-end) beveiligen de communicatie tussen uw apparaat en onze servers."
         ],
         "subparagraphs": [
-          "Users are encouraged to protect their account credentials and report any suspected unauthorized access to our administration desk immediately."
+          "Wij adviseren gebruikers hun inloggegevens zorgvuldig te beschermen en bij vermoeden van misbruik direct de beheerder te waarschuwen."
         ]
       },
       {
         "id": "information-retention",
         "number": 12,
-        "heading": "Information Retention",
+        "heading": "Bewaartermijnen",
         "paragraphs": [
-          "Records are retained only for as long as your account remains active or as needed to deliver our healthcare planning and awareness features.",
-          "Private appointment requests, emergency logs, and support inquiries are retained within your secure portal until you remove them or submit an account closure request."
+          "Wij bewaren uw gegevens zolang uw account actief blijft of zolang dit nodig is om onze zorgfuncties aan te bieden.",
+          "Afspraakverzoeken, noodnotities en ondersteuningsberichten blijven in uw beveiligde portaal bewaard totdat u deze verwijdert of verzoekt om beëindiging van het account."
         ]
       },
       {
         "id": "patient-rights",
         "number": 13,
-        "heading": "Patient Rights",
+        "heading": "Rechten van Patiënten (AVG / GDPR)",
         "paragraphs": [
-          "Depending on your jurisdiction, you may exercise applicable rights regarding your information:"
+          "Op grond van de Algemene Verordening Gegevensbescherming (AVG) heeft u de volgende rechten met betrekking tot uw gegevens:"
         ],
         "bullets": [
-          "Request access to the personal information we maintain about you.",
-          "Request correction of inaccurate or incomplete health profile records.",
-          "Withdraw optional consent for location or health device integrations.",
-          "Request deletion of your account where permitted by applicable law.",
-          "Submit questions or privacy inquiries to our administration team."
+          "Het recht op inzage in de persoonsgegevens die wij van u verwerken.",
+          "Het recht op correctie van onjuiste of onvolledige gegevens.",
+          "Het recht om toestemming voor locatie of sensoren op ieder moment in te trekken.",
+          "Het recht op gegevenswissing van informatie die op basis van toestemming is verwerkt.",
+          "Het indienen van vragen of verzoeken bij onze privacy- en gegevensbeheerder."
         ]
       },
       {
         "id": "childrens-privacy",
         "number": 14,
-        "heading": "Children's Privacy",
+        "heading": "Privacy van Minderjarigen",
         "paragraphs": [
-          "SOS Healthcare is designed for use by individuals who have reached the age of majority or minors using the service under the active supervision and consent of a parent or legal guardian."
+          "SOS Healthcare is bestemd voor volwassenen of voor minderjarigen onder toezicht en met uitdrukkelijke toestemming van ouders of wettelijke vertegenwoordigers."
         ]
       },
       {
         "id": "international-awareness",
         "number": 15,
-        "heading": "International Healthcare Awareness",
+        "heading": "Internationale Zorgvoorlichting",
         "paragraphs": [
-          "SOS Healthcare provides information across 22 languages to assist users internationally. Providing multilingual information does not imply local clinical licensing, direct hospital operational affiliation, or municipal emergency dispatch coverage in every country."
+          "SOS Healthcare stelt informatie beschikbaar in 25 talen om gebruikers wereldwijd te informeren. Deze meertaligheid impliceert geen directe klinische vergunning of lokale ambulanceverlening in elk land."
         ]
       },
       {
         "id": "policy-updates",
         "number": 16,
-        "heading": "Policy Updates",
+        "heading": "Wijzigingen van dit Beleid",
         "paragraphs": [
-          "We may periodically update this policy to reflect enhancements in patient safety, new platform features, or evolving legal standards. The latest revision date is prominently displayed at the top of this document."
+          "Wij kunnen dit beleid periodiek herzien om rekening te houden met beveiligingsverbeteringen of wettelijke vereisten. De datum van de laatste wijziging staat altijd bovenaan vermeld."
         ]
       },
       {
         "id": "contact-administrator",
         "number": 17,
-        "heading": "Contact Administrator",
+        "heading": "Contact met de Beheerder",
         "paragraphs": [
-          "For privacy inquiries, patient data requests, or directory corrections, you may contact our administration desk directly:"
+          "Voor vragen over privacy, gegevensverzoeken of correcties in het ziekenhuisoverzicht kunt u contact opnemen met de beheerder:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"
@@ -212,175 +212,175 @@
     ]
   },
   "terms": {
-    "title": "Terms of Service",
-    "subtitle": "Healthcare Service Rules & Conditions of Use",
-    "lastUpdated": "11 November 2026",
-    "tocTitle": "Contents",
+    "title": "Gebruiksvoorwaarden",
+    "subtitle": "Regels en Voorwaarden voor het Gebruik van de Zorgdienst",
+    "lastUpdated": "11 november 2026",
+    "tocTitle": "Inhoudsopgave",
     "notice": {
       "variant": "warning",
-      "title": "Emergency Medical Notice",
-      "text": "SOS Healthcare is an informational assistance platform and is not a substitute for official emergency responders. In a life-threatening crisis, immediately dial your local emergency telephone service."
+      "title": "Medische Noodwaarschuwing",
+      "text": "SOS Healthcare is een ondersteunend informatieplatform en vervangt geen officiële nooddiensten. Bel bij levensbedreigende situaties direct het alarmnummer 112 of het lokale noodnummer."
     },
     "sections": [
       {
         "id": "acceptance",
         "number": 1,
-        "heading": "Acceptance of Terms",
+        "heading": "Aanvaarding van de Voorwaarden",
         "paragraphs": [
-          "By accessing, registering for, or using SOS Healthcare services, you acknowledge that you have read and understood these Terms of Service and agree to comply with the applicable conditions of use. If you do not agree with these terms, you should discontinue use of the services."
+          "Door SOS Healthcare te bezoeken, een account aan te maken of de diensten te gebruiken, verklaart u dat u deze Voorwaarden hebt gelezen, begrepen en ermee instemt. Indien u niet akkoord gaat, dient u het gebruik van de applicatie te staken."
         ]
       },
       {
         "id": "eligibility",
         "number": 2,
-        "heading": "Eligibility and Account Responsibilities",
+        "heading": "Toelaatbaarheid en Accountverantwoordelijkheid",
         "paragraphs": [
-          "Users must be of legal age of majority or use the platform under the supervision of a parent or legal guardian. You agree to provide accurate information when creating an account, safeguard your credentials, and report any unauthorized access promptly. You remain responsible for all activities originating from your account."
+          "Gebruikers dienen handelingsbekwaam te zijn of de applicatie te gebruiken onder toezicht van ouders of voogd. U verplicht zich juiste gegevens te verstrekken, uw inloggegevens te beveiligen en ongeoorloofde toegang direct te melden. U bent zelf verantwoordelijk voor alle activiteiten via uw account."
         ]
       },
       {
         "id": "services",
         "number": 3,
-        "heading": "Nature of SOS Healthcare Services",
+        "heading": "Aard van de Diensten van SOS Healthcare",
         "paragraphs": [
-          "SOS Healthcare provides digital healthcare awareness, nearby hospital discovery, emergency telephone guidance, private appointment planning, and authorized health-device information display.",
-          "The platform is a communication and planning tool and does not provide direct medical treatment or clinical prescriptions."
+          "SOS Healthcare biedt digitale gezondheidsvoorlichting, het opzoeken van ziekenhuizen, hulp bij noodoproepen, persoonlijke afspraakplanning en inzage in gekoppelde wearables.",
+          "Het platform functioneert uitsluitend als informatief hulpmiddel en verstrekt geen medische diagnoses, behandelingen of voorschriften."
         ]
       },
       {
         "id": "hospitals",
         "number": 4,
-        "heading": "Hospital Directory Information",
+        "heading": "Informatie over Ziekenhuizen",
         "paragraphs": [
-          "Hospital names, addresses, and listed departments are provided for general informational orientation. Directory details may change, and emergency triage availability should always be verified directly with the facility. Inclusion in our directory does not imply formal partnership or commercial endorsement."
+          "Namen, adressen en specialismen van ziekenhuizen worden uitsluitend ter informatie getoond. De beschikbaarheid van afdelingen kan wijzigen en dient direct bij de instelling te worden geverifieerd. Opname betekent geen exclusieve samenwerking of aanbeveling."
         ]
       },
       {
         "id": "doctors",
         "number": 5,
-        "heading": "Doctor Information",
+        "heading": "Informatie over Medisch Specialisten",
         "paragraphs": [
-          "Information regarding medical specialists is intended to help users identify independent healthcare providers. Listed doctors are not partners of the platform, and listing does not imply an exclusive endorsement or automated intake agreement without verified authorization."
+          "De informatie over specialisten helpt gebruikers zelfstandige zorgverleners te vinden. Vermelde artsen zijn geen medewerkers van het platform en vermelding houdt geen formele aanbeveling in."
         ]
       },
       {
         "id": "private-appointments",
         "number": 6,
-        "heading": "Private Appointment Requests",
+        "heading": "Persoonlijke Afspraakverzoeken",
         "paragraphs": [
-          "The platform allows patients to store personal appointment preferences and consultation requests. These requests do not create hospital-confirmed reservations. Hospital schedules and front-desk booking procedures may differ, and users are responsible for confirming actual visits directly with the hospital."
+          "Op het platform kunt u persoonlijke notities en afspraakwensen bewaren. Deze verzoeken vormen geen definitieve boeking bij het ziekenhuis. De gebruiker is zelf verantwoordelijk voor bevestiging met de instelling."
         ]
       },
       {
         "id": "cancellation",
         "number": 7,
-        "heading": "Cancellation and Rescheduling",
+        "heading": "Wijzigen en Annuleren",
         "paragraphs": [
-          "Patients may cancel or reschedule eligible private requests within their portal. Modifying a request affects only the record stored in SOS Healthcare; it does not automatically cancel an independently arranged hospital appointment. Cancellation records are retained in accordance with the Privacy Policy."
+          "Patiënten kunnen hun afspraaknotities op elk moment aanpassen of verwijderen in het portaal. Dit heeft alleen betrekking op interne gegevens binnen SOS Healthcare en annuleert geen afspraken bij het ziekenhuis zelf."
         ]
       },
       {
         "id": "emergency",
         "number": 8,
-        "heading": "Emergency Assistance",
+        "heading": "Ondersteuning bij Noodsituaties",
         "paragraphs": [
-          "SOS Healthcare is not a substitute for official public emergency services. Users must contact their local emergency number (e.g. 112, 911, or local emergency line) for life-threatening emergencies.",
-          "Transmitting an SOS beacon notifies designated emergency contacts via the app; emergency contacts are not equivalent to municipal ambulance dispatch providers."
+          "SOS Healthcare vervangt de openbare ambulancedienst niet. Bel in levensbedreigende situaties altijd direct 112.",
+          "Het versturen van een SOS-signaal waarschuwt uitsluitend uw geregistreerde contacten en geldt niet als officiële alarmering van hulpdiensten."
         ]
       },
       {
         "id": "medical-disclaimer",
         "number": 9,
-        "heading": "Medical Information Disclaimer",
+        "heading": "Medische Disclaimer",
         "paragraphs": [
-          "Information provided on the platform is educational and informational. It is not medical advice, diagnosis, or treatment. Users should consult licensed healthcare professionals regarding any health condition. Emergency symptoms require urgent attention from licensed emergency providers."
+          "De inhoud op het platform dient enkel ter voorlichting en vormt geen medisch advies. Raadpleeg bij gezondheidsklachten altijd een gekwalificeerd arts."
         ]
       },
       {
         "id": "wearables",
         "number": 10,
-        "heading": "Wearable Devices",
+        "heading": "Gekoppelde Apparaten (Wearables)",
         "paragraphs": [
-          "Wearable data displayed through integrations (such as Google Health) depends on third-party sensor accuracy. Measurements may be delayed or unavailable. Wearable data is not diagnostic clinical information, and no automatic emergency response is promised based on wearable metrics."
+          "Metingen van smartwatches (zoals via Google Health) zijn afhankelijk van de nauwkeurigheid van externe apparatuur. Deze gegevens hebben geen diagnostische waarde en roepen geen hulpdiensten op."
         ]
       },
       {
         "id": "responsibilities",
         "number": 11,
-        "heading": "Patient Responsibilities",
+        "heading": "Verantwoordelijkheden van de Patiënt",
         "paragraphs": [
-          "Patients are responsible for maintaining accurate contact details, using emergency features conscientiously, and respecting the confidentiality of personal medical information stored in their accounts."
+          "Het is de verantwoordelijkheid van de gebruiker om contactgegevens actueel te houden, de noodfuncties verantwoord te gebruiken en zorgvuldig met gezondheidsgegevens om te gaan."
         ]
       },
       {
         "id": "prohibited",
         "number": 12,
-        "heading": "Prohibited Conduct",
+        "heading": "Verboden Gedrag",
         "paragraphs": [
-          "Users may not:"
+          "Het is gebruikers uitdrukkelijk verboden om:"
         ],
         "bullets": [
-          "Attempt unauthorized access to other accounts or administrative systems.",
-          "Trigger fraudulent or abusive emergency beacons that waste responder resources.",
-          "Harass healthcare providers, administrators, or other patients.",
-          "Misrepresent professional medical credentials or patient identity.",
-          "Interfere with the security or operational integrity of the service."
+          "Ongeoorloofd toegang te zoeken tot andermans accounts of beheersystemen.",
+          "Valse SOS-meldingen te versturen die hulpverleners onnodig belasten.",
+          "Zorgverleners, beheerders of andere gebruikers lastig te vallen of te intimideren.",
+          "Valse medische kwalificaties op te geven of de eigen identiteit te verhullen.",
+          "De beveiliging of de normale werking van het platform te verstoren."
         ]
       },
       {
         "id": "privacy",
         "number": 13,
-        "heading": "Privacy and Patient Confidentiality",
+        "heading": "Privacy en Bescherming van Gegevens",
         "paragraphs": [
-          "Handling of personal information and healthcare preferences is governed by our Privacy Policy. Please review the Privacy Policy for details regarding our confidentiality safeguards and patient rights."
+          "De verwerking van persoonsgegevens is onderworpen aan ons Privacybeleid. Wij raden u aan dit beleid zorgvuldig te lezen om uw rechten te kennen."
         ]
       },
       {
         "id": "availability",
         "number": 14,
-        "heading": "Service Availability",
+        "heading": "Beschikbaarheid van de Dienst",
         "paragraphs": [
-          "Platform availability depends on cellular connectivity, internet routing, and scheduled maintenance. While we aim for reliable service, uninterrupted healthcare software availability cannot be guaranteed."
+          "De werking van het platform is afhankelijk van internetverbindingen en regulier onderhoud. Hoewel wij streven naar optimale continuïteit, kunnen wij geen ononderbroken werking garanderen."
         ]
       },
       {
         "id": "fees",
         "number": 15,
-        "heading": "Service Fees",
+        "heading": "Tarieven en Kosten",
         "paragraphs": [
-          "Access to the SOS Healthcare digital platform is free for users. External hospital, consultation, transportation, or medical treatment fees charged by independent healthcare providers remain the responsibility of the patient."
+          "Toegang tot en gebruik van SOS Healthcare is kosteloos voor patiënten. Kosten voor medische consulten, onderzoeken of vervoer die door ziekenhuizen of behandelaars in rekening worden gebracht, vallen onder uw eigen verantwoordelijkheid."
         ]
       },
       {
         "id": "suspension",
         "number": 16,
-        "heading": "Account Suspension and Closure",
+        "heading": "Opschorting en Beëindiging",
         "paragraphs": [
-          "We reserve the right to suspend or close accounts that engage in fraudulent emergency alerts, violate acceptable use rules, or compromise platform security, subject to applicable notice and review procedures."
+          "Wij behouden ons het recht voor om accounts die misbruik plegen of deze voorwaarden schenden te schorsen of te beëindigen na voorafgaande kennisgeving en beoordeling."
         ]
       },
       {
         "id": "changes",
         "number": 17,
-        "heading": "Changes to Terms",
+        "heading": "Wijziging van de Voorwaarden",
         "paragraphs": [
-          "Material changes to these Terms will be communicated through the platform with an updated version date. Continued use following updates constitutes agreement to the revised conditions."
+          "Belangrijke wijzigingen in deze voorwaarden worden op het platform bekendgemaakt met een aangepaste datum. Voortgezet gebruik geldt als akkoord met de herziene bepalingen."
         ]
       },
       {
         "id": "disputes",
         "number": 18,
-        "heading": "Applicable Law and Dispute Resolution",
+        "heading": "Toepasselijk Recht en Geschillen",
         "paragraphs": [
-          "These Terms are governed by applicable national consumer and digital healthcare regulations. Disputes should first be addressed through good-faith administrative communication before pursuing formal proceedings."
+          "Op deze voorwaarden is het toepasselijk consumentenrecht van kracht. Geschillen worden bij voorkeur eerst in onderling overleg met de beheerder opgelost alvorens juridische stappen te ondernemen."
         ]
       },
       {
         "id": "administrative-contact",
         "number": 19,
-        "heading": "Administrative Contact",
+        "heading": "Administratief Contact",
         "paragraphs": [
-          "For questions regarding these service conditions, please contact our administrative desk:"
+          "Voor vragen over deze Gebruiksvoorwaarden kunt u contact opnemen met ons beheerteam via onderstaande gegevens:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"

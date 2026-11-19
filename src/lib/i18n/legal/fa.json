@@ -1,210 +1,210 @@
 {
   "privacy": {
-    "title": "Privacy Policy",
-    "subtitle": "SOS Healthcare Patient Portal",
-    "lastUpdated": "11 November 2026",
-    "tocTitle": "Contents",
+    "title": "سیاست حفظ حریم خصوصی",
+    "subtitle": "پورتال بیماران SOS Healthcare",
+    "lastUpdated": "۱۱ نوامبر ۲۰۲۶",
+    "tocTitle": "فهرست مطالب",
     "notice": {
       "variant": "info",
-      "title": "Patient Privacy Commitment",
-      "text": "SOS Healthcare is dedicated to patient privacy, transparency, and personal health data control. Appointment requests created within our portal are maintained securely within the platform and are never automatically transmitted to hospital databases or external electronic health records."
+      "title": "تعهد به حفظ حریم خصوصی بیماران",
+      "text": "سامانه SOS Healthcare خود را متعهد به حفظ حریم خصوصی بیماران، شفافیت و کنترل کامل داده‌های سلامت فردی می‌داند. درخواست‌های نوبت ثبت‌شده در پورتال ما به صورت امن در سامانه نگهداری شده و هرگز به طور خودکار به پایگاه‌های داده بیمارستان‌ها یا پرونده‌های الکترونیک خارجی ارسال نمی‌شوند."
     },
     "sections": [
       {
         "id": "introduction",
         "number": 1,
-        "heading": "Introduction",
+        "heading": "مقدمه",
         "paragraphs": [
-          "SOS Healthcare provides healthcare awareness, nearby hospital discovery, emergency telephone guidance, and private appointment-planning services.",
-          "This Privacy Policy describes how personal information and healthcare preferences are collected, used, protected, and handled when you access our application. SOS Healthcare is a software assistance platform and does not directly own or operate hospital treatment centers."
+          "سامانه SOS Healthcare خدمات آگاهی‌بخشی سلامت، جستجوی بیمارستان‌های نزدیک، راهنمایی تلفنی اورژانس و برنامه‌ریزی خصوصی نوبت‌های درمانی را ارائه می‌دهد.",
+          "این سیاست حفظ حریم خصوصی نحوه جمع‌آوری، استفاده، محافظت و مدیریت اطلاعات هویتی و سلامت شما را هنگام دسترسی به برنامه تشریح می‌کند. SOS Healthcare یک پلتفرم نرم‌افزاری کمکی است و مالکیت یا مدیریت مستقیم مراکز درمانی را بر عهده ندارد."
         ]
       },
       {
         "id": "information-collected",
         "number": 2,
-        "heading": "Information We Collect",
+        "heading": "اطلاعاتی که جمع‌آوری می‌کنیم",
         "paragraphs": [
-          "We collect only the information necessary to fulfill our digital healthcare awareness and planning services:"
+          "ما تنها اطلاعاتی را جمع‌آوری می‌کنیم که برای ارائه خدمات دیجیتال سلامت و برنامه‌ریزی ضروری هستند:"
         ],
         "bullets": [
-          "Name and Contact Details: Name and email address used for account registration and authentication.",
-          "Account Information: Profile credentials, preferences, and security access logs.",
-          "Emergency Contact Details: Names, phone numbers, and relationship designations for family or trusted individuals you choose to notify during emergencies.",
-          "Location Information: Real-time browser GPS coordinates when explicitly permitted by you to calculate driving distances to nearby medical centers or transmit coordinates during an emergency beacon.",
-          "Private Appointment Requests: Selected medical specialties, preferred dates, visit reasons, and status notes saved in your personal planner.",
-          "Hospital Preferences: Bookmarked facilities and search history.",
-          "Optional Health Information: Self-reported blood group, vitals, allergies, and chronic medical history stored in your health profile.",
-          "Wearable-Device Information: Heart rate, step count, or activity telemetry accessed only when you explicitly connect Google Health.",
-          "Support Inquiries: Communications submitted through our administrator inquiry form."
+          "نام و اطلاعات تماس: نام و آدرس ایمیل برای ثبت‌نام و احراز هویت امن حساب کاربری.",
+          "اطلاعات حساب کاربری: مشخصات پروفایل، تنظیمات برگزیده و گزارش‌های امنیتی ورود.",
+          "اطلاعات مخاطبین اضطراری: نام، شماره تلفن و نسبت بستگان یا افراد معتمدی که برای اطلاع‌رسانی در شرایط اضطراری انتخاب می‌کنید.",
+          "اطلاعات موقعیت مکانی: مختصات لحظه‌ای GPS مرورگر با اجازه صریح شما جهت محاسبه مسافت تا مراکز درمانی یا ارسال مختصات هنگام هشدار اضطراری SOS.",
+          "درخواست‌های نوبت خصوصی: تخصص‌های پزشکی انتخابی، تاریخ‌های مطلوب، علل مراجعه و یادداشت‌های وضعیت در برنامه‌ریز شخصی شما.",
+          "تنظیمات بیمارستان‌ها: مراکز نشان‌شده و تاریخچه جستجوهای شما.",
+          "اطلاعات پزشکی اختیاری: گروه خونی خوداظهاری‌شده، علائم حیاتی، آلرژی‌ها و سوابق بیماری‌های مزمن در پروفایل سلامت شما.",
+          "اطلاعات گجت‌های پوشیدنی: ضربان قلب، گام‌شمار یا داده‌های فعالیت تنها در صورت اتصال مستقیم و صریح شما به Google Health.",
+          "مکاتبات پشتیبانی: پیام‌های ارسالی از طریق فرم استعلام با مدیریت سامانه."
         ]
       },
       {
         "id": "purpose-of-collecting",
         "number": 3,
-        "heading": "Purpose of Collecting Information",
+        "heading": "اهداف جمع‌آوری اطلاعات",
         "paragraphs": [
-          "We process your information for clear, patient-centered purposes:"
+          "ما اطلاعات شما را برای اهداف شفاف و بیمارمحور پردازش می‌کنیم:"
         ],
         "bullets": [
-          "Managing your patient account and authenticating your access securely.",
-          "Helping you identify and locate nearby accredited healthcare facilities.",
-          "Maintaining your private consultation requests and personal scheduling notes.",
-          "Supporting emergency contact notifications when an SOS beacon is activated.",
-          "Displaying authorized wearable wellness data in your patient dashboard.",
-          "Responding to platform feedback and administrative support requests.",
-          "Protecting accounts against unauthorized access and preventing platform misuse."
+          "مدیریت حساب بیمار و احراز هویت دسترسی به صورت ایمن.",
+          "کمک به شما در شناسایی و یافتن مراکز درمانی معتبر و نزدیک.",
+          "نگهداری درخواست‌های نوبت خصوصی و یادداشت‌های زمان‌بندی فردی شما.",
+          "پشتیبانی از ارسال اعلان به مخاطبین اضطراری هنگام فعال‌سازی هشدار SOS.",
+          "نمایش داده‌های سلامت مجاز دستگاه‌های هوشمند در داشبورد بیمار.",
+          "پاسخگویی به بازخوردها و درخواست‌های پشتیبانی مدیریتی سامانه.",
+          "محافظت از حساب‌ها در برابر دسترسی غیرمجاز و جلوگیری از سوءاستفاده."
         ]
       },
       {
         "id": "patient-privacy",
         "number": 4,
-        "heading": "Patient Privacy and Confidentiality",
+        "heading": "حریم خصوصی و محرمانگی بیمار",
         "paragraphs": [
-          "SOS Healthcare restricts access to personal information to legitimate, authorized purposes. Your health records and private consultation preferences are confidential. We maintain technical controls so that individual patient information is accessible only to the authenticated account holder."
+          "سامانه SOS Healthcare دسترسی به اطلاعات شخصی را تنها به مقاصد قانونی و مجاز محدود می‌کند. سوابق سلامت و تمایلات درمانی شما کاملاً محرمانه هستند. تدابیر فنی ما تضمین می‌کند که داده‌های هر بیمار تنها برای دارنده تأییدشده همان حساب قابل مشاهده است."
         ]
       },
       {
         "id": "hospital-directory",
         "number": 5,
-        "heading": "Hospital Information and Directory Services",
+        "heading": "خدمات فهرست و اطلاعات بیمارستان‌ها",
         "paragraphs": [
-          "Hospital and clinic information is compiled from public healthcare listings to help users identify medical facilities in their area.",
-          "Inclusion in our directory does not automatically establish a formal commercial relationship, affiliation, or operational partnership between SOS Healthcare and the hospital."
+          "اطلاعات بیمارستان‌ها و درمانگاه‌ها از مراجع عمومی سلامت گردآوری شده تا به کاربران در یافتن مراکز درمانی کمک کند.",
+          "ثبت مشخصات یک مرکز در فهرست ما به منزله شراکت تجاری رسمی، وابستگی سازمانی یا نمایندگی بین SOS Healthcare و آن بیمارستان نیست."
         ]
       },
       {
         "id": "private-appointments",
         "number": 6,
-        "heading": "Private Appointment Requests",
+        "heading": "درخواست‌های نوبت خصوصی",
         "notice": {
           "variant": "info",
-          "title": "Important Notice Regarding Appointment Requests",
-          "text": "\"Appointment requests saved through SOS Healthcare are maintained within the SOS Healthcare platform and are not automatically submitted to hospitals or added to hospital medical records.\""
+          "title": "اطلاعیه مهم پیرامون درخواست‌های نوبت",
+          "text": "«درخواست‌های نوبت ذخیره‌شده در SOS Healthcare صرفاً در پلتفرم SOS Healthcare نگهداری می‌شوند و هرگز به صورت خودکار به بیمارستان‌ها ارسال نشده و به پرونده رسمی بیمارستان افزوده نمی‌شوند.»"
         },
         "paragraphs": [
-          "Saving a request in your portal does not guarantee hospital availability or confirm an appointment slot with hospital staff. Patients may reschedule or cancel their private requests at any time.",
-          "Cancelling a private request in SOS Healthcare does not cancel an independently arranged appointment at a hospital clinic. External hospital booking requires a separately authorized, verified integration."
+          "ذخیره یک درخواست در پورتال به معنای تضمین پذیرش بیمارستان یا قطعی شدن نوبت با کادر درمان نیست. بیماران می‌توانند نوبت‌های خود را در هر زمان تغییر داده یا لغو کنند.",
+          "لغو درخواست در SOS Healthcare به منزله ابطال نوبتی که مستقیماً در درمانگاه بیمارستان ثبت کرده‌اید نیست. نوبت‌دهی رسمی بیمارستان نیازمند اتصال مجاز و تأییدشده جداگانه است."
         ]
       },
       {
         "id": "emergency-assistance",
         "number": 7,
-        "heading": "Emergency Assistance and Location Information",
+        "heading": "امداد اضطراری و اطلاعات موقعیت مکانی",
         "paragraphs": [
-          "Location permission is requested only when necessary to calculate proximity to nearby hospitals or when initiating an emergency beacon.",
-          "When an SOS beacon is activated, your browser-reported coordinates at that moment are transmitted to your registered emergency contacts. SOS Healthcare does not track your location in the background when the app is inactive. Public emergency responders (such as 112 or 911 dispatchers) do not automatically receive web beacon data unless formal municipal dispatch connectivity is verified in your jurisdiction.",
-          "You may withdraw location permissions at any time through your device or browser settings."
+          "دسترسی به موقعیت مکانی تنها در صورت ضرورت جهت محاسبه فاصله تا مراکز درمانی یا ارسال هشدار اضطراری درخواست می‌شود.",
+          "هنگامی که هشدار SOS فعال می‌شود، مختصات گزارش‌شده مرورگر در همان لحظه برای مخاطبین اضطراری از پیش تعیین‌شده شما ارسال می‌گردد.",
+          "شما می‌توانید مجوز دسترسی به موقعیت مکانی را در تنظیمات مرورگر لغو کنید؛ لغو آن ارسال مختصات را متوقف می‌سازد اما ممکن است چینش بیمارستان‌ها بر اساس فاصله را با محدودیت مواجه کند."
         ]
       },
       {
         "id": "health-wearables",
         "number": 8,
-        "heading": "Health and Wearable Information",
+        "heading": "اطلاعات سلامت و دستگاه‌های پوشیدنی",
         "paragraphs": [
-          "Connected wearable information (such as Google Health API integration) is retrieved only with your explicit permission. Data is queried on-demand to display wellness trends in your portal.",
-          "Connecting a wearable device does not create an automated emergency ambulance dispatch service. You may revoke access at any time via your Devices settings or your Google Account permissions, which immediately terminates data retrieval and purges cached metrics."
+          "اطلاعات دستگاه‌های پوشیدنی متصل (نظیر Google Health) صرفاً با اجازه صریح شما دریافت می‌شود. داده‌ها بر حسب نیاز جهت نمایش روندهای سلامت در پورتال فراخوانی می‌گردند.",
+          "اتصال گجت پوشیدنی موجب اعزام خودکار آمبولانس نخواهد شد. شما می‌توانید در هر زمان از طریق تنظیمات دستگاه‌ها دسترسی را لغو کنید تا فراخوانی داده‌ها متوقف و اطلاعات حافظه موقت پاک شود."
         ]
       },
       {
         "id": "patient-consent",
         "number": 9,
-        "heading": "Patient Consent and Control",
+        "heading": "رضایت و اختیارات بیمار",
         "paragraphs": [
-          "We believe patients should maintain granular control over their information. You can review and update permissions at any time:"
+          "ما بر این باوریم که بیماران باید کنترل کاملی بر اطلاعات خود داشته باشند. شما در هر زمان می‌توانید مجوزها را بررسی و تغییر دهید:"
         ],
         "bullets": [
-          "Modify emergency contact details and notification settings.",
-          "Toggle doctor pre-arrival sharing preferences in your Health Profile.",
-          "Disconnect wearable services with immediate token invalidation.",
-          "Request deletion of your account and personal records."
+          "ویرایش اطلاعات مخاطبین اضطراری و تنظیمات پیام‌ها.",
+          "فعال یا غیرفعال کردن اشتراک‌گذاری داده‌ها با پزشک پیش از مراجعه در پروفایل سلامت.",
+          "قطع اتصال گجت‌های پوشیدنی با باطل شدن فوری توکن‌های دسترسی.",
+          "درخواست حذف حساب کاربری و سوابق شخصی."
         ]
       },
       {
         "id": "healthcare-sharing",
         "number": 10,
-        "heading": "Healthcare Information Sharing and Confidentiality",
+        "heading": "اشتراک‌گذاری اطلاعات درمانی و محرمانگی",
         "paragraphs": [
-          "Personal or health information is never automatically disclosed to hospitals merely because a user browses a hospital card or saves a private appointment request.",
-          "Information may only be disclosed under the following circumstances:"
+          "اطلاعات شخصی یا پزشکی بیمار هرگز صرفاً به دلیل مشاهده صفحه یک بیمارستان یا ذخیره یک نوبت خصوصی برای آن بیمارستان افشا نخواهد شد.",
+          "اطلاعات تنها در شرایط بسیار محدود زیر قابل ارائه است:"
         ],
         "bullets": [
-          "With your explicit, verified authorization.",
-          "To designated emergency contacts when you actively trigger an emergency beacon.",
-          "To essential infrastructure service providers necessary to operate the application.",
-          "Where required by applicable law, statutory subpoena, or valid court order."
+          "با اجازه صریح، آگاهانه و تأییدشده شما.",
+          "ارسال به مخاطبین اضطراری تعیین‌شده هنگامی که خودتان هشدار SOS را فعال می‌کنید.",
+          "به ارائه‌دهندگان زیرساخت ابری که برای کارکرد فنی برنامه ضروری هستند.",
+          "در مواردی که طبق قوانین لازم‌الاجرا یا دستور قضایی معتبر دادگاه الزامی باشد."
         ]
       },
       {
         "id": "patient-safeguards",
         "number": 11,
-        "heading": "Patient Information Safeguards",
+        "heading": "تدابیر محافظت از داده‌های بیماران",
         "paragraphs": [
-          "We implement administrative and technical safeguards designed to protect personal information:"
+          "ما تدابیر مدیریتی و فنی پیشرفته‌ای را برای محافظت از داده‌های شخصی به کار بسته‌ایم:"
         ],
         "bullets": [
-          "Access to private accounts and appointment records is strictly restricted to authenticated users.",
-          "Health information and emergency notes are handled with high standards of confidentiality.",
-          "Database isolation rules ensure that users cannot inspect other patients' data.",
-          "Encrypted transport protocols protect information exchanged between your device and our servers."
+          "دسترسی به حساب‌های خصوصی و نوبت‌ها کاملاً محدود به کاربران تأییدشده است.",
+          "اطلاعات سلامت و هشدارهای اضطراری با بالاترین استانداردهای رازداری پزشکی اداره می‌شوند.",
+          "قوانین امنیت در سطح ردیف (RLS) پایگاه داده مانع از دسترسی هر کاربر به اطلاعات سایر بیماران می‌گردد.",
+          "پروتکل‌های ارتباطی رمزنگاری‌شده از تبادل اطلاعات بین دستگاه شما و سرورها محافظت می‌کنند."
         ],
         "subparagraphs": [
-          "Users are encouraged to protect their account credentials and report any suspected unauthorized access to our administration desk immediately."
+          "به کاربران توصیه اکید می‌شود از رمزهای عبور خود مراقبت کرده و هرگونه دسترسی مشکوک را سریعاً به میز مدیریت اطلاع دهند."
         ]
       },
       {
         "id": "information-retention",
         "number": 12,
-        "heading": "Information Retention",
+        "heading": "مدت نگهداری اطلاعات",
         "paragraphs": [
-          "Records are retained only for as long as your account remains active or as needed to deliver our healthcare planning and awareness features.",
-          "Private appointment requests, emergency logs, and support inquiries are retained within your secure portal until you remove them or submit an account closure request."
+          "سوابق تنها تا زمانی که حساب شما فعال باشد یا برای ارائه خدمات سامانه لازم باشد نگهداری می‌شوند.",
+          "درخواست‌های نوبت، گزارش‌های اضطراری و پیام‌های پشتیبانی تا زمانی که خودتان آنها را حذف نکنید یا حساب را نبندید در پورتال امن شما باقی می‌مانند."
         ]
       },
       {
         "id": "patient-rights",
         "number": 13,
-        "heading": "Patient Rights",
+        "heading": "حقوق قانونی بیماران",
         "paragraphs": [
-          "Depending on your jurisdiction, you may exercise applicable rights regarding your information:"
+          "با توجه به قوانین حوزه قضایی خود، شما از حقوق قانونی زیر در ارتباط با اطلاعات خود برخوردار هستید:"
         ],
         "bullets": [
-          "Request access to the personal information we maintain about you.",
-          "Request correction of inaccurate or incomplete health profile records.",
-          "Withdraw optional consent for location or health device integrations.",
-          "Request deletion of your account where permitted by applicable law.",
-          "Submit questions or privacy inquiries to our administration team."
+          "درخواست مشاهده و دسترسی به اطلاعات شخصی ثبت‌شده.",
+          "درخواست اصلاح اطلاعات نادرست یا ناقص پروفایل سلامت.",
+          "پس گرفتن رضایت اختیاری برای موقعیت مکانی یا گجت‌ها.",
+          "درخواست حذف حساب و پاکسازی اطلاعات در چارچوب قانون.",
+          "طرح سؤالات یا ابهامات حریم خصوصی با تیم مدیریت سامانه."
         ]
       },
       {
         "id": "childrens-privacy",
         "number": 14,
-        "heading": "Children's Privacy",
+        "heading": "حریم خصوصی کودکان و نوجوانان",
         "paragraphs": [
-          "SOS Healthcare is designed for use by individuals who have reached the age of majority or minors using the service under the active supervision and consent of a parent or legal guardian."
+          "سامانه SOS Healthcare برای افراد به سن قانونی رسیده یا افراد زیر سن قانونی تحت نظارت و رضایت مستقیم والدین یا سرپرست قانونی طراحی شده است."
         ]
       },
       {
         "id": "international-awareness",
         "number": 15,
-        "heading": "International Healthcare Awareness",
+        "heading": "آگاهی‌بخشی بین‌المللی سلامت",
         "paragraphs": [
-          "SOS Healthcare provides information across 22 languages to assist users internationally. Providing multilingual information does not imply local clinical licensing, direct hospital operational affiliation, or municipal emergency dispatch coverage in every country."
+          "سامانه SOS Healthcare اطلاعات را به ۲۵ زبان برای راهنمایی کاربران سراسر جهان ارائه می‌کند. ارائه خدمات چندزبانه به معنای داشتن پروانه طبابت محلی، نمایندگی رسمی بیمارستان‌ها یا پوشش اعزام آمبولانس در همه کشورها نیست."
         ]
       },
       {
         "id": "policy-updates",
         "number": 16,
-        "heading": "Policy Updates",
+        "heading": "به‌روزرسانی‌های خط‌مشی",
         "paragraphs": [
-          "We may periodically update this policy to reflect enhancements in patient safety, new platform features, or evolving legal standards. The latest revision date is prominently displayed at the top of this document."
+          "ما ممکن است به منظور ارتقای امنیت بیماران یا انطباق با قوانین جدید، این سیاست را به‌روز کنیم. تاریخ آخرین ویرایش در بالای این سند مشخص است."
         ]
       },
       {
         "id": "contact-administrator",
         "number": 17,
-        "heading": "Contact Administrator",
+        "heading": "تماس با مدیر سامانه",
         "paragraphs": [
-          "For privacy inquiries, patient data requests, or directory corrections, you may contact our administration desk directly:"
+          "برای استعلام حریم خصوصی، درخواست داده‌ها یا اصلاح مشخصات مراکز، می‌توانید مستقیماً با میز مدیریت ما در ارتباط باشید:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"
@@ -212,175 +212,175 @@
     ]
   },
   "terms": {
-    "title": "Terms of Service",
-    "subtitle": "Healthcare Service Rules & Conditions of Use",
-    "lastUpdated": "11 November 2026",
-    "tocTitle": "Contents",
+    "title": "شرایط استفاده از خدمات",
+    "subtitle": "مقررات خدمات سلامت و شرایط بهره‌برداری",
+    "lastUpdated": "۱۱ نوامبر ۲۰۲۶",
+    "tocTitle": "فهرست مطالب",
     "notice": {
       "variant": "warning",
-      "title": "Emergency Medical Notice",
-      "text": "SOS Healthcare is an informational assistance platform and is not a substitute for official emergency responders. In a life-threatening crisis, immediately dial your local emergency telephone service."
+      "title": "هشدار فوریت‌های پزشکی",
+      "text": "سامانه SOS Healthcare یک پلتفرم راهنمای اطلاعاتی است و هرگز جایگزین مراجع رسمی امداد و اورژانس نیست. در موارد تهدیدکننده حیات، فوراً با شماره اورژانس محلی (مانند ۱۱۵ یا ۱۱۲) تماس حاصل فرمایید."
     },
     "sections": [
       {
         "id": "acceptance",
         "number": 1,
-        "heading": "Acceptance of Terms",
+        "heading": "پذیرش شرایط و مقررات",
         "paragraphs": [
-          "By accessing, registering for, or using SOS Healthcare services, you acknowledge that you have read and understood these Terms of Service and agree to comply with the applicable conditions of use. If you do not agree with these terms, you should discontinue use of the services."
+          "با دسترسی، ثبت‌نام یا استفاده از خدمات SOS Healthcare، شما تأیید می‌کنید که این شرایط را مطالعه کرده، فهمیده و به رعایت آن پایبندید. چنانچه با این شرایط موافق نیستید، باید استفاده از خدمات را متوقف کنید."
         ]
       },
       {
         "id": "eligibility",
         "number": 2,
-        "heading": "Eligibility and Account Responsibilities",
+        "heading": "شرایط کاربری و مسئولیت‌های حساب",
         "paragraphs": [
-          "Users must be of legal age of majority or use the platform under the supervision of a parent or legal guardian. You agree to provide accurate information when creating an account, safeguard your credentials, and report any unauthorized access promptly. You remain responsible for all activities originating from your account."
+          "کاربران باید به سن قانونی رسیده باشند یا تحت نظارت والدین از سامانه استفاده کنند. شما متعهد به ارائه اطلاعات صحیح، محافظت از رمز عبور و گزارش سریع هرگونه دسترسی غیرمجاز هستید. مسئولیت کلیه فعالیت‌های حساب با خود شماست."
         ]
       },
       {
         "id": "services",
         "number": 3,
-        "heading": "Nature of SOS Healthcare Services",
+        "heading": "ماهیت خدمات SOS Healthcare",
         "paragraphs": [
-          "SOS Healthcare provides digital healthcare awareness, nearby hospital discovery, emergency telephone guidance, private appointment planning, and authorized health-device information display.",
-          "The platform is a communication and planning tool and does not provide direct medical treatment or clinical prescriptions."
+          "سامانه SOS Healthcare اطلاع‌رسانی سلامت، مکان‌یابی بیمارستان‌ها، راهنمایی تماس اورژانس، برنامه‌ریزی خصوصی نوبت و نمایش داده‌های دستگاه‌های مجاز سلامت را ارائه می‌دهد.",
+          "این پلتفرم یک ابزار ارتباطی و برنامه‌ریزی است و هیچ‌گونه درمان مستقیم یا تجویز دارویی انجام نمی‌دهد."
         ]
       },
       {
         "id": "hospitals",
         "number": 4,
-        "heading": "Hospital Directory Information",
+        "heading": "اطلاعات راهنمای بیمارستان‌ها",
         "paragraphs": [
-          "Hospital names, addresses, and listed departments are provided for general informational orientation. Directory details may change, and emergency triage availability should always be verified directly with the facility. Inclusion in our directory does not imply formal partnership or commercial endorsement."
+          "نام، نشانی و بخش‌های درمانی صرفاً جهت آگاهی عمومی درج شده‌اند. جزئیات ممکن است تغییر کند و پذیرش تریاژ اورژانس باید مستقیماً با مرکز هماهنگ شود. درج نام مراکز به معنی تأیید تجاری یا نمایندگی انحصاری نیست."
         ]
       },
       {
         "id": "doctors",
         "number": 5,
-        "heading": "Doctor Information",
+        "heading": "اطلاعات پزشکان و متخصصان",
         "paragraphs": [
-          "Information regarding medical specialists is intended to help users identify independent healthcare providers. Listed doctors are not partners of the platform, and listing does not imply an exclusive endorsement or automated intake agreement without verified authorization."
+          "اطلاعات متخصصان به منظور کمک به کاربران در یافتن پزشکان مستقل ارائه می‌شود. پزشکان فهرست‌شده شرکای تجاری پلتفرم نیستند و ثبت نام آنها تضمین نوبت قطعی محسوب نمی‌شود."
         ]
       },
       {
         "id": "private-appointments",
         "number": 6,
-        "heading": "Private Appointment Requests",
+        "heading": "درخواست‌های نوبت خصوصی",
         "paragraphs": [
-          "The platform allows patients to store personal appointment preferences and consultation requests. These requests do not create hospital-confirmed reservations. Hospital schedules and front-desk booking procedures may differ, and users are responsible for confirming actual visits directly with the hospital."
+          "پلتفرم به بیماران اجازه می‌دهد اولویت‌های نوبت را یادداشت کنند. این درخواست‌ها رزرو قطعی بیمارستانی ایجاد نمی‌کنند. تأیید نهایی نوبت بر عهده خود کاربر و از طریق بیمارستان است."
         ]
       },
       {
         "id": "cancellation",
         "number": 7,
-        "heading": "Cancellation and Rescheduling",
+        "heading": "لغو و تغییر زمان نوبت",
         "paragraphs": [
-          "Patients may cancel or reschedule eligible private requests within their portal. Modifying a request affects only the record stored in SOS Healthcare; it does not automatically cancel an independently arranged hospital appointment. Cancellation records are retained in accordance with the Privacy Policy."
+          "بیماران می‌توانند نوبت‌های خود را در پورتال تغییر داده یا لغو کنند. این اقدام تنها وضعیت داخل برنامه را تغییر می‌دهد و نوبت ثبت‌شده در بیمارستان را باطل نمی‌سازد."
         ]
       },
       {
         "id": "emergency",
         "number": 8,
-        "heading": "Emergency Assistance",
+        "heading": "امداد اضطراری",
         "paragraphs": [
-          "SOS Healthcare is not a substitute for official public emergency services. Users must contact their local emergency number (e.g. 112, 911, or local emergency line) for life-threatening emergencies.",
-          "Transmitting an SOS beacon notifies designated emergency contacts via the app; emergency contacts are not equivalent to municipal ambulance dispatch providers."
+          "سامانه SOS Healthcare جایگزین خدمات اورژانس دولتی نیست. در شرایط بحرانی باید با شماره‌های امدادی (نظیر ۱۱۵ یا ۱۱۲) تماس گرفت.",
+          "ارسال هشدار SOS تنها به مخاطبین مشخص‌شده شما پیام می‌فرستد و به منزله مرکز دیسپچ آمبولانس شهری نیست."
         ]
       },
       {
         "id": "medical-disclaimer",
         "number": 9,
-        "heading": "Medical Information Disclaimer",
+        "heading": "سلب مسئولیت پزشکی",
         "paragraphs": [
-          "Information provided on the platform is educational and informational. It is not medical advice, diagnosis, or treatment. Users should consult licensed healthcare professionals regarding any health condition. Emergency symptoms require urgent attention from licensed emergency providers."
+          "مطالب پلتفرم جنبه آموزشی و اطلاعاتی دارد و هرگز توصیه، تشخیص یا درمان پزشکی تلقی نمی‌شود. برای هرگونه عارضه باید به پزشک دارای مجوز مراجعه نمود."
         ]
       },
       {
         "id": "wearables",
         "number": 10,
-        "heading": "Wearable Devices",
+        "heading": "دستگاه‌های پوشیدنی",
         "paragraphs": [
-          "Wearable data displayed through integrations (such as Google Health) depends on third-party sensor accuracy. Measurements may be delayed or unavailable. Wearable data is not diagnostic clinical information, and no automatic emergency response is promised based on wearable metrics."
+          "اطلاعات گجت‌های پوشیدنی به دقت حسگرهای شخص ثالث بستگی دارد. داده‌های پوشیدنی جنبه تشخیصی بالینی نداشته و متضمن اعزام خودکار اورژانس نیستند."
         ]
       },
       {
         "id": "responsibilities",
         "number": 11,
-        "heading": "Patient Responsibilities",
+        "heading": "مسئولیت‌های بیمار",
         "paragraphs": [
-          "Patients are responsible for maintaining accurate contact details, using emergency features conscientiously, and respecting the confidentiality of personal medical information stored in their accounts."
+          "کاربران موظفند اطلاعات تماس خود را دقیق نگه داشته، از امکانات اورژانس با احساس مسئولیت استفاده کرده و محرمانگی داده‌های حساب خود را حفظ نمایند."
         ]
       },
       {
         "id": "prohibited",
         "number": 12,
-        "heading": "Prohibited Conduct",
+        "heading": "رفتارهای ممنوعه",
         "paragraphs": [
-          "Users may not:"
+          "کاربران به هیچ وجه مجاز به موارد زیر نیستند:"
         ],
         "bullets": [
-          "Attempt unauthorized access to other accounts or administrative systems.",
-          "Trigger fraudulent or abusive emergency beacons that waste responder resources.",
-          "Harass healthcare providers, administrators, or other patients.",
-          "Misrepresent professional medical credentials or patient identity.",
-          "Interfere with the security or operational integrity of the service."
+          "تلاش برای دسترسی غیرمجاز به حساب دیگران یا سرورهای مدیریت.",
+          "ارسال آلارم‌های SOS دروغین یا ساختگی که موجب هدررفت منابع امدادی شود.",
+          "توهین یا مزاحمت برای کادر درمان، مدیران یا سایر بیماران.",
+          "جعل عناوین پزشکی یا جا زدن خود به جای دیگران.",
+          "اخلال در امنیت یا کارکرد فنی برنامه."
         ]
       },
       {
         "id": "privacy",
         "number": 13,
-        "heading": "Privacy and Patient Confidentiality",
+        "heading": "حریم خصوصی و رازداری بیماران",
         "paragraphs": [
-          "Handling of personal information and healthcare preferences is governed by our Privacy Policy. Please review the Privacy Policy for details regarding our confidentiality safeguards and patient rights."
+          "نحوه رفتار با داده‌های سلامت مطابق سیاست حفظ حریم خصوصی است. لطفاً برای آگاهی از تدابیر حفاظتی، آن سند را مطالعه فرمایید."
         ]
       },
       {
         "id": "availability",
         "number": 14,
-        "heading": "Service Availability",
+        "heading": "پایداری و دسترسی به خدمات",
         "paragraphs": [
-          "Platform availability depends on cellular connectivity, internet routing, and scheduled maintenance. While we aim for reliable service, uninterrupted healthcare software availability cannot be guaranteed."
+          "دسترسی به پلتفرم به وضعیت اینترنت، شبکه مخابرات و دوره‌های نگهداری بستگی دارد. کارکرد دائمی و بدون وقفه تضمین نمی‌شود."
         ]
       },
       {
         "id": "fees",
         "number": 15,
-        "heading": "Service Fees",
+        "heading": "هزینه‌های خدمات",
         "paragraphs": [
-          "Access to the SOS Healthcare digital platform is free for users. External hospital, consultation, transportation, or medical treatment fees charged by independent healthcare providers remain the responsibility of the patient."
+          "استفاده از پلتفرم SOS Healthcare رایگان است. هزینه‌های درمان، ویزیت و آمبولانس که توسط مراکز دریافت می‌شود بر عهده خود بیمار است."
         ]
       },
       {
         "id": "suspension",
         "number": 16,
-        "heading": "Account Suspension and Closure",
+        "heading": "تعلیق و انسداد حساب",
         "paragraphs": [
-          "We reserve the right to suspend or close accounts that engage in fraudulent emergency alerts, violate acceptable use rules, or compromise platform security, subject to applicable notice and review procedures."
+          "ما این حق را داریم حساب کاربرانی را که هشدارهای دروغین فرستاده یا قوانین را نقض می‌کنند پس از اخطار مسدود کنیم."
         ]
       },
       {
         "id": "changes",
         "number": 17,
-        "heading": "Changes to Terms",
+        "heading": "تغییرات در شرایط و ضوابط",
         "paragraphs": [
-          "Material changes to these Terms will be communicated through the platform with an updated version date. Continued use following updates constitutes agreement to the revised conditions."
+          "تغییرات این شرایط از طریق سامانه با ذکر تاریخ جدید اطلاع‌رسانی می‌شود. تداوم استفاده به معنی پذیرش شرایط جدید است."
         ]
       },
       {
         "id": "disputes",
         "number": 18,
-        "heading": "Applicable Law and Dispute Resolution",
+        "heading": "قانون حاکم و حل اختلافات",
         "paragraphs": [
-          "These Terms are governed by applicable national consumer and digital healthcare regulations. Disputes should first be addressed through good-faith administrative communication before pursuing formal proceedings."
+          "این مقررات تابع قوانین جاری سلامت دیجیتال و حقوق مصرف‌کننده است. هرگونه اختلاف باید ابتدا با مذاکره و حسن نیت از طریق میز مدیریت حل‌وفصل شود."
         ]
       },
       {
         "id": "administrative-contact",
         "number": 19,
-        "heading": "Administrative Contact",
+        "heading": "تماس با بخش اداری",
         "paragraphs": [
-          "For questions regarding these service conditions, please contact our administrative desk:"
+          "جهت هرگونه پرسش پیرامون شرایط استفاده، با میز اداری ما تماس بگیرید:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"

@@ -85,6 +85,16 @@ test("legal documents contain all 17 privacy sections and 19 terms sections acro
     assert.ok(bundle.terms.subtitle && bundle.terms.subtitle.length > 0, `Terms subtitle missing for ${lang}`);
     assert.ok(bundle.terms.lastUpdated && bundle.terms.lastUpdated.length > 0, `Terms lastUpdated missing for ${lang}`);
     assert.ok(bundle.terms.notice?.title, `Terms notice missing for ${lang}`);
+
+    // Verify non-English legal documents have zero English fallback paragraphs
+    if (lang !== "en") {
+      const p0 = bundle.privacy.sections[0].paragraphs[0];
+      const p1 = bundle.privacy.sections[1].paragraphs[0];
+      const t0 = bundle.terms.sections[0].paragraphs[0];
+      assert.ok(!p0.startsWith("SOS Healthcare provides health awareness"), `Privacy sec 0 para 0 in ${lang} is still English`);
+      assert.ok(!p1.startsWith("We collect only the information necessary"), `Privacy sec 1 para 0 in ${lang} is still English`);
+      assert.ok(!t0.startsWith("By accessing, registering for, or using"), `Terms sec 0 para 0 in ${lang} is still English`);
+    }
   }
 });
 

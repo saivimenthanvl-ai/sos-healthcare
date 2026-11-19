@@ -1,210 +1,210 @@
 {
   "privacy": {
-    "title": "Privacy Policy",
-    "subtitle": "SOS Healthcare Patient Portal",
-    "lastUpdated": "11 November 2026",
-    "tocTitle": "Contents",
+    "title": "Политика приватности",
+    "subtitle": "Портал за пацијенте SOS Healthcare",
+    "lastUpdated": "11. новембар 2026.",
+    "tocTitle": "Садржај",
     "notice": {
       "variant": "info",
-      "title": "Patient Privacy Commitment",
-      "text": "SOS Healthcare is dedicated to patient privacy, transparency, and personal health data control. Appointment requests created within our portal are maintained securely within the platform and are never automatically transmitted to hospital databases or external electronic health records."
+      "title": "Посвећеност приватности пацијената",
+      "text": "SOS Healthcare придаје највећи значај приватности пацијената, транспарентности и сопственој контроли над здравственим подацима. Захтеви за преглед креирани на нашем порталу чувају се безбедно на платформи и никада се не прослеђују аутоматски у болничке базе података нити у спољне електронске здравствене картоне."
     },
     "sections": [
       {
         "id": "introduction",
         "number": 1,
-        "heading": "Introduction",
+        "heading": "Увод",
         "paragraphs": [
-          "SOS Healthcare provides healthcare awareness, nearby hospital discovery, emergency telephone guidance, and private appointment-planning services.",
-          "This Privacy Policy describes how personal information and healthcare preferences are collected, used, protected, and handled when you access our application. SOS Healthcare is a software assistance platform and does not directly own or operate hospital treatment centers."
+          "SOS Healthcare пружа едукацију о здрављу, проналажење оближњих болница, телефонске смернице за хитне случајеве и услуге приватног планирања прегледа.",
+          "Ова Политика приватности описује како се лични подаци и здравствене преференције прикупљају, користе, штите и обрађују приликом коришћења наше апликације. SOS Healthcare је технолошка платформа за подршку и не поседује нити директно управља болничким установама."
         ]
       },
       {
         "id": "information-collected",
         "number": 2,
-        "heading": "Information We Collect",
+        "heading": "Информације које прикупљамо",
         "paragraphs": [
-          "We collect only the information necessary to fulfill our digital healthcare awareness and planning services:"
+          "Прикупљамо искључиво податке неопходне за пружање наших дигиталних услуга вођења и планирања здравствене заштите:"
         ],
         "bullets": [
-          "Name and Contact Details: Name and email address used for account registration and authentication.",
-          "Account Information: Profile credentials, preferences, and security access logs.",
-          "Emergency Contact Details: Names, phone numbers, and relationship designations for family or trusted individuals you choose to notify during emergencies.",
-          "Location Information: Real-time browser GPS coordinates when explicitly permitted by you to calculate driving distances to nearby medical centers or transmit coordinates during an emergency beacon.",
-          "Private Appointment Requests: Selected medical specialties, preferred dates, visit reasons, and status notes saved in your personal planner.",
-          "Hospital Preferences: Bookmarked facilities and search history.",
-          "Optional Health Information: Self-reported blood group, vitals, allergies, and chronic medical history stored in your health profile.",
-          "Wearable-Device Information: Heart rate, step count, or activity telemetry accessed only when you explicitly connect Google Health.",
-          "Support Inquiries: Communications submitted through our administrator inquiry form."
+          "Име и контакт подаци: Име и адреса е-поште који се користе за регистрацију и безбедну аутентификацију налога.",
+          "Подаци о налогу: Подешавања профила, корисничке преференције и безбедносни записи приступа.",
+          "Контакти за хитне случајеве: Имена, бројеви телефона и сродство особа од поверења које одаберете за обавештавање у хитним ситуацијама.",
+          "Подаци о локацији: GPS координате у реалном времену са вашег прегледача, искључиво уз вашу изричиту сагласност, за израчунавање удаљености до болница или слање позиције током SOS сигнала.",
+          "Приватни захтеви за преглед: Одабране медицинске специјалности, жељени датуми, разлози посете и личне белешке у планеру.",
+          "Преференције о болницама: Сачуване омиљене установе и историја претраге.",
+          "Опциони здравствени подаци: Крвна група, витални параметри, алергије и медицинска историја унети у ваш здравствени профил.",
+          "Подаци са повезаних уређаја: Пулс, кораци или телеметрија који се очитавају само када изричито повежете Google Health.",
+          "Упити корисничкој подршци: Поруке послате путем нашег обрасца за административни контакт."
         ]
       },
       {
         "id": "purpose-of-collecting",
         "number": 3,
-        "heading": "Purpose of Collecting Information",
+        "heading": "Сврха обраде података",
         "paragraphs": [
-          "We process your information for clear, patient-centered purposes:"
+          "Ваше податке обрађујемо у транспарентне и према пацијенту усмерене сврхе:"
         ],
         "bullets": [
-          "Managing your patient account and authenticating your access securely.",
-          "Helping you identify and locate nearby accredited healthcare facilities.",
-          "Maintaining your private consultation requests and personal scheduling notes.",
-          "Supporting emergency contact notifications when an SOS beacon is activated.",
-          "Displaying authorized wearable wellness data in your patient dashboard.",
-          "Responding to platform feedback and administrative support requests.",
-          "Protecting accounts against unauthorized access and preventing platform misuse."
+          "Управљање налогом пацијента и омогућавање безбедног приступа.",
+          "Помоћ у проналажењу и лоцирању најближих здравствених центара.",
+          "Чување приватних захтева за прегледе и личних здравствених белешки.",
+          "Слање обавештења вашим контактима за хитне случајеве приликом активирања SOS сигнала.",
+          "Приказ овлашћених параметара са паметних уређаја на контролној табли пацијента.",
+          "Одговарање на административне и техничке упите корисника.",
+          "Заштита налога од неовлашћеног приступа и спречавање злоупотребе платформе."
         ]
       },
       {
         "id": "patient-privacy",
         "number": 4,
-        "heading": "Patient Privacy and Confidentiality",
+        "heading": "Приватност и поверљивост пацијената",
         "paragraphs": [
-          "SOS Healthcare restricts access to personal information to legitimate, authorized purposes. Your health records and private consultation preferences are confidential. We maintain technical controls so that individual patient information is accessible only to the authenticated account holder."
+          "SOS Healthcare строго ограничава приступ личним подацима на легитимне и овлашћене сврхе. Ваше здравствене белешке и приватни захтеви су поверљиви. Примењујемо строге техничке контроле како би подаци били доступни искључиво аутентификованом власнику налога."
         ]
       },
       {
         "id": "hospital-directory",
         "number": 5,
-        "heading": "Hospital Information and Directory Services",
+        "heading": "Именик болница и информативне услуге",
         "paragraphs": [
-          "Hospital and clinic information is compiled from public healthcare listings to help users identify medical facilities in their area.",
-          "Inclusion in our directory does not automatically establish a formal commercial relationship, affiliation, or operational partnership between SOS Healthcare and the hospital."
+          "Подаци о болницама и клиникама прикупљени су из јавних здравствених регистара ради информисања корисника о доступним здравственим установама.",
+          "Уврштавање у наш именик не значи комерцијално партнерство, правну повезаност нити заједничко управљање између SOS Healthcare и болничке установе."
         ]
       },
       {
         "id": "private-appointments",
         "number": 6,
-        "heading": "Private Appointment Requests",
+        "heading": "Приватни захтеви за преглед",
         "notice": {
           "variant": "info",
-          "title": "Important Notice Regarding Appointment Requests",
-          "text": "\"Appointment requests saved through SOS Healthcare are maintained within the SOS Healthcare platform and are not automatically submitted to hospitals or added to hospital medical records.\""
+          "title": "Важно обавештење о захтевима за преглед",
+          "text": "„Захтеви за преглед сачувани у оквиру SOS Healthcare платформе остају искључиво на тој платформи и не шаљу се аутоматски болницама нити се уносе у болничке картоне.“"
         },
         "paragraphs": [
-          "Saving a request in your portal does not guarantee hospital availability or confirm an appointment slot with hospital staff. Patients may reschedule or cancel their private requests at any time.",
-          "Cancelling a private request in SOS Healthcare does not cancel an independently arranged appointment at a hospital clinic. External hospital booking requires a separately authorized, verified integration."
+          "Креирање захтева на порталу не гарантује термин нити потврђен преглед код медицинског особља. Пацијенти могу изменити или уклонити своје захтеве у било ком тренутку.",
+          "Отказивање захтева у SOS Healthcare не отказује преглед заказан директно на пријему у болници. Заказивање у болници захтева независне кораке."
         ]
       },
       {
         "id": "emergency-assistance",
         "number": 7,
-        "heading": "Emergency Assistance and Location Information",
+        "heading": "Помоћ у хитним случајевима и географска локација",
         "paragraphs": [
-          "Location permission is requested only when necessary to calculate proximity to nearby hospitals or when initiating an emergency beacon.",
-          "When an SOS beacon is activated, your browser-reported coordinates at that moment are transmitted to your registered emergency contacts. SOS Healthcare does not track your location in the background when the app is inactive. Public emergency responders (such as 112 or 911 dispatchers) do not automatically receive web beacon data unless formal municipal dispatch connectivity is verified in your jurisdiction.",
-          "You may withdraw location permissions at any time through your device or browser settings."
+          "Приступ локацији захтева се само онда када је то стриктно неопходно за приказ најближих болница или слање SOS сигнала за узбуну.",
+          "Приликом слања SOS сигнала, тачне географске координате прегледача прослеђују се вашим унапред постављеним контактима за хитне случајеве.",
+          "Сагласност за локацију можете опозвати у било ком тренутку у подешавањима прегледача, чиме престаје слање координата али се онемогућава рачунање удаљености."
         ]
       },
       {
         "id": "health-wearables",
         "number": 8,
-        "heading": "Health and Wearable Information",
+        "heading": "Здравствени подаци и паметни уређаји",
         "paragraphs": [
-          "Connected wearable information (such as Google Health API integration) is retrieved only with your explicit permission. Data is queried on-demand to display wellness trends in your portal.",
-          "Connecting a wearable device does not create an automated emergency ambulance dispatch service. You may revoke access at any time via your Devices settings or your Google Account permissions, which immediately terminates data retrieval and purges cached metrics."
+          "Подаци са паметних сатова и спољних сензора (нпр. Google Health) очитавају се искључиво уз вашу изричиту сагласност. Ови подаци служе за увид у трендове на порталу.",
+          "Повезивање уређаја не покреће аутоматско позивање хитне помоћи. Уређај можете у сваком тренутку одјавити у подешавањима, чиме се укида приступ и бришу кеширани подаци."
         ]
       },
       {
         "id": "patient-consent",
         "number": 9,
-        "heading": "Patient Consent and Control",
+        "heading": "Сагласност и контрола пацијента",
         "paragraphs": [
-          "We believe patients should maintain granular control over their information. You can review and update permissions at any time:"
+          "Верујемо да пацијент мора имати потпуну контролу над својим подацима. Своје поставке и дозволе можете променити када год желите:"
         ],
         "bullets": [
-          "Modify emergency contact details and notification settings.",
-          "Toggle doctor pre-arrival sharing preferences in your Health Profile.",
-          "Disconnect wearable services with immediate token invalidation.",
-          "Request deletion of your account and personal records."
+          "Ажурирати контакте за хитне случајеве и подешавања упозорења.",
+          "Омогућити или онемогућити дељење података са лекаром у Здравственом профилу.",
+          "Искључити паметне уређаје уз тренутни опозив безбедносних кључева.",
+          "Затражити потпуно брисање налога и свих сачуваних здравствених података."
         ]
       },
       {
         "id": "healthcare-sharing",
         "number": 10,
-        "heading": "Healthcare Information Sharing and Confidentiality",
+        "heading": "Дељење података и поверљивост",
         "paragraphs": [
-          "Personal or health information is never automatically disclosed to hospitals merely because a user browses a hospital card or saves a private appointment request.",
-          "Information may only be disclosed under the following circumstances:"
+          "Лични и здравствени подаци се никада не саопштавају болницама само због прегледа именика или чувања захтева за преглед.",
+          "Подаци се могу делити искључиво у следећим тачно предвиђеним ситуацијама:"
         ],
         "bullets": [
-          "With your explicit, verified authorization.",
-          "To designated emergency contacts when you actively trigger an emergency beacon.",
-          "To essential infrastructure service providers necessary to operate the application.",
-          "Where required by applicable law, statutory subpoena, or valid court order."
+          "Уз вашу претходну, изричиту и проверену дозволу.",
+          "Вашим назначеним контактима за хитне случајеве приликом активирања SOS сигнала.",
+          "Пружаоцима инфраструктуре у облаку неопходним за безбедан рад система.",
+          "Када је то изричито наложено важећим законима или обавезујућим судским одлукама."
         ]
       },
       {
         "id": "patient-safeguards",
         "number": 11,
-        "heading": "Patient Information Safeguards",
+        "heading": "Мере заштите података пацијената",
         "paragraphs": [
-          "We implement administrative and technical safeguards designed to protect personal information:"
+          "Примењујемо техничке и организационе мере усмерене на заштиту личних информација:"
         ],
         "bullets": [
-          "Access to private accounts and appointment records is strictly restricted to authenticated users.",
-          "Health information and emergency notes are handled with high standards of confidentiality.",
-          "Database isolation rules ensure that users cannot inspect other patients' data.",
-          "Encrypted transport protocols protect information exchanged between your device and our servers."
+          "Приступ подацима дозвољен је искључиво аутентификованим корисницима.",
+          "Здравствене белешке се чувају према високим стандардима медицинске тајне.",
+          "Изолација на нивоу редова у бази података (RLS) онемогућава увид у податке других корисника.",
+          "Шифроване везе (end-to-end) обезбеђују пренос података између уређаја и сервера."
         ],
         "subparagraphs": [
-          "Users are encouraged to protect their account credentials and report any suspected unauthorized access to our administration desk immediately."
+          "Препоручујемо да чувате своје лозинке и обавестите администратора у случају сумње на злоупотребу."
         ]
       },
       {
         "id": "information-retention",
         "number": 12,
-        "heading": "Information Retention",
+        "heading": "Рок чувања података",
         "paragraphs": [
-          "Records are retained only for as long as your account remains active or as needed to deliver our healthcare planning and awareness features.",
-          "Private appointment requests, emergency logs, and support inquiries are retained within your secure portal until you remove them or submit an account closure request."
+          "Податке чувамо само док је ваш налог активан или колико је потребно за пружање здравствених функција.",
+          "Захтеви за прегледе, записи у хитним случајевима и поруке подршке остају на профилу док их не обришете или не угасите налог."
         ]
       },
       {
         "id": "patient-rights",
         "number": 13,
-        "heading": "Patient Rights",
+        "heading": "Права пацијената",
         "paragraphs": [
-          "Depending on your jurisdiction, you may exercise applicable rights regarding your information:"
+          "У складу са прописима о заштити података о личности, имате следећа права:"
         ],
         "bullets": [
-          "Request access to the personal information we maintain about you.",
-          "Request correction of inaccurate or incomplete health profile records.",
-          "Withdraw optional consent for location or health device integrations.",
-          "Request deletion of your account where permitted by applicable law.",
-          "Submit questions or privacy inquiries to our administration team."
+          "Право на приступ подацима о личности који се о вама обрађују.",
+          "Право на исправку нетачних или непотпуних података.",
+          "Право на опозив сагласности за геолокацију и паметне уређаје у сваком тренутку.",
+          "Право на брисање података обрађиваних на основу сагласности.",
+          "Право на подношење упита или притужби нашој администрацији."
         ]
       },
       {
         "id": "childrens-privacy",
         "number": 14,
-        "heading": "Children's Privacy",
+        "heading": "Заштита деце и малолетника",
         "paragraphs": [
-          "SOS Healthcare is designed for use by individuals who have reached the age of majority or minors using the service under the active supervision and consent of a parent or legal guardian."
+          "SOS Healthcare је намењен пунолетним лицима или малолетницима под надзором и уз сагласност родитеља или старатеља."
         ]
       },
       {
         "id": "international-awareness",
         "number": 15,
-        "heading": "International Healthcare Awareness",
+        "heading": "Међународна информисаност о здрављу",
         "paragraphs": [
-          "SOS Healthcare provides information across 22 languages to assist users internationally. Providing multilingual information does not imply local clinical licensing, direct hospital operational affiliation, or municipal emergency dispatch coverage in every country."
+          "SOS Healthcare нуди информације на 25 језика како би помогао корисницима широм света. Језичка доступност не представља директну медицинску лиценцу нити гаранцију службе хитне помоћи у свакој држави."
         ]
       },
       {
         "id": "policy-updates",
         "number": 16,
-        "heading": "Policy Updates",
+        "heading": "Измене Политике приватности",
         "paragraphs": [
-          "We may periodically update this policy to reflect enhancements in patient safety, new platform features, or evolving legal standards. The latest revision date is prominently displayed at the top of this document."
+          "Повремено можемо ажурирати ову политику ради безбедносних унапређења или усклађивања са прописима. Датум последње измене наведен је на врху странице."
         ]
       },
       {
         "id": "contact-administrator",
         "number": 17,
-        "heading": "Contact Administrator",
+        "heading": "Контакт са администратором",
         "paragraphs": [
-          "For privacy inquiries, patient data requests, or directory corrections, you may contact our administration desk directly:"
+          "За питања о приватности, остваривање права или исправке у именику болница, обратите се администратору:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"
@@ -212,175 +212,175 @@
     ]
   },
   "terms": {
-    "title": "Terms of Service",
-    "subtitle": "Healthcare Service Rules & Conditions of Use",
-    "lastUpdated": "11 November 2026",
-    "tocTitle": "Contents",
+    "title": "Услови коришћења",
+    "subtitle": "Правила и услови коришћења здравствене платформе",
+    "lastUpdated": "11. новембар 2026.",
+    "tocTitle": "Садржај",
     "notice": {
       "variant": "warning",
-      "title": "Emergency Medical Notice",
-      "text": "SOS Healthcare is an informational assistance platform and is not a substitute for official emergency responders. In a life-threatening crisis, immediately dial your local emergency telephone service."
+      "title": "Упозорење за хитне медицинске случајеве",
+      "text": "SOS Healthcare је информативна платформа и не замењује званичне службе хитне помоћи. У ситуацијама опасним по живот одмах позовите 194, 112 или локални број за хитне случајеве."
     },
     "sections": [
       {
         "id": "acceptance",
         "number": 1,
-        "heading": "Acceptance of Terms",
+        "heading": "Прихватање услова",
         "paragraphs": [
-          "By accessing, registering for, or using SOS Healthcare services, you acknowledge that you have read and understood these Terms of Service and agree to comply with the applicable conditions of use. If you do not agree with these terms, you should discontinue use of the services."
+          "Приступањем, регистрацијом или коришћењем SOS Healthcare платформе потврђујете да сте прочитали, разумели и прихватили ове Услове. Ако се не слажете са овим одредбама, немојте користити апликацију."
         ]
       },
       {
         "id": "eligibility",
         "number": 2,
-        "heading": "Eligibility and Account Responsibilities",
+        "heading": "Право на коришћење и одговорност за налог",
         "paragraphs": [
-          "Users must be of legal age of majority or use the platform under the supervision of a parent or legal guardian. You agree to provide accurate information when creating an account, safeguard your credentials, and report any unauthorized access promptly. You remain responsible for all activities originating from your account."
+          "Корисници морају бити пословно способни или користити платформу под надзором родитеља или старатеља. Обавезујете се да уносите тачне податке, чувате приступне шифре и одмах пријавите неовлашћени улаз. Одговорни сте за све активности са вашег налога."
         ]
       },
       {
         "id": "services",
         "number": 3,
-        "heading": "Nature of SOS Healthcare Services",
+        "heading": "Природа услуга SOS Healthcare платформе",
         "paragraphs": [
-          "SOS Healthcare provides digital healthcare awareness, nearby hospital discovery, emergency telephone guidance, private appointment planning, and authorized health-device information display.",
+          "SOS Healthcare пружа дигитално здравствено информисање, претрагу оближњих болница, помоћ при хитним позивима, приватно планирање прегледа и приказ података са повезаних паметних уређаја.",
           "The platform is a communication and planning tool and does not provide direct medical treatment or clinical prescriptions."
         ]
       },
       {
         "id": "hospitals",
         "number": 4,
-        "heading": "Hospital Directory Information",
+        "heading": "Подаци из именика болница",
         "paragraphs": [
-          "Hospital names, addresses, and listed departments are provided for general informational orientation. Directory details may change, and emergency triage availability should always be verified directly with the facility. Inclusion in our directory does not imply formal partnership or commercial endorsement."
+          "Подаци о болницама служе у сврху информисања. Доступност одељења може бити промењена и потребно ју је проверити директно са установом. Уврштавање у именик не представља препоруку нити пословно партнерство."
         ]
       },
       {
         "id": "doctors",
         "number": 5,
-        "heading": "Doctor Information",
+        "heading": "Подаци о лекарима специјалистима",
         "paragraphs": [
-          "Information regarding medical specialists is intended to help users identify independent healthcare providers. Listed doctors are not partners of the platform, and listing does not imply an exclusive endorsement or automated intake agreement without verified authorization."
+          "Подаци о специјалистима помажу у проналажењу независних лекара. Лекари нису запослени на платформи, а њихово навођење не представља формално заступање."
         ]
       },
       {
         "id": "private-appointments",
         "number": 6,
-        "heading": "Private Appointment Requests",
+        "heading": "Приватни захтеви за преглед",
         "paragraphs": [
-          "The platform allows patients to store personal appointment preferences and consultation requests. These requests do not create hospital-confirmed reservations. Hospital schedules and front-desk booking procedures may differ, and users are responsible for confirming actual visits directly with the hospital."
+          "Функција планера омогућава бележење жељених термина. Ови захтеви не значе потврђен преглед у болници. Корисник је дужан да сам потврди преглед у установи."
         ]
       },
       {
         "id": "cancellation",
         "number": 7,
-        "heading": "Cancellation and Rescheduling",
+        "heading": "Промена и отказивање захтева",
         "paragraphs": [
-          "Patients may cancel or reschedule eligible private requests within their portal. Modifying a request affects only the record stored in SOS Healthcare; it does not automatically cancel an independently arranged hospital appointment. Cancellation records are retained in accordance with the Privacy Policy."
+          "Пацијенти могу променити или избрисати своје захтеве на порталу у било ком тренутку. То утиче само на податке унутар SOS Healthcare и не отказује термин у самој болници."
         ]
       },
       {
         "id": "emergency",
         "number": 8,
-        "heading": "Emergency Assistance",
+        "heading": "Помоћ у хитним случајевима",
         "paragraphs": [
-          "SOS Healthcare is not a substitute for official public emergency services. Users must contact their local emergency number (e.g. 112, 911, or local emergency line) for life-threatening emergencies.",
-          "Transmitting an SOS beacon notifies designated emergency contacts via the app; emergency contacts are not equivalent to municipal ambulance dispatch providers."
+          "SOS Healthcare не замењује државну хитну помоћ. У животно угрожавајућим стањима одмах позовите 194 или 112.",
+          "SOS сигнал шаље обавештење искључиво вашим сачуваним личним контактима и не позива јавну службу хитне помоћи."
         ]
       },
       {
         "id": "medical-disclaimer",
         "number": 9,
-        "heading": "Medical Information Disclaimer",
+        "heading": "Одрицање од медицинске одговорности",
         "paragraphs": [
-          "Information provided on the platform is educational and informational. It is not medical advice, diagnosis, or treatment. Users should consult licensed healthcare professionals regarding any health condition. Emergency symptoms require urgent attention from licensed emergency providers."
+          "Садржај платформе је информативног карактера и не замењује савет лекара. За све здравствене тегобе увек се консултујте са стручним лекаром."
         ]
       },
       {
         "id": "wearables",
         "number": 10,
-        "heading": "Wearable Devices",
+        "heading": "Паметни уређаји (Wearables)",
         "paragraphs": [
-          "Wearable data displayed through integrations (such as Google Health) depends on third-party sensor accuracy. Measurements may be delayed or unavailable. Wearable data is not diagnostic clinical information, and no automatic emergency response is promised based on wearable metrics."
+          "Очитавања са паметних сатова (нпр. Google Health) зависе од квалитета сензора произвођача. Ови подаци немају клиничку дијагностичку вредност и не позивају спасилачке службе."
         ]
       },
       {
         "id": "responsibilities",
         "number": 11,
-        "heading": "Patient Responsibilities",
+        "heading": "Одговорности пацијента",
         "paragraphs": [
-          "Patients are responsible for maintaining accurate contact details, using emergency features conscientiously, and respecting the confidentiality of personal medical information stored in their accounts."
+          "Корисник је дужан да одржава тачне контакте за хитне случајеве, да одговорно користи алате за узбуну и да чува приватност својих медицинских података."
         ]
       },
       {
         "id": "prohibited",
         "number": 12,
-        "heading": "Prohibited Conduct",
+        "heading": "Забрањена понашања",
         "paragraphs": [
-          "Users may not:"
+          "Корисницима је изричито забрањено:"
         ],
         "bullets": [
-          "Attempt unauthorized access to other accounts or administrative systems.",
-          "Trigger fraudulent or abusive emergency beacons that waste responder resources.",
-          "Harass healthcare providers, administrators, or other patients.",
-          "Misrepresent professional medical credentials or patient identity.",
-          "Interfere with the security or operational integrity of the service."
+          "Покушај неовлашћеног приступа туђим налозима или серверској структури.",
+          "Слање лажних SOS упозорења која ометају рад служби.",
+          "Узнемиравање медицинског особља, администратора или других корисника.",
+          "Лажно представљање као медицински радник или сакривање сопственог идентитета.",
+          "Нарушавање сигурности и стабилности платформе."
         ]
       },
       {
         "id": "privacy",
         "number": 13,
-        "heading": "Privacy and Patient Confidentiality",
+        "heading": "Приватност и заштита података",
         "paragraphs": [
-          "Handling of personal information and healthcare preferences is governed by our Privacy Policy. Please review the Privacy Policy for details regarding our confidentiality safeguards and patient rights."
+          "Обрада података о личности уређена је нашом Политиком приватности, са којом се препоручује да се пажљиво упознате."
         ]
       },
       {
         "id": "availability",
         "number": 14,
-        "heading": "Service Availability",
+        "heading": "Доступност услуге",
         "paragraphs": [
-          "Platform availability depends on cellular connectivity, internet routing, and scheduled maintenance. While we aim for reliable service, uninterrupted healthcare software availability cannot be guaranteed."
+          "Рад платформе зависи од интернет веза и техничког одржавања. Иако тежимо сталном раду, не можемо гарантовати рад без прекида."
         ]
       },
       {
         "id": "fees",
         "number": 15,
-        "heading": "Service Fees",
+        "heading": "Накнаде и цене",
         "paragraphs": [
-          "Access to the SOS Healthcare digital platform is free for users. External hospital, consultation, transportation, or medical treatment fees charged by independent healthcare providers remain the responsibility of the patient."
+          "Приступ и коришћење SOS Healthcare платформе је бесплатно за пацијенте. Све трошкове лечења, прегледа или превоза које наплаћују болнице или лекари сноси искључиво корисник."
         ]
       },
       {
         "id": "suspension",
         "number": 16,
-        "heading": "Account Suspension and Closure",
+        "heading": "Обустава и затварање налога",
         "paragraphs": [
-          "We reserve the right to suspend or close accounts that engage in fraudulent emergency alerts, violate acceptable use rules, or compromise platform security, subject to applicable notice and review procedures."
+          "Задржавамо право да суспендујемо или угасимо налоге који крше услове или шаљу лажне узбуне, након интерне процене."
         ]
       },
       {
         "id": "changes",
         "number": 17,
-        "heading": "Changes to Terms",
+        "heading": "Измене Услова коришћења",
         "paragraphs": [
-          "Material changes to these Terms will be communicated through the platform with an updated version date. Continued use following updates constitutes agreement to the revised conditions."
+          "О значајним изменама ових Услова обавестићемо кориснике на платформи са ажурираним датумом. Наставак коришћења након измена представља њихово прихватање."
         ]
       },
       {
         "id": "disputes",
         "number": 18,
-        "heading": "Applicable Law and Dispute Resolution",
+        "heading": "Меродавно право и решавање спорова",
         "paragraphs": [
-          "These Terms are governed by applicable national consumer and digital healthcare regulations. Disputes should first be addressed through good-faith administrative communication before pursuing formal proceedings."
+          "На ове Услове примењује се важеће потрошачко право. Спорови се пре свега решавају мирним путем обраћањем администрацији пре судског поступка."
         ]
       },
       {
         "id": "administrative-contact",
         "number": 19,
-        "heading": "Administrative Contact",
+        "heading": "Административни контакт",
         "paragraphs": [
-          "For questions regarding these service conditions, please contact our administrative desk:"
+          "За сва питања у вези са овим Условима коришћења обратите се нашем административном тиму путем следећих података:"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"

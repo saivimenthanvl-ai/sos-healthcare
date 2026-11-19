@@ -15,8 +15,8 @@
         "number": 1,
         "heading": "Introduction",
         "paragraphs": [
-          "SOS Healthcare provides healthcare awareness, nearby hospital discovery, emergency telephone guidance, and private appointment-planning services.",
-          "This Privacy Policy describes how personal information and healthcare preferences are collected, used, protected, and handled when you access our application. SOS Healthcare is a software assistance platform and does not directly own or operate hospital treatment centers."
+          "SOS Healthcare fournit des services de sensibilisation à la santé, de découverte d'hôpitaux à proximité, d'assistance téléphonique d'urgence et de planification privée de rendez-vous.",
+          "La présente Politique de Confidentialité décrit comment les données personnelles et les préférences de santé sont collectées, utilisées, protégées et traitées lors de l'accès à notre application. SOS Healthcare est une plateforme logicielle d'assistance et ne possède ni n'exploite directement d'établissements de soins hospitaliers."
         ]
       },
       {
@@ -24,18 +24,18 @@
         "number": 2,
         "heading": "Informations que Nous Collectons",
         "paragraphs": [
-          "We collect only the information necessary to fulfill our digital healthcare awareness and planning services:"
+          "Nous collectons uniquement les informations nécessaires à l'accomplissement de nos services numériques d'orientation et de planification de santé :"
         ],
         "bullets": [
-          "Name and Contact Details: Name and email address used for account registration and authentication.",
-          "Account Information: Profile credentials, preferences, and security access logs.",
-          "Emergency Contact Details: Names, phone numbers, and relationship designations for family or trusted individuals you choose to notify during emergencies.",
-          "Location Information: Real-time browser GPS coordinates when explicitly permitted by you to calculate driving distances to nearby medical centers or transmit coordinates during an emergency beacon.",
-          "Private Appointment Requests: Selected medical specialties, preferred dates, visit reasons, and status notes saved in your personal planner.",
-          "Hospital Preferences: Bookmarked facilities and search history.",
-          "Optional Health Information: Self-reported blood group, vitals, allergies, and chronic medical history stored in your health profile.",
-          "Wearable-Device Information: Heart rate, step count, or activity telemetry accessed only when you explicitly connect Google Health.",
-          "Support Inquiries: Communications submitted through our administrator inquiry form."
+          "Nom et coordonnées : Nom et adresse e-mail utilisés pour la création de compte et l'authentification sécurisée.",
+          "Informations de compte : Identifiants de profil, préférences d'utilisation et journaux de sécurité d'accès.",
+          "Coordonnées des contacts d'urgence : Noms, numéros de téléphone et liens de parenté des proches ou personnes de confiance désignées en cas d'urgence.",
+          "Données de localisation : Coordonnées GPS du navigateur en temps réel, sous réserve de votre consentement explicite, pour calculer les distances routières vers les centres médicaux ou transmettre votre position lors d'une balise SOS.",
+          "Demandes privées de rendez-vous : Spécialités médicales sélectionnées, dates souhaitées, motifs de consultation et notes personnelles conservées dans votre espace de planification.",
+          "Établissements favoris : Hôpitaux enregistrés dans vos favoris et historique des recherches.",
+          "Données de santé facultatives : Groupe sanguin déclaré, constantes vitales, allergies et antécédents médicaux renseignés dans votre profil de santé.",
+          "Données d'appareils connectés : Fréquence cardiaque, nombre de pas ou télémétrie d'activité accessibles uniquement lorsque vous associez expressément Google Health.",
+          "Demandes d'assistance : Messages et correspondances transmis via notre formulaire de contact administratif."
         ]
       },
       {
@@ -43,16 +43,16 @@
         "number": 3,
         "heading": "Finalités de la Collecte d'Informations",
         "paragraphs": [
-          "We process your information for clear, patient-centered purposes:"
+          "Nous traitons vos données pour des finalités précises et centrées sur le patient :"
         ],
         "bullets": [
-          "Managing your patient account and authenticating your access securely.",
-          "Helping you identify and locate nearby accredited healthcare facilities.",
-          "Maintaining your private consultation requests and personal scheduling notes.",
-          "Supporting emergency contact notifications when an SOS beacon is activated.",
-          "Displaying authorized wearable wellness data in your patient dashboard.",
-          "Responding to platform feedback and administrative support requests.",
-          "Protecting accounts against unauthorized access and preventing platform misuse."
+          "Gérer votre compte patient et sécuriser vos accès d'authentification.",
+          "Vous aider à identifier et localiser les établissements de santé accrédités les plus proches.",
+          "Conserver vos demandes privées de consultation et vos notes personnelles d'organisation.",
+          "Permettre la notification de vos contacts d'urgence lors de l'activation d'une balise SOS.",
+          "Afficher les indicateurs de bien-être autorisés provenant de vos montres et capteurs connectés.",
+          "Répondre aux retours d'expérience et aux demandes de support administratif.",
+          "Protéger les comptes contre les accès non autorisés et prévenir tout usage abusif de la plateforme."
         ]
       },
       {
@@ -60,7 +60,7 @@
         "number": 4,
         "heading": "Confidentialité et Vie Privée des Patients",
         "paragraphs": [
-          "SOS Healthcare restricts access to personal information to legitimate, authorized purposes. Your health records and private consultation preferences are confidential. We maintain technical controls so that individual patient information is accessible only to the authenticated account holder."
+          "SOS Healthcare limite l'accès aux données personnelles à des finalités légitimes et autorisées. Vos dossiers de santé et vos choix de consultation sont confidentiels. Des mesures techniques rigoureuses garantissent que les informations personnelles d'un patient ne sont accessibles qu'au titulaire authentifié du compte."
         ]
       },
       {
@@ -68,8 +68,8 @@
         "number": 5,
         "heading": "Annuaire et Informations Hospitalières",
         "paragraphs": [
-          "Hospital and clinic information is compiled from public healthcare listings to help users identify medical facilities in their area.",
-          "Inclusion in our directory does not automatically establish a formal commercial relationship, affiliation, or operational partnership between SOS Healthcare and the hospital."
+          "Les informations sur les hôpitaux et cliniques sont compilées à partir de répertoires publics de santé pour aider les usagers à identifier les structures médicales de leur région.",
+          "L'inscription dans notre annuaire n'implique aucun lien commercial formel, aucune affiliation directe ni aucun partenariat d'exploitation entre SOS Healthcare et l'établissement concerné."
         ]
       },
       {
@@ -78,12 +78,12 @@
         "heading": "Demandes de Rendez-vous Privées",
         "notice": {
           "variant": "info",
-          "title": "Important Notice Regarding Appointment Requests",
-          "text": "\"Appointment requests saved through SOS Healthcare are maintained within the SOS Healthcare platform and are not automatically submitted to hospitals or added to hospital medical records.\""
+          "title": "Avis Important Concernant les Demandes de Rendez-vous",
+          "text": "« Les demandes de rendez-vous enregistrées via SOS Healthcare sont conservées exclusivement au sein de la plateforme SOS Healthcare et ne sont pas transmises automatiquement aux hôpitaux ni inscrites dans les dossiers médicaux hospitaliers. »"
         },
         "paragraphs": [
-          "Saving a request in your portal does not guarantee hospital availability or confirm an appointment slot with hospital staff. Patients may reschedule or cancel their private requests at any time.",
-          "Cancelling a private request in SOS Healthcare does not cancel an independently arranged appointment at a hospital clinic. External hospital booking requires a separately authorized, verified integration."
+          "L'enregistrement d'une demande dans votre portail ne garantit pas la disponibilité des praticiens ni la confirmation d'un créneau auprès de l'hôpital. Les patients peuvent reprogrammer ou annuler leurs demandes à tout moment.",
+          "L'annulation d'une demande privée dans SOS Healthcare n'annule pas un rendez-vous pris directement auprès du secrétariat d'un hôpital. Toute réservation externe requiert une passerelle certifiée et expressément autorisée."
         ]
       },
       {
@@ -91,9 +91,9 @@
         "number": 7,
         "heading": "Assistance d'Urgence et Données de Localisation",
         "paragraphs": [
-          "Location permission is requested only when necessary to calculate proximity to nearby hospitals or when initiating an emergency beacon.",
-          "When an SOS beacon is activated, your browser-reported coordinates at that moment are transmitted to your registered emergency contacts. SOS Healthcare does not track your location in the background when the app is inactive. Public emergency responders (such as 112 or 911 dispatchers) do not automatically receive web beacon data unless formal municipal dispatch connectivity is verified in your jurisdiction.",
-          "You may withdraw location permissions at any time through your device or browser settings."
+          "L'autorisation d'accès à la localisation n'est sollicitée que lorsque cela est nécessaire pour calculer la distance des hôpitaux proches ou déclencher une balise d'alerte.",
+          "Lorsqu'une balise de détresse SOS est émise, les coordonnées relevées par votre navigateur à cet instant précis sont transmises à vos contacts d'urgence préconfigurés.",
+          "Vous pouvez révoquer les autorisations de localisation à tout moment dans les réglages de votre navigateur ; cela interrompra la transmission des coordonnées tout en limitant le tri des hôpitaux par proximité."
         ]
       },
       {
@@ -101,8 +101,8 @@
         "number": 8,
         "heading": "Données de Santé et Appareils Connectés",
         "paragraphs": [
-          "Connected wearable information (such as Google Health API integration) is retrieved only with your explicit permission. Data is queried on-demand to display wellness trends in your portal.",
-          "Connecting a wearable device does not create an automated emergency ambulance dispatch service. You may revoke access at any time via your Devices settings or your Google Account permissions, which immediately terminates data retrieval and purges cached metrics."
+          "Les données provenant d'appareils connectés (comme l'API Google Health) ne sont collectées qu'avec votre accord exprès. Elles sont interrogées à la demande pour restituer vos tendances de santé sur le portail.",
+          "L'association d'une montre connectée ne crée aucun service d'envoi automatique d'ambulances d'urgence. Vous pouvez révoquer l'accès à tout moment depuis les réglages de vos Appareils ou vos autorisations Google, ce qui interrompt immédiatement la synchronisation et supprime les métriques en cache."
         ]
       },
       {
@@ -110,13 +110,13 @@
         "number": 9,
         "heading": "Consentement et Contrôle des Patients",
         "paragraphs": [
-          "We believe patients should maintain granular control over their information. You can review and update permissions at any time:"
+          "Nous estimons que les usagers doivent garder le contrôle absolu de leurs données. Vous pouvez consulter et ajuster vos consentements à tout instant :"
         ],
         "bullets": [
-          "Modify emergency contact details and notification settings.",
-          "Toggle doctor pre-arrival sharing preferences in your Health Profile.",
-          "Disconnect wearable services with immediate token invalidation.",
-          "Request deletion of your account and personal records."
+          "Modifier vos contacts d'urgence et les paramètres de notification.",
+          "Activer ou désactiver le partage préalable des données avec les médecins urgentistes dans votre Profil de Santé.",
+          "Déconnecter vos appareils de santé avec révocation immédiate des jetons d'accès.",
+          "Demander l'effacement définitif de votre compte et de vos dossiers enregistrés."
         ]
       },
       {
@@ -124,14 +124,14 @@
         "number": 10,
         "heading": "Partage et Confidentialité des Informations Médicales",
         "paragraphs": [
-          "Personal or health information is never automatically disclosed to hospitals merely because a user browses a hospital card or saves a private appointment request.",
-          "Information may only be disclosed under the following circumstances:"
+          "Aucune donnée personnelle ou médicale n'est transmise automatiquement aux hôpitaux du simple fait de consulter la fiche d'un établissement ou d'enregistrer une note de rendez-vous.",
+          "Les données ne peuvent être communiquées que dans les situations limitativement énumérées suivantes :"
         ],
         "bullets": [
-          "With your explicit, verified authorization.",
-          "To designated emergency contacts when you actively trigger an emergency beacon.",
-          "To essential infrastructure service providers necessary to operate the application.",
-          "Where required by applicable law, statutory subpoena, or valid court order."
+          "Avec votre autorisation explicite et vérifiée.",
+          "Aux contacts d'urgence que vous avez désignés lorsque vous activez vous-même la balise SOS.",
+          "Aux prestataires d'infrastructures cloud indispensables au fonctionnement sécurisé du service.",
+          "En cas d'obligation légale, de réquisition judiciaire ou d'injonction d'un tribunal compétent."
         ]
       },
       {
@@ -139,16 +139,16 @@
         "number": 11,
         "heading": "Mesures de Protection des Données Patients",
         "paragraphs": [
-          "We implement administrative and technical safeguards designed to protect personal information:"
+          "Nous mettons en œuvre des mesures de sécurité administratives et techniques éprouvées pour protéger vos informations personnelles :"
         ],
         "bullets": [
-          "Access to private accounts and appointment records is strictly restricted to authenticated users.",
-          "Health information and emergency notes are handled with high standards of confidentiality.",
-          "Database isolation rules ensure that users cannot inspect other patients' data.",
-          "Encrypted transport protocols protect information exchanged between your device and our servers."
+          "L'accès aux espaces privés et aux réservations est strictement réservé aux utilisateurs authentifiés.",
+          "Les indicateurs de santé et les alertes d'urgence sont traités avec les plus hauts standards de confidentialité médicale.",
+          "L'isolation au niveau des lignes de base de données (RLS) empêche tout utilisateur d'accéder aux données d'autrui.",
+          "Des protocoles de chiffrement de bout en bout protègent les flux échangés entre vos terminaux et nos serveurs."
         ],
         "subparagraphs": [
-          "Users are encouraged to protect their account credentials and report any suspected unauthorized access to our administration desk immediately."
+          "Il appartient aux usagers de préserver la confidentialité de leurs identifiants et de signaler sans délai tout accès suspect à notre bureau d'administration."
         ]
       },
       {
@@ -156,8 +156,8 @@
         "number": 12,
         "heading": "Conservation des Données",
         "paragraphs": [
-          "Records are retained only for as long as your account remains active or as needed to deliver our healthcare planning and awareness features.",
-          "Private appointment requests, emergency logs, and support inquiries are retained within your secure portal until you remove them or submit an account closure request."
+          "Les informations ne sont conservées que pendant la durée d'activité de votre compte ou dans la limite nécessaire à la fourniture de nos fonctionnalités de santé.",
+          "Les demandes de rendez-vous, les journaux d'urgence et les demandes d'assistance demeurent dans votre portail jusqu'à ce que vous les supprimiez ou fermiez votre compte."
         ]
       },
       {
@@ -165,14 +165,14 @@
         "number": 13,
         "heading": "Droits des Patients",
         "paragraphs": [
-          "Depending on your jurisdiction, you may exercise applicable rights regarding your information:"
+          "Conformément à la réglementation applicable (notamment le RGPD), vous bénéficiez des droits suivants sur vos données :"
         ],
         "bullets": [
-          "Request access to the personal information we maintain about you.",
-          "Request correction of inaccurate or incomplete health profile records.",
-          "Withdraw optional consent for location or health device integrations.",
-          "Request deletion of your account where permitted by applicable law.",
-          "Submit questions or privacy inquiries to our administration team."
+          "Droit d'accès aux données à caractère personnel vous concernant.",
+          "Droit de rectification de toute information de santé inexacte ou incomplète.",
+          "Droit de retrait de votre consentement pour la géolocalisation ou les capteurs de santé.",
+          "Droit à l'effacement de votre compte et des informations associées dans les conditions prévues par la loi.",
+          "Droit d'adresser toute interrogation ou réclamation auprès de notre service de protection des données."
         ]
       },
       {
@@ -180,7 +180,7 @@
         "number": 14,
         "heading": "Protection des Données des Mineurs",
         "paragraphs": [
-          "SOS Healthcare is designed for use by individuals who have reached the age of majority or minors using the service under the active supervision and consent of a parent or legal guardian."
+          "SOS Healthcare est réservé aux personnes majeures ou aux mineurs agissant sous la surveillance active et avec le consentement préalable d'un parent ou représentant légal."
         ]
       },
       {
@@ -188,7 +188,7 @@
         "number": 15,
         "heading": "Sensibilisation Internationale à la Santé",
         "paragraphs": [
-          "SOS Healthcare provides information across 22 languages to assist users internationally. Providing multilingual information does not imply local clinical licensing, direct hospital operational affiliation, or municipal emergency dispatch coverage in every country."
+          "SOS Healthcare met à disposition des informations en 25 langues pour orienter les patients du monde entier. Cette diffusion multilingue n'implique pas l'obtention d'agréments cliniques locaux, d'accords d'affiliation hospitalière directe ou d'intégration au SAMU / services de secours locaux dans tous les pays."
         ]
       },
       {
@@ -196,7 +196,7 @@
         "number": 16,
         "heading": "Mises à Jour de la Politique",
         "paragraphs": [
-          "We may periodically update this policy to reflect enhancements in patient safety, new platform features, or evolving legal standards. The latest revision date is prominently displayed at the top of this document."
+          "Nous pouvons actualiser périodiquement cette politique afin de refléter les progrès apportés à la sécurité des usagers, les nouvelles fonctionnalités ou l'évolution des obligations légales. La date de dernière révision est mentionnée en haut du document."
         ]
       },
       {
@@ -204,7 +204,7 @@
         "number": 17,
         "heading": "Contacter l'Administrateur",
         "paragraphs": [
-          "For privacy inquiries, patient data requests, or directory corrections, you may contact our administration desk directly:"
+          "Pour toute demande relative à vos données personnelles, l'exercice de vos droits ou la mise à jour d'un établissement, contactez directement notre secrétariat :"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"
@@ -227,7 +227,7 @@
         "number": 1,
         "heading": "Acceptation des Conditions",
         "paragraphs": [
-          "By accessing, registering for, or using SOS Healthcare services, you acknowledge that you have read and understood these Terms of Service and agree to comply with the applicable conditions of use. If you do not agree with these terms, you should discontinue use of the services."
+          "En accédant, en vous inscrivant ou en utilisant les services de SOS Healthcare, vous reconnaissez avoir pris connaissance des présentes Conditions d'Utilisation et acceptez d'y être lié. Si vous n'approuvez pas ces conditions, vous devez renoncer à utiliser l'application."
         ]
       },
       {
@@ -235,7 +235,7 @@
         "number": 2,
         "heading": "Éligibilité et Responsabilités Liées au Compte",
         "paragraphs": [
-          "Users must be of legal age of majority or use the platform under the supervision of a parent or legal guardian. You agree to provide accurate information when creating an account, safeguard your credentials, and report any unauthorized access promptly. You remain responsible for all activities originating from your account."
+          "Les usagers doivent avoir atteint la majorité légale ou utiliser la plateforme sous la surveillance d'un parent ou tuteur légal. Vous vous engagez à fournir des indications sincères lors de votre inscription, à préserver le secret de vos identifiants et à nous notifier sans retard toute utilisation non autorisée. Vous assumez la pleine responsabilité des démarches initiées depuis votre compte."
         ]
       },
       {
@@ -243,8 +243,8 @@
         "number": 3,
         "heading": "Nature des Services SOS Healthcare",
         "paragraphs": [
-          "SOS Healthcare provides digital healthcare awareness, nearby hospital discovery, emergency telephone guidance, private appointment planning, and authorized health-device information display.",
-          "The platform is a communication and planning tool and does not provide direct medical treatment or clinical prescriptions."
+          "SOS Healthcare propose des ressources numériques d'orientation de santé, la localisation d'hôpitaux à proximité, un guidage d'appel d'urgence, la planification privée de consultations et la restitution d'indicateurs de capteurs de santé autorisés.",
+          "La plateforme constitue un instrument de communication et d'organisation personnelle ; elle ne délivre ni diagnostic médical direct, ni prise en charge thérapeutique, ni ordonnance clinique."
         ]
       },
       {
@@ -252,7 +252,7 @@
         "number": 4,
         "heading": "Informations de l'Annuaire Hospitalier",
         "paragraphs": [
-          "Hospital names, addresses, and listed departments are provided for general informational orientation. Directory details may change, and emergency triage availability should always be verified directly with the facility. Inclusion in our directory does not imply formal partnership or commercial endorsement."
+          "Les dénominations, adresses et spécialités hospitalières sont indiquées à titre informatif général. Ces données étant évolutives, la disponibilité effective des urgences doit être vérifiée directement auprès de l'établissement. L'apparition d'un centre au répertoire ne vaut ni partenariat officiel ni cautionnement commercial."
         ]
       },
       {
@@ -260,7 +260,7 @@
         "number": 5,
         "heading": "Informations Relatives aux Médecins",
         "paragraphs": [
-          "Information regarding medical specialists is intended to help users identify independent healthcare providers. Listed doctors are not partners of the platform, and listing does not imply an exclusive endorsement or automated intake agreement without verified authorization."
+          "Les informations sur les spécialistes sont destinées à faciliter la recherche de professionnels indépendants. Les médecins répertoriés ne sont pas partenaires de la plateforme, et leur inscription ne saurait valoir recommandation exclusive ou accord d'admission automatisé sans autorisation vérifiée."
         ]
       },
       {
@@ -268,7 +268,7 @@
         "number": 6,
         "heading": "Demandes de Rendez-vous Privées",
         "paragraphs": [
-          "The platform allows patients to store personal appointment preferences and consultation requests. These requests do not create hospital-confirmed reservations. Hospital schedules and front-desk booking procedures may differ, and users are responsible for confirming actual visits directly with the hospital."
+          "La plateforme permet de consigner des souhaits de consultation personnels. Ces démarches ne constituent pas une réservation ferme validée par l'hôpital. Les modalités de prise de rendez-vous différant selon les structures, il vous incombe de confirmer vos visites directement auprès des services hospitaliers."
         ]
       },
       {
@@ -276,7 +276,7 @@
         "number": 7,
         "heading": "Annulation et Modification de Rendez-vous",
         "paragraphs": [
-          "Patients may cancel or reschedule eligible private requests within their portal. Modifying a request affects only the record stored in SOS Healthcare; it does not automatically cancel an independently arranged hospital appointment. Cancellation records are retained in accordance with the Privacy Policy."
+          "Vous pouvez modifier ou annuler vos demandes personnelles depuis votre espace patient. Cette action met à jour l'enregistrement interne à SOS Healthcare mais n'annule pas un rendez-vous convenu séparément auprès de l'hôpital. L'historique des démarches est conservé selon les règles fixées par la Politique de Confidentialité."
         ]
       },
       {
@@ -284,8 +284,8 @@
         "number": 8,
         "heading": "Assistance d'Urgence",
         "paragraphs": [
-          "SOS Healthcare is not a substitute for official public emergency services. Users must contact their local emergency number (e.g. 112, 911, or local emergency line) for life-threatening emergencies.",
-          "Transmitting an SOS beacon notifies designated emergency contacts via the app; emergency contacts are not equivalent to municipal ambulance dispatch providers."
+          "SOS Healthcare ne se substitue pas aux services publics officiels d'aide médicale urgente. Lors d'urgences mettant en cause le pronostic vital, vous devez composer sans délai le numéro de secours compétent (112, 15 ou numéro local).",
+          "Le déclenchement d'un signal SOS alerte vos contacts désignés via l'application ; ces contacts personnels ne constituent pas un centre de régulation médicale ni un service d'ambulances d'urgence."
         ]
       },
       {
@@ -293,7 +293,7 @@
         "number": 9,
         "heading": "Avertissement Médical et Exclusion de Responsabilité",
         "paragraphs": [
-          "Information provided on the platform is educational and informational. It is not medical advice, diagnosis, or treatment. Users should consult licensed healthcare professionals regarding any health condition. Emergency symptoms require urgent attention from licensed emergency providers."
+          "Les contenus diffusés sur la plateforme revêtent un caractère purement éducatif et indicatif. Ils ne constituent en aucun cas une consultation, un diagnostic ou un avis médical. Pour tout problème de santé, adressez-vous à un professionnel de santé diplômé. Les symptômes graves requièrent un recours immédiat aux urgences médicales."
         ]
       },
       {
@@ -301,7 +301,7 @@
         "number": 10,
         "heading": "Appareils Connectés (Wearables)",
         "paragraphs": [
-          "Wearable data displayed through integrations (such as Google Health) depends on third-party sensor accuracy. Measurements may be delayed or unavailable. Wearable data is not diagnostic clinical information, and no automatic emergency response is promised based on wearable metrics."
+          "Les relevés provenant de capteurs tiers (tels que Google Health) dépendent de la fiabilité du matériel du fabricant. Des retards ou interruptions de synchronisation peuvent survenir. Ces métriques n'ont pas de valeur diagnostique et ne déclenchent aucun secours automatisé en cas d'anomalie."
         ]
       },
       {
@@ -309,7 +309,7 @@
         "number": 11,
         "heading": "Responsabilités du Patient",
         "paragraphs": [
-          "Patients are responsible for maintaining accurate contact details, using emergency features conscientiously, and respecting the confidentiality of personal medical information stored in their accounts."
+          "Les patients doivent veiller à l'exactitude de leurs coordonnées, user avec discernement des fonctions d'alerte d'urgence et respecter le secret de leurs informations de santé personnelles stockées sur leur espace."
         ]
       },
       {
@@ -317,14 +317,14 @@
         "number": 12,
         "heading": "Comportements Interdits",
         "paragraphs": [
-          "Users may not:"
+          "Il est formellement interdit aux utilisateurs de :"
         ],
         "bullets": [
-          "Attempt unauthorized access to other accounts or administrative systems.",
-          "Trigger fraudulent or abusive emergency beacons that waste responder resources.",
-          "Harass healthcare providers, administrators, or other patients.",
-          "Misrepresent professional medical credentials or patient identity.",
-          "Interfere with the security or operational integrity of the service."
+          "Tenter d'accéder sans droit aux comptes d'autres usagers ou aux systèmes de gestion administrative.",
+          "Déclencher des balises d'urgence fallacieuses ou abusives mobilisant inutilement les secours.",
+          "Tenir des propos injurieux ou harceler les soignants, administrateurs ou autres patients.",
+          "Usurper des titres médicaux professionnels ou dissimuler sa véritable identité.",
+          "Porter atteinte à la sécurité, à la stabilité ou à l'intégrité de l'application."
         ]
       },
       {
@@ -332,7 +332,7 @@
         "number": 13,
         "heading": "Confidentialité et Respect de la Vie Privée",
         "paragraphs": [
-          "Handling of personal information and healthcare preferences is governed by our Privacy Policy. Please review the Privacy Policy for details regarding our confidentiality safeguards and patient rights."
+          "Le traitement des données personnelles et de santé est détaillé dans notre Politique de Confidentialité. Nous vous invitons à la consulter pour connaître vos droits et nos dispositifs de protection."
         ]
       },
       {
@@ -340,7 +340,7 @@
         "number": 14,
         "heading": "Disponibilité du Service",
         "paragraphs": [
-          "Platform availability depends on cellular connectivity, internet routing, and scheduled maintenance. While we aim for reliable service, uninterrupted healthcare software availability cannot be guaranteed."
+          "L'accessibilité de la plateforme est conditionnée par la couverture réseau, le fonctionnement de l'Internet et les opérations de maintenance. Bien que nous visions une disponibilité maximale, la continuité absolue du service ne peut être garantie."
         ]
       },
       {
@@ -348,7 +348,7 @@
         "number": 15,
         "heading": "Tarification et Frais",
         "paragraphs": [
-          "Access to the SOS Healthcare digital platform is free for users. External hospital, consultation, transportation, or medical treatment fees charged by independent healthcare providers remain the responsibility of the patient."
+          "L'accès à l'application SOS Healthcare est gratuit. Les honoraires de consultation, les examens, le transport sanitaire et les soins dispensés par les professionnels ou hôpitaux indépendants demeurent entièrement à la charge du patient."
         ]
       },
       {
@@ -356,7 +356,7 @@
         "number": 16,
         "heading": "Suspension et Clôture de Compte",
         "paragraphs": [
-          "We reserve the right to suspend or close accounts that engage in fraudulent emergency alerts, violate acceptable use rules, or compromise platform security, subject to applicable notice and review procedures."
+          "Nous nous réservons le droit de suspendre ou fermer tout compte émettant de fausses alertes, enfreignant les règles d'utilisation ou compromettant la sécurité du système, après notification et examen préalable."
         ]
       },
       {
@@ -364,7 +364,7 @@
         "number": 17,
         "heading": "Modifications des Conditions",
         "paragraphs": [
-          "Material changes to these Terms will be communicated through the platform with an updated version date. Continued use following updates constitutes agreement to the revised conditions."
+          "Toute révision importante des présentes Conditions sera portée à la connaissance des usagers sur la plateforme avec mention de la nouvelle date de prise d'effet. La poursuite de l'utilisation du service vaut acceptation des conditions modifiées."
         ]
       },
       {
@@ -372,7 +372,7 @@
         "number": 18,
         "heading": "Droit Applicable et Résolution des Litiges",
         "paragraphs": [
-          "These Terms are governed by applicable national consumer and digital healthcare regulations. Disputes should first be addressed through good-faith administrative communication before pursuing formal proceedings."
+          "Les présentes Conditions sont régies par la législation nationale relative à la protection des consommateurs et à la santé numérique. En cas de différend, une démarche amiable auprès du service administratif doit être privilégiée avant tout recours contentieux."
         ]
       },
       {
@@ -380,7 +380,7 @@
         "number": 19,
         "heading": "Contact Administratif",
         "paragraphs": [
-          "For questions regarding these service conditions, please contact our administrative desk:"
+          "Pour toute question relative aux présentes conditions d'utilisation, veuillez vous adresser à notre secrétariat administratif :"
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"

@@ -15,8 +15,8 @@
         "number": 1,
         "heading": "はじめに",
         "paragraphs": [
-          "SOS Healthcare provides healthcare awareness, nearby hospital discovery, emergency telephone guidance, and private appointment-planning services.",
-          "This Privacy Policy describes how personal information and healthcare preferences are collected, used, protected, and handled when you access our application. SOS Healthcare is a software assistance platform and does not directly own or operate hospital treatment centers."
+          "SOS Healthcare は、健康意識の向上、近隣病院の検索、緊急電話の案内、および個人的な診療予約計画サービスを提供します。",
+          "本プライバシーポリシーは、当アプリケーションをご利用いただく際に、個人情報および医療に関する希望事項がどのように収集、利用、保護、管理されるかを説明するものです。SOS Healthcare はソフトウェア支援プラットフォームであり、病院等の医療施設を直接所有または運営するものではありません。"
         ]
       },
       {
@@ -24,18 +24,18 @@
         "number": 2,
         "heading": "収集する情報",
         "paragraphs": [
-          "We collect only the information necessary to fulfill our digital healthcare awareness and planning services:"
+          "当サービスでは、デジタル健康情報の提供および計画支援サービスを実施するために必要な情報のみを収集します："
         ],
         "bullets": [
-          "Name and Contact Details: Name and email address used for account registration and authentication.",
-          "Account Information: Profile credentials, preferences, and security access logs.",
-          "Emergency Contact Details: Names, phone numbers, and relationship designations for family or trusted individuals you choose to notify during emergencies.",
-          "Location Information: Real-time browser GPS coordinates when explicitly permitted by you to calculate driving distances to nearby medical centers or transmit coordinates during an emergency beacon.",
-          "Private Appointment Requests: Selected medical specialties, preferred dates, visit reasons, and status notes saved in your personal planner.",
-          "Hospital Preferences: Bookmarked facilities and search history.",
-          "Optional Health Information: Self-reported blood group, vitals, allergies, and chronic medical history stored in your health profile.",
-          "Wearable-Device Information: Heart rate, step count, or activity telemetry accessed only when you explicitly connect Google Health.",
-          "Support Inquiries: Communications submitted through our administrator inquiry form."
+          "氏名および連絡先：アカウント登録および認証に使用される氏名とメールアドレス。",
+          "アカウント情報：プロフィール認証情報、個人設定、およびセキュリティアクセスログ。",
+          "緊急連絡先情報：緊急時に通知することを希望されるご家族や信頼できる方の氏名、電話番号、および続柄。",
+          "位置情報：近隣医療機関までの距離計算または緊急SOSビーコン発信のために、お客様の明示的な許可に基づきブラウザから取得されるリアルタイムGPS座標。",
+          "プライベート予約リクエスト：個人の計画表に保存された受診希望診療科、希望日時、受診理由、およびステータスメモ。",
+          "病院の登録設定：ブックマークされた医療機関および検索履歴。",
+          "任意の健康情報：健康プロフィールに保存された、自己申告による血液型、バイタル、アレルギー歴、および慢性疾患の既往歴。",
+          "ウェアラブル端末情報：Google Health等との明示的な連携時にのみ取得される心拍数、歩数、または活動記録データ。",
+          "サポートへのお問い合わせ：管理者問い合わせフォームを通じて送信された相談内容。"
         ]
       },
       {
@@ -43,16 +43,16 @@
         "number": 3,
         "heading": "情報収集の利用目的",
         "paragraphs": [
-          "We process your information for clear, patient-centered purposes:"
+          "当サービスは、患者様本位の明確な目的のために情報を処理します："
         ],
         "bullets": [
-          "Managing your patient account and authenticating your access securely.",
-          "Helping you identify and locate nearby accredited healthcare facilities.",
-          "Maintaining your private consultation requests and personal scheduling notes.",
-          "Supporting emergency contact notifications when an SOS beacon is activated.",
-          "Displaying authorized wearable wellness data in your patient dashboard.",
-          "Responding to platform feedback and administrative support requests.",
-          "Protecting accounts against unauthorized access and preventing platform misuse."
+          "患者アカウントを管理し、アクセスを安全に認証するため。",
+          "近隣の認定医療機関の確認および位置特定を支援するため。",
+          "個人的な診療相談リクエストおよび受診予定メモを管理するため。",
+          "SOSビーコン発動時に指定された緊急連絡先への通知をサポートするため。",
+          "患者ダッシュボードに認証済みのウェアラブル健康データを表示するため。",
+          "プラットフォームに関するご意見や管理者サポート要請に対応するため。",
+          "不正アクセスからアカウントを保護し、プラットフォームの悪用を防止するため。"
         ]
       },
       {
@@ -60,7 +60,7 @@
         "number": 4,
         "heading": "患者のプライバシーと機密保持",
         "paragraphs": [
-          "SOS Healthcare restricts access to personal information to legitimate, authorized purposes. Your health records and private consultation preferences are confidential. We maintain technical controls so that individual patient information is accessible only to the authenticated account holder."
+          "SOS Healthcare は、個人情報へのアクセスを正当かつ承認された目的に厳格に制限しています。お客様の健康記録および相談内容は機密情報です。認証されたアカウント所有者のみが個別の患者情報にアクセスできるよう、技術的保護措置を徹底しています。"
         ]
       },
       {
@@ -68,8 +68,8 @@
         "number": 5,
         "heading": "病院情報および医療機関検索",
         "paragraphs": [
-          "Hospital and clinic information is compiled from public healthcare listings to help users identify medical facilities in their area.",
-          "Inclusion in our directory does not automatically establish a formal commercial relationship, affiliation, or operational partnership between SOS Healthcare and the hospital."
+          "病院および診療所の情報は、ユーザーがお住まいの地域の医療施設を把握できるよう、公的な医療名簿から集約されています。",
+          "当検索ディレクトリへの掲載は、SOS Healthcare と病院との間に公式な提携、関連関係、または運営上のパートナーシップが自動的に成立することを意味するものではありません。"
         ]
       },
       {
@@ -78,12 +78,12 @@
         "heading": "プライベート予約リクエスト",
         "notice": {
           "variant": "info",
-          "title": "Important Notice Regarding Appointment Requests",
-          "text": "\"Appointment requests saved through SOS Healthcare are maintained within the SOS Healthcare platform and are not automatically submitted to hospitals or added to hospital medical records.\""
+          "title": "診療予約リクエストに関する重要事項",
+          "text": "「SOS Healthcare を通じて保存された予約リクエストは当プラットフォーム内でのみ保持され、病院へ自動送信されることや、病院の公式カルテに登録されることはありません。」"
         },
         "paragraphs": [
-          "Saving a request in your portal does not guarantee hospital availability or confirm an appointment slot with hospital staff. Patients may reschedule or cancel their private requests at any time.",
-          "Cancelling a private request in SOS Healthcare does not cancel an independently arranged appointment at a hospital clinic. External hospital booking requires a separately authorized, verified integration."
+          "ポータルにリクエストを保存しても、病院側の空き状況を保証するものではなく、病院スタッフとの確定予約となるものでもありません。患者様はいつでも予約内容の変更やキャンセルが可能です。",
+          "SOS Healthcare 上でプライベートリクエストを取り消しても、病院の窓口で直接予約された診療がキャンセルされるわけではありません。外部病院での受診予約には、個別に承認・検証された連携が必要となります。"
         ]
       },
       {
@@ -91,9 +91,9 @@
         "number": 7,
         "heading": "緊急支援と位置情報",
         "paragraphs": [
-          "Location permission is requested only when necessary to calculate proximity to nearby hospitals or when initiating an emergency beacon.",
-          "When an SOS beacon is activated, your browser-reported coordinates at that moment are transmitted to your registered emergency contacts. SOS Healthcare does not track your location in the background when the app is inactive. Public emergency responders (such as 112 or 911 dispatchers) do not automatically receive web beacon data unless formal municipal dispatch connectivity is verified in your jurisdiction.",
-          "You may withdraw location permissions at any time through your device or browser settings."
+          "位置情報の利用許可は、近隣病院までの距離計算または緊急ビーコン発動の際に必要な場合に限り要求されます。",
+          "SOS求急ビーコンが発信された場合、その時点でブラウザから取得された位置座標が、事前設定された緊急連絡先に送信されます。",
+          "ブラウザの設定からいつでも位置情報の権限を取り消すことができます。許可を取り消した場合、座標の送信は停止されますが、病院の距離順表示などの機能が制限される場合があります。"
         ]
       },
       {
@@ -101,8 +101,8 @@
         "number": 8,
         "heading": "健康管理とウェアラブル端末",
         "paragraphs": [
-          "Connected wearable information (such as Google Health API integration) is retrieved only with your explicit permission. Data is queried on-demand to display wellness trends in your portal.",
-          "Connecting a wearable device does not create an automated emergency ambulance dispatch service. You may revoke access at any time via your Devices settings or your Google Account permissions, which immediately terminates data retrieval and purges cached metrics."
+          "連携されたウェアラブル端末情報（Google Health API連携など）は、お客様の明示的な同意がある場合にのみ取得されます。データはポータル上に健康推移を表示するために必要に応じて取得されます。",
+          "ウェアラブル端末を連携しても、救急車の自動出動要請サービスが構築されるわけではありません。「デバイス設定」またはGoogleアカウントの権限設定からいつでも連携を解除でき、連携解除後は直ちにデータ取得が停止されキャッシュデータは破棄されます。"
         ]
       },
       {
@@ -110,13 +110,13 @@
         "number": 9,
         "heading": "患者の同意と自己管理権",
         "paragraphs": [
-          "We believe patients should maintain granular control over their information. You can review and update permissions at any time:"
+          "当サービスは、患者様がご自身のデータに対して細やかな管理権を保持すべきであると考えています。お客様はいつでも以下の設定を確認・変更できます："
         ],
         "bullets": [
-          "Modify emergency contact details and notification settings.",
-          "Toggle doctor pre-arrival sharing preferences in your Health Profile.",
-          "Disconnect wearable services with immediate token invalidation.",
-          "Request deletion of your account and personal records."
+          "緊急連絡先の情報および通知受信設定の変更。",
+          "健康プロフィールにおける「医師への事前共有設定」のオン・オフ切り替え。",
+          "ウェアラブル端末の連携解除（アクセストークンは即座に無効化されます）。",
+          "アカウントおよび個人データの削除申請。"
         ]
       },
       {
@@ -124,14 +124,14 @@
         "number": 10,
         "heading": "医療情報の共有と守秘義務",
         "paragraphs": [
-          "Personal or health information is never automatically disclosed to hospitals merely because a user browses a hospital card or saves a private appointment request.",
-          "Information may only be disclosed under the following circumstances:"
+          "ユーザーが病院の詳細情報を閲覧したり、私的な予約リクエストを保存したりしただけで、個人情報や医療データが病院に自動開示されることは一切ありません。",
+          "情報が開示されるのは、以下に限定された状況のみです："
         ],
         "bullets": [
-          "With your explicit, verified authorization.",
-          "To designated emergency contacts when you actively trigger an emergency beacon.",
-          "To essential infrastructure service providers necessary to operate the application.",
-          "Where required by applicable law, statutory subpoena, or valid court order."
+          "お客様の明示的かつ確認された同意がある場合。",
+          "お客様が緊急SOSビーコンを自発的に起動した際に、指定された緊急連絡先に対して通知する場合。",
+          "本アプリケーションを安全に運用するために必要不可欠なインフラクラウド事業者に対して開示する場合。",
+          "適用法令、令状、または有効な裁判所の命令により開示が義務付けられた場合。"
         ]
       },
       {
@@ -139,16 +139,16 @@
         "number": 11,
         "heading": "患者情報のセキュリティ対策",
         "paragraphs": [
-          "We implement administrative and technical safeguards designed to protect personal information:"
+          "個人情報を保護するため、厳格な管理的および技術的セキュリティ対策を実施しています："
         ],
         "bullets": [
-          "Access to private accounts and appointment records is strictly restricted to authenticated users.",
-          "Health information and emergency notes are handled with high standards of confidentiality.",
-          "Database isolation rules ensure that users cannot inspect other patients' data.",
-          "Encrypted transport protocols protect information exchanged between your device and our servers."
+          "個人アカウントおよび受診予約記録へのアクセスは、認証されたユーザー本人に限定されます。",
+          "健康情報および緊急メモは、最高水準の機密性をもって厳格に管理されます。",
+          "データベースの行レベルセキュリティ（RLS）により、他人の患者データを閲覧することは構造上不可能です。",
+          "端末とサーバー間の通信は高度な暗号化通信プロトコルによって保護されています。"
         ],
         "subparagraphs": [
-          "Users are encouraged to protect their account credentials and report any suspected unauthorized access to our administration desk immediately."
+          "ユーザーの皆様にはアカウント認証情報を厳重に管理いただき、不審なアクセスを感知した場合は直ちに管理デスクへご報告いただくよう推奨いたします。"
         ]
       },
       {
@@ -156,8 +156,8 @@
         "number": 12,
         "heading": "データの保持期間",
         "paragraphs": [
-          "Records are retained only for as long as your account remains active or as needed to deliver our healthcare planning and awareness features.",
-          "Private appointment requests, emergency logs, and support inquiries are retained within your secure portal until you remove them or submit an account closure request."
+          "データはお客様のアカウントが有効な期間中、または健康管理機能を提供するために必要な期間に限り保持されます。",
+          "個人の予約リクエスト、緊急対応ログ、およびサポート問い合わせ記録は、お客様が削除するかアカウント閉鎖を申請するまで、安全なポータル内に保持されます。"
         ]
       },
       {
@@ -165,14 +165,14 @@
         "number": 13,
         "heading": "患者の権利",
         "paragraphs": [
-          "Depending on your jurisdiction, you may exercise applicable rights regarding your information:"
+          "お住まいの地域の法令に基づき、お客様はご自身の情報に関して以下の権利を行使することができます："
         ],
         "bullets": [
-          "Request access to the personal information we maintain about you.",
-          "Request correction of inaccurate or incomplete health profile records.",
-          "Withdraw optional consent for location or health device integrations.",
-          "Request deletion of your account where permitted by applicable law.",
-          "Submit questions or privacy inquiries to our administration team."
+          "当サービスが保有するご自身の個人情報へのアクセス開示請求。",
+          "不正確または不完全な健康プロフィールの訂正請求。",
+          "位置情報や外部デバイス連携に対する任意同意の撤回。",
+          "適用法令の許す範囲内でのアカウントおよび個人データの消去請求。",
+          "管理デスクに対する個人情報保護に関する質問や相談の提出。"
         ]
       },
       {
@@ -180,7 +180,7 @@
         "number": 14,
         "heading": "未成年者のプライバシー保護",
         "paragraphs": [
-          "SOS Healthcare is designed for use by individuals who have reached the age of majority or minors using the service under the active supervision and consent of a parent or legal guardian."
+          "SOS Healthcare は、成人年齢に達した方のご利用、または保護者・法定代理人の積極的な監督と同意のもとで利用する未成年者を対象として設計されています。"
         ]
       },
       {
@@ -188,7 +188,7 @@
         "number": 15,
         "heading": "国際的な医療認識に関する注意事項",
         "paragraphs": [
-          "SOS Healthcare provides information across 22 languages to assist users internationally. Providing multilingual information does not imply local clinical licensing, direct hospital operational affiliation, or municipal emergency dispatch coverage in every country."
+          "SOS Healthcare は、世界各国のユーザーを支援するため25言語で情報を提供しています。多言語で情報を提示していることは、あらゆる国における地域診療免許の保有、現地病院との直接提携、または自治体の救急指令網への直接接続を意味するものではありません。"
         ]
       },
       {
@@ -196,7 +196,7 @@
         "number": 16,
         "heading": "プライバシーポリシーの改定",
         "paragraphs": [
-          "We may periodically update this policy to reflect enhancements in patient safety, new platform features, or evolving legal standards. The latest revision date is prominently displayed at the top of this document."
+          "患者の安全向上、新機能の導入、または法令基準の変更に伴い、本ポリシーを定期的に改定することがあります。最新の改定日は本文書の冒頭に明記されます。"
         ]
       },
       {
@@ -204,7 +204,7 @@
         "number": 17,
         "heading": "管理デスクへのお問い合わせ",
         "paragraphs": [
-          "For privacy inquiries, patient data requests, or directory corrections, you may contact our administration desk directly:"
+          "個人情報の取扱い、患者データの開示請求、または病院情報の修正依頼については、管理デスクまで直接お問い合わせください："
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"
@@ -227,7 +227,7 @@
         "number": 1,
         "heading": "規約への同意",
         "paragraphs": [
-          "By accessing, registering for, or using SOS Healthcare services, you acknowledge that you have read and understood these Terms of Service and agree to comply with the applicable conditions of use. If you do not agree with these terms, you should discontinue use of the services."
+          "SOS Healthcare のサービスにアクセス、登録、または利用することにより、お客様は本利用規約を熟読して理解し、適用される条件を遵守することに同意したものとみなされます。本規約に同意されない場合は、本サービスの利用を中止してください。"
         ]
       },
       {
@@ -235,7 +235,7 @@
         "number": 2,
         "heading": "利用資格およびアカウント管理責任",
         "paragraphs": [
-          "Users must be of legal age of majority or use the platform under the supervision of a parent or legal guardian. You agree to provide accurate information when creating an account, safeguard your credentials, and report any unauthorized access promptly. You remain responsible for all activities originating from your account."
+          "ユーザーは法定成人年齢に達しているか、保護者もしくは法定代理人の監督下で本サービスを利用する必要があります。アカウント作成時には正確な情報を提供し、認証情報を厳重に保護し、不正アクセスを認めた場合は速やかに報告することに同意します。ご自身のアカウントから行われたすべての操作については、お客様ご自身が責任を負います。"
         ]
       },
       {
@@ -243,8 +243,8 @@
         "number": 3,
         "heading": "SOS Healthcare サービスの性質",
         "paragraphs": [
-          "SOS Healthcare provides digital healthcare awareness, nearby hospital discovery, emergency telephone guidance, private appointment planning, and authorized health-device information display.",
-          "The platform is a communication and planning tool and does not provide direct medical treatment or clinical prescriptions."
+          "SOS Healthcare は、デジタル医療健康情報の提供、近隣病院の検索、緊急通報支援、個人的な予約計画、および認証された健康機器データの表示サービスを提供します。",
+          "本プラットフォームはコミュニケーションおよび健康管理支援ツールであり、直接的な医療行為や臨床処方を提供するものではありません。"
         ]
       },
       {
@@ -252,7 +252,7 @@
         "number": 4,
         "heading": "病院検索・医療機関情報",
         "paragraphs": [
-          "Hospital names, addresses, and listed departments are provided for general informational orientation. Directory details may change, and emergency triage availability should always be verified directly with the facility. Inclusion in our directory does not imply formal partnership or commercial endorsement."
+          "病院名、住所、および標榜診療科は一般的な参考情報として掲載されています。施設情報は変更される場合があり、救急受診の受け入れ態勢については必ず病院に直接確認してください。名簿への掲載は、公式な提携や商業的な推薦を意味するものではありません。"
         ]
       },
       {
@@ -260,7 +260,7 @@
         "number": 5,
         "heading": "医師・専門医情報に関する案内",
         "paragraphs": [
-          "Information regarding medical specialists is intended to help users identify independent healthcare providers. Listed doctors are not partners of the platform, and listing does not imply an exclusive endorsement or automated intake agreement without verified authorization."
+          "医師や専門医に関する情報は、独立した医療従事者を探す支援を目的としています。掲載されている医師は本プラットフォームのパートナーではなく、掲載されていることは排他的な推奨や自動受付の合意を意味するものではありません。"
         ]
       },
       {
@@ -268,7 +268,7 @@
         "number": 6,
         "heading": "プライベート予約リクエスト",
         "paragraphs": [
-          "The platform allows patients to store personal appointment preferences and consultation requests. These requests do not create hospital-confirmed reservations. Hospital schedules and front-desk booking procedures may differ, and users are responsible for confirming actual visits directly with the hospital."
+          "本プラットフォームでは、患者様が受診希望や相談メモを記録することができます。これらは病院側で確定された正式な診療予約となるものではありません。各病院の受付手順は異なるため、実際の受診については患者様自身が直接病院に確認する必要があります。"
         ]
       },
       {
@@ -276,7 +276,7 @@
         "number": 7,
         "heading": "予約の変更およびキャンセル規定",
         "paragraphs": [
-          "Patients may cancel or reschedule eligible private requests within their portal. Modifying a request affects only the record stored in SOS Healthcare; it does not automatically cancel an independently arranged hospital appointment. Cancellation records are retained in accordance with the Privacy Policy."
+          "患者様はポータル内でプライベート予約リクエストを変更またはキャンセルできます。この変更は SOS Healthcare 内に保存された記録にのみ適用され、病院窓口で独自に手配された予約が自動キャンセルされるわけではありません。キャンセル履歴はプライバシーポリシーに従って保持されます。"
         ]
       },
       {
@@ -284,8 +284,8 @@
         "number": 8,
         "heading": "緊急援助支援機能",
         "paragraphs": [
-          "SOS Healthcare is not a substitute for official public emergency services. Users must contact their local emergency number (e.g. 112, 911, or local emergency line) for life-threatening emergencies.",
-          "Transmitting an SOS beacon notifies designated emergency contacts via the app; emergency contacts are not equivalent to municipal ambulance dispatch providers."
+          "SOS Healthcare は公的な緊急救助機関の代わりにはなりません。生命に関わる危機的な状況では、必ず 119 番や 112 番等の現地の緊急通報用電話番号に直接発信してください。",
+          "SOSビーコンを送信すると、アプリを通じて事前に登録された緊急連絡先に通知が送信されます。緊急連絡先は自治体の救急救命指令所とは異なります。"
         ]
       },
       {
@@ -293,7 +293,7 @@
         "number": 9,
         "heading": "医療免責事項",
         "paragraphs": [
-          "Information provided on the platform is educational and informational. It is not medical advice, diagnosis, or treatment. Users should consult licensed healthcare professionals regarding any health condition. Emergency symptoms require urgent attention from licensed emergency providers."
+          "本プラットフォームで提供されるすべての情報は教育および一般的知識を目的としたものであり、医学的診断、治療、助言を構成するものではありません。健康に関する問題については、必ず医師等の有資格者にご相談ください。急性症状がある場合は、直ちに救急医療機関を受診してください。"
         ]
       },
       {
@@ -301,7 +301,7 @@
         "number": 10,
         "heading": "ウェアラブル端末連携",
         "paragraphs": [
-          "Wearable data displayed through integrations (such as Google Health) depends on third-party sensor accuracy. Measurements may be delayed or unavailable. Wearable data is not diagnostic clinical information, and no automatic emergency response is promised based on wearable metrics."
+          "外部連携（Google Health等）を通じて表示されるウェアラブルデータは、第三者のセンサー精度に依存します。データ表示に遅延や中断が生じる場合があります。ウェアラブルデータは臨床診断情報ではなく、数値に基づく自動救急出動の保証はありません。"
         ]
       },
       {
@@ -309,7 +309,7 @@
         "number": 11,
         "heading": "患者の責務",
         "paragraphs": [
-          "Patients are responsible for maintaining accurate contact details, using emergency features conscientiously, and respecting the confidentiality of personal medical information stored in their accounts."
+          "患者様は、連絡先情報を正確に保ち、緊急支援機能を適切に使用し、アカウント内に保管された個人の医療記録の機密性を守る責任を負います。"
         ]
       },
       {
@@ -317,14 +317,14 @@
         "number": 12,
         "heading": "禁止事項",
         "paragraphs": [
-          "Users may not:"
+          "ユーザーは以下の行為を行ってはなりません："
         ],
         "bullets": [
-          "Attempt unauthorized access to other accounts or administrative systems.",
-          "Trigger fraudulent or abusive emergency beacons that waste responder resources.",
-          "Harass healthcare providers, administrators, or other patients.",
-          "Misrepresent professional medical credentials or patient identity.",
-          "Interfere with the security or operational integrity of the service."
+          "他のユーザーのアカウントや管理システムへの不正アクセスを試みること。",
+          "救急資源を浪費させる虚偽または嫌がらせ目的のSOSビーコンを発信すること。",
+          "医療従事者、管理者、または他の患者に対する誹謗中傷やハラスメント行為。",
+          "医療従事者の資格を詐称すること、または他人の身元を偽ること。",
+          "本サービスの安全性、正常な運用、または完全性を妨害すること。"
         ]
       },
       {
@@ -332,7 +332,7 @@
         "number": 13,
         "heading": "プライバシーおよび患者機密の保護",
         "paragraphs": [
-          "Handling of personal information and healthcare preferences is governed by our Privacy Policy. Please review the Privacy Policy for details regarding our confidentiality safeguards and patient rights."
+          "個人情報および健康情報の取り扱いは、当サービスのプライバシーポリシーに従います。守秘義務の安全管理措置および患者の権利については、プライバシーポリシーをご確認ください。"
         ]
       },
       {
@@ -340,7 +340,7 @@
         "number": 14,
         "heading": "サービスの可用性と保守",
         "paragraphs": [
-          "Platform availability depends on cellular connectivity, internet routing, and scheduled maintenance. While we aim for reliable service, uninterrupted healthcare software availability cannot be guaranteed."
+          "プラットフォームの可用性は、携帯電話網、インターネット経路、および定期保守に依存します。信頼性の高いサービスの提供に努めますが、医療ソフトウェアの無停止稼働を保証することはできません。"
         ]
       },
       {
@@ -348,7 +348,7 @@
         "number": 15,
         "heading": "サービス利用料金",
         "paragraphs": [
-          "Access to the SOS Healthcare digital platform is free for users. External hospital, consultation, transportation, or medical treatment fees charged by independent healthcare providers remain the responsibility of the patient."
+          "SOS Healthcare デジタルプラットフォームのご利用は無料です。独立した医療機関から請求される診察料、検査料、搬送費用、または治療費用については、患者様ご自身の負担となります。"
         ]
       },
       {
@@ -356,7 +356,7 @@
         "number": 16,
         "heading": "アカウントの停止および解約",
         "paragraphs": [
-          "We reserve the right to suspend or close accounts that engage in fraudulent emergency alerts, violate acceptable use rules, or compromise platform security, subject to applicable notice and review procedures."
+          "虚偽の緊急警報を発信した場合、利用規約に違反した場合、またはプラットフォームの安全を脅かした場合は、所定の通知と確認手続を経てアカウントを停止または閉鎖する権利を留保します。"
         ]
       },
       {
@@ -364,7 +364,7 @@
         "number": 17,
         "heading": "利用規約の変更",
         "paragraphs": [
-          "Material changes to these Terms will be communicated through the platform with an updated version date. Continued use following updates constitutes agreement to the revised conditions."
+          "本規約の重要な変更は、改定日を明記してプラットフォーム上で告知されます。変更後もサービスを継続して利用された場合、改定された規約に同意したものとみなされます。"
         ]
       },
       {
@@ -372,7 +372,7 @@
         "number": 18,
         "heading": "準拠法および紛争解決",
         "paragraphs": [
-          "These Terms are governed by applicable national consumer and digital healthcare regulations. Disputes should first be addressed through good-faith administrative communication before pursuing formal proceedings."
+          "本規約は、適用される国内の消費者保護およびデジタルヘルスケア法規制に準拠します。紛争が生じた場合は、正式な訴訟手続きに移行する前に、誠意をもった協議を通じて円満に解決を図るものとします。"
         ]
       },
       {
@@ -380,7 +380,7 @@
         "number": 19,
         "heading": "管理者への連絡窓口",
         "paragraphs": [
-          "For questions regarding these service conditions, please contact our administrative desk:"
+          "本利用条件に関するご質問は、管理デスクまでお問い合わせください："
         ],
         "contactEmail": "admin@soshospital.com",
         "contactButton": "Contact Administrator"

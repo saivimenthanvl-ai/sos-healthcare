@@ -207,7 +207,7 @@
           "Para consultas sobre privacidad, solicitudes de datos de pacientes o correcciones del directorio, puede comunicarse directamente con nuestra mesa de administración:"
         ],
         "contactEmail": "admin@soshospital.com",
-        "contactButton": "Contactar al Administrador"
+        "contactButton": "Contact Administrator"
       }
     ]
   },
@@ -383,7 +383,7 @@
           "Para preguntas relativas a estas condiciones de servicio, póngase en contacto con nuestra mesa de administración:"
         ],
         "contactEmail": "admin@soshospital.com",
-        "contactButton": "Contactar al Administrador"
+        "contactButton": "Contact Administrator"
       }
     ]
   }
