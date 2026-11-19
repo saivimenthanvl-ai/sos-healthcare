@@ -92,13 +92,19 @@ export function useRealtime<T extends Row = Row>(
       );
     }
 
-    channel.subscribe((status) => {
-      if (status === "CHANNEL_ERROR") {
-        console.warn(`Realtime channel error for ${table}`);
+    let isSubscribed = true;
+
+    channel.subscribe((status, err) => {
+      if (status === "CHANNEL_ERROR" && isSubscribed) {
+        // Only warn in development when explicitly enabled and not unmounting
+        if (process.env.NODE_ENV === "development") {
+          console.debug(`Realtime channel status: ${status} for ${table}`, err || "");
+        }
       }
     });
 
     return () => {
+      isSubscribed = false;
       void supabase.removeChannel(channel);
     };
     // onInsert/onUpdate/onDelete are deliberately excluded: they are read via

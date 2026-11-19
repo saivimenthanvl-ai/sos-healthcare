@@ -235,7 +235,7 @@ export function AuthenticatedDashboardView() {
               </h2>
             </div>
             <p className="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
-              Broadcasts GPS coordinates & health details to your emergency contacts.
+              {t.dashboard.sosBroadcastDesc}
             </p>
 
             {/* Inline location indicator */}

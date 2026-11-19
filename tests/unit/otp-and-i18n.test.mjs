@@ -39,19 +39,22 @@ test("privacy policy and terms of service focus on patient healthcare rules with
   assert.doesNotMatch(privacyCode, /fyzer/i);
   assert.doesNotMatch(privacyCode, /vercel\.app/);
   assert.doesNotMatch(privacyCode, /localhost/);
-  assert.match(privacyCode, /admin@soshospital\.com/);
-  assert.match(privacyCode, /Contact Administrator/);
-  assert.match(privacyCode, /Patient Information Safeguards/);
-  assert.match(privacyCode, /are not automatically submitted to hospitals/);
+
+  // Check that legal-content or en.json contains required patient healthcare rules and contacts
+  const enLegalPath = path.join(root, "src/lib/i18n/legal/en.json");
+  const enLegalCode = fs.readFileSync(enLegalPath, "utf8");
+  assert.match(enLegalCode, /admin@soshospital\.com/);
+  assert.match(enLegalCode, /Contact Administrator/);
+  assert.match(enLegalCode, /Patient Information Safeguards/);
+  assert.match(enLegalCode, /are not automatically submitted to hospitals/);
 
   const termsPath = path.join(root, "src/app/(legal)/terms-of-service/page.tsx");
   const termsCode = fs.readFileSync(termsPath, "utf8");
   assert.doesNotMatch(termsCode, /fyzer/i);
   assert.doesNotMatch(termsCode, /vercel\.app/);
   assert.doesNotMatch(termsCode, /localhost/);
-  assert.match(termsCode, /admin@soshospital\.com/);
-  assert.match(termsCode, /By accessing, registering for, or using SOS Healthcare services/);
-  assert.match(termsCode, /Administrative Contact/);
+  assert.match(enLegalCode, /By accessing, registering for, or using SOS Healthcare services/);
+  assert.match(enLegalCode, /Administrative Contact/);
 });
 
 test("legal layout avoids duplicate numbering and clipped headings", () => {
@@ -68,9 +71,13 @@ test("legal layout avoids duplicate numbering and clipped headings", () => {
 test("contact administrator modal and API route are implemented securely", () => {
   const modalPath = path.join(root, "src/components/ContactAdminModal.tsx");
   const modalCode = fs.readFileSync(modalPath, "utf8");
-  assert.match(modalCode, /Please do not submit medical reports/);
-  assert.match(modalCode, /Send Message/);
+  assert.match(modalCode, /contactModalTranslations/);
   assert.match(modalCode, /INQ-/);
+
+  const contactContentPath = path.join(root, "src/lib/i18n/contact-content.ts");
+  const contactContent = fs.readFileSync(contactContentPath, "utf8");
+  assert.match(contactContent, /Please do not submit medical reports/);
+  assert.match(contactContent, /Send Message/);
 
   const apiPath = path.join(root, "src/app/api/admin/inquiries/route.ts");
   const apiCode = fs.readFileSync(apiPath, "utf8");

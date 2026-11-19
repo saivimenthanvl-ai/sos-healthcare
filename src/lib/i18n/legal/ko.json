@@ -1,0 +1,390 @@
+{
+  "privacy": {
+    "title": "개인정보 처리방침",
+    "subtitle": "SOS Healthcare 환자 포털",
+    "lastUpdated": "2026년 11월 11일",
+    "tocTitle": "목차",
+    "notice": {
+      "variant": "info",
+      "title": "환자 개인정보 보호 서약",
+      "text": "SOS Healthcare 는 환자의 개인정보 보호, 투명성 및 개인 건강 데이터에 대한 자기결정권을 최우선으로 합니다. 포털에서 등록된 예약 요청은 플랫폼 내에서 안전하게 보호되며 병원 데이터베이스나 외부 전자의무기록(EMR)으로 자동 전송되지 않습니다."
+    },
+    "sections": [
+      {
+        "id": "introduction",
+        "number": 1,
+        "heading": "소개",
+        "paragraphs": [
+          "SOS Healthcare provides healthcare awareness, nearby hospital discovery, emergency telephone guidance, and private appointment-planning services.",
+          "This Privacy Policy describes how personal information and healthcare preferences are collected, used, protected, and handled when you access our application. SOS Healthcare is a software assistance platform and does not directly own or operate hospital treatment centers."
+        ]
+      },
+      {
+        "id": "information-collected",
+        "number": 2,
+        "heading": "수집하는 개인정보 항목",
+        "paragraphs": [
+          "We collect only the information necessary to fulfill our digital healthcare awareness and planning services:"
+        ],
+        "bullets": [
+          "Name and Contact Details: Name and email address used for account registration and authentication.",
+          "Account Information: Profile credentials, preferences, and security access logs.",
+          "Emergency Contact Details: Names, phone numbers, and relationship designations for family or trusted individuals you choose to notify during emergencies.",
+          "Location Information: Real-time browser GPS coordinates when explicitly permitted by you to calculate driving distances to nearby medical centers or transmit coordinates during an emergency beacon.",
+          "Private Appointment Requests: Selected medical specialties, preferred dates, visit reasons, and status notes saved in your personal planner.",
+          "Hospital Preferences: Bookmarked facilities and search history.",
+          "Optional Health Information: Self-reported blood group, vitals, allergies, and chronic medical history stored in your health profile.",
+          "Wearable-Device Information: Heart rate, step count, or activity telemetry accessed only when you explicitly connect Google Health.",
+          "Support Inquiries: Communications submitted through our administrator inquiry form."
+        ]
+      },
+      {
+        "id": "purpose-of-collecting",
+        "number": 3,
+        "heading": "개인정보 수집 및 이용 목적",
+        "paragraphs": [
+          "We process your information for clear, patient-centered purposes:"
+        ],
+        "bullets": [
+          "Managing your patient account and authenticating your access securely.",
+          "Helping you identify and locate nearby accredited healthcare facilities.",
+          "Maintaining your private consultation requests and personal scheduling notes.",
+          "Supporting emergency contact notifications when an SOS beacon is activated.",
+          "Displaying authorized wearable wellness data in your patient dashboard.",
+          "Responding to platform feedback and administrative support requests.",
+          "Protecting accounts against unauthorized access and preventing platform misuse."
+        ]
+      },
+      {
+        "id": "patient-privacy",
+        "number": 4,
+        "heading": "환자 개인정보 보호 및 비밀 유지",
+        "paragraphs": [
+          "SOS Healthcare restricts access to personal information to legitimate, authorized purposes. Your health records and private consultation preferences are confidential. We maintain technical controls so that individual patient information is accessible only to the authenticated account holder."
+        ]
+      },
+      {
+        "id": "hospital-directory",
+        "number": 5,
+        "heading": "병원 정보 및 디렉터리 서비스",
+        "paragraphs": [
+          "Hospital and clinic information is compiled from public healthcare listings to help users identify medical facilities in their area.",
+          "Inclusion in our directory does not automatically establish a formal commercial relationship, affiliation, or operational partnership between SOS Healthcare and the hospital."
+        ]
+      },
+      {
+        "id": "private-appointments",
+        "number": 6,
+        "heading": "개인 진료 예약 신청",
+        "notice": {
+          "variant": "info",
+          "title": "Important Notice Regarding Appointment Requests",
+          "text": "\"Appointment requests saved through SOS Healthcare are maintained within the SOS Healthcare platform and are not automatically submitted to hospitals or added to hospital medical records.\""
+        },
+        "paragraphs": [
+          "Saving a request in your portal does not guarantee hospital availability or confirm an appointment slot with hospital staff. Patients may reschedule or cancel their private requests at any time.",
+          "Cancelling a private request in SOS Healthcare does not cancel an independently arranged appointment at a hospital clinic. External hospital booking requires a separately authorized, verified integration."
+        ]
+      },
+      {
+        "id": "emergency-assistance",
+        "number": 7,
+        "heading": "응급 지원 및 위치 정보",
+        "paragraphs": [
+          "Location permission is requested only when necessary to calculate proximity to nearby hospitals or when initiating an emergency beacon.",
+          "When an SOS beacon is activated, your browser-reported coordinates at that moment are transmitted to your registered emergency contacts. SOS Healthcare does not track your location in the background when the app is inactive. Public emergency responders (such as 112 or 911 dispatchers) do not automatically receive web beacon data unless formal municipal dispatch connectivity is verified in your jurisdiction.",
+          "You may withdraw location permissions at any time through your device or browser settings."
+        ]
+      },
+      {
+        "id": "health-wearables",
+        "number": 8,
+        "heading": "건강 정보 및 웨어러블 기기",
+        "paragraphs": [
+          "Connected wearable information (such as Google Health API integration) is retrieved only with your explicit permission. Data is queried on-demand to display wellness trends in your portal.",
+          "Connecting a wearable device does not create an automated emergency ambulance dispatch service. You may revoke access at any time via your Devices settings or your Google Account permissions, which immediately terminates data retrieval and purges cached metrics."
+        ]
+      },
+      {
+        "id": "patient-consent",
+        "number": 9,
+        "heading": "환자의 동의 및 자기결정권",
+        "paragraphs": [
+          "We believe patients should maintain granular control over their information. You can review and update permissions at any time:"
+        ],
+        "bullets": [
+          "Modify emergency contact details and notification settings.",
+          "Toggle doctor pre-arrival sharing preferences in your Health Profile.",
+          "Disconnect wearable services with immediate token invalidation.",
+          "Request deletion of your account and personal records."
+        ]
+      },
+      {
+        "id": "healthcare-sharing",
+        "number": 10,
+        "heading": "의료 정보 공유 및 비밀보장",
+        "paragraphs": [
+          "Personal or health information is never automatically disclosed to hospitals merely because a user browses a hospital card or saves a private appointment request.",
+          "Information may only be disclosed under the following circumstances:"
+        ],
+        "bullets": [
+          "With your explicit, verified authorization.",
+          "To designated emergency contacts when you actively trigger an emergency beacon.",
+          "To essential infrastructure service providers necessary to operate the application.",
+          "Where required by applicable law, statutory subpoena, or valid court order."
+        ]
+      },
+      {
+        "id": "patient-safeguards",
+        "number": 11,
+        "heading": "환자 정보 보호 조치",
+        "paragraphs": [
+          "We implement administrative and technical safeguards designed to protect personal information:"
+        ],
+        "bullets": [
+          "Access to private accounts and appointment records is strictly restricted to authenticated users.",
+          "Health information and emergency notes are handled with high standards of confidentiality.",
+          "Database isolation rules ensure that users cannot inspect other patients' data.",
+          "Encrypted transport protocols protect information exchanged between your device and our servers."
+        ],
+        "subparagraphs": [
+          "Users are encouraged to protect their account credentials and report any suspected unauthorized access to our administration desk immediately."
+        ]
+      },
+      {
+        "id": "information-retention",
+        "number": 12,
+        "heading": "개인정보 보유 기간",
+        "paragraphs": [
+          "Records are retained only for as long as your account remains active or as needed to deliver our healthcare planning and awareness features.",
+          "Private appointment requests, emergency logs, and support inquiries are retained within your secure portal until you remove them or submit an account closure request."
+        ]
+      },
+      {
+        "id": "patient-rights",
+        "number": 13,
+        "heading": "환자의 권리 행사",
+        "paragraphs": [
+          "Depending on your jurisdiction, you may exercise applicable rights regarding your information:"
+        ],
+        "bullets": [
+          "Request access to the personal information we maintain about you.",
+          "Request correction of inaccurate or incomplete health profile records.",
+          "Withdraw optional consent for location or health device integrations.",
+          "Request deletion of your account where permitted by applicable law.",
+          "Submit questions or privacy inquiries to our administration team."
+        ]
+      },
+      {
+        "id": "childrens-privacy",
+        "number": 14,
+        "heading": "아동 및 미성년자 개인정보 보호",
+        "paragraphs": [
+          "SOS Healthcare is designed for use by individuals who have reached the age of majority or minors using the service under the active supervision and consent of a parent or legal guardian."
+        ]
+      },
+      {
+        "id": "international-awareness",
+        "number": 15,
+        "heading": "국제 의료 환경에 대한 안내",
+        "paragraphs": [
+          "SOS Healthcare provides information across 22 languages to assist users internationally. Providing multilingual information does not imply local clinical licensing, direct hospital operational affiliation, or municipal emergency dispatch coverage in every country."
+        ]
+      },
+      {
+        "id": "policy-updates",
+        "number": 16,
+        "heading": "개인정보 처리방침 변경",
+        "paragraphs": [
+          "We may periodically update this policy to reflect enhancements in patient safety, new platform features, or evolving legal standards. The latest revision date is prominently displayed at the top of this document."
+        ]
+      },
+      {
+        "id": "contact-administrator",
+        "number": 17,
+        "heading": "관리자 문의하기",
+        "paragraphs": [
+          "For privacy inquiries, patient data requests, or directory corrections, you may contact our administration desk directly:"
+        ],
+        "contactEmail": "admin@soshospital.com",
+        "contactButton": "Contact Administrator"
+      }
+    ]
+  },
+  "terms": {
+    "title": "서비스 이용약관",
+    "subtitle": "의료 건강 서비스 규칙 및 이용 조건",
+    "lastUpdated": "2026년 11월 11일",
+    "tocTitle": "목차",
+    "notice": {
+      "variant": "warning",
+      "title": "응급 의료 안내",
+      "text": "SOS Healthcare 는 정보 지원 플랫폼이며 공식 응급 구조 기관을 대체할 수 없습니다. 생명이 위급한 응급 상황에서는 즉시 119 또는 관할 응급 전화로 연락하십시오."
+    },
+    "sections": [
+      {
+        "id": "acceptance",
+        "number": 1,
+        "heading": "약관의 동의",
+        "paragraphs": [
+          "By accessing, registering for, or using SOS Healthcare services, you acknowledge that you have read and understood these Terms of Service and agree to comply with the applicable conditions of use. If you do not agree with these terms, you should discontinue use of the services."
+        ]
+      },
+      {
+        "id": "eligibility",
+        "number": 2,
+        "heading": "이용 자격 및 계정 책임",
+        "paragraphs": [
+          "Users must be of legal age of majority or use the platform under the supervision of a parent or legal guardian. You agree to provide accurate information when creating an account, safeguard your credentials, and report any unauthorized access promptly. You remain responsible for all activities originating from your account."
+        ]
+      },
+      {
+        "id": "services",
+        "number": 3,
+        "heading": "SOS Healthcare 서비스의 성격",
+        "paragraphs": [
+          "SOS Healthcare provides digital healthcare awareness, nearby hospital discovery, emergency telephone guidance, private appointment planning, and authorized health-device information display.",
+          "The platform is a communication and planning tool and does not provide direct medical treatment or clinical prescriptions."
+        ]
+      },
+      {
+        "id": "hospitals",
+        "number": 4,
+        "heading": "병원 안내 정보",
+        "paragraphs": [
+          "Hospital names, addresses, and listed departments are provided for general informational orientation. Directory details may change, and emergency triage availability should always be verified directly with the facility. Inclusion in our directory does not imply formal partnership or commercial endorsement."
+        ]
+      },
+      {
+        "id": "doctors",
+        "number": 5,
+        "heading": "의사 및 전문의 정보",
+        "paragraphs": [
+          "Information regarding medical specialists is intended to help users identify independent healthcare providers. Listed doctors are not partners of the platform, and listing does not imply an exclusive endorsement or automated intake agreement without verified authorization."
+        ]
+      },
+      {
+        "id": "private-appointments",
+        "number": 6,
+        "heading": "개인 예약 신청 규정",
+        "paragraphs": [
+          "The platform allows patients to store personal appointment preferences and consultation requests. These requests do not create hospital-confirmed reservations. Hospital schedules and front-desk booking procedures may differ, and users are responsible for confirming actual visits directly with the hospital."
+        ]
+      },
+      {
+        "id": "cancellation",
+        "number": 7,
+        "heading": "예약 변경 및 취소",
+        "paragraphs": [
+          "Patients may cancel or reschedule eligible private requests within their portal. Modifying a request affects only the record stored in SOS Healthcare; it does not automatically cancel an independently arranged hospital appointment. Cancellation records are retained in accordance with the Privacy Policy."
+        ]
+      },
+      {
+        "id": "emergency",
+        "number": 8,
+        "heading": "응급 지원 서비스",
+        "paragraphs": [
+          "SOS Healthcare is not a substitute for official public emergency services. Users must contact their local emergency number (e.g. 112, 911, or local emergency line) for life-threatening emergencies.",
+          "Transmitting an SOS beacon notifies designated emergency contacts via the app; emergency contacts are not equivalent to municipal ambulance dispatch providers."
+        ]
+      },
+      {
+        "id": "medical-disclaimer",
+        "number": 9,
+        "heading": "의학적 면책 조항",
+        "paragraphs": [
+          "Information provided on the platform is educational and informational. It is not medical advice, diagnosis, or treatment. Users should consult licensed healthcare professionals regarding any health condition. Emergency symptoms require urgent attention from licensed emergency providers."
+        ]
+      },
+      {
+        "id": "wearables",
+        "number": 10,
+        "heading": "웨어러블 기기 연동",
+        "paragraphs": [
+          "Wearable data displayed through integrations (such as Google Health) depends on third-party sensor accuracy. Measurements may be delayed or unavailable. Wearable data is not diagnostic clinical information, and no automatic emergency response is promised based on wearable metrics."
+        ]
+      },
+      {
+        "id": "responsibilities",
+        "number": 11,
+        "heading": "환자의 의무",
+        "paragraphs": [
+          "Patients are responsible for maintaining accurate contact details, using emergency features conscientiously, and respecting the confidentiality of personal medical information stored in their accounts."
+        ]
+      },
+      {
+        "id": "prohibited",
+        "number": 12,
+        "heading": "금지 행위",
+        "paragraphs": [
+          "Users may not:"
+        ],
+        "bullets": [
+          "Attempt unauthorized access to other accounts or administrative systems.",
+          "Trigger fraudulent or abusive emergency beacons that waste responder resources.",
+          "Harass healthcare providers, administrators, or other patients.",
+          "Misrepresent professional medical credentials or patient identity.",
+          "Interfere with the security or operational integrity of the service."
+        ]
+      },
+      {
+        "id": "privacy",
+        "number": 13,
+        "heading": "개인정보 및 환자 비밀 보호",
+        "paragraphs": [
+          "Handling of personal information and healthcare preferences is governed by our Privacy Policy. Please review the Privacy Policy for details regarding our confidentiality safeguards and patient rights."
+        ]
+      },
+      {
+        "id": "availability",
+        "number": 14,
+        "heading": "서비스 제공 및 중단",
+        "paragraphs": [
+          "Platform availability depends on cellular connectivity, internet routing, and scheduled maintenance. While we aim for reliable service, uninterrupted healthcare software availability cannot be guaranteed."
+        ]
+      },
+      {
+        "id": "fees",
+        "number": 15,
+        "heading": "이용 요금 안내",
+        "paragraphs": [
+          "Access to the SOS Healthcare digital platform is free for users. External hospital, consultation, transportation, or medical treatment fees charged by independent healthcare providers remain the responsibility of the patient."
+        ]
+      },
+      {
+        "id": "suspension",
+        "number": 16,
+        "heading": "계정 정지 및 해지",
+        "paragraphs": [
+          "We reserve the right to suspend or close accounts that engage in fraudulent emergency alerts, violate acceptable use rules, or compromise platform security, subject to applicable notice and review procedures."
+        ]
+      },
+      {
+        "id": "changes",
+        "number": 17,
+        "heading": "약관의 개정",
+        "paragraphs": [
+          "Material changes to these Terms will be communicated through the platform with an updated version date. Continued use following updates constitutes agreement to the revised conditions."
+        ]
+      },
+      {
+        "id": "disputes",
+        "number": 18,
+        "heading": "준거법 및 분쟁 해결",
+        "paragraphs": [
+          "These Terms are governed by applicable national consumer and digital healthcare regulations. Disputes should first be addressed through good-faith administrative communication before pursuing formal proceedings."
+        ]
+      },
+      {
+        "id": "administrative-contact",
+        "number": 19,
+        "heading": "관리자 연락처",
+        "paragraphs": [
+          "For questions regarding these service conditions, please contact our administrative desk:"
+        ],
+        "contactEmail": "admin@soshospital.com",
+        "contactButton": "Contact Administrator"
+      }
+    ]
+  }
+}

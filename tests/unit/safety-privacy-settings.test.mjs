@@ -58,5 +58,7 @@ test("contact page displays official admin email admin@soshospital.com and emerg
   const code = fs.readFileSync("src/app/(legal)/contact/page.tsx", "utf8");
   assert.match(code, /admin@soshospital\.com/);
   assert.doesNotMatch(code, /admin@sos-healthcare\.vercel\.app/);
-  assert.match(code, /Immediate Medical Emergency/);
+
+  const contactContent = fs.readFileSync("src/lib/i18n/contact-content.ts", "utf8");
+  assert.match(contactContent, /Immediate Medical Emergency/);
 });

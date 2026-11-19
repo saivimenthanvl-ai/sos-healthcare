@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { contactModalTranslations } from "@/lib/i18n/contact-content";
 
 interface ContactAdminModalProps {
   isOpen: boolean;
@@ -14,7 +15,8 @@ interface ContactAdminModalProps {
 
 export function ContactAdminModal({ isOpen, onClose }: ContactAdminModalProps) {
   const { user, profile } = useAuth();
-  const { t, dir } = useLanguage();
+  const { language, dir } = useLanguage();
+  const tm = contactModalTranslations[language] || contactModalTranslations.en;
 
   const [fullName, setFullName] = useState(
     profile?.full_name || user?.user_metadata?.full_name || ""
@@ -33,7 +35,7 @@ export function ContactAdminModal({ isOpen, onClose }: ContactAdminModalProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName || !email || !message || !consent) {
-      setError("Please complete all required fields and acknowledge the policy.");
+      setError(tm.errorRequired);
       return;
     }
 
@@ -89,10 +91,10 @@ export function ContactAdminModal({ isOpen, onClose }: ContactAdminModalProps) {
         <div className="flex items-center justify-between p-4 sm:p-5 border-b border-gray-100 dark:border-gray-800">
           <div>
             <h2 id="contact-admin-title" className="text-lg font-bold text-gray-950 dark:text-white">
-              {t.common?.contactAdmin || "Contact Administrator"}
+              {tm.title}
             </h2>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              Submit a direct platform or data inquiry to SOS Healthcare administration.
+              {tm.subtitle}
             </p>
           </div>
           <button
@@ -110,19 +112,19 @@ export function ContactAdminModal({ isOpen, onClose }: ContactAdminModalProps) {
             <div className="py-6 text-center space-y-3">
               <CheckCircle2Icon className="h-12 w-12 text-emerald-500 mx-auto" />
               <h3 className="text-base font-bold text-gray-950 dark:text-white">
-                Message Received
+                {tm.successTitle}
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Your message has been received. Your reference number is{" "}
+                {tm.successMessage}{" "}
                 <span className="font-mono font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded">
                   {successReference}
                 </span>.
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                Our administration desk reviews incoming requests in order of receipt.
+                {tm.successDeskNote}
               </p>
               <Button onClick={resetForm} variant="outline" className="mt-4">
-                Close
+                {tm.closeButton}
               </Button>
             </div>
           ) : (
@@ -135,54 +137,54 @@ export function ContactAdminModal({ isOpen, onClose }: ContactAdminModalProps) {
               )}
 
               <div className="p-2.5 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 rounded-lg text-[11px] text-amber-900 dark:text-amber-200">
-                <strong>Notice:</strong> Please do not submit medical reports, passwords or sensitive clinical information through this form.
+                <strong>Notice:</strong> {tm.notice}
               </div>
 
               <Input
-                label="Full name *"
+                label={tm.fullNameLabel}
                 type="text"
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                placeholder="Your legal name"
+                placeholder={tm.fullNamePlaceholder}
               />
 
               <Input
-                label="Email address *"
+                label={tm.emailLabel}
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
+                placeholder={tm.emailPlaceholder}
               />
 
               <div>
                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                  Inquiry category *
+                  {tm.categoryLabel}
                 </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   className="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="general">General inquiry</option>
-                  <option value="hospital_correction">Hospital information correction</option>
-                  <option value="appointment_assistance">Appointment request assistance</option>
-                  <option value="privacy_data_request">Privacy or data request</option>
-                  <option value="account_assistance">Account assistance</option>
+                  <option value="general">{tm.categories.general}</option>
+                  <option value="hospital_correction">{tm.categories.hospital_correction}</option>
+                  <option value="appointment_assistance">{tm.categories.appointment_assistance}</option>
+                  <option value="privacy_data_request">{tm.categories.privacy_data_request}</option>
+                  <option value="account_assistance">{tm.categories.account_assistance}</option>
                 </select>
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-1">
-                  Message *
+                  {tm.messageLabel}
                 </label>
                 <textarea
                   rows={4}
                   required
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Describe your inquiry in detail..."
+                  placeholder={tm.messagePlaceholder}
                   className="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -197,13 +199,13 @@ export function ContactAdminModal({ isOpen, onClose }: ContactAdminModalProps) {
                   className="h-4 w-4 rounded text-blue-600 mt-0.5"
                 />
                 <label htmlFor="admin-inquiry-consent" className="text-[11px] text-gray-600 dark:text-gray-400">
-                  I understand that this message is sent securely to SOS Healthcare administration for support purposes and does not create an emergency medical dispatch.
+                  {tm.consentText}
                 </label>
               </div>
 
               <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-100 dark:border-gray-800">
                 <Button type="button" variant="outline" size="sm" onClick={resetForm} disabled={loading}>
-                  Cancel
+                  {tm.cancelButton}
                 </Button>
                 <Button
                   type="submit"
@@ -214,7 +216,7 @@ export function ContactAdminModal({ isOpen, onClose }: ContactAdminModalProps) {
                   className="flex items-center gap-1.5"
                 >
                   <SendIcon className="h-3.5 w-3.5" />
-                  <span>Send Message</span>
+                  <span>{loading ? tm.sendingButton : tm.sendButton}</span>
                 </Button>
               </div>
             </form>

@@ -1,3 +1,7 @@
+/**
+ * Maps approved localized spellings for user "Sai Vimenthan" across supported languages.
+ * Retains exact user-provided legal name for all other users or non-mapped locales.
+ */
 export function getLocalizedPatientName(
   fullName: string | null | undefined,
   lang: string
@@ -18,10 +22,25 @@ export function getLocalizedPatientName(
       case "ml":
         return "സായ് വിമെന്തൻ";
       case "kn":
+        // Retains both approved Kannada transliterations (ಸಾಯಿ ವಿಮೆಂಥನ್ / ಸಾಯಿ ವಿಮೆಂತನ್)
         return "ಸಾಯಿ ವಿಮೆಂಥನ್";
       case "fa":
       case "ar":
         return "سای ویمنتان";
+      case "ja":
+        return "サイ・ヴィメンタン";
+      case "mr":
+        return "साई विमेंथन";
+      case "ko":
+        return "사이 비멘탄";
+      case "zh-Hans":
+        return "赛·维门坦";
+      case "zh-Hant":
+        return "賽·維門坦";
+      case "as":
+        return "সাই ভিমেন্থন";
+      case "bn":
+        return "সাই বিমেনথান";
       default:
         return "Sai Vimenthan";
     }
