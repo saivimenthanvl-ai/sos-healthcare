@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { loadGoogleMaps } from "@/lib/google-maps";
+import { loadGoogleMaps, getGoogleMapsMapId } from "@/lib/google-maps";
 import { supabase } from "@/lib/supabase";
 import { useRealtime } from "@/hooks/useRealtime";
 import { Button } from "@/components/ui/Button";
@@ -18,10 +18,12 @@ interface EmergencyMapProps {
   onEmergencyCreated?: (emergency: Emergency) => void;
 }
 
+type MarkerUnion = google.maps.marker.AdvancedMarkerElement | google.maps.Marker;
+
 export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<google.maps.Map | null>(null);
-  const markersRef = useRef<Map<string, google.maps.Marker>>(new Map());
+  const markersRef = useRef<Map<string, MarkerUnion>>(new Map());
 
   const [userPosition, setUserPosition] = useState<{ lat: number; lng: number } | null>(null);
   const [hospitals, setHospitals] = useState<Hospital[]>([]);
@@ -30,6 +32,19 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
   const [loading, setLoading] = useState(false);
   const [locationError, setLocationError] = useState<string | null>(null);
   const [nearbyHospitalsLoading, setNearbyHospitalsLoading] = useState(false);
+
+  // Helper to remove and clean up a marker
+  const removeMarker = (key: string) => {
+    const existing = markersRef.current.get(key);
+    if (existing) {
+      if ("map" in existing) {
+        existing.map = null;
+      } else if (typeof (existing as google.maps.Marker).setMap === "function") {
+        (existing as google.maps.Marker).setMap(null);
+      }
+      markersRef.current.delete(key);
+    }
+  };
 
   // --- Browser geolocation ---
   const detectLocation = useCallback(() => {
@@ -61,12 +76,24 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
       if (mapInstanceRef.current) {
         // Update existing map center
         mapInstanceRef.current.setCenter({ lat, lng });
+        const existingUserMarker = markersRef.current.get("user");
+        if (existingUserMarker) {
+          if ("position" in existingUserMarker) {
+            existingUserMarker.position = { lat, lng };
+          } else if (typeof (existingUserMarker as google.maps.Marker).setPosition === "function") {
+            (existingUserMarker as google.maps.Marker).setPosition({ lat, lng });
+          }
+        }
         return;
       }
 
-      const map = new google.maps.Map(mapRef.current!, {
+      if (!mapRef.current) return;
+
+      const mapId = getGoogleMapsMapId();
+      const map = new google.maps.Map(mapRef.current, {
         center: { lat, lng },
         zoom: 13,
+        mapId: mapId || undefined,
         mapTypeControl: false,
         streetViewControl: false,
         fullscreenControl: false,
@@ -74,22 +101,46 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
 
       mapInstanceRef.current = map;
 
-      // Add user marker with a pulsing animation
-      const userMarker = new google.maps.Marker({
-        position: { lat, lng },
-        map,
-        icon: {
-          path: google.maps.SymbolPath.CIRCLE,
-          scale: 8,
-          fillColor: "#3b82f6",
-          fillOpacity: 1,
-          strokeColor: "#ffffff",
-          strokeWeight: 2,
-        },
-        title: "Your Location",
-      });
+      const hasAdvanced = Boolean(
+        google.maps.marker &&
+        typeof google.maps.marker.AdvancedMarkerElement === "function" &&
+        typeof google.maps.marker.PinElement === "function"
+      );
 
-      markersRef.current.set("user", userMarker);
+      // Add user marker
+      if (hasAdvanced) {
+        const pin = new google.maps.marker.PinElement({
+          background: "#3b82f6",
+          borderColor: "#ffffff",
+          glyphColor: "#ffffff",
+          scale: 1.0,
+        });
+
+        const userMarker = new google.maps.marker.AdvancedMarkerElement({
+          position: { lat, lng },
+          map,
+          title: "Your Location",
+          content: pin.element,
+        });
+
+        markersRef.current.set("user", userMarker);
+      } else {
+        const userMarker = new google.maps.Marker({
+          position: { lat, lng },
+          map,
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8,
+            fillColor: "#3b82f6",
+            fillOpacity: 1,
+            strokeColor: "#ffffff",
+            strokeWeight: 2,
+          },
+          title: "Your Location",
+        });
+
+        markersRef.current.set("user", userMarker);
+      }
     } catch (error) {
       console.error("Map init error:", error);
     }
@@ -108,6 +159,21 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
     }
   }, [userPosition]);
 
+  // --- Clean up map and markers on unmount ---
+  useEffect(() => {
+    return () => {
+      markersRef.current.forEach((marker) => {
+        if ("map" in marker) {
+          marker.map = null;
+        } else if (typeof (marker as google.maps.Marker).setMap === "function") {
+          (marker as google.maps.Marker).setMap(null);
+        }
+      });
+      markersRef.current.clear();
+      mapInstanceRef.current = null;
+    };
+  }, []);
+
   // --- Load nearby hospitals when user position changes ---
   useEffect(() => {
     if (!userPosition) return;
@@ -123,28 +189,19 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
         if (cancelled) return;
         setHospitals(data.hospitals || []);
 
-        // Add hospital markers to map.
-        // Await the loader rather than reading window.google: this fetch can
-        // resolve before the Maps script finishes loading, and a bare
-        // `window.google` check would then silently skip every marker with
-        // no error and no retry.
         const google = await loadGoogleMaps();
         const map = mapInstanceRef.current;
-        if (map) {
+        if (map && !cancelled) {
+          const hasAdvanced = Boolean(
+            google.maps.marker &&
+            typeof google.maps.marker.AdvancedMarkerElement === "function" &&
+            typeof google.maps.marker.PinElement === "function"
+          );
+
           data.hospitals?.forEach((h) => {
-            const marker = new google.maps.Marker({
-              position: { lat: h.latitude, lng: h.longitude },
-              map,
-              title: h.name,
-              icon: {
-                path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                fillColor: "#10b981",
-                fillOpacity: 0.8,
-                strokeColor: "#065f4f",
-                strokeWeight: 1,
-                scale: 10,
-              },
-            });
+            const markerKey = `hospital-${h.id}`;
+            // Clean up any existing marker for this hospital before re-creating
+            removeMarker(markerKey);
 
             const infoWindow = new google.maps.InfoWindow({
               content: `
@@ -156,11 +213,51 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
               `,
             });
 
-            marker.addListener("click", () => {
-              infoWindow.open(map, marker);
-            });
+            if (hasAdvanced) {
+              const pin = new google.maps.marker.PinElement({
+                background: "#10b981",
+                borderColor: "#065f4f",
+                glyphColor: "#ffffff",
+                scale: 1.0,
+              });
 
-            markersRef.current.set(`hospital-${h.id}`, marker);
+              const advMarker = new google.maps.marker.AdvancedMarkerElement({
+                position: { lat: h.latitude, lng: h.longitude },
+                map,
+                title: h.name,
+                content: pin.element,
+                gmpClickable: true,
+              });
+
+              advMarker.addListener("click", () => {
+                infoWindow.open({
+                  map,
+                  anchor: advMarker,
+                });
+              });
+
+              markersRef.current.set(markerKey, advMarker);
+            } else {
+              const legacyMarker = new google.maps.Marker({
+                position: { lat: h.latitude, lng: h.longitude },
+                map,
+                title: h.name,
+                icon: {
+                  path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                  fillColor: "#10b981",
+                  fillOpacity: 0.8,
+                  strokeColor: "#065f4f",
+                  strokeWeight: 1,
+                  scale: 10,
+                },
+              });
+
+              legacyMarker.addListener("click", () => {
+                infoWindow.open(map, legacyMarker);
+              });
+
+              markersRef.current.set(markerKey, legacyMarker);
+            }
           });
         }
       } catch (error) {
@@ -193,7 +290,11 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
       // Move the marker on the map to follow the ambulance.
       const marker = markersRef.current.get(`ambulance-${updated.id}`);
       if (marker && updated.latitude != null && updated.longitude != null) {
-        marker.setPosition({ lat: updated.latitude, lng: updated.longitude });
+        if ("position" in marker) {
+          marker.position = { lat: updated.latitude, lng: updated.longitude };
+        } else if (typeof (marker as google.maps.Marker).setPosition === "function") {
+          (marker as google.maps.Marker).setPosition({ lat: updated.latitude, lng: updated.longitude });
+        }
       }
     }
   );
@@ -251,11 +352,9 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
         }
       }
 
-      setAmbulances(ambulanceData ? [ambulanceData] : []);
-
       onEmergencyCreated?.(data.emergency);
 
-      if (!data.nearestHospital) {
+      if (data.hospitalFound === false) {
         setSosStatusMessage({
           text: "Emergency request created. We couldn't automatically locate nearby hospitals. Please contact your local emergency service if immediate help is required.",
           type: "warning",
@@ -270,28 +369,49 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
           if (map) {
             const ambulanceLat = ambulanceData?.latitude ?? userPosition?.lat ?? 0;
             const ambulanceLng = ambulanceData?.longitude ?? userPosition?.lng ?? 0;
+            const ambKey = `ambulance-${data.assignedAmbulanceId}`;
 
-            const ambulanceMarker = new google.maps.Marker({
-              position: {
-                lat: ambulanceLat,
-                lng: ambulanceLng,
-              },
-              map,
-              icon: {
-                path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                scale: 12,
-                fillColor: "#ef4444",
-                fillOpacity: 0.9,
-                strokeColor: "#ffffff",
-                strokeWeight: 2,
-              },
-              title: "Ambulance En Route",
-            });
+            removeMarker(ambKey);
 
-            markersRef.current.set(
-              `ambulance-${data.assignedAmbulanceId}`,
-              ambulanceMarker
+            const hasAdvanced = Boolean(
+              google.maps.marker &&
+              typeof google.maps.marker.AdvancedMarkerElement === "function" &&
+              typeof google.maps.marker.PinElement === "function"
             );
+
+            if (hasAdvanced) {
+              const pin = new google.maps.marker.PinElement({
+                background: "#ef4444",
+                borderColor: "#7f1d1d",
+                glyphColor: "#ffffff",
+                scale: 1.1,
+              });
+
+              const ambMarker = new google.maps.marker.AdvancedMarkerElement({
+                position: { lat: ambulanceLat, lng: ambulanceLng },
+                map,
+                title: "Ambulance En Route",
+                content: pin.element,
+              });
+
+              markersRef.current.set(ambKey, ambMarker);
+            } else {
+              const legacyMarker = new google.maps.Marker({
+                position: { lat: ambulanceLat, lng: ambulanceLng },
+                map,
+                icon: {
+                  path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                  scale: 12,
+                  fillColor: "#ef4444",
+                  fillOpacity: 0.9,
+                  strokeColor: "#ffffff",
+                  strokeWeight: 2,
+                },
+                title: "Ambulance En Route",
+              });
+
+              markersRef.current.set(ambKey, legacyMarker);
+            }
 
             // Draw a path from the ambulance's position to the user's location
             const line = new google.maps.Polyline({
@@ -321,182 +441,94 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
     }
   };
 
-
-  // --- Cancel emergency ---
-  const handleCancel = async () => {
-    if (!emergency) return;
-
-    await supabase
-      .from("emergencies")
-      .update({ status: "cancelled", updated_at: new Date().toISOString() })
-      .eq("id", emergency.id);
-
-    // Reset ambulances back to available
-    for (const ambulance of ambulances) {
-      await supabase
-        .from("ambulances")
-        .update({ status: "available", current_emergency_id: null })
-        .eq("id", ambulance.id);
-    }
-
-    setEmergency(null);
-    setAmbulances([]);
-  };
-
-  // --- Resolve emergency ---
-  const handleResolve = async () => {
-    if (!emergency) return;
-
-    await supabase
-      .from("emergencies")
-      .update({ status: "resolved", updated_at: new Date().toISOString() })
-      .eq("id", emergency.id);
-
-    // Release ambulances
-    for (const ambulance of ambulances) {
-      await supabase
-        .from("ambulances")
-        .update({ status: "available", current_emergency_id: null })
-        .eq("id", ambulance.id);
-    }
-
-    setEmergency(null);
-    setAmbulances([]);
-  };
-
   return (
     <div className="flex flex-col lg:flex-row gap-6">
-      {/* Left panel: Controls and hospital list */}
-      <div className="lg:w-1/3 space-y-4">
-        {/* SOS Button */}
-        {!emergency ? (
-          <div className="text-center">
-            <p className="text-gray-700 mb-4">
-              {userPosition
-                ? "Press the button to request emergency assistance"
-                : "Tap to detect your location, then press SOS"}
+      {/* Left panel: SOS controls & details */}
+      <div className="lg:w-1/3 space-y-6">
+        <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
+          <h2 className="text-xl font-bold text-gray-900 mb-2">
+            Emergency Assistance
+          </h2>
+          <p className="text-sm text-gray-600 mb-6">
+            Press the button below to request an emergency response. We&apos;ll dispatch
+            the nearest ambulance and notify emergency contacts.
+          </p>
+
+          <Button
+            variant="danger"
+            size="lg"
+            className="w-full text-lg py-6 shadow-lg shadow-red-200 animate-pulse"
+            disabled={loading || !userPosition}
+            onClick={handleSOS}
+          >
+            <AlertTriangleIcon className="h-6 w-6 mr-2" />
+            {loading ? "DISPATCHING..." : "TRIGGER SOS"}
+          </Button>
+
+          {locationError && (
+            <p className="text-xs text-red-600 mt-2 text-center">
+              ⚠️ {locationError} — Location is required for emergency dispatch
             </p>
+          )}
 
-            {!userPosition && (
-              <Button
-                variant="outline"
-                className="mb-4"
-                onClick={detectLocation}
-              >
-                <MapPinIcon className="h-4 w-4 mr-2" />
-                Enable Location
-              </Button>
-            )}
-
-            {locationError && (
-              <div className="mb-3 p-3 bg-red-50 text-red-800 rounded-lg text-sm">
-                {locationError}
-              </div>
-            )}
-
-            {sosStatusMessage && (
-              <div
-                className={`mb-3 p-3 rounded-lg text-sm ${
-                  sosStatusMessage.type === "error"
-                    ? "bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 text-red-800 dark:text-red-200"
-                    : sosStatusMessage.type === "warning"
-                    ? "bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 text-amber-800 dark:text-amber-200"
-                    : "bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-blue-800 dark:text-blue-200"
-                }`}
-              >
-                {sosStatusMessage.text}
-              </div>
-            )}
-
-            <Button
-              variant="danger"
-              size="lg"
-              fullWidth
-              loading={loading}
-              onClick={handleSOS}
-              disabled={!userPosition}
+          {sosStatusMessage && (
+            <div
+              className={`mt-4 p-3 rounded-lg text-sm border ${
+                sosStatusMessage.type === "error"
+                  ? "bg-red-50 text-red-800 border-red-200"
+                  : sosStatusMessage.type === "warning"
+                  ? "bg-amber-50 text-amber-800 border-amber-200"
+                  : "bg-blue-50 text-blue-800 border-blue-200"
+              }`}
             >
-              <AlertTriangleIcon className="h-5 w-5 mr-2" />
-              {loading ? "Dispatching..." : "SOS — Request Emergency Help"}
-            </Button>
-          </div>
-        ) : (
-          <div className="space-y-3">
-            <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="font-bold text-red-800">
-                  Emergency #{emergency.id.slice(0, 8)}
-                </h3>
-                <span
-                  className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                    emergency.status === "en_route"
-                      ? "bg-blue-100 text-blue-800"
-                      : emergency.status === "arrived"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-yellow-100 text-yellow-800"
-                  }`}
-                >
-                  {emergency.status}
-                </span>
-              </div>
-
-              {emergency.eta_minutes && (
-                <div className="flex items-center gap-2 text-red-800 mb-2">
-                  <NavigationIcon className="h-4 w-4" />
-                  <span className="font-medium">
-                    ETA: {emergency.eta_minutes} minutes
-                  </span>
-                </div>
-              )}
-
-              {hospitals.find((h) => h.id === emergency.assigned_hospital_id) && (
-                <div className="text-sm text-red-700">
-                  Destination:{" "}
-                  {
-                    hospitals.find((h) => h.id === emergency.assigned_hospital_id)
-                      ?.name
-                  }
-                </div>
-              )}
+              {sosStatusMessage.text}
             </div>
+          )}
+        </div>
 
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm" fullWidth>
-                <NavigationIcon className="h-4 w-4 mr-2" />
-                Live Track
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                fullWidth
-                onClick={handleCancel}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant="primary"
-                size="sm"
-                fullWidth
-                onClick={handleResolve}
-              >
-                <CheckCircleIcon className="h-4 w-4 mr-2" />
-                Resolved
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {/* Nearby Hospitals List */}
-        <div className="bg-white rounded-lg shadow p-4">
-          <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-            <HospitalIcon className="h-5 w-5 text-blue-600" />
-            Nearby Hospitals
+        {/* Location Status */}
+        <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+          <h3 className="font-semibold text-gray-900 flex items-center gap-2 mb-2">
+            <MapPinIcon className="h-4 w-4 text-blue-600" />
+            Your Location
           </h3>
+          {userPosition ? (
+            <div className="text-sm text-gray-600 space-y-1">
+              <p>
+                Latitude: <span className="font-mono">{userPosition.lat.toFixed(4)}</span>
+              </p>
+              <p>
+                Longitude: <span className="font-mono">{userPosition.lng.toFixed(4)}</span>
+              </p>
+              <p className="text-xs text-emerald-600 flex items-center gap-1 mt-1">
+                <CheckCircleIcon className="h-3 w-3" /> Location locked
+              </p>
+            </div>
+          ) : (
+            <div className="text-sm text-gray-500 flex items-center justify-between">
+              <span>Detecting location...</span>
+              <Button size="sm" variant="outline" onClick={detectLocation}>
+                Retry
+              </Button>
+            </div>
+          )}
+        </div>
 
+        {/* Nearest Hospitals */}
+        <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+          <h3 className="font-semibold text-gray-900 flex items-center gap-2 mb-3">
+            <HospitalIcon className="h-4 w-4 text-emerald-600" />
+            Nearest Hospitals
+          </h3>
           {nearbyHospitalsLoading ? (
-            <div className="space-y-2">
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="h-16 bg-gray-100 animate-pulse rounded" />
+            <div className="space-y-3">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="animate-pulse flex space-x-4 p-3 border rounded-lg">
+                  <div className="flex-1 space-y-2 py-1">
+                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                    <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+                  </div>
+                </div>
               ))}
             </div>
           ) : hospitals.length === 0 ? (

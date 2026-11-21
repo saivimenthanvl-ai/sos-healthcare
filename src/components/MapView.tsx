@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { loadGoogleMaps } from "@/lib/google-maps";
+import { loadGoogleMaps, getGoogleMapsMapId } from "@/lib/google-maps";
 import type { Coordinates, Hospital } from "@/types/app";
 
 export interface MapMarkerSpec {
@@ -19,15 +19,17 @@ interface MapViewProps {
   className?: string;
 }
 
-const PIN_COLORS: Record<MapMarkerSpec["kind"], { fill: string; stroke: string }> = {
-  hospital: { fill: "#10b981", stroke: "#065f4f" },
-  ambulance: { fill: "#ef4444", stroke: "#7f1d1d" },
-  user: { fill: "#3b82f6", stroke: "#ffffff" },
-  emergency: { fill: "#dc2626", stroke: "#ffffff" },
+const PIN_COLORS: Record<MapMarkerSpec["kind"], { fill: string; stroke: string; glyphColor: string }> = {
+  hospital: { fill: "#10b981", stroke: "#065f4f", glyphColor: "#ffffff" },
+  ambulance: { fill: "#ef4444", stroke: "#7f1d1d", glyphColor: "#ffffff" },
+  user: { fill: "#3b82f6", stroke: "#ffffff", glyphColor: "#ffffff" },
+  emergency: { fill: "#dc2626", stroke: "#ffffff", glyphColor: "#ffffff" },
 };
 
+type MarkerUnion = google.maps.marker.AdvancedMarkerElement | google.maps.Marker;
+
 /**
- * Thin wrapper around the Google Maps JS API.
+ * Modern wrapper around Google Maps JS API supporting AdvancedMarkerElement and loading=async.
  *
  * Markers are rebuilt whenever `markers` changes identity, so callers should
  * memoise the array (or rely on the shallow JSON signature below) to avoid
@@ -41,7 +43,7 @@ export function MapView({
 }: MapViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<google.maps.Map | null>(null);
-  const overlayRef = useRef<google.maps.Marker[]>([]);
+  const overlayRef = useRef<MarkerUnion[]>([]);
   const infoWindowRef = useRef<google.maps.InfoWindow | null>(null);
 
   // Tracks the last camera we actually applied, so a marker-only update does
@@ -64,9 +66,11 @@ export function MapView({
         if (cancelled || !containerRef.current) return;
 
         if (!mapRef.current) {
+          const mapId = getGoogleMapsMapId();
           mapRef.current = new google.maps.Map(containerRef.current, {
             center: { lat: center.lat, lng: center.lng },
             zoom,
+            mapId: mapId || undefined, // AdvancedMarkerElement requires mapId
             mapTypeControl: false,
             streetViewControl: false,
             fullscreenControl: false,
@@ -77,9 +81,7 @@ export function MapView({
 
         const map = mapRef.current;
 
-        // Only move the camera when it has genuinely changed. This effect also
-        // runs for marker-only updates, and re-centring on those would undo
-        // any panning the user did.
+        // Only move the camera when it has genuinely changed.
         if (appliedCameraRef.current !== centerKey) {
           const [lat, lng] = centerKey.split(",");
           map.setCenter({ lat: Number(lat), lng: Number(lng) });
@@ -87,39 +89,85 @@ export function MapView({
           appliedCameraRef.current = centerKey;
         }
 
-        // Clear the previous overlay.
-        overlayRef.current.forEach((marker) => marker.setMap(null));
+        // Clear the previous overlay markers cleanly
+        overlayRef.current.forEach((marker) => {
+          if ("map" in marker) {
+            marker.map = null;
+          } else if (typeof (marker as google.maps.Marker).setMap === "function") {
+            (marker as google.maps.Marker).setMap(null);
+          }
+        });
         overlayRef.current = [];
 
         const specs: MapMarkerSpec[] = JSON.parse(markersKey);
+        const hasAdvanced = Boolean(
+          google.maps.marker &&
+          typeof google.maps.marker.AdvancedMarkerElement === "function" &&
+          typeof google.maps.marker.PinElement === "function"
+        );
 
         specs.forEach((spec) => {
           const color = PIN_COLORS[spec.kind];
-          const marker = new google.maps.Marker({
-            position: { lat: spec.position.lat, lng: spec.position.lng },
-            map,
-            title: spec.title,
-            icon: {
-              path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-              fillColor: color.fill,
-              fillOpacity: 0.95,
-              strokeColor: color.stroke,
-              strokeWeight: 2,
-              scale: spec.kind === "user" ? 8 : 11,
-            },
-          });
 
-          if (spec.info && infoWindowRef.current) {
-            const info = infoWindowRef.current;
-            marker.addListener("click", () => {
-              info.setContent(
-                `<div style="padding:6px;font-size:13px"><strong>${spec.title}</strong><br/>${spec.info}</div>`
-              );
-              info.open(map, marker);
+          if (hasAdvanced) {
+            // Modern AdvancedMarkerElement & PinElement
+            const pinElement = new google.maps.marker.PinElement({
+              background: color.fill,
+              borderColor: color.stroke,
+              glyphColor: color.glyphColor,
+              scale: spec.kind === "user" ? 0.9 : 1.1,
             });
-          }
 
-          overlayRef.current.push(marker);
+            const advMarker = new google.maps.marker.AdvancedMarkerElement({
+              position: { lat: spec.position.lat, lng: spec.position.lng },
+              map,
+              title: spec.title,
+              content: pinElement.element,
+              gmpClickable: Boolean(spec.info),
+            });
+
+            if (spec.info && infoWindowRef.current) {
+              const info = infoWindowRef.current;
+              advMarker.addListener("click", () => {
+                info.setContent(
+                  `<div style="padding:6px;font-size:13px"><strong>${spec.title}</strong><br/>${spec.info}</div>`
+                );
+                info.open({
+                  map,
+                  anchor: advMarker,
+                });
+              });
+            }
+
+            overlayRef.current.push(advMarker);
+          } else {
+            // Fallback to legacy Marker if AdvancedMarker is not available in environment
+            const legacyMarker = new google.maps.Marker({
+              position: { lat: spec.position.lat, lng: spec.position.lng },
+              map,
+              title: spec.title,
+              icon: {
+                path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                fillColor: color.fill,
+                fillOpacity: 0.95,
+                strokeColor: color.stroke,
+                strokeWeight: 2,
+                scale: spec.kind === "user" ? 8 : 11,
+              },
+            });
+
+            if (spec.info && infoWindowRef.current) {
+              const info = infoWindowRef.current;
+              legacyMarker.addListener("click", () => {
+                info.setContent(
+                  `<div style="padding:6px;font-size:13px"><strong>${spec.title}</strong><br/>${spec.info}</div>`
+                );
+                info.open(map, legacyMarker);
+              });
+            }
+
+            overlayRef.current.push(legacyMarker);
+          }
         });
 
         if (!cancelled) setStatus("ready");
@@ -134,15 +182,18 @@ export function MapView({
     return () => {
       cancelled = true;
     };
-    // `markers` and `center` are read through their serialised keys so an
-    // inline array literal does not tear down the map on every render.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [markersKey, centerKey]);
 
-  // Drop the map instance when the component goes away.
+  // Drop the map and marker instances when the component goes away.
   useEffect(() => {
     return () => {
-      overlayRef.current.forEach((marker) => marker.setMap(null));
+      overlayRef.current.forEach((marker) => {
+        if ("map" in marker) {
+          marker.map = null;
+        } else if (typeof (marker as google.maps.Marker).setMap === "function") {
+          (marker as google.maps.Marker).setMap(null);
+        }
+      });
       overlayRef.current = [];
       mapRef.current = null;
     };
@@ -152,8 +203,7 @@ export function MapView({
     <div className={`relative rounded-lg overflow-hidden bg-gray-100 ${className}`}>
       <div ref={containerRef} className="w-full h-full" />
 
-      {/* Surface load failures instead of leaving a blank grey box: a missing
-          or unauthorised API key otherwise looks identical to a slow map. */}
+      {/* Surface load failures instead of leaving a blank grey box */}
       {status === "loading" && (
         <div className="absolute inset-0 flex items-center justify-center text-sm text-gray-500 bg-gray-100">
           Loading map…

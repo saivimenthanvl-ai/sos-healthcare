@@ -2,7 +2,10 @@
 
 /**
  * Google Maps JS API utilities
- * - Loads the Google Maps script
+ * - Asynchronously loads the Google Maps script using the officially recommended loading=async pattern
+ * - Automatically registers and resolves via global callback
+ * - Replaces deprecated google.maps.Marker with google.maps.marker.AdvancedMarkerElement where supported
+ * - Graceful fallback to legacy Marker if AdvancedMarkerElement is unavailable
  * - Converts addresses to coordinates (geocoding)
  * - Reverse geocodes to get address from coordinates
  * - Calculates distance between points
@@ -10,18 +13,27 @@
 
 let mapsLoaderPromise: Promise<typeof google> | null = null;
 
-/**
- * The Google Maps script installs a global callback before the promise
- * settles, so it has to be declared on window.
- */
 interface GoogleMapsWindow extends Window {
   google?: typeof google;
-  initGoogleMapsCallback?: () => void;
+  __initGoogleMapsCallback?: () => void;
 }
 
+/**
+ * Get the configured Google Maps Map ID from environment variables.
+ * AdvancedMarkerElement requires a Map ID on the Map options (can be "DEMO_MAP_ID" for local development if not set,
+ * but production should provide NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID).
+ */
+export function getGoogleMapsMapId(): string | undefined {
+  return process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID || undefined;
+}
+
+/**
+ * Loads the Google Maps JavaScript API script once asynchronously.
+ * Uses the official `loading=async` query parameter and `libraries=marker,places` to support AdvancedMarkerElement.
+ */
 export function loadGoogleMaps(): Promise<typeof google> {
   if (typeof window === "undefined") {
-    return Promise.reject("Google Maps is a client-side only API");
+    return Promise.reject(new Error("Google Maps is a client-side only API"));
   }
 
   const w = window as GoogleMapsWindow;
@@ -38,26 +50,54 @@ export function loadGoogleMaps(): Promise<typeof google> {
         return;
       }
 
+      // Check if script already exists in document
+      const existingScript = document.querySelector<HTMLScriptElement>(
+        'script[src*="maps.googleapis.com/maps/api/js"]'
+      );
+
+      if (existingScript) {
+        if (w.google?.maps) {
+          resolve(w.google);
+          return;
+        }
+        // If script is already in document but not yet resolved, attach event listeners
+        existingScript.addEventListener("load", () => {
+          if (w.google?.maps) resolve(w.google);
+          else reject(new Error("Google Maps loaded but google.maps namespace missing"));
+        });
+        existingScript.addEventListener("error", () => {
+          reject(new Error("Failed to load Google Maps script"));
+        });
+        return;
+      }
+
+      const callbackName = "__initGoogleMapsCallback";
+      w[callbackName] = () => {
+        delete w[callbackName];
+        if (w.google?.maps) {
+          resolve(w.google);
+        } else {
+          reject(new Error("Google Maps callback fired but namespace missing"));
+        }
+      };
+
       const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=marker&callback=initGoogleMapsCallback`;
+      // Official Google Maps async loading pattern:
+      // loading=async prevents the "Google Maps JavaScript API loaded without loading=async" console warning.
+      // libraries=marker,places ensures google.maps.marker.AdvancedMarkerElement and PinElement are available.
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(
+        apiKey
+      )}&libraries=marker,places&loading=async&callback=${callbackName}`;
       script.async = true;
       script.defer = true;
 
-      (window as GoogleMapsWindow).initGoogleMapsCallback = () => {
-        const g = (window as GoogleMapsWindow).google;
-        if (g) resolve(g);
-      };
-
       script.onerror = () => {
+        delete w[callbackName];
         reject(new Error("Failed to load Google Maps script"));
       };
 
       document.head.appendChild(script);
     }).catch((error: unknown): never => {
-      // A rejected promise stays rejected forever, so a single transient
-      // failure (offline blip, blocked request) would otherwise make every
-      // later call in the session fail immediately with no way to recover.
-      // Clear the cache so the next caller retries with a fresh <script>.
       mapsLoaderPromise = null;
       throw error;
     });
@@ -87,29 +127,32 @@ export async function reverseGeocode(coords: Coordinates): Promise<AddressInfo |
     const google = await loadGoogleMaps();
     const geocoder = new google.maps.Geocoder();
 
-    const result = await geocoder.geocode({
+    const response = await geocoder.geocode({
       location: new google.maps.LatLng(coords.lat, coords.lng),
     });
 
-    if (result.results && result.results.length > 0) {
-      const addressComponents = result.results[0].address_components || [];
-      const getComponent = (type: string) =>
-        addressComponents.find((c: google.maps.GeocoderAddressComponent) =>
-          c.types?.includes(type)
-        )?.long_name || "";
+    if (!response.results || response.results.length === 0) return null;
 
-      return {
-        address: result.results[0].formatted_address || "",
-        city: getComponent("locality") || getComponent("administrative_area_level_2"),
-        state: getComponent("administrative_area_level_1"),
-        country: getComponent("country"),
-        postalCode: getComponent("postal_code"),
-      };
-    }
+    const result = response.results[0];
+    const addressComponents = result.address_components;
 
-    return null;
+    const getComponent = (type: string) =>
+      addressComponents.find((c: google.maps.GeocoderAddressComponent) =>
+        c.types.includes(type)
+      )?.long_name || "";
+
+    return {
+      address: result.formatted_address,
+      city:
+        getComponent("locality") ||
+        getComponent("sublocality") ||
+        getComponent("administrative_area_level_2"),
+      state: getComponent("administrative_area_level_1"),
+      country: getComponent("country"),
+      postalCode: getComponent("postal_code"),
+    };
   } catch (error) {
-    console.error("Reverse geocode error:", error);
+    console.error("Reverse geocoding error:", error);
     return null;
   }
 }
@@ -122,46 +165,48 @@ export async function geocodeAddress(address: string): Promise<Coordinates | nul
     const google = await loadGoogleMaps();
     const geocoder = new google.maps.Geocoder();
 
-    const result = await geocoder.geocode({ address });
+    const response = await geocoder.geocode({ address });
 
-    if (result.results && result.results.length > 0) {
-      const location = result.results[0].geometry.location;
-      return {
-        lat: location.lat(),
-        lng: location.lng(),
-      };
-    }
+    if (!response.results || response.results.length === 0) return null;
 
-    return null;
+    const location = response.results[0].geometry.location;
+    return {
+      lat: location.lat(),
+      lng: location.lng(),
+    };
   } catch (error) {
-    console.error("Geocode error:", error);
+    console.error("Geocoding error:", error);
     return null;
   }
 }
 
 /**
- * Calculate the distance in kilometers between two coordinates using Haversine formula.
+ * Calculate straight-line distance between two coordinates in kilometers using Haversine formula.
  */
-export function calculateDistance(a: Coordinates, b: Coordinates): number {
-  const R = 6371; // Earth radius in km
-  const dLat = ((b.lat - a.lat) * Math.PI) / 180;
-  const dLon = ((b.lng - a.lng) * Math.PI) / 180;
-  const lat1 = (a.lat * Math.PI) / 180;
-  const lat2 = (b.lat * Math.PI) / 180;
+export function calculateDistance(coord1: Coordinates, coord2: Coordinates): number {
+  const R = 6371; // Earth's radius in km
+  const dLat = toRad(coord2.lat - coord1.lat);
+  const dLng = toRad(coord2.lng - coord1.lng);
 
-  const haversine =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(coord1.lat)) *
+      Math.cos(toRad(coord2.lat)) *
+      Math.sin(dLng / 2) *
+      Math.sin(dLng / 2);
 
-  const c = 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1 - haversine));
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return parseFloat((R * c).toFixed(1));
+}
 
-  return R * c;
+function toRad(degrees: number): number {
+  return (degrees * Math.PI) / 180;
 }
 
 /**
- * Calculate ETA (estimated minutes) based on distance and average speed (km/h).
+ * Estimate travel time in minutes based on distance and average urban speed (40 km/h).
  */
-export function calculateETA(distanceKm: number, speedKmH: number = 40): number {
-  const minutes = (distanceKm / speedKmH) * 60;
-  return Math.max(Math.round(minutes), 1);
+export function calculateETA(distanceKm: number): number {
+  const avgSpeedKmH = 40; // average city emergency vehicle speed
+  return Math.ceil((distanceKm / avgSpeedKmH) * 60);
 }
