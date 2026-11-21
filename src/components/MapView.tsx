@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { loadGoogleMaps, getGoogleMapsMapId } from "@/lib/google-maps";
+import { useEffect, useRef, useState, useCallback } from "react";
+import * as maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
 import type { Coordinates, Hospital } from "@/types/app";
 
 export interface MapMarkerSpec {
@@ -17,206 +18,243 @@ interface MapViewProps {
   markers: MapMarkerSpec[];
   zoom?: number;
   className?: string;
+  routeCoordinates?: [number, number][]; // [lng, lat]
+  onMapClick?: (coords: Coordinates) => void;
+  showRecenterButton?: boolean;
 }
 
-const PIN_COLORS: Record<MapMarkerSpec["kind"], { fill: string; stroke: string; glyphColor: string }> = {
-  hospital: { fill: "#10b981", stroke: "#065f4f", glyphColor: "#ffffff" },
-  ambulance: { fill: "#ef4444", stroke: "#7f1d1d", glyphColor: "#ffffff" },
-  user: { fill: "#3b82f6", stroke: "#ffffff", glyphColor: "#ffffff" },
-  emergency: { fill: "#dc2626", stroke: "#ffffff", glyphColor: "#ffffff" },
+const PIN_COLORS: Record<MapMarkerSpec["kind"], { fill: string; stroke: string }> = {
+  hospital: { fill: "#10b981", stroke: "#065f4f" },
+  ambulance: { fill: "#ef4444", stroke: "#7f1d1d" },
+  user: { fill: "#3b82f6", stroke: "#ffffff" },
+  emergency: { fill: "#dc2626", stroke: "#ffffff" },
 };
 
-type MarkerUnion = google.maps.marker.AdvancedMarkerElement | google.maps.Marker;
+export const OPENFREEMAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
 
 /**
- * Modern wrapper around Google Maps JS API supporting AdvancedMarkerElement and loading=async.
- *
- * Markers are rebuilt whenever `markers` changes identity, so callers should
- * memoise the array (or rely on the shallow JSON signature below) to avoid
- * tearing down and recreating the map on every render.
+ * Free, open-source MapView powered by MapLibre GL JS + OpenFreeMap.
+ * Zero Google Maps billing required.
  */
 export function MapView({
   center,
   markers,
   zoom = 13,
   className = "w-full h-[500px]",
+  routeCoordinates,
+  onMapClick,
+  showRecenterButton = true,
 }: MapViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<google.maps.Map | null>(null);
-  const overlayRef = useRef<MarkerUnion[]>([]);
-  const infoWindowRef = useRef<google.maps.InfoWindow | null>(null);
-
-  // Tracks the last camera we actually applied, so a marker-only update does
-  // not yank the map back to `center` after the user has panned away.
-  const appliedCameraRef = useRef<string | null>(null);
-
+  const mapRef = useRef<maplibregl.Map | null>(null);
+  const markersRef = useRef<Map<string, maplibregl.Marker>>(new Map());
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [userHasPanned, setUserHasPanned] = useState(false);
 
-  // Serialise so the effect only re-runs when the marker set really changes.
+  // Serialise markers and route
   const markersKey = JSON.stringify(markers);
-  const centerKey = `${center.lat},${center.lng},${zoom}`;
+  const routeKey = JSON.stringify(routeCoordinates || []);
 
+  // Initialize MapLibre
   useEffect(() => {
     if (!containerRef.current) return;
-    let cancelled = false;
+    let isCancelled = false;
 
-    const init = async () => {
-      try {
-        const google = await loadGoogleMaps();
-        if (cancelled || !containerRef.current) return;
+    try {
+      const map = new maplibregl.Map({
+        container: containerRef.current,
+        style: OPENFREEMAP_STYLE,
+        center: [center.lng, center.lat],
+        zoom,
+        attributionControl: false,
+      });
 
-        if (!mapRef.current) {
-          const mapId = getGoogleMapsMapId();
-          mapRef.current = new google.maps.Map(containerRef.current, {
-            center: { lat: center.lat, lng: center.lng },
-            zoom,
-            mapId: mapId || undefined, // AdvancedMarkerElement requires mapId
-            mapTypeControl: false,
-            streetViewControl: false,
-            fullscreenControl: false,
-          });
-          infoWindowRef.current = new google.maps.InfoWindow();
-          appliedCameraRef.current = centerKey;
-        }
+      map.addControl(
+        new maplibregl.AttributionControl({
+          compact: true,
+          customAttribution: "© OpenStreetMap contributors | © OpenFreeMap",
+        }),
+        "bottom-right"
+      );
 
-        const map = mapRef.current;
+      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
 
-        // Only move the camera when it has genuinely changed.
-        if (appliedCameraRef.current !== centerKey) {
-          const [lat, lng] = centerKey.split(",");
-          map.setCenter({ lat: Number(lat), lng: Number(lng) });
-          map.setZoom(zoom);
-          appliedCameraRef.current = centerKey;
-        }
+      map.on("load", () => {
+        if (isCancelled) return;
+        setStatus("ready");
+      });
 
-        // Clear the previous overlay markers cleanly
-        overlayRef.current.forEach((marker) => {
-          if ("map" in marker) {
-            marker.map = null;
-          } else if (typeof (marker as google.maps.Marker).setMap === "function") {
-            (marker as google.maps.Marker).setMap(null);
-          }
+      map.on("error", (e: unknown) => {
+        console.warn("[MapLibre notice]:", e);
+      });
+
+      map.on("dragstart", () => {
+        setUserHasPanned(true);
+      });
+
+      if (onMapClick) {
+        map.on("click", (e: { lngLat: { lat: number; lng: number } }) => {
+          onMapClick({ lat: e.lngLat.lat, lng: e.lngLat.lng });
         });
-        overlayRef.current = [];
+      }
 
-        const specs: MapMarkerSpec[] = JSON.parse(markersKey);
-        const hasAdvanced = Boolean(
-          google.maps.marker &&
-          typeof google.maps.marker.AdvancedMarkerElement === "function" &&
-          typeof google.maps.marker.PinElement === "function"
-        );
+      mapRef.current = map;
+    } catch (err) {
+      console.error("[MapLibre init error]:", err);
+      // Defer error state to avoid synchronous setState inside effect body
+      setTimeout(() => {
+        if (!isCancelled) setStatus("error");
+      }, 0);
+    }
 
-        specs.forEach((spec) => {
-          const color = PIN_COLORS[spec.kind];
-
-          if (hasAdvanced) {
-            // Modern AdvancedMarkerElement & PinElement
-            const pinElement = new google.maps.marker.PinElement({
-              background: color.fill,
-              borderColor: color.stroke,
-              glyphColor: color.glyphColor,
-              scale: spec.kind === "user" ? 0.9 : 1.1,
-            });
-
-            const advMarker = new google.maps.marker.AdvancedMarkerElement({
-              position: { lat: spec.position.lat, lng: spec.position.lng },
-              map,
-              title: spec.title,
-              content: pinElement.element,
-              gmpClickable: Boolean(spec.info),
-            });
-
-            if (spec.info && infoWindowRef.current) {
-              const info = infoWindowRef.current;
-              advMarker.addListener("click", () => {
-                info.setContent(
-                  `<div style="padding:6px;font-size:13px"><strong>${spec.title}</strong><br/>${spec.info}</div>`
-                );
-                info.open({
-                  map,
-                  anchor: advMarker,
-                });
-              });
-            }
-
-            overlayRef.current.push(advMarker);
-          } else {
-            // Fallback to legacy Marker if AdvancedMarker is not available in environment
-            const legacyMarker = new google.maps.Marker({
-              position: { lat: spec.position.lat, lng: spec.position.lng },
-              map,
-              title: spec.title,
-              icon: {
-                path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                fillColor: color.fill,
-                fillOpacity: 0.95,
-                strokeColor: color.stroke,
-                strokeWeight: 2,
-                scale: spec.kind === "user" ? 8 : 11,
-              },
-            });
-
-            if (spec.info && infoWindowRef.current) {
-              const info = infoWindowRef.current;
-              legacyMarker.addListener("click", () => {
-                info.setContent(
-                  `<div style="padding:6px;font-size:13px"><strong>${spec.title}</strong><br/>${spec.info}</div>`
-                );
-                info.open(map, legacyMarker);
-              });
-            }
-
-            overlayRef.current.push(legacyMarker);
-          }
-        });
-
-        if (!cancelled) setStatus("ready");
-      } catch (error) {
-        console.error("Map init error:", error);
-        if (!cancelled) setStatus("error");
+    return () => {
+      isCancelled = true;
+      markersRef.current.forEach((m) => m.remove());
+      markersRef.current.clear();
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
       }
     };
+  }, []); // Run once on mount
 
-    void init();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [markersKey, centerKey]);
-
-  // Drop the map and marker instances when the component goes away.
+  // Update Markers
   useEffect(() => {
-    return () => {
-      overlayRef.current.forEach((marker) => {
-        if ("map" in marker) {
-          marker.map = null;
-        } else if (typeof (marker as google.maps.Marker).setMap === "function") {
-          (marker as google.maps.Marker).setMap(null);
+    const map = mapRef.current;
+    if (!map || status !== "ready") return;
+
+    const specs: MapMarkerSpec[] = JSON.parse(markersKey);
+    const currentKeys = new Set(specs.map((s) => s.id));
+
+    // Remove obsolete markers
+    markersRef.current.forEach((marker, id) => {
+      if (!currentKeys.has(id)) {
+        marker.remove();
+        markersRef.current.delete(id);
+      }
+    });
+
+    // Add or update markers
+    specs.forEach((spec) => {
+      let marker = markersRef.current.get(spec.id);
+      const color = PIN_COLORS[spec.kind];
+
+      if (!marker) {
+        // Create custom DOM element for marker
+        const el = document.createElement("div");
+        el.className = "sos-map-marker";
+        el.style.width = spec.kind === "user" ? "22px" : "28px";
+        el.style.height = spec.kind === "user" ? "22px" : "28px";
+        el.style.borderRadius = "50%";
+        el.style.backgroundColor = color.fill;
+        el.style.border = `2.5px solid ${color.stroke}`;
+        el.style.boxShadow = "0 2px 6px rgba(0,0,0,0.35)";
+        el.style.cursor = spec.info ? "pointer" : "default";
+
+        marker = new maplibregl.Marker({ element: el })
+          .setLngLat([spec.position.lng, spec.position.lat])
+          .addTo(map);
+
+        if (spec.info) {
+          const popup = new maplibregl.Popup({ offset: 25 }).setHTML(
+            `<div style="padding:6px;font-size:13px;font-family:sans-serif;"><strong>${spec.title}</strong><br/>${spec.info}</div>`
+          );
+          marker.setPopup(popup);
         }
+
+        markersRef.current.set(spec.id, marker);
+      } else {
+        marker.setLngLat([spec.position.lng, spec.position.lat]);
+      }
+    });
+  }, [markersKey, status]);
+
+  // Update Route Polyline
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || status !== "ready") return;
+
+    const coords: [number, number][] = JSON.parse(routeKey);
+
+    const sourceId = "route-source";
+    const layerId = "route-layer";
+
+    if (coords.length >= 2) {
+      const geojson: GeoJSON.Feature<GeoJSON.LineString> = {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "LineString",
+          coordinates: coords,
+        },
+      };
+
+      if (map.getSource(sourceId)) {
+        (map.getSource(sourceId) as maplibregl.GeoJSONSource).setData(geojson);
+      } else {
+        map.addSource(sourceId, {
+          type: "geojson",
+          data: geojson,
+        });
+
+        map.addLayer({
+          id: layerId,
+          type: "line",
+          source: sourceId,
+          layout: {
+            "line-join": "round",
+            "line-cap": "round",
+          },
+          paint: {
+            "line-color": "#3b82f6",
+            "line-width": 4.5,
+            "line-opacity": 0.85,
+          },
+        });
+      }
+    } else {
+      if (map.getLayer(layerId)) map.removeLayer(layerId);
+      if (map.getSource(sourceId)) map.removeSource(sourceId);
+    }
+  }, [routeKey, status]);
+
+  const handleRecenter = useCallback(() => {
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: [center.lng, center.lat],
+        zoom,
+        essential: true,
       });
-      overlayRef.current = [];
-      mapRef.current = null;
-    };
-  }, []);
+      setUserHasPanned(false);
+    }
+  }, [center.lat, center.lng, zoom]);
 
   return (
     <div className={`relative rounded-lg overflow-hidden bg-gray-100 ${className}`}>
       <div ref={containerRef} className="w-full h-full" />
 
-      {/* Surface load failures instead of leaving a blank grey box */}
+      {/* Recenter Button when user has panned away */}
+      {showRecenterButton && userHasPanned && status === "ready" && (
+        <button
+          onClick={handleRecenter}
+          className="absolute bottom-4 left-4 z-10 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-xs font-semibold px-3 py-1.5 rounded-full shadow-md border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+        >
+          📍 Recenter
+        </button>
+      )}
+
+      {/* Loading state */}
       {status === "loading" && (
-        <div className="absolute inset-0 flex items-center justify-center text-sm text-gray-500 bg-gray-100">
-          Loading map…
+        <div className="absolute inset-0 flex items-center justify-center text-sm text-gray-500 bg-gray-100 dark:bg-gray-900">
+          Loading OpenFreeMap…
         </div>
       )}
 
+      {/* Error state */}
       {status === "error" && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 p-4 text-center text-sm text-gray-600 bg-gray-100">
-          <span className="font-medium text-gray-800">Map unavailable</span>
-          <span>
-            Check that the Maps JavaScript API is enabled and that the key is
-            valid for this domain.
-          </span>
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 p-4 text-center text-sm text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">
+          <span className="font-semibold text-gray-800 dark:text-gray-100">Map unavailable</span>
+          <span>Could not render OpenFreeMap tiles. Hospital and location directory remain functional.</span>
         </div>
       )}
     </div>
@@ -233,6 +271,7 @@ export function hospitalMarker(hospital: Hospital): MapMarkerSpec {
     info: [
       hospital.address,
       hospital.distance_km != null ? `${hospital.distance_km} km away` : null,
+      hospital.phone ? `Phone: ${hospital.phone}` : null,
     ]
       .filter(Boolean)
       .join("<br/>"),

@@ -122,7 +122,7 @@ function HospitalsPageContent() {
           </div>
           <Button
             variant="primary"
-            onClick={requestLocation}
+            onClick={() => void requestLocation()}
             loading={locationLoading}
             className="shrink-0 whitespace-nowrap"
           >

@@ -1,6 +1,6 @@
 /**
  * Emergency contact notification utility
- * Sends SMS / Webhook / WhatsApp alerts to emergency contacts with Google Maps coordinates and hospital routing.
+ * Sends SMS / Webhook / WhatsApp alerts to emergency contacts with OpenStreetMap coordinates and hospital routing.
  */
 
 export interface ContactNotificationPayload {
@@ -25,16 +25,17 @@ export async function notifyEmergencyContacts(
     etaMinutes?: number | null;
   }
 ) {
-  const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${details.latitude},${details.longitude}`;
+  const openStreetMapUrl = `https://www.openstreetmap.org/?mlat=${details.latitude}&mlon=${details.longitude}#map=16/${details.latitude}/${details.longitude}`;
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${details.latitude},${details.longitude}`;
   const hospitalNavUrl = details.hospitalName
-    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(details.hospitalName)}`
+    ? `https://www.openstreetmap.org/search?query=${encodeURIComponent(details.hospitalName)}`
     : "";
 
   const textMessage = `EMERGENCY ALERT: ${details.userName || "Your contact"} has triggered an SOS medical emergency!
 Location: ${details.address || `${details.latitude}, ${details.longitude}`}
 Nearest Hospital: ${details.hospitalName || "Not yet assigned"}
 Ambulance ETA: ${details.etaMinutes == null ? "Not confirmed" : `Estimated ${details.etaMinutes} minutes`}
-Map: ${googleMapsUrl}`;
+Map: ${openStreetMapUrl}`;
 
   return Promise.all(
     contacts.map(async (contact) => {

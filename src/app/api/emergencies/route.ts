@@ -106,28 +106,27 @@ export async function POST(request: NextRequest) {
   const etaMinutes: number | null = null;
   const assignedAmbulanceId: string | null = null;
 
-  // ---- Step 5: Reverse geocode to populate the address field ----
+  // ---- Step 5: Reverse geocode to populate the address field using OpenStreetMap Nominatim ----
   let address: string | null = null;
   try {
-    const apiKey = process.env.GOOGLE_MAPS_API_KEY || process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-    if (apiKey) {
-      const geocodeResponse = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
-      );
+    const nominatimUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`;
+    const geocodeResponse = await fetch(nominatimUrl, {
+      signal: AbortSignal.timeout(4000),
+      headers: {
+        "User-Agent": "SOSHealthcareEmergencyApp/1.0",
+      },
+    });
+    if (geocodeResponse.ok) {
       const geocodeData = await geocodeResponse.json();
-      if (geocodeData.status === "OK" && geocodeData.results?.length > 0) {
-        address = geocodeData.results[0].formatted_address;
-        // This patient endpoint cannot alter dispatch-controlled fields under RLS.
-        // Geocoded address is only returned in this response.
+      if (geocodeData && geocodeData.display_name) {
+        address = geocodeData.display_name;
       }
-    } else {
-    console.error("Google Maps API key not found");
     }
   } catch (geocodeError) {
-    console.error("Reverse geocode error:", geocodeError);
+    console.warn("[Emergencies] Reverse geocode non-blocking notice:", geocodeError);
   }
 
-  // ---- Step 6: Notify user's emergency contacts with Google Maps link ----
+  // ---- Step 6: Notify user's emergency contacts with OpenStreetMap link ----
   try {
     const { data: contacts } = await supabase
       .from("emergency_contacts")
@@ -156,10 +155,10 @@ export async function POST(request: NextRequest) {
   }
 
   // ---- Step 7: Realtime notification is handled by Supabase Realtime ----
-  // Generate Google Maps navigation url for hospital redirection
+  // Generate navigation url for hospital redirection (OpenStreetMap free alternative)
   const hospitalNavUrl = nearestHospital
-    ? `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${nearestHospital.latitude},${nearestHospital.longitude}`
-    : `https://www.google.com/maps/search/?api=1&query=hospital`;
+    ? `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${latitude}%2C${longitude}%3B${nearestHospital.latitude}%2C${nearestHospital.longitude}`
+    : `https://www.openstreetmap.org/search?query=hospital#map=14/${latitude}/${longitude}`;
 
   return NextResponse.json({
     emergency,

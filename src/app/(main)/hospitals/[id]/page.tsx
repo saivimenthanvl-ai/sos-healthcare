@@ -110,7 +110,7 @@ export default function HospitalDetailPage({ params }: HospitalDetailProps) {
     );
   }
 
-  const mapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${hospital.latitude},${hospital.longitude}`;
+  const mapsUrl = `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=%3B${hospital.latitude}%2C${hospital.longitude}`;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">

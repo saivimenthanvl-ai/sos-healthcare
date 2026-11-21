@@ -13,6 +13,8 @@ export default function EmergencyLocationPage() {
   const [nearestHospital, setNearestHospital] = useState<{
     name: string;
     address: string;
+    latitude?: number;
+    longitude?: number;
     distance_km?: number;
     phone?: string;
   } | null>(null);
@@ -101,7 +103,7 @@ export default function EmergencyLocationPage() {
           </div>
 
           {!latitude && (
-            <Button onClick={requestLocation} variant="primary" className="w-full">
+            <Button onClick={() => void requestLocation()} variant="primary" className="w-full">
               Calibrate Current GPS
             </Button>
           )}
@@ -160,12 +162,16 @@ export default function EmergencyLocationPage() {
                 <p className="text-xs text-gray-400">{userToHospitalDistance} km away</p>
               </div>
               <a
-                href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(nearestHospital.name + " " + nearestHospital.address)}`}
+                href={
+                  nearestHospital.address
+                    ? `https://www.openstreetmap.org/search?query=${encodeURIComponent(nearestHospital.name + " " + nearestHospital.address)}`
+                    : `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=%3B${nearestHospital.latitude || ""}%2C${nearestHospital.longitude || ""}`
+                }
                 target="_blank"
                 rel="noreferrer"
                 className="mt-3 inline-flex items-center justify-center text-xs font-semibold px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
               >
-                Open Google Maps Directions
+                Open OpenStreetMap Directions
               </a>
             </div>
           </div>

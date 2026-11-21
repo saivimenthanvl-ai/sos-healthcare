@@ -76,25 +76,25 @@ export async function POST(request: NextRequest) {
 
   // Ambulance assignment must occur separately through an authorized dispatcher.
 
-  // 4. Reverse Geocoding
+  // 4. Reverse Geocoding via OpenStreetMap Nominatim
   let formattedAddress: string | null = null;
-  const apiKey = process.env.GOOGLE_MAPS_API_KEY || process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  if (apiKey) {
-    try {
-      const geoRes = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
-      );
+  try {
+    const nominatimUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`;
+    const geoRes = await fetch(nominatimUrl, {
+      signal: AbortSignal.timeout(4000),
+      headers: { "User-Agent": "SOSHealthcareFitbit/1.0" },
+    });
+    if (geoRes.ok) {
       const geoJson = await geoRes.json();
-      if (geoJson.status === "OK" && geoJson.results?.length) {
-        formattedAddress = geoJson.results[0].formatted_address;
-        // Address is returned for display; updates to persisted dispatch fields require staff authority.
+      if (geoJson && geoJson.display_name) {
+        formattedAddress = geoJson.display_name;
       }
-    } catch (e) {
-      console.error("Geocoding failed:", e);
     }
+  } catch (e) {
+    console.warn("Geocoding notice handled:", e);
   }
 
-  // 5. Notify Emergency Contacts with live Google Maps Redirection
+  // 5. Notify Emergency Contacts with live Map Navigation
   const { data: contacts } = await supabase
     .from("emergency_contacts")
     .select("name, phone, notification_method")
@@ -117,10 +117,10 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  // Google Maps redirection URL to the nearest hospital
+  // OpenStreetMap redirection URL to the nearest hospital
   const hospitalNavUrl = nearestHospital
-    ? `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${nearestHospital.latitude},${nearestHospital.longitude}`
-    : `https://www.google.com/maps/search/?api=1&query=hospital`;
+    ? `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=${latitude}%2C${longitude}%3B${nearestHospital.latitude}%2C${nearestHospital.longitude}`
+    : `https://www.openstreetmap.org/search?query=hospital`;
 
   return NextResponse.json({
     success: true,
