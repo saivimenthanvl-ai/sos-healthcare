@@ -10,8 +10,9 @@ test("Free open mapping architecture - MapLibre and OpenFreeMap", () => {
   const directionsApi = fs.readFileSync("src/app/api/maps/directions/route.ts", "utf8");
   const nextConfig = fs.readFileSync("next.config.ts", "utf8");
 
-  // 1. MapView imports maplibre-gl and loads OpenFreeMap liberty style
+  // 1. MapView imports maplibre-gl, configures worker URL, and loads OpenFreeMap liberty style
   assert.match(mapLibreComponent, /from\s+["']maplibre-gl["']/);
+  assert.match(mapLibreComponent, /setWorkerUrl\("\/maplibre-gl-worker\.mjs"\)/);
   assert.match(mapLibreComponent, /https:\/\/tiles\.openfreemap\.org\/styles\/liberty/);
   assert.match(mapLibreComponent, /maplibregl\.Map/);
 
@@ -39,12 +40,13 @@ test("Free open mapping architecture - MapLibre and OpenFreeMap", () => {
   assert.match(nextConfig, /worker-src 'self' blob:/);
 });
 
-test("Hospital discovery does not fabricate bed counts or ratings", () => {
+test("Hospital discovery supports Supabase, Nominatim, and Overpass without fabricated metrics", () => {
   const hospitalService = fs.readFileSync("src/services/hospitals.ts", "utf8");
 
   // Should NOT generate random ICU beds or fake rating stars
   assert.doesNotMatch(hospitalService, /Math\.floor\(Math\.random\(\)\s*\*\s*20\)/);
   assert.doesNotMatch(hospitalService, /Math\.random\(\)\s*\*\s*2\s*\+\s*3/);
+  assert.match(hospitalService, /nominatim\.openstreetmap\.org/);
   assert.match(hospitalService, /overpass-api\.de/);
 });
 

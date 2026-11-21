@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "node scripts/use-wasm-swc.mjs",
+    "postinstall": "node scripts/use-wasm-swc.mjs && node scripts/copy-maplibre-worker.mjs",
     "typecheck": "tsc --noEmit",
     "test": "node --test tests/**/*.test.mjs"
   },

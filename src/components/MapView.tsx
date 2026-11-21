@@ -30,6 +30,11 @@ const PIN_COLORS: Record<MapMarkerSpec["kind"], { fill: string; stroke: string }
   emergency: { fill: "#dc2626", stroke: "#ffffff" },
 };
 
+// Configure static same-origin worker URL for MapLibre GL JS to prevent Turbopack/bundler URL resolution failure
+if (typeof window !== "undefined") {
+  maplibregl.setWorkerUrl("/maplibre-gl-worker.mjs");
+}
+
 export const OPENFREEMAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
 
 /**
@@ -40,7 +45,7 @@ export function MapView({
   center,
   markers,
   zoom = 13,
-  className = "w-full h-[500px]",
+  className = "w-full h-125",
   routeCoordinates,
   onMapClick,
   showRecenterButton = true,
@@ -86,6 +91,14 @@ export function MapView({
 
       map.on("error", (e: unknown) => {
         console.warn("[MapLibre notice]:", e);
+        // If error message relates to worker failure or style failure, set error status so user gets recoverable state
+        const errObj = e as { error?: { message?: string }; message?: string } | undefined;
+        const msg = String(errObj?.error?.message || errObj?.message || "");
+        if (msg.toLowerCase().includes("worker") || msg.toLowerCase().includes("failed to fetch")) {
+          setTimeout(() => {
+            if (!isCancelled) setStatus("error");
+          }, 0);
+        }
       });
 
       map.on("dragstart", () => {
@@ -107,10 +120,12 @@ export function MapView({
       }, 0);
     }
 
+    const markersMap = markersRef.current;
+
     return () => {
       isCancelled = true;
-      markersRef.current.forEach((m) => m.remove());
-      markersRef.current.clear();
+      markersMap.forEach((m) => m.remove());
+      markersMap.clear();
       if (mapRef.current) {
         mapRef.current.remove();
         mapRef.current = null;

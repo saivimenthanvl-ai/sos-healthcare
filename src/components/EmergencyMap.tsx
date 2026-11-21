@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "@/hooks/useLocation";
 import { supabase } from "@/lib/supabase";
 import { useRealtime } from "@/hooks/useRealtime";
@@ -400,7 +400,7 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
           onMapClick={(coords) => {
             setManualLocation(coords.lat, coords.lng, 10);
           }}
-          className="w-full h-[550px] rounded-lg shadow-lg"
+          className="w-full h-137.5 rounded-lg shadow-lg"
         />
       </div>
     </div>

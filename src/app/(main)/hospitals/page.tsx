@@ -176,7 +176,7 @@ function HospitalsPageContent() {
       {/* Map / List view */}
       {showMap && latitude != null && longitude != null ? (
         <MapView
-          className="w-full h-[500px] shadow-lg rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800"
+          className="w-full h-125 shadow-lg rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800"
           center={{ lat: latitude, lng: longitude }}
           zoom={12}
           markers={markers}

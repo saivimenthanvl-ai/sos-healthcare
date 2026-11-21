@@ -63,7 +63,70 @@ export async function findNearbyHospitals(
     console.warn("[HospitalsService] Supabase query notice:", err);
   }
 
-  // 2. OpenStreetMap Overpass API fallback for unverified live nearby facilities
+  // 2. OpenStreetMap fallback for unverified live nearby facilities when no verified DB hospitals in range
+  // Strategy A: Nominatim search (fast, reliable CDN, global)
+  try {
+    const delta = Math.max((radiusKm / 111.32) * 1.2, 0.05);
+    const minLat = (latitude - delta).toFixed(4);
+    const maxLat = (latitude + delta).toFixed(4);
+    const minLng = (longitude - delta).toFixed(4);
+    const maxLng = (longitude + delta).toFixed(4);
+
+    const nominatimUrl = `https://nominatim.openstreetmap.org/search?q=hospital&format=json&limit=15&viewbox=${minLng},${maxLat},${maxLng},${minLat}&bounded=1`;
+
+    const nomRes = await fetch(nominatimUrl, {
+      signal: AbortSignal.timeout(5000),
+      headers: {
+        "User-Agent": "SOSHealthcareApp/1.0 (Emergency Response Assistance)",
+      },
+    });
+
+    if (nomRes.ok) {
+      const data = await nomRes.json();
+      if (Array.isArray(data) && data.length > 0) {
+        const osmHospitals: Hospital[] = data
+          .filter((item: { lat?: string; lon?: string }) => item.lat && item.lon)
+          .map((item: { place_id?: number | string; lat: string; lon: string; display_name?: string }) => {
+            const hLat = parseFloat(item.lat);
+            const hLng = parseFloat(item.lon);
+            const dist = calculateDistance(userCoords, { lat: hLat, lng: hLng });
+            const displayName = item.display_name || "Hospital (OSM)";
+            const nameParts = displayName.split(",");
+            const name = nameParts[0]?.trim() || "Hospital (OSM)";
+            const address = nameParts.slice(1).join(",").trim() || "Address unverified (OpenStreetMap)";
+
+            return {
+              id: `osm-${item.place_id || `${hLat}-${hLng}`}`,
+              name,
+              address,
+              phone: null,
+              latitude: hLat,
+              longitude: hLng,
+              emergency_department: true,
+              icu_beds: 0,
+              total_beds: 0,
+              rating: null,
+              distance_from_user: parseFloat(dist.toFixed(2)),
+              distance_km: parseFloat(dist.toFixed(2)),
+              created_at: new Date().toISOString(),
+            };
+          })
+          .filter((h) => (h.distance_km ?? Infinity) <= radiusKm * 1.5)
+          .sort((a, b) => (a.distance_km ?? 0) - (b.distance_km ?? 0));
+
+        if (osmHospitals.length > 0) {
+          return {
+            hospitals: osmHospitals,
+            source: "osm",
+          };
+        }
+      }
+    }
+  } catch (nomErr) {
+    console.warn("[HospitalsService] OSM Nominatim fallback notice:", nomErr);
+  }
+
+  // 3. OpenStreetMap Overpass API fallback for unverified live nearby facilities
   try {
     const radiusMeters = Math.min(Math.max(radiusKm * 1000, 1000), 50000);
     // Overpass query looking for amenity=hospital within radius
