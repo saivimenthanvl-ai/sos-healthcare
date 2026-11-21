@@ -21,6 +21,8 @@ interface MapViewProps {
   routeCoordinates?: [number, number][]; // [lng, lat]
   onMapClick?: (coords: Coordinates) => void;
   showRecenterButton?: boolean;
+  accuracyRadiusMeters?: number | null;
+  hasLocationFix?: boolean;
 }
 
 const PIN_COLORS: Record<MapMarkerSpec["kind"], { fill: string; stroke: string }> = {
@@ -39,7 +41,7 @@ export const OPENFREEMAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
 
 /**
  * Free, open-source MapView powered by MapLibre GL JS + OpenFreeMap.
- * Zero Google Maps billing required.
+ * Supports smooth 2D and 3D building extrusion modes with zero Google Maps billing required.
  */
 export function MapView({
   center,
@@ -49,12 +51,16 @@ export function MapView({
   routeCoordinates,
   onMapClick,
   showRecenterButton = true,
+  accuracyRadiusMeters,
+  hasLocationFix = true,
 }: MapViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const markersRef = useRef<Map<string, maplibregl.Marker>>(new Map());
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [userHasPanned, setUserHasPanned] = useState(false);
+  const [mapMode, setMapMode] = useState<"2d" | "3d">("2d");
+  const [modeNotice, setModeNotice] = useState<string | null>(null);
 
   // Serialise markers and route
   const markersKey = JSON.stringify(markers);
@@ -71,6 +77,8 @@ export function MapView({
         style: OPENFREEMAP_STYLE,
         center: [center.lng, center.lat],
         zoom,
+        pitch: 0,
+        bearing: 0,
         attributionControl: false,
       });
 
@@ -82,7 +90,7 @@ export function MapView({
         "bottom-right"
       );
 
-      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+      map.addControl(new maplibregl.NavigationControl({ showCompass: true }), "top-right");
 
       map.on("load", () => {
         if (isCancelled) return;
@@ -91,7 +99,6 @@ export function MapView({
 
       map.on("error", (e: unknown) => {
         console.warn("[MapLibre notice]:", e);
-        // If error message relates to worker failure or style failure, set error status so user gets recoverable state
         const errObj = e as { error?: { message?: string }; message?: string } | undefined;
         const msg = String(errObj?.error?.message || errObj?.message || "");
         if (msg.toLowerCase().includes("worker") || msg.toLowerCase().includes("failed to fetch")) {
@@ -114,7 +121,6 @@ export function MapView({
       mapRef.current = map;
     } catch (err) {
       console.error("[MapLibre init error]:", err);
-      // Defer error state to avoid synchronous setState inside effect body
       setTimeout(() => {
         if (!isCancelled) setStatus("error");
       }, 0);
@@ -132,6 +138,55 @@ export function MapView({
       }
     };
   }, []); // Run once on mount
+
+  // Toggle 2D / 3D Mode
+  const handleToggleMode = useCallback(
+    (newMode: "2d" | "3d") => {
+      const map = mapRef.current;
+      if (!map || status !== "ready") return;
+
+      setModeNotice(null);
+
+      try {
+        if (newMode === "3d") {
+          // Check WebGL extrusion support
+          map.easeTo({
+            pitch: 55,
+            bearing: -17.6,
+            duration: 1000,
+          });
+
+          // OpenFreeMap includes a 'building-3d' layer with fill-extrusion in its Liberty style
+          if (map.getLayer("building-3d")) {
+            map.setLayoutProperty("building-3d", "visibility", "visible");
+          }
+          if (map.getLayer("building")) {
+            map.setLayoutProperty("building", "visibility", "none");
+          }
+          setMapMode("3d");
+        } else {
+          map.easeTo({
+            pitch: 0,
+            bearing: 0,
+            duration: 1000,
+          });
+
+          if (map.getLayer("building-3d")) {
+            map.setLayoutProperty("building-3d", "visibility", "none");
+          }
+          if (map.getLayer("building")) {
+            map.setLayoutProperty("building", "visibility", "visible");
+          }
+          setMapMode("2d");
+        }
+      } catch (err) {
+        console.warn("[MapView mode toggle fallback]:", err);
+        setModeNotice("3D rendering unsupported on this hardware; falling back to 2D view.");
+        setMapMode("2d");
+      }
+    },
+    [status]
+  );
 
   // Update Markers
   useEffect(() => {
@@ -233,6 +288,67 @@ export function MapView({
     }
   }, [routeKey, status]);
 
+  // Update Accuracy Circle if provided
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || status !== "ready") return;
+
+    const accSourceId = "accuracy-source";
+    const accLayerId = "accuracy-layer";
+
+    if (hasLocationFix && accuracyRadiusMeters && accuracyRadiusMeters > 0) {
+      // Create a 32-point polygon approximating accuracy radius
+      const points = 32;
+      const coords: [number, number][] = [];
+      const km = accuracyRadiusMeters / 1000;
+      const distanceX = km / (111.32 * Math.cos((center.lat * Math.PI) / 180));
+      const distanceY = km / 110.574;
+
+      for (let i = 0; i < points; i++) {
+        const theta = (i / points) * (2 * Math.PI);
+        const x = distanceX * Math.cos(theta);
+        const y = distanceY * Math.sin(theta);
+        coords.push([center.lng + x, center.lat + y]);
+      }
+      coords.push(coords[0]); // close polygon
+
+      const geojson: GeoJSON.Feature<GeoJSON.Polygon> = {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "Polygon",
+          coordinates: [coords],
+        },
+      };
+
+      if (map.getSource(accSourceId)) {
+        (map.getSource(accSourceId) as maplibregl.GeoJSONSource).setData(geojson);
+      } else {
+        map.addSource(accSourceId, {
+          type: "geojson",
+          data: geojson,
+        });
+
+        map.addLayer(
+          {
+            id: accLayerId,
+            type: "fill",
+            source: accSourceId,
+            paint: {
+              "fill-color": "#3b82f6",
+              "fill-opacity": 0.15,
+              "fill-outline-color": "#2563eb",
+            },
+          },
+          map.getLayer("route-layer") ? "route-layer" : undefined
+        );
+      }
+    } else {
+      if (map.getLayer(accLayerId)) map.removeLayer(accLayerId);
+      if (map.getSource(accSourceId)) map.removeSource(accSourceId);
+    }
+  }, [center.lat, center.lng, accuracyRadiusMeters, hasLocationFix, status]);
+
   const handleRecenter = useCallback(() => {
     if (mapRef.current) {
       mapRef.current.flyTo({
@@ -248,6 +364,34 @@ export function MapView({
     <div className={`relative rounded-lg overflow-hidden bg-gray-100 ${className}`}>
       <div ref={containerRef} className="w-full h-full" />
 
+      {/* 2D / 3D Segmented Control */}
+      <div className="absolute top-3 left-3 z-10 flex items-center bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 p-0.5 text-xs font-semibold">
+        <button
+          type="button"
+          onClick={() => handleToggleMode("2d")}
+          className={`px-3 py-1 rounded-md transition-colors ${
+            mapMode === "2d"
+              ? "bg-blue-600 text-white shadow-sm"
+              : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+          }`}
+          aria-label="Switch to 2D view"
+        >
+          2D
+        </button>
+        <button
+          type="button"
+          onClick={() => handleToggleMode("3d")}
+          className={`px-3 py-1 rounded-md transition-colors ${
+            mapMode === "3d"
+              ? "bg-blue-600 text-white shadow-sm"
+              : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+          }`}
+          aria-label="Switch to 3D buildings view"
+        >
+          3D
+        </button>
+      </div>
+
       {/* Recenter Button when user has panned away */}
       {showRecenterButton && userHasPanned && status === "ready" && (
         <button
@@ -256,6 +400,13 @@ export function MapView({
         >
           📍 Recenter
         </button>
+      )}
+
+      {/* Mode fallback notice */}
+      {modeNotice && (
+        <div className="absolute top-12 left-3 z-10 bg-amber-50 dark:bg-amber-950/80 text-amber-800 dark:text-amber-200 text-xs px-2.5 py-1.5 rounded shadow border border-amber-200">
+          {modeNotice}
+        </div>
       )}
 
       {/* Loading state */}
@@ -287,6 +438,7 @@ export function hospitalMarker(hospital: Hospital): MapMarkerSpec {
       hospital.address,
       hospital.distance_km != null ? `${hospital.distance_km} km away` : null,
       hospital.phone ? `Phone: ${hospital.phone}` : null,
+      hospital.verification_status === "verified" ? "Verified Hospital" : "Unverified Geographic Listing",
     ]
       .filter(Boolean)
       .join("<br/>"),

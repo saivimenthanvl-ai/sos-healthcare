@@ -16,38 +16,48 @@ test("Free open mapping architecture - MapLibre and OpenFreeMap", () => {
   assert.match(mapLibreComponent, /https:\/\/tiles\.openfreemap\.org\/styles\/liberty/);
   assert.match(mapLibreComponent, /maplibregl\.Map/);
 
-  // 2. MapView does not load or require Google Maps API scripts
+  // 2. MapView supports 2D and 3D mode switching with building extrusion
+  assert.match(mapLibreComponent, /building-3d/);
+  assert.match(mapLibreComponent, /pitch:\s*55/);
+  assert.match(mapLibreComponent, /Switch to 3D buildings view/);
+
+  // 3. MapView does not load or require Google Maps API scripts
   assert.doesNotMatch(mapLibreComponent, /maps\.googleapis\.com/);
   assert.doesNotMatch(mapLibreComponent, /google\.maps/);
 
-  // 3. EmergencyMap provides fallback coordinates form and accuracy badge
+  // 4. EmergencyMap provides fallback coordinates form, accuracy badge, and never confuses fallback with GPS
   assert.match(emergencyMap, /Enter Coordinate Manually/);
   assert.match(emergencyMap, /setManualLocation/);
   assert.match(emergencyMap, /accuracy/);
+  assert.doesNotMatch(emergencyMap, /lat:\s*userLat\s*\?\?\s*37\.7749/);
 
-  // 4. Coordinates module provides standard validation and distance calculation without Google
+  // 5. Coordinates module provides standard validation and distance calculation without Google
   assert.match(coordinates, /isValidCoordinate/);
   assert.match(coordinates, /calculateDistance/);
   assert.match(coordinates, /calculateETA/);
 
-  // 5. Routing proxy exists with coordinate validation and OpenRouteService integration
+  // 6. Routing proxy exists with coordinate validation and OpenRouteService integration
   assert.match(routing, /fetchDirections/);
   assert.match(routing, /OPENROUTESERVICE_API_KEY/);
   assert.match(directionsApi, /isValidCoordinate/);
 
-  // 6. CSP headers permit tiles.openfreemap.org and OpenRouteService / OSM
+  // 7. CSP headers permit tiles.openfreemap.org and OpenRouteService / OSM
   assert.match(nextConfig, /https:\/\/tiles\.openfreemap\.org/);
   assert.match(nextConfig, /worker-src 'self' blob:/);
 });
 
-test("Hospital discovery supports Supabase, Nominatim, and Overpass without fabricated metrics", () => {
+test("Hospital discovery supports Supabase, Nominatim, and Overpass with verification classification", () => {
   const hospitalService = fs.readFileSync("src/services/hospitals.ts", "utf8");
+  const hospitalDetailRoute = fs.readFileSync("src/app/api/hospitals/[id]/route.ts", "utf8");
 
   // Should NOT generate random ICU beds or fake rating stars
   assert.doesNotMatch(hospitalService, /Math\.floor\(Math\.random\(\)\s*\*\s*20\)/);
   assert.doesNotMatch(hospitalService, /Math\.random\(\)\s*\*\s*2\s*\+\s*3/);
   assert.match(hospitalService, /nominatim\.openstreetmap\.org/);
   assert.match(hospitalService, /overpass-api\.de/);
+  assert.match(hospitalService, /classifyFacilityType/);
+  assert.match(hospitalService, /sanitizeOfficialWebsite/);
+  assert.match(hospitalDetailRoute, /verification_status/);
 });
 
 test("Geolocation hook handles permissions, high accuracy, and manual override", () => {

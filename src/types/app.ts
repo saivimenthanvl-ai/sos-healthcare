@@ -36,7 +36,15 @@ export type Emergency = EmergencyRow & {
   assigned_hospital?: Partial<HospitalRow> | null;
 };
 
-export type Hospital = HospitalRow & { distance_km?: number };
+export type Hospital = HospitalRow & {
+  distance_km?: number;
+  website?: string | null;
+  facility_type?: "general_hospital" | "specialist_clinic" | "nursing_home" | "unverified_geographic";
+  verification_status?: "verified" | "unverified";
+  data_source?: "supabase" | "osm" | "directory";
+  emergency_capability?: "confirmed_24_7" | "unconfirmed" | "none";
+  last_verified?: string | null;
+};
 
 export type Ambulance = AmbulanceRow;
 

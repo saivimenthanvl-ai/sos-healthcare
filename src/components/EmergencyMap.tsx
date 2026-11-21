@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation } from "@/hooks/useLocation";
 import { supabase } from "@/lib/supabase";
 import { useRealtime } from "@/hooks/useRealtime";
@@ -12,7 +12,10 @@ import {
   HospitalIcon,
   CheckCircleIcon,
   RefreshCwIcon,
+  ShieldCheckIcon,
+  HelpCircleIcon,
 } from "lucide-react";
+import Link from "next/link";
 import type { Ambulance, Emergency, Hospital } from "@/types/app";
 
 interface EmergencyMapProps {
@@ -41,6 +44,9 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
   const [manualMode, setManualMode] = useState(false);
   const [manualInput, setManualInput] = useState({ lat: "", lng: "" });
   const [routeCoordinates, setRouteCoordinates] = useState<[number, number][]>([]);
+
+  // Keep track of first user location fix to auto-center once without overriding subsequent user panning
+  const _hasCenteredOnLocation = useRef(false);
 
   const [sosStatusMessage, setSosStatusMessage] = useState<{
     text: string;
@@ -130,7 +136,7 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
       position: { lat: userLat, lng: userLng },
       title: "Your Location",
       kind: "user",
-      info: `Accuracy: ~${Math.round(userAccuracy || 10)}m (${locationSource || "browser"})`,
+      info: `Accuracy: ~${Math.round(userAccuracy || 10)}m (${locationSource === "manual" ? "Manual input" : "Live GPS fix"})`,
     });
   }
 
@@ -140,7 +146,7 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
       position: { lat: h.latitude, lng: h.longitude },
       title: h.name,
       kind: "hospital",
-      info: `${h.address}${h.distance_km ? `<br/>${h.distance_km} km away` : ""}`,
+      info: `${h.address}${h.distance_km ? `<br/>${h.distance_km} km away` : ""}<br/><em>${h.verification_status === "verified" ? "Verified Hospital" : "Unverified Geographic Listing"}</em>`,
     });
   });
 
@@ -158,7 +164,7 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
   const handleSOS = async () => {
     if (userLat == null || userLng == null) {
       setSosStatusMessage({
-        text: "Please permit location or provide a manual location coordinate before triggering SOS.",
+        text: "Please allow location permissions or enter coordinates manually before triggering SOS.",
         type: "warning",
       });
       return;
@@ -219,10 +225,16 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
     const lat = parseFloat(manualInput.lat);
     const lng = parseFloat(manualInput.lng);
     if (!isNaN(lat) && !isNaN(lng)) {
-      setManualLocation(lat, lng, 50);
+      setManualLocation(lat, lng, 15);
       setManualMode(false);
     }
   };
+
+  // Determine Map Center safely: never confuse initial fallback with user's position
+  const hasUserCoords = userLat != null && userLng != null;
+  const mapCenter = hasUserCoords
+    ? { lat: userLat, lng: userLng }
+    : { lat: 20.5937, lng: 78.9629 }; // Neutral overview center (never presented as user location)
 
   return (
     <div className="flex flex-col lg:flex-row gap-6">
@@ -268,7 +280,7 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
                 <input
                   type="number"
                   step="any"
-                  placeholder="Latitude"
+                  placeholder="Latitude (-90 to 90)"
                   className="w-1/2 p-1.5 border rounded dark:bg-gray-900 dark:border-gray-700"
                   value={manualInput.lat}
                   onChange={(e) => setManualInput((prev) => ({ ...prev, lat: e.target.value }))}
@@ -277,7 +289,7 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
                 <input
                   type="number"
                   step="any"
-                  placeholder="Longitude"
+                  placeholder="Longitude (-180 to 180)"
                   className="w-1/2 p-1.5 border rounded dark:bg-gray-900 dark:border-gray-700"
                   value={manualInput.lng}
                   onChange={(e) => setManualInput((prev) => ({ ...prev, lng: e.target.value }))}
@@ -316,27 +328,33 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
               onClick={() => void requestLocation()}
               className="text-xs text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
             >
-              <RefreshCwIcon className="h-3 w-3" /> Refresh
+              <RefreshCwIcon className="h-3 w-3" /> Refresh GPS
             </button>
           </div>
 
           {userLat != null && userLng != null ? (
             <div className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
               <p>
-                Latitude: <span className="font-mono">{userLat.toFixed(4)}</span>
+                Latitude: <span className="font-mono font-medium text-gray-900 dark:text-gray-100">{userLat.toFixed(5)}</span>
               </p>
               <p>
-                Longitude: <span className="font-mono">{userLng.toFixed(4)}</span>
+                Longitude: <span className="font-mono font-medium text-gray-900 dark:text-gray-100">{userLng.toFixed(5)}</span>
               </p>
-              <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center gap-1 mt-1">
-                <CheckCircleIcon className="h-3 w-3" />
-                {locationSource === "manual" ? "Manual location set" : `GPS locked (~${Math.round(userAccuracy || 0)}m)`}
-                {userTimestamp && <span className="text-gray-400">({new Date(userTimestamp).toLocaleTimeString()})</span>}
-              </p>
+              <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                <span className="text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
+                  <CheckCircleIcon className="h-3.5 w-3.5" />
+                  {locationSource === "manual" ? "Manual input" : `GPS locked (~${Math.round(userAccuracy || 0)}m)`}
+                </span>
+                {userTimestamp && (
+                  <span className="text-gray-400">
+                    Updated {new Date(userTimestamp).toLocaleTimeString()}
+                  </span>
+                )}
+              </div>
             </div>
           ) : (
             <div className="text-sm text-gray-500 flex items-center justify-between">
-              <span>{locationLoading ? "Detecting location..." : "Location not available"}</span>
+              <span>{locationLoading ? "Detecting browser GPS..." : "Location permission needed"}</span>
               <Button size="sm" variant="outline" onClick={() => void requestLocation()}>
                 Detect
               </Button>
@@ -348,7 +366,7 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
         <div className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-800">
           <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2 mb-3">
             <HospitalIcon className="h-4 w-4 text-emerald-600" />
-            Nearest Verified Hospitals
+            Nearby Hospitals
           </h3>
           {nearbyHospitalsLoading ? (
             <div className="space-y-3">
@@ -362,7 +380,12 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
               ))}
             </div>
           ) : hospitals.length === 0 ? (
-            <p className="text-sm text-gray-500">No verified hospitals found in range.</p>
+            <div className="text-xs text-gray-500 space-y-2 py-2">
+              <p>No verified hospitals currently in direct GPS range.</p>
+              <p className="text-amber-800 dark:text-amber-300">
+                In acute emergencies, call national emergency dispatch (112 / 911) directly.
+              </p>
+            </div>
           ) : (
             <div className="space-y-3 max-h-80 overflow-y-auto">
               {hospitals.slice(0, 5).map((hospital) => (
@@ -372,16 +395,38 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <h4 className="font-medium text-gray-900 dark:text-gray-100">{hospital.name}</h4>
+                      <div className="flex items-center gap-1.5">
+                        <h4 className="font-medium text-gray-900 dark:text-gray-100 text-sm">{hospital.name}</h4>
+                        {hospital.verification_status === "verified" ? (
+                          <span title="Verified">
+                            <ShieldCheckIcon className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                          </span>
+                        ) : (
+                          <span title="Unverified Geographic Listing">
+                            <HelpCircleIcon className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+                          </span>
+                        )}
+                      </div>
                       <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
                         {hospital.address}
                       </p>
                     </div>
                     {hospital.distance_km && (
-                      <span className="text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">
+                      <span className="text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-1 rounded shrink-0">
                         {hospital.distance_km} km
                       </span>
                     )}
+                  </div>
+                  <div className="mt-2 pt-2 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs">
+                    <span className="text-gray-500">
+                      {hospital.emergency_capability === "confirmed_24_7" ? "Confirmed 24/7" : "Capability unconfirmed"}
+                    </span>
+                    <Link
+                      href={`/hospitals/${hospital.id}`}
+                      className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
+                    >
+                      View Details →
+                    </Link>
                   </div>
                 </div>
               ))}
@@ -390,13 +435,15 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
         </div>
       </div>
 
-      {/* Right panel: Free MapLibre + OpenFreeMap */}
+      {/* Right panel: Free MapLibre + OpenFreeMap with 2D / 3D segmented toggle */}
       <div className="lg:w-2/3">
         <MapView
-          center={{ lat: userLat ?? 37.7749, lng: userLng ?? -122.4194 }}
+          center={mapCenter}
           markers={mapMarkers}
-          zoom={13}
+          zoom={hasUserCoords ? 14 : 4}
           routeCoordinates={routeCoordinates}
+          accuracyRadiusMeters={userAccuracy}
+          hasLocationFix={hasUserCoords}
           onMapClick={(coords) => {
             setManualLocation(coords.lat, coords.lng, 10);
           }}
