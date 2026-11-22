@@ -44,6 +44,8 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
   const [manualMode, setManualMode] = useState(false);
   const [manualInput, setManualInput] = useState({ lat: "", lng: "" });
   const [routeCoordinates, setRouteCoordinates] = useState<[number, number][]>([]);
+  const [selectedHospitalForRoute, setSelectedHospitalForRoute] = useState<Hospital | null>(null);
+  const [routingLoading, setRoutingLoading] = useState(false);
 
   // Keep track of first user location fix to auto-center once without overriding subsequent user panning
   const _hasCenteredOnLocation = useRef(false);
@@ -92,40 +94,38 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
     }
   );
 
-  // --- Fetch directions when ambulance is assigned or nearest hospital identified ---
-  useEffect(() => {
-    const targetHospital = hospitals.length > 0 ? hospitals[0] : null;
-    if (userLat == null || userLng == null || !targetHospital) return;
-    let isCancelled = false;
+  // --- Fetch directions ONLY on-demand when user explicitly clicks "Directions" ---
+  const handleRequestDirections = async (targetHospital: Hospital) => {
+    if (userLat == null || userLng == null) return;
+    setSelectedHospitalForRoute(targetHospital);
+    setRoutingLoading(true);
+    try {
+      const res = await fetch("/api/maps/directions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          origin: { lat: userLat, lng: userLng },
+          destination: { lat: targetHospital.latitude, lng: targetHospital.longitude },
+        }),
+      });
 
-    const getRoute = async () => {
-      try {
-        const res = await fetch("/api/maps/directions", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            origin: { lat: userLat, lng: userLng },
-            destination: { lat: targetHospital.latitude, lng: targetHospital.longitude },
-          }),
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          if (!isCancelled && data.coordinates) {
-            setRouteCoordinates(data.coordinates);
-          }
+      if (res.ok) {
+        const data = await res.json();
+        if (data.coordinates) {
+          setRouteCoordinates(data.coordinates);
         }
-      } catch (err) {
-        console.warn("[EmergencyMap] Route load notice:", err);
       }
-    };
+    } catch (err) {
+      console.warn("[EmergencyMap] Route load notice:", err);
+    } finally {
+      setRoutingLoading(false);
+    }
+  };
 
-    void getRoute();
-
-    return () => {
-      isCancelled = true;
-    };
-  }, [userLat, userLng, hospitals]);
+  const handleClearRoute = () => {
+    setSelectedHospitalForRoute(null);
+    setRouteCoordinates([]);
+  };
 
   // --- Compile Map Markers ---
   const mapMarkers: MapMarkerSpec[] = [];
@@ -421,12 +421,22 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
                     <span className="text-gray-500">
                       {hospital.emergency_capability === "confirmed_24_7" ? "Confirmed 24/7" : "Capability unconfirmed"}
                     </span>
-                    <Link
-                      href={`/hospitals/${hospital.id}`}
-                      className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
-                    >
-                      View Details →
-                    </Link>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => handleRequestDirections(hospital)}
+                        className="text-emerald-600 dark:text-emerald-400 font-medium hover:underline flex items-center gap-0.5"
+                      >
+                        {routingLoading && selectedHospitalForRoute?.id === hospital.id ? "Routing…" : "Directions"}
+                      </button>
+                      <span className="text-gray-300 dark:text-gray-600">·</span>
+                      <Link
+                        href={`/hospitals/${hospital.id}`}
+                        className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
+                      >
+                        View Details →
+                      </Link>
+                    </div>
                   </div>
                 </div>
               ))}
