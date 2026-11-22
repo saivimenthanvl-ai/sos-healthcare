@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { useLocation } from "@/hooks/useLocation";
 import { supabase } from "@/lib/supabase";
 import { useRealtime } from "@/hooks/useRealtime";
@@ -14,6 +14,8 @@ import {
   RefreshCwIcon,
   ShieldCheckIcon,
   HelpCircleIcon,
+  NavigationIcon,
+  RadioIcon,
 } from "lucide-react";
 import Link from "next/link";
 import type { Ambulance, Emergency, Hospital } from "@/types/app";
@@ -23,7 +25,7 @@ interface EmergencyMapProps {
 }
 
 export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
-  // Use consolidated geolocation hook
+  // Consolidated browser geolocation hook with high accuracy
   const {
     latitude: userLat,
     longitude: userLng,
@@ -43,12 +45,19 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
   const [nearbyHospitalsLoading, setNearbyHospitalsLoading] = useState(false);
   const [manualMode, setManualMode] = useState(false);
   const [manualInput, setManualInput] = useState({ lat: "", lng: "" });
-  const [routeCoordinates, setRouteCoordinates] = useState<[number, number][]>([]);
+
+  // Route state via Google Routes API v2
+  const [encodedPolyline, setEncodedPolyline] = useState<string | null>(null);
   const [selectedHospitalForRoute, setSelectedHospitalForRoute] = useState<Hospital | null>(null);
+  const [routeSummary, setRouteSummary] = useState<{
+    distanceKm: number;
+    durationMinutes: number;
+  } | null>(null);
   const [routingLoading, setRoutingLoading] = useState(false);
 
-  // Keep track of first user location fix to auto-center once without overriding subsequent user panning
-  const _hasCenteredOnLocation = useRef(false);
+  // Live Location Sync with User Consent
+  const [liveTrackingEnabled, setLiveTrackingEnabled] = useState(false);
+  const lastSyncTimestampRef = useRef<number>(0);
 
   const [sosStatusMessage, setSosStatusMessage] = useState<{
     text: string;
@@ -84,7 +93,35 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
     };
   }, [userLat, userLng]);
 
-  // --- Subscribe to assigned ambulance location updates via Supabase Realtime ---
+  // --- Synchronize Live GPS Location to Supabase during Active Tracking Session ---
+  useEffect(() => {
+    if (!liveTrackingEnabled || userLat == null || userLng == null) return;
+
+    const now = Date.now();
+    // Throttle writes: maximum 1 write per 10 seconds
+    if (now - lastSyncTimestampRef.current < 10000) return;
+    lastSyncTimestampRef.current = now;
+
+    const syncLocation = async () => {
+      try {
+        await fetch("/api/locations", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            latitude: userLat,
+            longitude: userLng,
+            accuracy: userAccuracy || 10,
+          }),
+        });
+      } catch (err) {
+        console.warn("[EmergencyMap] Live location sync notice:", err);
+      }
+    };
+
+    void syncLocation();
+  }, [userLat, userLng, userAccuracy, liveTrackingEnabled]);
+
+  // --- Subscribe to assigned ambulance updates via Supabase Realtime ---
   useRealtime<Ambulance>(
     "ambulances",
     emergency?.assigned_ambulance_id ? `id=eq.${emergency.assigned_ambulance_id}` : null,
@@ -94,29 +131,39 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
     }
   );
 
-  // --- Fetch directions ONLY on-demand when user explicitly clicks "Directions" ---
+  // --- On-Demand Directions via Google Routes API v2 (computeRoutes) ---
   const handleRequestDirections = async (targetHospital: Hospital) => {
     if (userLat == null || userLng == null) return;
     setSelectedHospitalForRoute(targetHospital);
     setRoutingLoading(true);
+    setRouteSummary(null);
+
     try {
-      const res = await fetch("/api/maps/directions", {
+      const res = await fetch("/api/maps/google-routes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           origin: { lat: userLat, lng: userLng },
           destination: { lat: targetHospital.latitude, lng: targetHospital.longitude },
+          travelMode: "DRIVE",
         }),
       });
 
       if (res.ok) {
         const data = await res.json();
-        if (data.coordinates) {
-          setRouteCoordinates(data.coordinates);
+        if (data.encodedPolyline) {
+          setEncodedPolyline(data.encodedPolyline);
+          setRouteSummary({
+            distanceKm: data.distanceKm,
+            durationMinutes: data.durationMinutes,
+          });
         }
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        console.warn("[Google Routes error]:", errData);
       }
     } catch (err) {
-      console.warn("[EmergencyMap] Route load notice:", err);
+      console.warn("[EmergencyMap] Google Route load notice:", err);
     } finally {
       setRoutingLoading(false);
     }
@@ -124,7 +171,8 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
 
   const handleClearRoute = () => {
     setSelectedHospitalForRoute(null);
-    setRouteCoordinates([]);
+    setEncodedPolyline(null);
+    setRouteSummary(null);
   };
 
   // --- Compile Map Markers ---
@@ -146,7 +194,7 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
       position: { lat: h.latitude, lng: h.longitude },
       title: h.name,
       kind: "hospital",
-      info: `${h.address}${h.distance_km ? `<br/>${h.distance_km} km away` : ""}<br/><em>${h.verification_status === "verified" ? "Verified Hospital" : "Unverified Geographic Listing"}</em>`,
+      info: `${h.address}${h.distance_km ? `<br/><strong>${h.distance_km} km</strong> away` : ""}<br/><em>${h.verification_status === "verified" ? "✓ Verified Hospital" : "Unverified Geographic Listing"}</em>`,
     });
   });
 
@@ -160,7 +208,7 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
     });
   }
 
-  // --- Trigger Emergency SOS ---
+  // --- Trigger Emergency SOS (Decoupled from Map availability) ---
   const handleSOS = async () => {
     if (userLat == null || userLng == null) {
       setSosStatusMessage({
@@ -207,7 +255,7 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
       }
 
       setSosStatusMessage({
-        text: "SOS Emergency logged successfully. Our dispatchers and designated emergency contacts have been alerted.",
+        text: "SOS Emergency logged successfully. Dispatchers and designated emergency contacts have been alerted.",
         type: "info",
       });
     } catch {
@@ -230,28 +278,28 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
     }
   };
 
-  // Determine Map Center safely: never confuse initial fallback with user's position
+  // Determine Map Center safely
   const hasUserCoords = userLat != null && userLng != null;
   const mapCenter = hasUserCoords
     ? { lat: userLat, lng: userLng }
-    : { lat: 20.5937, lng: 78.9629 }; // Neutral overview center (never presented as user location)
+    : { lat: 13.0827, lng: 80.2707 }; // Neutral Chennai overview if no GPS yet
 
   return (
     <div className="flex flex-col lg:flex-row gap-6">
       {/* Left panel: SOS controls & details */}
-      <div className="lg:w-1/3 space-y-6">
+      <div className="lg:w-1/3 space-y-5">
         <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md border border-gray-100 dark:border-gray-800">
           <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-            Emergency Assistance
+            Emergency Guidance &amp; Contact Alert
           </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-            Press the button below to record an emergency alert. We notify your configured emergency contacts and surface the nearest verified hospitals.
+          <p className="text-xs text-gray-600 dark:text-gray-400 mb-5 leading-relaxed">
+            Press the button below to record an emergency alert. We notify your configured emergency contacts and surface the nearest verified hospitals. This service does not replace official municipal ambulance dispatch (call 112 / 911).
           </p>
 
           <Button
             variant="danger"
             size="lg"
-            className="w-full text-lg py-6 shadow-lg shadow-red-200 dark:shadow-none animate-pulse"
+            className="w-full text-lg py-6 shadow-lg shadow-red-200 dark:shadow-none animate-pulse font-bold tracking-wide"
             disabled={loading || userLat == null}
             onClick={handleSOS}
           >
@@ -267,7 +315,7 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
                   Retry GPS
                 </Button>
                 <Button size="sm" variant="outline" onClick={() => setManualMode(!manualMode)}>
-                  {manualMode ? "Cancel Manual" : "Manual Location"}
+                  {manualMode ? "Cancel Manual" : "Choose Location"}
                 </Button>
               </div>
             </div>
@@ -317,10 +365,10 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
           )}
         </div>
 
-        {/* Location Status Card */}
-        <div className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-800">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+        {/* Location Status & Live Tracking Consent Card */}
+        <div className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-800 space-y-3">
+          <div className="flex items-center justify-between">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2 text-sm">
               <MapPinIcon className="h-4 w-4 text-blue-600" />
               Your Location
             </h3>
@@ -333,14 +381,14 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
           </div>
 
           {userLat != null && userLng != null ? (
-            <div className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+            <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
               <p>
                 Latitude: <span className="font-mono font-medium text-gray-900 dark:text-gray-100">{userLat.toFixed(5)}</span>
               </p>
               <p>
                 Longitude: <span className="font-mono font-medium text-gray-900 dark:text-gray-100">{userLng.toFixed(5)}</span>
               </p>
-              <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+              <div className="flex flex-wrap items-center gap-2 pt-1 text-[11px]">
                 <span className="text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1">
                   <CheckCircleIcon className="h-3.5 w-3.5" />
                   {locationSource === "manual" ? "Manual input" : `GPS locked (~${Math.round(userAccuracy || 0)}m)`}
@@ -353,18 +401,60 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
               </div>
             </div>
           ) : (
-            <div className="text-sm text-gray-500 flex items-center justify-between">
+            <div className="text-xs text-gray-500 flex items-center justify-between">
               <span>{locationLoading ? "Detecting browser GPS..." : "Location permission needed"}</span>
               <Button size="sm" variant="outline" onClick={() => void requestLocation()}>
                 Detect
               </Button>
             </div>
           )}
+
+          {/* User Tracking Consent Toggle */}
+          <div className="pt-2 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <RadioIcon className={`h-3.5 w-3.5 ${liveTrackingEnabled ? "text-emerald-600 animate-pulse" : "text-gray-400"}`} />
+              <span className="text-xs font-medium text-gray-800 dark:text-gray-200">
+                Live Location Sync
+              </span>
+            </div>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                checked={liveTrackingEnabled}
+                onChange={(e) => setLiveTrackingEnabled(e.target.checked)}
+                className="sr-only peer"
+              />
+              <div className="w-8 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+            </label>
+          </div>
         </div>
 
-        {/* Nearest Hospitals List */}
+        {/* Active Driving Route Banner if computed */}
+        {routeSummary && selectedHospitalForRoute && (
+          <div className="bg-blue-50 dark:bg-blue-950/40 p-3.5 rounded-lg border border-blue-200 dark:border-blue-900 text-xs space-y-1.5">
+            <div className="flex items-center justify-between">
+              <span className="font-semibold text-blue-900 dark:text-blue-200 flex items-center gap-1">
+                <NavigationIcon className="h-3.5 w-3.5 text-blue-600" />
+                Driving Route to {selectedHospitalForRoute.name}
+              </span>
+              <button
+                type="button"
+                onClick={handleClearRoute}
+                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 font-bold"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="flex items-center gap-4 text-gray-700 dark:text-gray-300 pt-0.5">
+              <span>Distance: <strong>{routeSummary.distanceKm} km</strong></span>
+              <span>Estimated Duration: <strong>~{routeSummary.durationMinutes} mins</strong></span>
+            </div>
+          </div>
+        )}
+
+        {/* Nearby Hospitals Recommendation Panel */}
         <div className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-800">
-          <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2 mb-3">
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2 mb-3 text-sm">
             <HospitalIcon className="h-4 w-4 text-emerald-600" />
             Nearby Hospitals
           </h3>
@@ -388,10 +478,14 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
             </div>
           ) : (
             <div className="space-y-3 max-h-80 overflow-y-auto">
-              {hospitals.slice(0, 5).map((hospital) => (
+              {hospitals.slice(0, 6).map((hospital) => (
                 <div
                   key={hospital.id}
-                  className="p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                  className={`p-3 border rounded-lg transition-colors ${
+                    selectedHospitalForRoute?.id === hospital.id
+                      ? "border-blue-500 bg-blue-50/40 dark:bg-blue-950/20"
+                      : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
+                  }`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
@@ -445,15 +539,16 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
         </div>
       </div>
 
-      {/* Right panel: Free MapLibre + OpenFreeMap with 2D / 3D segmented toggle */}
+      {/* Right panel: Modern Google Maps with Street View cartography & 2D/3D toggle */}
       <div className="lg:w-2/3">
         <MapView
           center={mapCenter}
           markers={mapMarkers}
-          zoom={hasUserCoords ? 14 : 4}
-          routeCoordinates={routeCoordinates}
+          zoom={hasUserCoords ? 15 : 12}
+          encodedPolyline={encodedPolyline}
           accuracyRadiusMeters={userAccuracy}
           hasLocationFix={hasUserCoords}
+          selectedMarkerId={selectedHospitalForRoute ? `hospital-${selectedHospitalForRoute.id}` : null}
           onMapClick={(coords) => {
             setManualLocation(coords.lat, coords.lng, 10);
           }}

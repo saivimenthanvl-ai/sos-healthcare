@@ -5,8 +5,8 @@ const isDev = process.env.NODE_ENV !== "production";
 // In development, Next.js / Turbopack hot reload overlay and eval tooling require 'unsafe-eval' on script-src.
 // In production, eval is strictly disabled and blocked for enterprise clinical security.
 const scriptSrc = isDev
-  ? "'self' 'unsafe-inline' 'unsafe-eval' https://tiles.openfreemap.org"
-  : "'self' 'unsafe-inline' https://tiles.openfreemap.org";
+  ? "'self' 'unsafe-inline' 'unsafe-eval' https://maps.googleapis.com https://tiles.openfreemap.org"
+  : "'self' 'unsafe-inline' https://maps.googleapis.com https://tiles.openfreemap.org";
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -25,11 +25,11 @@ const securityHeaders = [
       "object-src 'none'",
       "worker-src 'self' blob:",
       "child-src 'self' blob:",
-      "img-src 'self' data: blob: https://*.googleusercontent.com https://tiles.openfreemap.org https://*.tile.openstreetmap.org",
-      "font-src 'self' data:",
-      "style-src 'self' 'unsafe-inline' https://tiles.openfreemap.org",
+      "img-src 'self' data: blob: https://*.googleusercontent.com https://maps.gstatic.com https://*.googleapis.com https://maps.googleapis.com https://tiles.openfreemap.org https://*.tile.openstreetmap.org",
+      "font-src 'self' data: https://fonts.gstatic.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://tiles.openfreemap.org",
       `script-src ${scriptSrc}`,
-      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://tiles.openfreemap.org https://api.openrouteservice.org https://overpass-api.de https://nominatim.openstreetmap.org https://accounts.google.com https://oauth2.googleapis.com https://health.googleapis.com",
+      "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://maps.googleapis.com https://routes.googleapis.com https://*.googleapis.com https://tiles.openfreemap.org https://api.openrouteservice.org https://overpass-api.de https://nominatim.openstreetmap.org https://accounts.google.com https://oauth2.googleapis.com https://health.googleapis.com",
       ...(isDev ? [] : ["upgrade-insecure-requests"]),
     ].join("; "),
   },

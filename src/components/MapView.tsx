@@ -1,8 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
-import * as maplibregl from "maplibre-gl";
-import "maplibre-gl/dist/maplibre-gl.css";
+import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import {
+  APIProvider,
+  Map as GoogleMap,
+  useMap,
+  useMapsLibrary,
+  Marker,
+  InfoWindow,
+} from "@vis.gl/react-google-maps";
 import type { Coordinates, Hospital } from "@/types/app";
 
 export interface MapMarkerSpec {
@@ -18,357 +24,276 @@ interface MapViewProps {
   markers: MapMarkerSpec[];
   zoom?: number;
   className?: string;
-  routeCoordinates?: [number, number][]; // [lng, lat]
+  encodedPolyline?: string | null;
   onMapClick?: (coords: Coordinates) => void;
   showRecenterButton?: boolean;
   accuracyRadiusMeters?: number | null;
   hasLocationFix?: boolean;
+  selectedMarkerId?: string | null;
+  onMarkerSelect?: (markerId: string | null) => void;
 }
-
-const PIN_COLORS: Record<MapMarkerSpec["kind"], { fill: string; stroke: string }> = {
-  hospital: { fill: "#10b981", stroke: "#065f4f" },
-  ambulance: { fill: "#ef4444", stroke: "#7f1d1d" },
-  user: { fill: "#3b82f6", stroke: "#ffffff" },
-  emergency: { fill: "#dc2626", stroke: "#ffffff" },
-};
-
-// Configure static same-origin worker URL for MapLibre GL JS to prevent Turbopack/bundler URL resolution failure
-if (typeof window !== "undefined") {
-  maplibregl.setWorkerUrl("/maplibre-gl-worker.mjs");
-}
-
-export const OPENFREEMAP_STYLE = "https://tiles.openfreemap.org/styles/liberty";
 
 /**
- * Free, open-source MapView powered by MapLibre GL JS + OpenFreeMap.
- * Supports smooth 2D and 3D building extrusion modes with zero Google Maps billing required.
+ * Inner component to manage dynamic map features, vector 3D tilt,
+ * accuracy circles, and decoded route polyline overlays.
+ */
+function MapEffects({
+  center,
+  zoom,
+  hasLocationFix,
+  accuracyRadiusMeters,
+  encodedPolyline,
+  mapMode,
+}: {
+  center: Coordinates;
+  zoom: number;
+  hasLocationFix?: boolean;
+  accuracyRadiusMeters?: number | null;
+  encodedPolyline?: string | null;
+  mapMode: "2d" | "3d";
+}) {
+  const map = useMap();
+  const geometry = useMapsLibrary("geometry");
+  const polylineRef = useRef<google.maps.Polyline | null>(null);
+  const accuracyCircleRef = useRef<google.maps.Circle | null>(null);
+
+  // Sync mode tilt (2D vs 3D)
+  useEffect(() => {
+    if (!map) return;
+    try {
+      if (mapMode === "3d") {
+        map.setTilt(45);
+        map.setHeading(-17.6);
+      } else {
+        map.setTilt(0);
+        map.setHeading(0);
+      }
+    } catch (e) {
+      console.warn("[GoogleMap tilt notice]:", e);
+    }
+  }, [map, mapMode]);
+
+  // Render and update Accuracy Circle
+  useEffect(() => {
+    if (!map) return;
+
+    if (hasLocationFix && accuracyRadiusMeters && accuracyRadiusMeters > 0) {
+      if (!accuracyCircleRef.current) {
+        accuracyCircleRef.current = new google.maps.Circle({
+          strokeColor: "#2563eb",
+          strokeOpacity: 0.6,
+          strokeWeight: 1.5,
+          fillColor: "#3b82f6",
+          fillOpacity: 0.15,
+          map,
+          center: { lat: center.lat, lng: center.lng },
+          radius: accuracyRadiusMeters,
+          clickable: false,
+        });
+      } else {
+        accuracyCircleRef.current.setCenter({ lat: center.lat, lng: center.lng });
+        accuracyCircleRef.current.setRadius(accuracyRadiusMeters);
+        accuracyCircleRef.current.setMap(map);
+      }
+    } else if (accuracyCircleRef.current) {
+      accuracyCircleRef.current.setMap(null);
+    }
+
+    return () => {
+      if (accuracyCircleRef.current) {
+        accuracyCircleRef.current.setMap(null);
+      }
+    };
+  }, [map, center.lat, center.lng, accuracyRadiusMeters, hasLocationFix]);
+
+  // Decode and render route polyline
+  useEffect(() => {
+    if (!map) return;
+
+    if (polylineRef.current) {
+      polylineRef.current.setMap(null);
+      polylineRef.current = null;
+    }
+
+    if (encodedPolyline && geometry) {
+      try {
+        const decodedPath = geometry.encoding.decodePath(encodedPolyline);
+        polylineRef.current = new google.maps.Polyline({
+          path: decodedPath,
+          geodesic: true,
+          strokeColor: "#1d4ed8",
+          strokeOpacity: 0.9,
+          strokeWeight: 5,
+          map,
+        });
+
+        // Fit map bounds to show route clearly
+        const bounds = new google.maps.LatLngBounds();
+        decodedPath.forEach((pt) => bounds.extend(pt));
+        map.fitBounds(bounds, { top: 60, right: 60, bottom: 60, left: 60 });
+      } catch (err) {
+        console.warn("[Polyline decode error]:", err);
+      }
+    }
+
+    return () => {
+      if (polylineRef.current) {
+        polylineRef.current.setMap(null);
+      }
+    };
+  }, [map, encodedPolyline, geometry]);
+
+  return null;
+}
+
+/**
+ * Modern Google Maps street-level MapView powered by @vis.gl/react-google-maps.
+ * Zero custom sign-in required, high-performance vector cartography, 2D/3D tilt,
+ * live GPS marker with accuracy circle, and decoded driving route overlays.
  */
 export function MapView({
   center,
   markers,
-  zoom = 13,
+  zoom = 15,
   className = "w-full h-125",
-  routeCoordinates,
+  encodedPolyline,
   onMapClick,
   showRecenterButton = true,
   accuracyRadiusMeters,
   hasLocationFix = true,
+  selectedMarkerId,
+  onMarkerSelect,
 }: MapViewProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<maplibregl.Map | null>(null);
-  const markersRef = useRef<Map<string, maplibregl.Marker>>(new Map());
-  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
-  const [userHasPanned, setUserHasPanned] = useState(false);
   const [mapMode, setMapMode] = useState<"2d" | "3d">("2d");
-  const [modeNotice, setModeNotice] = useState<string | null>(null);
+  const [userHasPanned, setUserHasPanned] = useState(false);
+  const [activeInfoWindowId, setActiveInfoWindowId] = useState<string | null>(null);
 
-  // Serialise markers and route
-  const markersKey = JSON.stringify(markers);
-  const routeKey = JSON.stringify(routeCoordinates || []);
+  const apiKey =
+    process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ||
+    "AIzaSyCbaz3JaBHR50jf3_AX_CkTvEkLx_1_zmA";
 
-  // Initialize MapLibre
-  useEffect(() => {
-    if (!containerRef.current) return;
-    let isCancelled = false;
-
-    try {
-      const map = new maplibregl.Map({
-        container: containerRef.current,
-        style: OPENFREEMAP_STYLE,
-        center: [center.lng, center.lat],
-        zoom,
-        pitch: 0,
-        bearing: 0,
-        attributionControl: false,
-      });
-
-      map.addControl(
-        new maplibregl.AttributionControl({
-          compact: true,
-          customAttribution: "© OpenStreetMap contributors | © OpenFreeMap",
-        }),
-        "bottom-right"
-      );
-
-      map.addControl(new maplibregl.NavigationControl({ showCompass: true }), "top-right");
-
-      map.on("load", () => {
-        if (isCancelled) return;
-        setStatus("ready");
-      });
-
-      map.on("error", (e: unknown) => {
-        console.warn("[MapLibre notice]:", e);
-        const errObj = e as { error?: { message?: string }; message?: string } | undefined;
-        const msg = String(errObj?.error?.message || errObj?.message || "");
-        if (msg.toLowerCase().includes("worker") || msg.toLowerCase().includes("failed to fetch")) {
-          setTimeout(() => {
-            if (!isCancelled) setStatus("error");
-          }, 0);
-        }
-      });
-
-      map.on("dragstart", () => {
-        setUserHasPanned(true);
-      });
-
-      if (onMapClick) {
-        map.on("click", (e: { lngLat: { lat: number; lng: number } }) => {
-          onMapClick({ lat: e.lngLat.lat, lng: e.lngLat.lng });
-        });
-      }
-
-      mapRef.current = map;
-    } catch (err) {
-      console.error("[MapLibre init error]:", err);
-      setTimeout(() => {
-        if (!isCancelled) setStatus("error");
-      }, 0);
-    }
-
-    const markersMap = markersRef.current;
-
-    return () => {
-      isCancelled = true;
-      markersMap.forEach((m) => m.remove());
-      markersMap.clear();
-      if (mapRef.current) {
-        mapRef.current.remove();
-        mapRef.current = null;
-      }
-    };
-  }, []); // Run once on mount
-
-  // Toggle 2D / 3D Mode
-  const handleToggleMode = useCallback(
-    (newMode: "2d" | "3d") => {
-      const map = mapRef.current;
-      if (!map || status !== "ready") return;
-
-      setModeNotice(null);
-
-      try {
-        if (newMode === "3d") {
-          // Check WebGL extrusion support
-          map.easeTo({
-            pitch: 55,
-            bearing: -17.6,
-            duration: 1000,
-          });
-
-          // OpenFreeMap includes a 'building-3d' layer with fill-extrusion in its Liberty style
-          if (map.getLayer("building-3d")) {
-            map.setLayoutProperty("building-3d", "visibility", "visible");
-          }
-          if (map.getLayer("building")) {
-            map.setLayoutProperty("building", "visibility", "none");
-          }
-          setMapMode("3d");
-        } else {
-          map.easeTo({
-            pitch: 0,
-            bearing: 0,
-            duration: 1000,
-          });
-
-          if (map.getLayer("building-3d")) {
-            map.setLayoutProperty("building-3d", "visibility", "none");
-          }
-          if (map.getLayer("building")) {
-            map.setLayoutProperty("building", "visibility", "visible");
-          }
-          setMapMode("2d");
-        }
-      } catch (err) {
-        console.warn("[MapView mode toggle fallback]:", err);
-        setModeNotice("3D rendering unsupported on this hardware; falling back to 2D view.");
-        setMapMode("2d");
-      }
-    },
-    [status]
-  );
-
-  // Update Markers
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map || status !== "ready") return;
-
-    const specs: MapMarkerSpec[] = JSON.parse(markersKey);
-    const currentKeys = new Set(specs.map((s) => s.id));
-
-    // Remove obsolete markers
-    markersRef.current.forEach((marker, id) => {
-      if (!currentKeys.has(id)) {
-        marker.remove();
-        markersRef.current.delete(id);
-      }
-    });
-
-    // Add or update markers
-    specs.forEach((spec) => {
-      let marker = markersRef.current.get(spec.id);
-      const color = PIN_COLORS[spec.kind];
-
-      if (!marker) {
-        // Create custom DOM element for marker
-        const el = document.createElement("div");
-        el.className = "sos-map-marker";
-        el.style.width = spec.kind === "user" ? "22px" : "28px";
-        el.style.height = spec.kind === "user" ? "22px" : "28px";
-        el.style.borderRadius = "50%";
-        el.style.backgroundColor = color.fill;
-        el.style.border = `2.5px solid ${color.stroke}`;
-        el.style.boxShadow = "0 2px 6px rgba(0,0,0,0.35)";
-        el.style.cursor = spec.info ? "pointer" : "default";
-
-        marker = new maplibregl.Marker({ element: el })
-          .setLngLat([spec.position.lng, spec.position.lat])
-          .addTo(map);
-
-        if (spec.info) {
-          const popup = new maplibregl.Popup({ offset: 25 }).setHTML(
-            `<div style="padding:6px;font-size:13px;font-family:sans-serif;"><strong>${spec.title}</strong><br/>${spec.info}</div>`
-          );
-          marker.setPopup(popup);
-        }
-
-        markersRef.current.set(spec.id, marker);
-      } else {
-        marker.setLngLat([spec.position.lng, spec.position.lat]);
-      }
-    });
-  }, [markersKey, status]);
-
-  // Update Route Polyline
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map || status !== "ready") return;
-
-    const coords: [number, number][] = JSON.parse(routeKey);
-
-    const sourceId = "route-source";
-    const layerId = "route-layer";
-
-    if (coords.length >= 2) {
-      const geojson: GeoJSON.Feature<GeoJSON.LineString> = {
-        type: "Feature",
-        properties: {},
-        geometry: {
-          type: "LineString",
-          coordinates: coords,
-        },
-      };
-
-      if (map.getSource(sourceId)) {
-        (map.getSource(sourceId) as maplibregl.GeoJSONSource).setData(geojson);
-      } else {
-        map.addSource(sourceId, {
-          type: "geojson",
-          data: geojson,
-        });
-
-        map.addLayer({
-          id: layerId,
-          type: "line",
-          source: sourceId,
-          layout: {
-            "line-join": "round",
-            "line-cap": "round",
-          },
-          paint: {
-            "line-color": "#3b82f6",
-            "line-width": 4.5,
-            "line-opacity": 0.85,
-          },
-        });
-      }
-    } else {
-      if (map.getLayer(layerId)) map.removeLayer(layerId);
-      if (map.getSource(sourceId)) map.removeSource(sourceId);
-    }
-  }, [routeKey, status]);
-
-  // Update Accuracy Circle if provided
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map || status !== "ready") return;
-
-    const accSourceId = "accuracy-source";
-    const accLayerId = "accuracy-layer";
-
-    if (hasLocationFix && accuracyRadiusMeters && accuracyRadiusMeters > 0) {
-      // Create a 32-point polygon approximating accuracy radius
-      const points = 32;
-      const coords: [number, number][] = [];
-      const km = accuracyRadiusMeters / 1000;
-      const distanceX = km / (111.32 * Math.cos((center.lat * Math.PI) / 180));
-      const distanceY = km / 110.574;
-
-      for (let i = 0; i < points; i++) {
-        const theta = (i / points) * (2 * Math.PI);
-        const x = distanceX * Math.cos(theta);
-        const y = distanceY * Math.sin(theta);
-        coords.push([center.lng + x, center.lat + y]);
-      }
-      coords.push(coords[0]); // close polygon
-
-      const geojson: GeoJSON.Feature<GeoJSON.Polygon> = {
-        type: "Feature",
-        properties: {},
-        geometry: {
-          type: "Polygon",
-          coordinates: [coords],
-        },
-      };
-
-      if (map.getSource(accSourceId)) {
-        (map.getSource(accSourceId) as maplibregl.GeoJSONSource).setData(geojson);
-      } else {
-        map.addSource(accSourceId, {
-          type: "geojson",
-          data: geojson,
-        });
-
-        map.addLayer(
-          {
-            id: accLayerId,
-            type: "fill",
-            source: accSourceId,
-            paint: {
-              "fill-color": "#3b82f6",
-              "fill-opacity": 0.15,
-              "fill-outline-color": "#2563eb",
-            },
-          },
-          map.getLayer("route-layer") ? "route-layer" : undefined
-        );
-      }
-    } else {
-      if (map.getLayer(accLayerId)) map.removeLayer(accLayerId);
-      if (map.getSource(accSourceId)) map.removeSource(accSourceId);
-    }
-  }, [center.lat, center.lng, accuracyRadiusMeters, hasLocationFix, status]);
+  const mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID || undefined;
 
   const handleRecenter = useCallback(() => {
-    if (mapRef.current) {
-      mapRef.current.flyTo({
-        center: [center.lng, center.lat],
-        zoom,
-        essential: true,
-      });
-      setUserHasPanned(false);
-    }
-  }, [center.lat, center.lng, zoom]);
+    setUserHasPanned(false);
+  }, []);
+
+  const activeMarker = useMemo(() => {
+    return markers.find((m) => m.id === (activeInfoWindowId || selectedMarkerId));
+  }, [markers, activeInfoWindowId, selectedMarkerId]);
+
+  if (!apiKey) {
+    return (
+      <div className={`relative rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center p-6 text-center text-xs text-gray-500 ${className}`}>
+        Google Maps API key is not configured.
+      </div>
+    );
+  }
 
   return (
-    <div className={`relative rounded-lg overflow-hidden bg-gray-100 ${className}`}>
-      <div ref={containerRef} className="w-full h-full" />
+    <div className={`relative rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-900 ${className}`}>
+      <APIProvider apiKey={apiKey} libraries={["geometry", "marker"]}>
+        <GoogleMap
+          defaultCenter={{ lat: center.lat, lng: center.lng }}
+          center={{ lat: center.lat, lng: center.lng }}
+          defaultZoom={zoom}
+          zoom={userHasPanned ? undefined : zoom}
+          mapId={mapId}
+          gestureHandling="greedy"
+          disableDefaultUI={false}
+          zoomControl={true}
+          mapTypeControl={false}
+          scaleControl={true}
+          streetViewControl={false}
+          rotateControl={true}
+          fullscreenControl={false}
+          onDragstart={() => setUserHasPanned(true)}
+          onClick={(e) => {
+            if (e.detail?.latLng && onMapClick) {
+              onMapClick({ lat: e.detail.latLng.lat, lng: e.detail.latLng.lng });
+            }
+            setActiveInfoWindowId(null);
+            onMarkerSelect?.(null);
+          }}
+          className="w-full h-full"
+        >
+          <MapEffects
+            center={center}
+            zoom={zoom}
+            hasLocationFix={hasLocationFix}
+            accuracyRadiusMeters={accuracyRadiusMeters}
+            encodedPolyline={encodedPolyline}
+            mapMode={mapMode}
+          />
+
+          {/* Render Map Markers */}
+          {markers.map((marker) => {
+            const isUser = marker.kind === "user";
+            return (
+              <Marker
+                key={marker.id}
+                position={{ lat: marker.position.lat, lng: marker.position.lng }}
+                title={marker.title}
+                onClick={() => {
+                  setActiveInfoWindowId(marker.id);
+                  onMarkerSelect?.(marker.id);
+                }}
+                icon={
+                  isUser
+                    ? {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 8.5,
+                        fillColor: "#2563eb",
+                        fillOpacity: 1,
+                        strokeColor: "#ffffff",
+                        strokeWeight: 2.5,
+                      }
+                    : {
+                        path: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",
+                        fillColor: marker.kind === "hospital" ? "#059669" : "#dc2626",
+                        fillOpacity: 1,
+                        strokeColor: "#ffffff",
+                        strokeWeight: 1.5,
+                        scale: 1.5,
+                        anchor: new google.maps.Point(12, 22),
+                      }
+                }
+              />
+            );
+          })}
+
+          {/* Active InfoWindow for selected marker */}
+          {activeMarker && (
+            <InfoWindow
+              position={{
+                lat: activeMarker.position.lat,
+                lng: activeMarker.position.lng,
+              }}
+              onCloseClick={() => {
+                setActiveInfoWindowId(null);
+                onMarkerSelect?.(null);
+              }}
+              pixelOffset={[0, activeMarker.kind === "user" ? -12 : -32]}
+            >
+              <div className="p-1 max-w-xs text-xs font-sans text-gray-900 leading-snug">
+                <p className="font-bold text-sm mb-1">{activeMarker.title}</p>
+                {activeMarker.info && (
+                  <div
+                    dangerouslySetInnerHTML={{ __html: activeMarker.info }}
+                    className="text-gray-600 space-y-0.5"
+                  />
+                )}
+              </div>
+            </InfoWindow>
+          )}
+        </GoogleMap>
+      </APIProvider>
 
       {/* 2D / 3D Segmented Control */}
       <div className="absolute top-3 left-3 z-10 flex items-center bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 p-0.5 text-xs font-semibold">
         <button
           type="button"
-          onClick={() => handleToggleMode("2d")}
+          onClick={() => setMapMode("2d")}
           className={`px-3 py-1 rounded-md transition-colors ${
             mapMode === "2d"
               ? "bg-blue-600 text-white shadow-sm"
@@ -380,48 +305,26 @@ export function MapView({
         </button>
         <button
           type="button"
-          onClick={() => handleToggleMode("3d")}
+          onClick={() => setMapMode("3d")}
           className={`px-3 py-1 rounded-md transition-colors ${
             mapMode === "3d"
               ? "bg-blue-600 text-white shadow-sm"
               : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
           }`}
-          aria-label="Switch to 3D buildings view"
+          aria-label="Switch to 3D view"
         >
           3D
         </button>
       </div>
 
       {/* Recenter Button when user has panned away */}
-      {showRecenterButton && userHasPanned && status === "ready" && (
+      {showRecenterButton && userHasPanned && (
         <button
           onClick={handleRecenter}
-          className="absolute bottom-4 left-4 z-10 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-xs font-semibold px-3 py-1.5 rounded-full shadow-md border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+          className="absolute bottom-4 left-4 z-10 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-xs font-semibold px-3 py-1.5 rounded-full shadow-md border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-1"
         >
-          📍 Recenter
+          📍 Recenter on GPS
         </button>
-      )}
-
-      {/* Mode fallback notice */}
-      {modeNotice && (
-        <div className="absolute top-12 left-3 z-10 bg-amber-50 dark:bg-amber-950/80 text-amber-800 dark:text-amber-200 text-xs px-2.5 py-1.5 rounded shadow border border-amber-200">
-          {modeNotice}
-        </div>
-      )}
-
-      {/* Loading state */}
-      {status === "loading" && (
-        <div className="absolute inset-0 flex items-center justify-center text-sm text-gray-500 bg-gray-100 dark:bg-gray-900">
-          Loading OpenFreeMap…
-        </div>
-      )}
-
-      {/* Error state */}
-      {status === "error" && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 p-4 text-center text-sm text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-900">
-          <span className="font-semibold text-gray-800 dark:text-gray-100">Map unavailable</span>
-          <span>Could not render OpenFreeMap tiles. Hospital and location directory remain functional.</span>
-        </div>
       )}
     </div>
   );
@@ -436,9 +339,9 @@ export function hospitalMarker(hospital: Hospital): MapMarkerSpec {
     kind: "hospital",
     info: [
       hospital.address,
-      hospital.distance_km != null ? `${hospital.distance_km} km away` : null,
-      hospital.phone ? `Phone: ${hospital.phone}` : null,
-      hospital.verification_status === "verified" ? "Verified Hospital" : "Unverified Geographic Listing",
+      hospital.distance_km != null ? `<strong>${hospital.distance_km} km</strong> away` : null,
+      hospital.phone ? `Phone: <a href="tel:${hospital.phone}" class="text-blue-600">${hospital.phone}</a>` : null,
+      hospital.verification_status === "verified" ? "✓ Verified Hospital" : "Unverified Geographic Listing",
     ]
       .filter(Boolean)
       .join("<br/>"),
