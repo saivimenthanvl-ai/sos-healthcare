@@ -8,6 +8,7 @@ import {
   useMapsLibrary,
   Marker,
   InfoWindow,
+  useApiIsLoaded,
 } from "@vis.gl/react-google-maps";
 import type { Coordinates, Hospital } from "@/types/app";
 
@@ -38,10 +39,12 @@ interface MapViewProps {
  * - 2D vs 3D vector tilt
  * - Accuracy circles
  * - Decoded route polyline overlays
+ *
+ * Runs strictly within the APIProvider context when map & core libraries are initialized.
  */
 function MapEffects({
   center,
-  zoom,
+  zoom: _zoom,
   hasLocationFix,
   accuracyRadiusMeters,
   encodedPolyline,
@@ -77,7 +80,7 @@ function MapEffects({
 
   // Render and update Accuracy Circle
   useEffect(() => {
-    if (!map) return;
+    if (!map || typeof google === "undefined" || !google.maps?.Circle) return;
 
     if (hasLocationFix && accuracyRadiusMeters && accuracyRadiusMeters > 0) {
       if (!accuracyCircleRef.current) {
@@ -110,7 +113,7 @@ function MapEffects({
 
   // Decode and render route polyline
   useEffect(() => {
-    if (!map) return;
+    if (!map || typeof google === "undefined" || !google.maps?.Polyline) return;
 
     if (polylineRef.current) {
       polylineRef.current.setMap(null);
@@ -130,9 +133,11 @@ function MapEffects({
         });
 
         // Fit map bounds to show route clearly
-        const bounds = new google.maps.LatLngBounds();
-        decodedPath.forEach((pt) => bounds.extend(pt));
-        map.fitBounds(bounds, { top: 60, right: 60, bottom: 60, left: 60 });
+        if (google.maps.LatLngBounds) {
+          const bounds = new google.maps.LatLngBounds();
+          decodedPath.forEach((pt) => bounds.extend(pt));
+          map.fitBounds(bounds, { top: 60, right: 60, bottom: 60, left: 60 });
+        }
       } catch (err) {
         console.warn("[Polyline decode error]:", err);
       }
@@ -165,9 +170,21 @@ function StreetViewContainer({
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    if (!containerRef.current || typeof google === "undefined" || !google.maps) {
-      setUnavailable(true);
-      setChecking(false);
+    let active = true;
+
+    if (
+      !containerRef.current ||
+      typeof window === "undefined" ||
+      typeof google === "undefined" ||
+      !google.maps?.StreetViewService ||
+      !google.maps?.StreetViewPanorama
+    ) {
+      setTimeout(() => {
+        if (active) {
+          setUnavailable(true);
+          setChecking(false);
+        }
+      }, 0);
       return;
     }
 
@@ -176,6 +193,7 @@ function StreetViewContainer({
       const latLng = new google.maps.LatLng(position.lat, position.lng);
 
       svService.getPanorama({ location: latLng, radius: 100 }, (data, status) => {
+        if (!active) return;
         setChecking(false);
         if (status === google.maps.StreetViewStatus.OK && data?.location?.latLng) {
           setUnavailable(false);
@@ -193,11 +211,16 @@ function StreetViewContainer({
         }
       });
     } catch {
-      setUnavailable(true);
-      setChecking(false);
+      setTimeout(() => {
+        if (active) {
+          setUnavailable(true);
+          setChecking(false);
+        }
+      }, 0);
     }
 
     return () => {
+      active = false;
       if (panoramaRef.current) {
         try {
           panoramaRef.current.setVisible(false);
@@ -247,6 +270,117 @@ function StreetViewContainer({
 }
 
 /**
+ * Inner Map Markers Component.
+ * Runs inside APIProvider so it safely constructs marker icons only after
+ * the Google Maps JavaScript API is confirmed loaded on the client.
+ */
+function SafeMapMarkers({
+  markers,
+  activeInfoWindowId,
+  selectedMarkerId,
+  onMarkerClick,
+  onInfoWindowClose,
+}: {
+  markers: MapMarkerSpec[];
+  activeInfoWindowId: string | null;
+  selectedMarkerId?: string | null;
+  onMarkerClick: (id: string) => void;
+  onInfoWindowClose: () => void;
+}) {
+  const isLoaded = useApiIsLoaded();
+
+  // Create icon configurations safely without crashing if `google` is undefined
+  const markerIcons = useMemo(() => {
+    const hasGoogle = isLoaded && typeof window !== "undefined" && typeof google !== "undefined" && !!google.maps;
+
+    const userIcon = hasGoogle
+      ? {
+          path: google.maps.SymbolPath?.CIRCLE ?? 0,
+          scale: 8.5,
+          fillColor: "#2563eb",
+          fillOpacity: 1,
+          strokeColor: "#ffffff",
+          strokeWeight: 2.5,
+        }
+      : undefined;
+
+    const hospitalIcon = hasGoogle
+      ? {
+          path: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",
+          fillColor: "#059669",
+          fillOpacity: 1,
+          strokeColor: "#ffffff",
+          strokeWeight: 1.5,
+          scale: 1.5,
+          anchor: google.maps.Point ? new google.maps.Point(12, 22) : undefined,
+        }
+      : undefined;
+
+    const emergencyIcon = hasGoogle
+      ? {
+          path: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",
+          fillColor: "#dc2626",
+          fillOpacity: 1,
+          strokeColor: "#ffffff",
+          strokeWeight: 1.5,
+          scale: 1.5,
+          anchor: google.maps.Point ? new google.maps.Point(12, 22) : undefined,
+        }
+      : undefined;
+
+    return { userIcon, hospitalIcon, emergencyIcon };
+  }, [isLoaded]);
+
+  const activeMarker = useMemo(() => {
+    return markers.find((m) => m.id === (activeInfoWindowId || selectedMarkerId));
+  }, [markers, activeInfoWindowId, selectedMarkerId]);
+
+  return (
+    <>
+      {markers.map((marker) => {
+        const isUser = marker.kind === "user";
+        const icon = isUser
+          ? markerIcons.userIcon
+          : marker.kind === "hospital"
+          ? markerIcons.hospitalIcon
+          : markerIcons.emergencyIcon;
+
+        return (
+          <Marker
+            key={marker.id}
+            position={{ lat: marker.position.lat, lng: marker.position.lng }}
+            title={marker.title}
+            onClick={() => onMarkerClick(marker.id)}
+            icon={icon}
+          />
+        );
+      })}
+
+      {activeMarker && (
+        <InfoWindow
+          position={{
+            lat: activeMarker.position.lat,
+            lng: activeMarker.position.lng,
+          }}
+          onCloseClick={onInfoWindowClose}
+          pixelOffset={[0, activeMarker.kind === "user" ? -12 : -32]}
+        >
+          <div className="p-1 max-w-xs text-xs font-sans text-gray-900 leading-snug">
+            <p className="font-bold text-sm mb-1">{activeMarker.title}</p>
+            {activeMarker.info && (
+              <div
+                dangerouslySetInnerHTML={{ __html: activeMarker.info }}
+                className="text-gray-600 space-y-0.5"
+              />
+            )}
+          </div>
+        </InfoWindow>
+      )}
+    </>
+  );
+}
+
+/**
  * Modern Google Maps street-level MapView powered by @vis.gl/react-google-maps.
  * Supports:
  * - 2D Map (Pitch 0, North-Up)
@@ -255,6 +389,7 @@ function StreetViewContainer({
  * - GPS beacon with accuracy circle
  * - Decoded driving route overlays
  * - Automatic auth/billing error boundary fallback
+ * - Complete protection against SSR / uninitialized `google` ReferenceErrors
  */
 export function MapView({
   center,
@@ -350,66 +485,19 @@ export function MapView({
             mapMode={mapMode}
           />
 
-          {/* Render Map Markers */}
-          {markers.map((marker) => {
-            const isUser = marker.kind === "user";
-            return (
-              <Marker
-                key={marker.id}
-                position={{ lat: marker.position.lat, lng: marker.position.lng }}
-                title={marker.title}
-                onClick={() => {
-                  setActiveInfoWindowId(marker.id);
-                  onMarkerSelect?.(marker.id);
-                }}
-                icon={
-                  isUser
-                    ? {
-                        path: google.maps.SymbolPath.CIRCLE,
-                        scale: 8.5,
-                        fillColor: "#2563eb",
-                        fillOpacity: 1,
-                        strokeColor: "#ffffff",
-                        strokeWeight: 2.5,
-                      }
-                    : {
-                        path: "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",
-                        fillColor: marker.kind === "hospital" ? "#059669" : "#dc2626",
-                        fillOpacity: 1,
-                        strokeColor: "#ffffff",
-                        strokeWeight: 1.5,
-                        scale: 1.5,
-                        anchor: new google.maps.Point(12, 22),
-                      }
-                }
-              />
-            );
-          })}
-
-          {/* Active InfoWindow for selected marker */}
-          {activeMarker && (
-            <InfoWindow
-              position={{
-                lat: activeMarker.position.lat,
-                lng: activeMarker.position.lng,
-              }}
-              onCloseClick={() => {
-                setActiveInfoWindowId(null);
-                onMarkerSelect?.(null);
-              }}
-              pixelOffset={[0, activeMarker.kind === "user" ? -12 : -32]}
-            >
-              <div className="p-1 max-w-xs text-xs font-sans text-gray-900 leading-snug">
-                <p className="font-bold text-sm mb-1">{activeMarker.title}</p>
-                {activeMarker.info && (
-                  <div
-                    dangerouslySetInnerHTML={{ __html: activeMarker.info }}
-                    className="text-gray-600 space-y-0.5"
-                  />
-                )}
-              </div>
-            </InfoWindow>
-          )}
+          <SafeMapMarkers
+            markers={markers}
+            activeInfoWindowId={activeInfoWindowId}
+            selectedMarkerId={selectedMarkerId}
+            onMarkerClick={(id) => {
+              setActiveInfoWindowId(id);
+              onMarkerSelect?.(id);
+            }}
+            onInfoWindowClose={() => {
+              setActiveInfoWindowId(null);
+              onMarkerSelect?.(null);
+            }}
+          />
         </GoogleMap>
 
         {/* Street View Overlay Container */}
@@ -464,7 +552,7 @@ export function MapView({
       {/* Auth / Billing notice fallback banner */}
       {authError && (
         <div className="absolute top-12 left-3 right-3 z-10 bg-amber-50 dark:bg-amber-950/90 text-amber-900 dark:text-amber-200 text-xs p-2.5 rounded-lg border border-amber-200 dark:border-amber-800 shadow-md flex items-center justify-between">
-          <span>Map is in development preview mode. Real-time OpenStreetMap directions remain active below.</span>
+          <span>Map preview notice: Google Maps authentication or billing notice received. Hospital details, coordinates, and emergency assistance remain fully active.</span>
           <button
             type="button"
             onClick={() => setAuthError(false)}

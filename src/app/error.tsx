@@ -23,9 +23,8 @@ export default function Error({
         <AlertTriangleIcon className="h-12 w-12 text-red-500 mx-auto" />
         <h1 className="text-2xl font-bold text-gray-900">Something went wrong</h1>
         <p className="text-gray-600">
-          The page failed to load. If this happened while you were waiting for
-          an ambulance, your emergency is still active and crews can see your
-          location.
+          The page encountered an error. If an emergency has been confirmed by dispatch,
+          crews can access your location. You can retry loading or navigate directly to the emergency desk.
         </p>
         {error.digest && (
           <p className="text-xs text-gray-400">Reference: {error.digest}</p>
