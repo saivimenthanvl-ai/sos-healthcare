@@ -34,8 +34,10 @@ interface MapViewProps {
 }
 
 /**
- * Inner component to manage dynamic map features, vector 3D tilt,
- * accuracy circles, and decoded route polyline overlays.
+ * Inner component to manage dynamic map features:
+ * - 2D vs 3D vector tilt
+ * - Accuracy circles
+ * - Decoded route polyline overlays
  */
 function MapEffects({
   center,
@@ -50,7 +52,7 @@ function MapEffects({
   hasLocationFix?: boolean;
   accuracyRadiusMeters?: number | null;
   encodedPolyline?: string | null;
-  mapMode: "2d" | "3d";
+  mapMode: "2d" | "3d" | "streetview";
 }) {
   const map = useMap();
   const geometry = useMapsLibrary("geometry");
@@ -64,7 +66,7 @@ function MapEffects({
       if (mapMode === "3d") {
         map.setTilt(45);
         map.setHeading(-17.6);
-      } else {
+      } else if (mapMode === "2d") {
         map.setTilt(0);
         map.setHeading(0);
       }
@@ -147,9 +149,99 @@ function MapEffects({
 }
 
 /**
+ * Dedicated Google Street View Component
+ * Uses StreetViewService to check panorama availability and renders StreetViewPanorama.
+ */
+function StreetViewContainer({
+  position,
+  onClose,
+}: {
+  position: Coordinates;
+  onClose: () => void;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const panoramaRef = useRef<google.maps.StreetViewPanorama | null>(null);
+  const [unavailable, setUnavailable] = useState(false);
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    if (!containerRef.current || typeof google === "undefined" || !google.maps) return;
+
+    const svService = new google.maps.StreetViewService();
+    const latLng = new google.maps.LatLng(position.lat, position.lng);
+
+    svService.getPanorama({ location: latLng, radius: 100 }, (data, status) => {
+      setChecking(false);
+      if (status === google.maps.StreetViewStatus.OK && data?.location?.latLng) {
+        setUnavailable(false);
+        panoramaRef.current = new google.maps.StreetViewPanorama(containerRef.current!, {
+          position: data.location.latLng,
+          pov: { heading: 34, pitch: 10 },
+          zoom: 1,
+          addressControl: true,
+          showRoadLabels: true,
+          enableCloseButton: false,
+        });
+      } else {
+        setUnavailable(true);
+      }
+    });
+
+    return () => {
+      if (panoramaRef.current) {
+        panoramaRef.current.setVisible(false);
+        panoramaRef.current = null;
+      }
+    };
+  }, [position.lat, position.lng]);
+
+  return (
+    <div className="absolute inset-0 z-20 bg-gray-900 text-white flex flex-col">
+      <div className="absolute top-3 right-3 z-30">
+        <button
+          type="button"
+          onClick={onClose}
+          className="bg-black/70 hover:bg-black text-white text-xs font-semibold px-3 py-1.5 rounded-full border border-gray-600 transition-colors shadow-md flex items-center gap-1"
+        >
+          ✕ Exit Street View
+        </button>
+      </div>
+
+      <div ref={containerRef} className="w-full h-full" />
+
+      {checking && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-950/80 text-xs text-gray-300">
+          Checking Street View coverage…
+        </div>
+      )}
+
+      {unavailable && !checking && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gray-900/95 space-y-3">
+          <p className="text-base font-bold text-gray-100">Street View Unavailable</p>
+          <p className="text-xs text-gray-400 max-w-sm leading-relaxed">
+            Street View imagery is not available for this immediate location. Standard 2D and 3D maps remain fully functional.
+          </p>
+          <button
+            type="button"
+            onClick={onClose}
+            className="mt-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors shadow"
+          >
+            Return to 2D Map
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
  * Modern Google Maps street-level MapView powered by @vis.gl/react-google-maps.
- * Zero custom sign-in required, high-performance vector cartography, 2D/3D tilt,
- * live GPS marker with accuracy circle, and decoded driving route overlays.
+ * Supports:
+ * - 2D Map (Pitch 0, North-Up)
+ * - 3D Map (Vector Tilt 45°, Rotated Heading)
+ * - Interactive Street View (with StreetViewService availability checks)
+ * - GPS beacon with accuracy circle
+ * - Decoded driving route overlays
  */
 export function MapView({
   center,
@@ -164,7 +256,7 @@ export function MapView({
   selectedMarkerId,
   onMarkerSelect,
 }: MapViewProps) {
-  const [mapMode, setMapMode] = useState<"2d" | "3d">("2d");
+  const [mapMode, setMapMode] = useState<"2d" | "3d" | "streetview">("2d");
   const [userHasPanned, setUserHasPanned] = useState(false);
   const [activeInfoWindowId, setActiveInfoWindowId] = useState<string | null>(null);
 
@@ -287,9 +379,17 @@ export function MapView({
             </InfoWindow>
           )}
         </GoogleMap>
+
+        {/* Street View Overlay Container */}
+        {mapMode === "streetview" && (
+          <StreetViewContainer
+            position={activeMarker ? activeMarker.position : center}
+            onClose={() => setMapMode("2d")}
+          />
+        )}
       </APIProvider>
 
-      {/* 2D / 3D Segmented Control */}
+      {/* 2D / 3D / Street View Segmented Control */}
       <div className="absolute top-3 left-3 z-10 flex items-center bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 p-0.5 text-xs font-semibold">
         <button
           type="button"
@@ -315,10 +415,22 @@ export function MapView({
         >
           3D
         </button>
+        <button
+          type="button"
+          onClick={() => setMapMode("streetview")}
+          className={`px-3 py-1 rounded-md transition-colors ${
+            mapMode === "streetview"
+              ? "bg-blue-600 text-white shadow-sm"
+              : "text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+          }`}
+          aria-label="Switch to Street View"
+        >
+          Street View
+        </button>
       </div>
 
       {/* Recenter Button when user has panned away */}
-      {showRecenterButton && userHasPanned && (
+      {showRecenterButton && userHasPanned && mapMode !== "streetview" && (
         <button
           onClick={handleRecenter}
           className="absolute bottom-4 left-4 z-10 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 text-xs font-semibold px-3 py-1.5 rounded-full shadow-md border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-1"

@@ -72,11 +72,31 @@ export function EmergencyMap({ onEmergencyCreated }: EmergencyMapProps) {
     const fetchHospitals = async () => {
       setNearbyHospitalsLoading(true);
       try {
-        const res = await fetch(`/api/hospitals?lat=${userLat}&lng=${userLng}&radius=25`);
+        // Query Places API (New) combined with verified hospital records
+        const res = await fetch("/api/maps/places-nearby", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            latitude: userLat,
+            longitude: userLng,
+            radiusMeters: 25000,
+          }),
+        });
+
         if (res.ok) {
           const data = await res.json();
+          if (!isCancelled && data.hospitals) {
+            setHospitals(data.hospitals);
+            return;
+          }
+        }
+
+        // Fallback to standard hospitals API if needed
+        const fallbackRes = await fetch(`/api/hospitals?lat=${userLat}&lng=${userLng}&radius=25`);
+        if (fallbackRes.ok) {
+          const fallbackData = await fallbackRes.json();
           if (!isCancelled) {
-            setHospitals(data.hospitals || []);
+            setHospitals(fallbackData.hospitals || []);
           }
         }
       } catch (err) {

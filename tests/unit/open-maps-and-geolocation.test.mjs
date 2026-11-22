@@ -14,10 +14,13 @@ test("Google Maps React architecture - @vis.gl/react-google-maps and Routes API 
   assert.match(mapViewComponent, /APIProvider/);
   assert.match(mapViewComponent, /GoogleMap/);
 
-  // 2. MapView supports 2D and 3D mode switching with native tilt
+  // 2. MapView supports 2D, 3D, and Street View mode switching
   assert.match(mapViewComponent, /setTilt\(45\)/);
   assert.match(mapViewComponent, /setTilt\(0\)/);
   assert.match(mapViewComponent, /Switch to 3D view/);
+  assert.match(mapViewComponent, /Switch to Street View/);
+  assert.match(mapViewComponent, /StreetViewPanorama/);
+  assert.match(mapViewComponent, /StreetViewService/);
 
   // 3. MapView does not force Google sign-in UI
   assert.doesNotMatch(mapViewComponent, /accounts\.google\.com/);
@@ -39,9 +42,15 @@ test("Google Maps React architecture - @vis.gl/react-google-maps and Routes API 
   assert.match(googleRoutesApi, /X-Goog-Api-Key/);
   assert.match(googleRoutesApi, /isValidCoordinate/);
 
-  // 7. CSP headers permit maps.googleapis.com and routes.googleapis.com
+  // 7. Places API (New) proxy exists
+  const placesNewApi = fs.readFileSync("src/app/api/maps/places-nearby/route.ts", "utf8");
+  assert.match(placesNewApi, /places\.googleapis\.com\/v1\/places:searchNearby/);
+  assert.match(placesNewApi, /X-Goog-Api-Key/);
+
+  // 8. CSP headers permit maps.googleapis.com, routes.googleapis.com, and places.googleapis.com
   assert.match(nextConfig, /https:\/\/maps\.googleapis\.com/);
   assert.match(nextConfig, /https:\/\/routes\.googleapis\.com/);
+  assert.match(nextConfig, /https:\/\/places\.googleapis\.com/);
 });
 
 test("Hospital discovery supports Supabase, verified repository, and classification", () => {
