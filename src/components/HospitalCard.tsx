@@ -3,14 +3,16 @@
 import { HospitalIcon, PhoneIcon, CarIcon, ClockIcon, ShieldCheckIcon, HelpCircleIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
+import { buildOsmDirectionsUrl } from "@/lib/maps/osm-directions";
 import type { Hospital } from "@/types/app";
 
 interface HospitalCardProps {
   hospital: Hospital;
+  userCoords?: { lat: number; lng: number } | null;
   onBook?: (hospital: Hospital) => void;
 }
 
-export function HospitalCard({ hospital, onBook }: HospitalCardProps) {
+export function HospitalCard({ hospital, userCoords, onBook }: HospitalCardProps) {
   const formatDistance = (km?: number) => {
     if (!km && km !== 0) return null;
     if (km < 1) return `${Math.round(km * 1000)} m`;
@@ -31,7 +33,10 @@ export function HospitalCard({ hospital, onBook }: HospitalCardProps) {
       ? "General Hospital"
       : "Medical Facility";
 
-  const directionsUrl = `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=%3B${hospital.latitude}%2C${hospital.longitude}`;
+  const directionsUrl = buildOsmDirectionsUrl(
+    userCoords,
+    { lat: hospital.latitude, lng: hospital.longitude }
+  );
 
   return (
     <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md hover:shadow-lg transition-shadow p-4 border border-gray-100 dark:border-gray-800 flex flex-col justify-between">

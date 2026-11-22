@@ -149,8 +149,8 @@ function MapEffects({
 }
 
 /**
- * Dedicated Google Street View Component
- * Uses StreetViewService to check panorama availability and renders StreetViewPanorama.
+ * Dedicated Google Street View Component with availability check.
+ * If Street View is unactivated or unavailable, provides clear explanatory UI without broken overlays.
  */
 function StreetViewContainer({
   position,
@@ -165,31 +165,43 @@ function StreetViewContainer({
   const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    if (!containerRef.current || typeof google === "undefined" || !google.maps) return;
-
-    const svService = new google.maps.StreetViewService();
-    const latLng = new google.maps.LatLng(position.lat, position.lng);
-
-    svService.getPanorama({ location: latLng, radius: 100 }, (data, status) => {
+    if (!containerRef.current || typeof google === "undefined" || !google.maps) {
+      setUnavailable(true);
       setChecking(false);
-      if (status === google.maps.StreetViewStatus.OK && data?.location?.latLng) {
-        setUnavailable(false);
-        panoramaRef.current = new google.maps.StreetViewPanorama(containerRef.current!, {
-          position: data.location.latLng,
-          pov: { heading: 34, pitch: 10 },
-          zoom: 1,
-          addressControl: true,
-          showRoadLabels: true,
-          enableCloseButton: false,
-        });
-      } else {
-        setUnavailable(true);
-      }
-    });
+      return;
+    }
+
+    try {
+      const svService = new google.maps.StreetViewService();
+      const latLng = new google.maps.LatLng(position.lat, position.lng);
+
+      svService.getPanorama({ location: latLng, radius: 100 }, (data, status) => {
+        setChecking(false);
+        if (status === google.maps.StreetViewStatus.OK && data?.location?.latLng) {
+          setUnavailable(false);
+          panoramaRef.current = new google.maps.StreetViewPanorama(containerRef.current!, {
+            position: data.location.latLng,
+            pov: { heading: 34, pitch: 10 },
+            zoom: 1,
+            addressControl: true,
+            showRoadLabels: true,
+            enableCloseButton: false,
+          });
+        } else {
+          // Status is either ZERO_RESULTS, UNKNOWN_ERROR, or REQUEST_DENIED
+          setUnavailable(true);
+        }
+      });
+    } catch {
+      setUnavailable(true);
+      setChecking(false);
+    }
 
     return () => {
       if (panoramaRef.current) {
-        panoramaRef.current.setVisible(false);
+        try {
+          panoramaRef.current.setVisible(false);
+        } catch {}
         panoramaRef.current = null;
       }
     };
@@ -217,9 +229,9 @@ function StreetViewContainer({
 
       {unavailable && !checking && (
         <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gray-900/95 space-y-3">
-          <p className="text-base font-bold text-gray-100">Street View Unavailable</p>
+          <p className="text-base font-bold text-gray-100">Street View is unavailable for this location or configuration.</p>
           <p className="text-xs text-gray-400 max-w-sm leading-relaxed">
-            Street View imagery is not available for this immediate location. Standard 2D and 3D maps remain fully functional.
+            Street View imagery is not activated or available for this target position. The standard 2D and 3D maps remain fully operational.
           </p>
           <button
             type="button"
@@ -239,9 +251,10 @@ function StreetViewContainer({
  * Supports:
  * - 2D Map (Pitch 0, North-Up)
  * - 3D Map (Vector Tilt 45°, Rotated Heading)
- * - Interactive Street View (with StreetViewService availability checks)
+ * - Interactive Street View (with StreetViewService availability checks and graceful fallback)
  * - GPS beacon with accuracy circle
  * - Decoded driving route overlays
+ * - Automatic auth/billing error boundary fallback
  */
 export function MapView({
   center,
@@ -259,12 +272,31 @@ export function MapView({
   const [mapMode, setMapMode] = useState<"2d" | "3d" | "streetview">("2d");
   const [userHasPanned, setUserHasPanned] = useState(false);
   const [activeInfoWindowId, setActiveInfoWindowId] = useState<string | null>(null);
+  const [authError, setAuthError] = useState(false);
 
   const apiKey =
     process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ||
     "AIzaSyCbaz3JaBHR50jf3_AX_CkTvEkLx_1_zmA";
 
   const mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID || undefined;
+
+  // Intercept Google Maps authorization/billing failures safely
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const originalGmAuthFailure = (window as unknown as { gm_authFailure?: () => void }).gm_authFailure;
+
+    (window as unknown as { gm_authFailure?: () => void }).gm_authFailure = () => {
+      console.warn("[MapView] Google Maps authentication notice received.");
+      setAuthError(true);
+      if (typeof originalGmAuthFailure === "function") {
+        originalGmAuthFailure();
+      }
+    };
+
+    return () => {
+      (window as unknown as { gm_authFailure?: () => void }).gm_authFailure = originalGmAuthFailure;
+    };
+  }, []);
 
   const handleRecenter = useCallback(() => {
     setUserHasPanned(false);
@@ -428,6 +460,20 @@ export function MapView({
           Street View
         </button>
       </div>
+
+      {/* Auth / Billing notice fallback banner */}
+      {authError && (
+        <div className="absolute top-12 left-3 right-3 z-10 bg-amber-50 dark:bg-amber-950/90 text-amber-900 dark:text-amber-200 text-xs p-2.5 rounded-lg border border-amber-200 dark:border-amber-800 shadow-md flex items-center justify-between">
+          <span>Map is in development preview mode. Real-time OpenStreetMap directions remain active below.</span>
+          <button
+            type="button"
+            onClick={() => setAuthError(false)}
+            className="text-amber-700 dark:text-amber-400 font-bold ml-2 hover:underline"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       {/* Recenter Button when user has panned away */}
       {showRecenterButton && userHasPanned && mapMode !== "streetview" && (

@@ -2,8 +2,10 @@
 
 import { use, useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLocation } from "@/hooks/useLocation";
 import { Button } from "@/components/ui/Button";
 import { MapView } from "@/components/MapView";
+import { buildOsmDirectionsUrl } from "@/lib/maps/osm-directions";
 import {
   HospitalIcon,
   PhoneIcon,
@@ -18,6 +20,7 @@ import {
   CheckCircle2Icon,
   HelpCircleIcon,
   ShieldCheckIcon,
+  MapPinIcon,
 } from "lucide-react";
 import type { Hospital } from "@/types/app";
 
@@ -31,6 +34,15 @@ export default function HospitalDetailPage({ params }: HospitalDetailProps) {
   const [hospital, setHospital] = useState<Hospital | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+
+  // Read actual live browser GPS without hardcoding origins
+  const {
+    latitude: userLat,
+    longitude: userLng,
+    accuracy: userAccuracy,
+    requestLocation,
+    loading: locationLoading,
+  } = useLocation({ autoRequest: true, enableHighAccuracy: true });
 
   useEffect(() => {
     let cancelled = false;
@@ -111,7 +123,10 @@ export default function HospitalDetailPage({ params }: HospitalDetailProps) {
     );
   }
 
-  const mapsUrl = `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=%3B${hospital.latitude}%2C${hospital.longitude}`;
+  const userCoords = userLat != null && userLng != null ? { lat: userLat, lng: userLng } : null;
+  const hospitalCoords = { lat: hospital.latitude, lng: hospital.longitude };
+  const mapsUrl = buildOsmDirectionsUrl(userCoords, hospitalCoords);
+
   const isVerified = hospital.verification_status === "verified";
   const facilityTypeLabel =
     hospital.facility_type === "specialist_clinic"
@@ -209,6 +224,30 @@ export default function HospitalDetailPage({ params }: HospitalDetailProps) {
         )}
       </div>
 
+      {/* Location Origin Status Banner */}
+      <div className="p-3 bg-gray-50 dark:bg-gray-800/60 rounded-xl border border-gray-200 dark:border-gray-700 text-xs flex flex-wrap items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <MapPinIcon className="h-4 w-4 text-blue-600" />
+          <span>
+            {userCoords ? (
+              <>
+                Origin: <strong>Your current location</strong> ({userCoords.lat.toFixed(5)}, {userCoords.lng.toFixed(5)})
+                {userAccuracy ? ` ~${Math.round(userAccuracy)}m accuracy` : ""}
+              </>
+            ) : (
+              <span className="text-gray-500">
+                Origin: <strong>Current location unavailable</strong> (Directions will center on hospital)
+              </span>
+            )}
+          </span>
+        </div>
+        {!userCoords && (
+          <Button size="sm" variant="outline" onClick={() => void requestLocation()}>
+            {locationLoading ? "Detecting GPS..." : "Detect Location"}
+          </Button>
+        )}
+      </div>
+
       {/* Verification & Capability Banner */}
       {hospital.emergency_capability === "confirmed_24_7" ? (
         <div className="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl p-4 flex items-start gap-3">
@@ -236,7 +275,7 @@ export default function HospitalDetailPage({ params }: HospitalDetailProps) {
         </div>
       )}
 
-      {/* Facility Metrics (No fabricated data) */}
+      {/* Facility Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-800 p-4 text-center">
           <StarIcon className="h-5 w-5 text-yellow-400 mx-auto mb-1" />
@@ -271,13 +310,15 @@ export default function HospitalDetailPage({ params }: HospitalDetailProps) {
         </div>
       </div>
 
-      {/* Map with 2D / 3D toggle */}
+      {/* Map with 2D / 3D and Street View Support */}
       <div className="bg-white dark:bg-gray-900 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 space-y-3">
         <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Geographic Location</h2>
         <MapView
           className="w-full h-80 rounded-xl shadow-sm"
           center={{ lat: hospital.latitude, lng: hospital.longitude }}
           zoom={15}
+          accuracyRadiusMeters={userAccuracy}
+          hasLocationFix={userCoords != null}
           markers={[
             {
               id: `hospital-${hospital.id}`,
@@ -289,6 +330,17 @@ export default function HospitalDetailPage({ params }: HospitalDetailProps) {
               kind: "hospital",
               info: hospital.address,
             },
+            ...(userCoords
+              ? [
+                  {
+                    id: "user-location",
+                    position: userCoords,
+                    title: "Your Location",
+                    kind: "user" as const,
+                    info: `Accuracy: ~${Math.round(userAccuracy || 10)}m`,
+                  },
+                ]
+              : []),
           ]}
         />
         <div className="flex justify-between items-center text-xs text-gray-500 px-1">

@@ -6,6 +6,7 @@ import { useLocation } from "@/hooks/useLocation";
 import { useAuth } from "@/contexts/AuthContext";
 import { MapPinIcon, NavigationIcon, AlertTriangleIcon, ClockIcon, ArrowLeftIcon, PhoneIcon } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { buildOsmDirectionsUrl } from "@/lib/maps/osm-directions";
 
 export default function EmergencyLocationPage() {
   const { user } = useAuth();
@@ -163,9 +164,12 @@ export default function EmergencyLocationPage() {
               </div>
               <a
                 href={
-                  nearestHospital.address
-                    ? `https://www.openstreetmap.org/search?query=${encodeURIComponent(nearestHospital.name + " " + nearestHospital.address)}`
-                    : `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=%3B${nearestHospital.latitude || ""}%2C${nearestHospital.longitude || ""}`
+                  nearestHospital.latitude && nearestHospital.longitude
+                    ? buildOsmDirectionsUrl(
+                        latitude && longitude ? { lat: latitude, lng: longitude } : null,
+                        { lat: nearestHospital.latitude, lng: nearestHospital.longitude }
+                      )
+                    : `https://www.openstreetmap.org/search?query=${encodeURIComponent(nearestHospital.name)}`
                 }
                 target="_blank"
                 rel="noreferrer"

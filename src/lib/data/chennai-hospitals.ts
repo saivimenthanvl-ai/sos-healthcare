@@ -106,10 +106,10 @@ export const CHENNAI_HOSPITALS_DATASET: Omit<Hospital, "distance_from_user" | "d
   {
     id: "chennai-hosp-chakra-critical-care",
     name: "Chakra Critical Care Centre & Hospitals",
-    address: "Senthil Nagar 17th Cross Street, Chennai, Tamil Nadu 600099",
+    address: "No.69, 17th Street, Ring Road, Periyarnagar, Sivananda Nagar, Kolathur, Chennai, Tamil Nadu 600099",
     phone: "1800 569 2700",
-    latitude: 13.1260,
-    longitude: 80.1930,
+    latitude: 13.1238,
+    longitude: 80.2033,
     emergency_department: true,
     icu_beds: 25,
     total_beds: 100,
