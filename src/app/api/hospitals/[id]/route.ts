@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServerClient } from "@/lib/supabase-server";
+import { CHENNAI_HOSPITALS_DATASET } from "@/lib/data/chennai-hospitals";
 import type { Hospital } from "@/types/app";
 
 function sanitizeOfficialWebsite(urlStr?: string | null): string | null {
@@ -36,6 +37,17 @@ export async function GET(
   const { id } = await params;
   if (!id) {
     return NextResponse.json({ error: "Hospital ID required" }, { status: 400 });
+  }
+
+  // 0. Check verified Chennai dataset first
+  const chennaiMatch = CHENNAI_HOSPITALS_DATASET.find((h) => h.id === id);
+  if (chennaiMatch) {
+    const hospital: Hospital = {
+      ...chennaiMatch,
+      distance_from_user: null,
+      distance_km: undefined,
+    };
+    return NextResponse.json({ hospital });
   }
 
   // 1. If UUID or standard Supabase ID, query Supabase
